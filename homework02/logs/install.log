@@ -1,0 +1,138 @@
+A2 SPECjvm2008 installation record
+Timezone: Asia/Shanghai (+08:00)
+
+[2026-09-30 10:13-10:15]
+Read-only preflight checks:
+- E:\software_system and E:\software_system\A2 are not Git repositories.
+- Therefore no current branch or homework02 branch could be verified.
+- WSL distribution: Ubuntu 24.04 LTS on WSL2.
+- Existing system Java before the isolated install: OpenJDK 17.0.20.
+- No existing SPECjvm2008 installation was found under /mnt/e/software_system or /home (max depth 5).
+
+[2026-09-30 10:20-10:25]
+Downloaded the teacher-recommended OpenJDK 1.8.0_41 RI archive from:
+https://download.java.net/openjdk/jdk8u41/ri/openjdk-8u41-b04-linux-x64-14_jan_2020.tar.gz
+
+File:
+downloads/openjdk-8u41-b04-linux-x64-14_jan_2020.tar.gz
+Size: 174287938 bytes
+SHA-256: 98c13207b5d208613c987c91c353a199fbf28ca07481c1f077803e4e436ea58a
+
+Installed independently at:
+/home/gubingren/java/java-se-8u41-ri
+
+No system Java replacement or update-alternatives change was made. The benchmark scripts select Java 8 only by exporting JAVA_HOME and prepending JAVA_HOME/bin to PATH.
+
+Verified output:
+openjdk version "1.8.0_41"
+OpenJDK Runtime Environment (build 1.8.0_41-b04)
+OpenJDK 64-Bit Server VM (build 25.40-b25, mixed mode)
+javac 1.8.0_41
+
+Issue 1:
+An initial inline PowerShell-to-WSL verification command suffered a quoting/variable-passing error and resolved /bin/java (Java 17), even though the archive had been extracted. This was not accepted as installation verification. The solution was to save and invoke scripts/collect_environment.sh directly; that script resolved both java and javac to /home/gubingren/java/java-se-8u41-ri/bin and produced environment/environment_info.txt.
+
+[2026-09-30 10:22 onward]
+SPEC installer source (official SPEC site):
+https://www.spec.org/downloads/osg/java/SPECjvm2008_1_01_setup.jar
+
+Issue 2:
+The first WSL curl attempt failed with:
+curl: (35) OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to www.spec.org:443
+
+The solution was to retry the same official artifact with the Windows network stack and HTTP Range resume. The official server was slow but the partial download remained resumable.
+
+Issue 3:
+A four-range parallel retry against the same official server was rejected with HTTP 503. The empty failed range files were removed, the verified continuous prefix was restored, and the download was resumed with one connection to respect the server limitation. The final installer size, SHA-256, and JAR readability are verified after completion below.
+
+[2026-09-30 10:43]
+SPEC installer download completed.
+File: downloads/SPECjvm2008_1_01_setup.jar
+Size: 67054942 bytes
+SHA-256: 4d3ed86fa7141abf6bef45bc738916d06abc1ebad23423115787f5d8a5e69cde
+JAR verification: Java 8 `jar tf` completed successfully (JAR_READABLE=yes).
+
+[2026-09-30 10:44-10:46]
+Ran the official installer in console mode using Java 8:
+java -jar downloads/SPECjvm2008_1_01_setup.jar -i console
+
+Accepted the displayed SPEC license and selected this independent install path:
+/home/gubingren/benchmarks/SPECjvm2008
+
+Installer result: "Installation Complete".
+Postcondition verified: /home/gubingren/benchmarks/SPECjvm2008/SPECjvm2008.jar exists.
+
+[2026-09-30 10:47-10:54]
+Attempted the complete Base command with the teacher-recommended Java 8 RI:
+java -jar SPECjvm2008.jar --base
+
+The run passed kit validation and the functional check, then hung in startup.compiler.sunflow. A thread dump showed the benchmark thread blocked in FileOutputStream.writeBytes while javac emitted diagnostics. SPEC's official FAQ and Known Issues state that these four compiler workloads do not run on Java SE 8 or later:
+- startup.compiler.compiler
+- startup.compiler.sunflow
+- compiler.compiler
+- compiler.sunflow
+
+Excluding them would not satisfy the requested complete Base run, and modifying the benchmark would invalidate its checksum. The hung process was therefore stopped without claiming a result. Evidence:
+- logs/base_run_java8_failed.log
+- logs/startup_sunflow_hang_jstack.txt
+
+[2026-09-30 10:56-10:58]
+Downloaded the official Java SE 7 Update 75 Reference Implementation from:
+https://download.java.net/openjdk/jdk7u75/ri/openjdk-7u75-b13-linux-x64-18_dec_2014.tar.gz
+
+File: downloads/openjdk-7u75-b13-linux-x64-18_dec_2014.tar.gz
+Size: 156554803 bytes
+SHA-256: 56d84d0bfc8c1194d501c889765a387e949d6a063feef6608e5e12b8152411fb
+
+Reason: Java SE 7 is supported by SPECjvm2008 and permits the complete unmodified Base workload sequence. Java 7 is installed independently; Java 8 and the system Java remain installed and unchanged.
+
+[2026-09-30 10:58-11:00]
+Java 7 verification:
+- java version: 1.7.0_75-b13
+- javac version: 1.7.0_75
+- startup.compiler.sunflow completed in 6 seconds with 10.16 ops/m and `Valid run`.
+
+The Java 7 reporter then raised an X11FontManager NullPointerException while drawing charts under Ubuntu 24.04. The benchmark raw file itself was generated. The official reporter supports separate invocation, and the installed Java 8 RI can generate the reports after measurement; this leaves the Java 7 Base process and its performance data unchanged.
+
+[2026-09-30 11:00-15:02]
+Issue 4 - WSL clock correction invalidated the second Base attempt:
+- Base began while the WSL clock was approximately 3 hours 42 minutes behind Windows.
+- During the compress measured iteration, WSL corrected its wall clock from 11:18 to 15:02.
+- The harness printed an impossible -60435.39 ops/m and a 0.00 ops/m compress score.
+
+This run was stopped immediately and is not used as a result. Evidence is preserved in logs/base_run_clock_jump_failed.log. The PowerShell text `true` used after a diagnostic pgrep was also interpreted as an unknown command; it did not affect the already-stopped benchmark or the preserved log.
+
+Resolution for the next run:
+- synchronize WSL's clock from the Windows UTC epoch before launching;
+- verify the difference is no more than 3 seconds;
+- keep Windows awake only for the lifetime of the benchmark wrapper using SetThreadExecutionState;
+- release the execution-state request in a finally block.
+
+Issue 5:
+The first invocation of scripts/run_base.ps1 failed before starting WSL because PowerShell interpreted hexadecimal 0x80000000 as a negative Int32 and refused a direct UInt32 cast. The constant was changed to explicit UInt32 hexadecimal parsing. No benchmark process started during this failed wrapper invocation.
+
+[2026-09-30 15:05-16:48]
+Issue 6 - the Java 7 Base attempt with the default 32 benchmark threads exhausted the Java heap in scimark.fft.large:
+- The startup, compiler, compress, crypto, derby, and mpegaudio sections completed successfully.
+- scimark.fft.large failed with java.lang.OutOfMemoryError: Java heap space.
+- The harness marked the run NOT VALID and exited; it is not used as a result.
+
+Evidence is preserved in logs/base_run_oom_failed.log. SPEC's official Known Issues documents that memory use grows with the benchmark thread count and explicitly permits reducing it with -bt for Base runs. The next complete Base run therefore uses `--base -bt 16`, matching the physical-core count, without JVM flags and without changing any properties file. A short scimark.fft.large diagnostic is run first solely to confirm that this thread count fits available memory; it is not presented as a compliant Base result.
+
+Issue 7:
+The first short diagnostic invocation targeted the unrelated WSL distribution named `Ubuntu` instead of the experiment distribution `Ubuntu-24.04`. It stopped at `cd` before Java or SPECjvm2008 started because that distribution has a different user home. The launcher was corrected to explicitly select `Ubuntu-24.04`. Because the failure occurred at `cd` before the script's `tee` block, it produced no standalone diagnostic log; the exact cause and resolution are recorded here instead.
+
+[2026-09-30 16:10-18:25]
+The complete Base run succeeded with:
+java -jar SPECjvm2008.jar --base -bt 16
+
+- Start: 2026-09-30T16:10:03+08:00
+- End: 2026-09-30T18:25:15+08:00
+- Exit status: 0
+- Result ID: SPECjvm2008.007
+- Composite: 421.24 SPECjvm2008 Base ops/m
+
+All startup and throughput workloads printed `Valid run!`. No `NOT VALID` or OutOfMemoryError occurred. Java 7's report-rendering phase raised X11FontManager NullPointerException after the raw result had been saved; measurement remained complete. The official separate reporter mode is used with the independently installed Java 8 RI to regenerate presentation files from the unchanged .007.raw result.
+
+[2026-09-30 18:26]
+The Java 8 RI separate reporter completed successfully with exit status 0 and regenerated the HTML, text, summary, submission, and chart-image files from SPECjvm2008.007.raw. Evidence: logs/reporter_regeneration.log.

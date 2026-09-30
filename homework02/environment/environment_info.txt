@@ -1,0 +1,106 @@
+# Collection time
+2026-09-30T15:05:24+08:00
+
+# uname -a
+Linux localhost 6.18.33.2-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Thu Jun 18 21:54:43 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+
+# lsb_release -a
+Distributor ID:	Ubuntu
+Description:	Ubuntu 24.04 LTS
+Release:	24.04
+Codename:	noble
+
+# /etc/os-release
+PRETTY_NAME="Ubuntu 24.04 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=noble
+LOGO=ubuntu-logo
+
+# CPU
+Architecture:                            x86_64
+CPU op-mode(s):                          32-bit, 64-bit
+Address sizes:                           48 bits physical, 48 bits virtual
+Byte Order:                              Little Endian
+CPU(s):                                  32
+On-line CPU(s) list:                     0-31
+Vendor ID:                               AuthenticAMD
+Model name:                              AMD Ryzen 9 7940HX with Radeon Graphics
+CPU family:                              25
+Model:                                   97
+Thread(s) per core:                      2
+Core(s) per socket:                      16
+Socket(s):                               1
+Stepping:                                2
+BogoMIPS:                                4790.89
+Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy svm cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext perfctr_core ssbd ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx512_bf16 clzero xsaveerptr arat npt nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avx512vbmi umip avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid fsrm
+Virtualization:                          AMD-V
+Hypervisor vendor:                       Microsoft
+Virtualization type:                     full
+L1d cache:                               512 KiB (16 instances)
+L1i cache:                               512 KiB (16 instances)
+L2 cache:                                16 MiB (16 instances)
+L3 cache:                                32 MiB (1 instance)
+NUMA node(s):                            1
+NUMA node0 CPU(s):                       0-31
+Vulnerability Gather data sampling:      Not affected
+Vulnerability Ghostwrite:                Not affected
+Vulnerability Indirect target selection: Not affected
+Vulnerability Itlb multihit:             Not affected
+Vulnerability L1tf:                      Not affected
+Vulnerability Mds:                       Not affected
+Vulnerability Meltdown:                  Not affected
+Vulnerability Mmio stale data:           Not affected
+Vulnerability Old microcode:             Not affected
+Vulnerability Reg file data sampling:    Not affected
+Vulnerability Retbleed:                  Not affected
+Vulnerability Spec rstack overflow:      Vulnerable: Safe RET, no microcode
+Vulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl
+Vulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:                Mitigation; Retpolines; IBPB conditional; IBRS_FW; STIBP always-on; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected
+Vulnerability Srbds:                     Not affected
+Vulnerability Tsa:                       Vulnerable: No microcode
+Vulnerability Tsx async abort:           Not affected
+Vulnerability Vmscape:                   Not affected
+
+# Memory
+               total        used        free      shared  buff/cache   available
+Mem:           7.4Gi       1.4Gi       4.7Gi       4.2Mi       1.4Gi       6.0Gi
+Swap:          2.0Gi          0B       2.0Gi
+
+# Java
+openjdk version "1.7.0_75"
+OpenJDK Runtime Environment (build 1.7.0_75-b13)
+OpenJDK 64-Bit Server VM (build 24.75-b04, mixed mode)
+javac 1.7.0_75
+Selected Java 7 because SPEC's official FAQ and Known Issues state that the compiler workloads do not run on Java SE 8 or later.
+
+# Environment variables used for the benchmark
+JAVA_HOME=/home/gubingren/java/java-se-7u75-ri
+PATH=/home/gubingren/java/java-se-7u75-ri/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Users/28489/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell:/mnt/c/Users/28489/.codex/tmp/arg0/codex-arg0nx1iRn:/mnt/c/Users/28489/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/libheif/libheif/bin:/mnt/c/Users/28489/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/jxrlib/jxrlib/bin:/mnt/c/Users/28489/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/poppler/Library/bin:/mnt/c/Users/28489/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override:/mnt/d/bin/:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/Microsoft SQL Server/150/Tools/Binn/:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/:/mnt/c/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/:/mnt/c/Program Files/Microsoft SQL Server/160/Tools/Binn/:/mnt/c/Program Files/Microsoft SQL Server/160/DTS/Binn/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/Bandizip/:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/Users/28489/AppData/Local/Programs/Python/Python312/:/mnt/c/Users/28489/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/powershell:/mnt/c/Users/28489/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/28489/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/28489/AppData/Local/Google/Chrome/Application/chrome.exe:/mnt/c/Program Files/Google/Chrome/Application/chrome.exe:/mnt/c/Users/28489/.dotnet/tools:/mnt/c/Users/28489/AppData/Roaming/npm:/mnt/c/Program Files/Vagrant/embedded/mingw64/bin:/mnt/c/Users/28489/AppData/Local/Programs/Python/Python312/Scripts:/mnt/c/Users/28489/AppData/Local/Google/Cloud SDK/google-cloud-sdk/bin:/mnt/c/Users/28489/AppData/Local/Microsoft/WinGet/Packages/JohnMacFarlane.Pandoc_Microsoft.Winget.Source_8wekyb3d8bbwe/pandoc-3.9:/mnt/c/Program Files/PowerShell/7:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/Users/28489/AppData/Local/nvm:/mnt/c/nvm4w/nodejs:/mnt/c/Program Files/Redis/:/mnt/c/Program Files/nodejs/:/mnt/c/Program Files/PowerShell/7/:/mnt/c/Users/28489/.cargo/bin:/mnt/c/Users/28489/AppData/Local/nvm:/mnt/c/nvm4w/nodejs:/mnt/c/Users/28489/AppData/Local/Microsoft/WinGet/Packages/GitHub.Copilot_Microsoft.Winget.Source_8wekyb3d8bbwe:/mnt/c/Users/28489/AppData/Local/Microsoft/WinGet/Packages/Anthropic.ClaudeCode_Microsoft.Winget.Source_8wekyb3d8bbwe:/mnt/c/Users/28489/AppData/Local/Microsoft/WinGet/Packages/Anthropic.ClaudeCode_Microsoft.Winget.Source_8wekyb3d8bbwe:/mnt/c/Users/28489/AppData/Local/Microsoft/WinGet/Packages/BurntSushi.ripgrep.MSVC_Microsoft.Winget.Source_8wekyb3d8bbwe/ripgrep-15.1.0-x86_64-pc-windows-msvc:/mnt/c/Users/28489/AppData/Local/Microsoft/WinGet/Packages/sharkdp.fd_Microsoft.Winget.Source_8wekyb3d8bbwe/fd-v10.4.2-x86_64-pc-windows-msvc:/mnt/c/Users/28489/AppData/Local/Microsoft/WinGet/Packages/jqlang.jq_Microsoft.Winget.Source_8wekyb3d8bbwe:/mnt/c/Users/28489/AppData/Local/Microsoft/WinGet/Packages/JernejSimoncic.Wget_Microsoft.Winget.Source_8wekyb3d8bbwe:/mnt/c/Users/28489/AppData/Local/Microsoft/WinGet/Packages/oschwartz10612.Poppler_Microsoft.Winget.Source_8wekyb3d8bbwe/poppler-25.07.0/Library/bin:/mnt/c/Users/28489/.bun/bin:/mnt/e/tools/scrcpy:/mnt/c/Users/28489/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:/mnt/c/Users/28489/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin:/mnt/c/Users/28489/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/git/cmd:/mnt/c/Users/28489/AppData/Local/OpenAI/Codex/bin/0ddb895c950eaeba:/mnt/c/Users/28489/AppData/Local/OpenAI/Codex/bin/faa963e871dd422c:/snap/bin
+CLASSPATH=
+
+# Java executable resolution
+/home/gubingren/java/java-se-7u75-ri/bin/java
+/home/gubingren/java/java-se-7u75-ri/bin/java
+/home/gubingren/java/java-se-7u75-ri/bin/javac
+/home/gubingren/java/java-se-7u75-ri/bin/javac
+
+# Storage
+Filesystem     Type  Size  Used Avail Use% Mounted on
+/dev/sdd       ext4  251G   28G  211G  12% /
+E:\            9p    101G   93G  8.2G  92% /mnt/e
+
+# Repository state
+fatal: not a git repository (or any parent up to mount point /mnt)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+No Git repository found at /mnt/e/software_system or its parents.
+Therefore branch homework02 cannot be verified in the current workspace.

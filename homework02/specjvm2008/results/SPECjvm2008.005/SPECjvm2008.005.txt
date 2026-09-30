@@ -1,0 +1,140 @@
+================================
+SPECjvm2008 Base
+================================
+n/a n/a
+Oracle Corporation OpenJDK 64-Bit Server VM
+Tested by: n/a Test date: Wed Sep 30 15:06:31 CST 2026
+Run is not valid
+
+================================
+compiler                      782.94                                  
+compress                      757.75                                  
+crypto                        910.5                                   
+derby                         61.42                                   
+mpegaudio                     645.77                                  
+scimark.large                 not valid                               
+startup                       31.52                                   
+Composite result: not valid 
+================================
+
+
+Submitter                     n/a                                     
+Submitter URL                 n/a                                     
+SPEC license                  n/a                                     
+Tester                        gubingren                               
+Location                      n/a                                     
+Test date:                    Wed Sep 30 15:06:31 CST 2026            
+OS name                       Linux                                   
+OS available                  n/a                                     
+OS address bits               n/a                                     
+OS tuning                                                             
+Filesystem                    n/a                                     
+Other s/w name                                                        
+Other s/w tuning                                                      
+Other s/w available                                                   
+Vendor                        Oracle Corporation                      
+Vendor URL                    http://java.oracle.com/                 
+JVM name                      OpenJDK 64-Bit Server VM                
+JVM version                   24.75-b04 mixed mode                    
+JVM available                 n/a                                     
+Java Specification            1.7                                     
+JVM address bits              64                                      
+JVM initial heap memory       n/a                                     
+JVM maximum heap memory       n/a                                     
+JVM command line              n/a                                     
+JVM command line startup                                              
+JVM launcher startup          default                                 
+Additional JVM tuning                                                 
+JVM class path                SPECjvm2008.jar                         
+JVM boot class path           /home/gubingren/java/java-se-7u75-ri/jre/lib/resources.jar:/home/gubingren/java/java-se-7u75-ri/jre/lib/rt.jar:/home/gubingren/java/java-se-7u75-ri/jre/lib/sunrsasign.jar:/home/gubingren/java/java-se-7u75-ri/jre/lib/jsse.jar:/home/gubingren/java/java-se-7u75-ri/jre/lib/jce.jar:/home/gubingren/java/java-se-7u75-ri/jre/lib/charsets.jar:/home/gubingren/java/java-se-7u75-ri/jre/lib/jfr.jar:/home/gubingren/java/java-se-7u75-ri/jre/classes
+HW vendor                     n/a                                     
+HW vendor's URL               n/a                                     
+HW model                      n/a                                     
+HW available                  n/a                                     
+CPU vendor                    n/a                                     
+CPU vendor's URL              n/a                                     
+CPU name                      n/a                                     
+CPU frequency                 n/a                                     
+# of logical cpus             n/a                                     
+# of chips                    n/a                                     
+# of cores                    n/a                                     
+Cores per chip                n/a                                     
+Threads per core              n/a                                     
+Threading enabled             n/a                                     
+HW address bits               n/a                                     
+Primary cache                 n/a                                     
+Secondary cache               n/a                                     
+Other cache                   n/a                                     
+Memory size                   n/a                                     
+Memory details                n/a                                     
+Other HW details              n/a                                     
+
+Details of Runs
+---------------
+PASSED
+
+Benchmark                     Iteration      Expected(ms)   Actual(ms)     Operations     ops/m          
+---------------------------------------------------------------------------------------------------
+
+compiler.compiler             warmup         120000         120000         2399.40        1199.70        
+compiler.compiler             iteration 1    240000         240000         5262.18        1315.55        
+
+compiler.sunflow              warmup         120000         120000         1015.52        507.76         
+compiler.sunflow              iteration 1    240000         240000         1863.85        465.96         
+
+compress                      warmup         120000         120000         1573.09        786.54         
+compress                      iteration 1    240000         240000         3031.00        757.75         
+
+crypto.aes                    warmup         120000         120000         481.38         240.69         
+crypto.aes                    iteration 1    240000         240000         1044.74        261.19         
+
+crypto.rsa                    warmup         120000         120000         3184.15        1592.08        
+crypto.rsa                    iteration 1    240000         240000         6676.71        1669.18        
+
+crypto.signverify             warmup         120000         120000         3490.55        1745.28        
+crypto.signverify             iteration 1    240000         240000         6925.39        1731.35        
+
+derby                         warmup         120000         120000         89.05          44.53          
+derby                         iteration 1    240000         240000         245.69         61.42          
+
+mpegaudio                     warmup         120000         120000         1280.77        640.38         
+mpegaudio                     iteration 1    240000         240000         2583.08        645.77         
+
+scimark.fft.large             warmup         120000         120000         [java.lang.OutOfMemoryError: Java heap space, java.lang.OutOfMemoryError: Java heap space, java.lang.OutOfMemoryError: Java heap space, java.lang.OutOfMemoryError: Java heap space, java.lang.OutOfMemoryError: Java heap space, java.lang.OutOfMemoryError: Java heap space, java.lang.OutOfMemoryError: Java heap space, java.lang.OutOfMemoryError: Java heap space, java.lang.OutOfMemoryError: Java heap space, java.lang.OutOfMemoryError: Java heap space, java.lang.OutOfMemoryError: Java heap space, java.lang.OutOfMemoryError: Java heap space, java.lang.OutOfMemoryError: Java heap space, java.lang.OutOfMemoryError: Java heap space]
+
+startup.helloworld            iteration 1    null           214            1.00           280.37         
+
+startup.compiler.compiler     iteration 1    null           6234           1.00           9.62           
+
+startup.compiler.sunflow      iteration 1    null           5459           1.00           10.99          
+
+startup.compress              iteration 1    null           1561           1.00           38.44          
+
+startup.crypto.aes            iteration 1    null           3264           1.00           18.38          
+
+startup.crypto.rsa            iteration 1    null           1070           1.00           56.07          
+
+startup.crypto.signverify     iteration 1    null           1173           1.00           51.15          
+
+startup.mpegaudio             iteration 1    null           2437           1.00           24.62          
+
+startup.scimark.fft           iteration 1    null           1387           1.00           43.26          
+
+startup.scimark.lu            iteration 1    null           532            1.00           112.78         
+
+startup.scimark.monte_carlo   iteration 1    null           1080           1.00           55.56          
+
+startup.scimark.sor           iteration 1    null           1692           1.00           35.46          
+
+startup.scimark.sparse        iteration 1    null           1038           1.00           57.80          
+
+startup.serial                iteration 1    null           2752           1.00           21.80          
+
+startup.sunflow               iteration 1    null           1905           1.00           31.50          
+
+startup.xml.transform         iteration 1    null           25046          1.00           2.40           
+
+startup.xml.validation        iteration 1    null           2710           1.00           22.14          
+
+SPECjvm2008 Version: [SPECjvm2008 1.01 (20090519)]
+Copyright (C) 2008-2026 SPEC. All rights reserved
