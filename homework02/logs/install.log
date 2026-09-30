@@ -136,3 +136,6 @@ All startup and throughput workloads printed `Valid run!`. No `NOT VALID` or Out
 
 [2026-09-30 18:26]
 The Java 8 RI separate reporter completed successfully with exit status 0 and regenerated the HTML, text, summary, submission, and chart-image files from SPECjvm2008.007.raw. Evidence: logs/reporter_regeneration.log.
+
+[2026-10-01 evidence-audit correction; original entry retained above]
+The manually written heading "[2026-09-30 15:05-16:48]" for Issue 6 has an incorrect end time. The preserved logs/base_run_oom_failed.log records START_TIME=2026-09-30T15:06:31+08:00 and END_TIME=2026-09-30T16:00:50+08:00. The separate 16-thread diagnostic then ran 16:07:35-16:09:12, before the successful Base started at 16:10:03. Do not interpret the heading as evidence of overlapping benchmark processes. The original benchmark logs and result files were not edited to make this correction; see audit/core_evidence_audit.md for the evidence chain.

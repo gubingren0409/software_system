@@ -1,0 +1,43 @@
+PURPOSE=Repository snapshot for the A2 core evidence/analysis handoff; distinct from the pre-repository experiment environment_info.txt
+COLLECTION_TIME=2026-10-01T04:55:01+08:00
+REPOSITORY_ROOT=E:/software_system/course_repo
+TARGET_BRANCH=homework02
+GIT_BRANCH_SHOW_CURRENT=homework02
+HEAD_AT_SNAPSHOT=c86e45352146041e4f0052ee5f048b06381a857f
+GIT_REV_PARSE_HEAD=c86e45352146041e4f0052ee5f048b06381a857f
+HEAD_REF=refs/heads/homework02
+HOST_OS=Microsoft Windows 11 Home Chinese; NT 10.0.26200.0
+GUEST_OS=WSL2 Ubuntu 24.04 LTS
+GUEST_KERNEL_AT_SNAPSHOT=6.18.40.1-microsoft-standard-WSL2 x86_64
+EXPERIMENT_KERNEL_AT_2026-09-30_15:05=6.18.33.2-microsoft-standard-WSL2
+
+git remote -v at snapshot:
+github  https://github.com/gubingren0409/software_system.git (fetch)
+github  https://github.com/gubingren0409/software_system.git (push)
+origin  https://gitea.shuishan.net.cn/SSO.James.2026Fall.DASE/10245102457.git (fetch)
+origin  https://gitea.shuishan.net.cn/SSO.James.2026Fall.DASE/10245102457.git (push)
+
+git status --short at snapshot (before the requested final commit):
+ M homework02/analysis/official_comparison.md
+ M homework02/analysis/repeat_test_analysis.md
+ M homework02/analysis/specjvm_background.md
+ M homework02/analysis/workload_analysis.md
+ M homework02/logs/install.log
+ M homework02/scripts/verify_goal1.ps1
+ M homework02/scripts/verify_submission.ps1
+?? homework02/analysis/base_result_table.csv
+?? homework02/analysis/diagnostics/
+?? homework02/analysis/environment_summary.md
+?? homework02/analysis/official_group_scores.csv
+?? homework02/analysis/official_reference_candidates.csv
+?? homework02/analysis/official_reference_huawei.html
+?? homework02/analysis/repeat_statistics.csv
+?? homework02/analysis/workload_measurements.csv
+?? homework02/audit/
+?? homework02/images/analysis/
+?? homework02/logs/diagnostics/
+?? homework02/scripts/analysis/
+?? homework02/specjvm2008/results/SPECjvm2008.015/
+?? homework02/specjvm2008/results/SPECjvm2008.016/
+
+NOTE=This committed file records the real pre-commit HEAD and status. A file cannot embed the hash of the commit that contains itself without changing that hash. The final handoff reports the actual post-commit HEAD and status; verify live with git rev-parse HEAD and git status --short.

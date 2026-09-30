@@ -1,15 +1,23 @@
-# `compress` 三次重复实验
+# 原始三次 `compress` 重复：波动存在，原因未被唯一识别
 
-同一 WSL2 Ubuntu 24.04 环境、同一 OpenJDK 7u75 RI、同一 SPECjvm2008 1.01 安装及 `-bt 16`。三次均运行 `java -jar SPECjvm2008.jar --base -bt 16 compress`，保留默认 120 秒预热和 240 秒正式迭代。由于只选择了一个 workload，SPEC 报告均写明 `Run is valid, but not compliant`；这些是稳定性分析数据，不是完整 Base 综合成绩。逐次命令、时间、得分及结果编号见 [CSV](repeat_test_results.csv)，原始输出见 `../logs/repeat_compress_run{1,2,3}.log`，对应 raw/TXT 位于 `../specjvm2008/results/SPECjvm2008.008` 至 `.010`。
+主重复实验始终是原来的 `.008`、`.009`、`.010`，未挑选、替换或删除下降的成绩。三次运行使用同一个 WSL2 Ubuntu 24.04 安装、OpenJDK 7u75 RI、SPECjvm2008 1.01、`-bt 16`，命令均为 `java -jar SPECjvm2008.jar --base -bt 16 compress`。它们各自只有一个 workload，故 SPEC 文本报告均写 `Run is valid, but not compliant`；**不能**拿来报告另一个完整 Base Composite。原始顺序、开始/结束时间和分数见 [原索引](repeat_test_results.csv)，raw/TXT 位于 `.008`–`.010` 目录，日志位于 `logs/repeat_compress_run1.log` 至 `run3.log`。
 
-| 运行 | 正式 `compress` 得分 (ops/m) | 预热值 (ops/m) | 结果目录 |
-|---|---:|---:|---|
-| Run1 | 557.34 | 550.34 | `SPECjvm2008.008` |
-| Run2 | 545.48 | 545.17 | `SPECjvm2008.009` |
-| Run3 | 522.15 | 548.53 | `SPECjvm2008.010` |
+[统计生成器](../scripts/analysis/build_core_data.py)逐一核对原始 raw、txt 和原索引，再用 **样本标准差（分母 n−1）** 生成 [统计 CSV](repeat_statistics.csv)；[图](../images/analysis/repeat_compress.png)由该 CSV 生成。
 
-平均值 541.657 ops/m；最小值 522.15、最大值 557.34，极差 35.19 ops/m（均值的 6.497%）；样本标准差 17.904 ops/m，变异系数 3.305%。三次按时间顺序下降，Run3 的正式值也低于其预热值。以上统计由 [CSV](repeat_test_results.csv) 中的三条 SPEC 得分计算，没有使用预热成绩代替正式值。
+| 运行顺序 | Result ID | 预热 (ops/min) | 正式 (ops/min) | 相对三次均值 (ops/min) | 相对均值 |
+|---|---|---:|---:|---:|---:|
+| Run1 | `.008` | 550.34 | 557.34 | +15.683 | +2.895% |
+| Run2 | `.009` | 545.17 | 545.48 | +3.823 | +0.706% |
+| Run3 | `.010` | 548.53 | 522.15 | −19.507 | −3.601% |
 
-每次都是新的 JVM 进程，即使配置相同，也会重新经历类加载、JIT 编译、堆扩张与垃圾回收；120 秒预热不能保证这些行为在三次运行中完全一致。WSL2 的宿主调度、其他后台任务、CPU 动态频率和温度也可能改变可用计算资源。此次没有采集 GC 日志、温度或频率时间序列，因而不能确定下降的具体原因，更不能把趋势归因于某一种机制。重复结果说明报告单个成绩时应同时保留完整配置和波动范围。
+`n=3`，均值 **541.657**、中位数 **545.48**、最小/最大 **522.15 / 557.34**、极差 **35.19** ops/min、样本标准差 **17.904** ops/min、变异系数 **3.305%**（SD/均值）。极差约占均值 6.497%；这不是置信区间。Run1 至 Run3 的正式分数差 35.19 ops/min，单调下降只是这三次的观察，样本太少，不能推断长期趋势或统计显著性。[SPEC User's Guide](https://www.spec.org/jvm2008/docs/UserGuide.html)说明 warmup 与测量为不同阶段。
 
-工作负载和预热机制依据：[SPECjvm2008 User’s Guide](https://www.spec.org/jvm2008/docs/UserGuide.html)。
+## 为什么连续下降尚不能归因
+
+原索引记录三次几乎无间隔衔接：Run1 `19:41:41–19:48:43`，Run2 `19:48:44–19:55:46`，Run3 `19:55:46–20:02:50`。每次是新 JVM，因此每次都会重新类加载、编译热点、分配堆和 GC。三次 warmup 分别 550.34、545.17、548.53，未像正式值一样单调大幅下降；特别是 Run3 正式 522.15 比自己 warmup 低 26.38 ops/min（约 4.81%）。这提示**第三次测量阶段可能有额外波动**，但不指出是哪种原因。
+
+合理而竞争的假说包括：宿主/WSL 后台负载抢占、CPU 动态频率或热/功耗策略、JVM JIT/GC 时序、内存压力/缺页、线程调度差异，以及外部系统活动。原三次没有同步保存 Windows/WSL CPU 负载、温度、频率、功耗、GC、RSS 或上下文切换时间序列。事后 WMI 的 1984 MHz 与 2401 MHz 是 22:35 的快照，无法回溯到 19:41–20:02；当前 `powercfg` 显示的计划也不是历史运行计划。Windows ACPI 温度类和 WSL `thermal_zone` 本次未给出可用传感器值。因此“热降频导致连续下降”“GC 导致 Run3 低”均是**未经证实**的归因。
+
+## 最小下一步与诊断边界
+
+若以后专门研究波动，应预注册少量 A/B/A 式单项诊断（例如同配置的 3 次 compress、运行间固定空闲等待），同步每秒记录可验证的负载/频率/温度（若传感器可用）、GC、RSS、页错误和上下文切换，并与原 `.008`–`.010` 分开编号。这样的新实验也只能解释新时段，不能追溯证明旧三次的原因。本机未找到可靠温度接口，旧三次又没有同步遥测；在无法验证关键变量的情况下，额外跑大量 compress 对历史归因的边际收益较低，故本 Goal 只做 [两个不同 workload 的独立 profiling](diagnostics/profile_analysis.md)，它们不构成额外 compress 重复，也不混入本页的均值。
