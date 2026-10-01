@@ -15,6 +15,11 @@ RESULTS = ROOT / "specjvm2008" / "results"
 
 
 def sources():
+    optional_ids = set()
+    for meta in (ROOT / "logs" / "jvm_parameter").rglob("*.meta"):
+        for line in meta.read_text(encoding="utf-8").splitlines():
+            if line.startswith("result_id=") and line[10:]:
+                optional_ids.add(line[10:])
     for result in sorted(RESULTS.iterdir()):
         if not result.is_dir() or not result.name.startswith("SPECjvm2008."):
             continue
@@ -24,6 +29,8 @@ def sources():
             role = "original-repeat-result"
         elif result.name in {"SPECjvm2008.015", "SPECjvm2008.016"}:
             role = "new-diagnostic-result"
+        elif result.name in optional_ids:
+            role = "optional-heap-result"
         else:
             role = "preserved-other-result"
         for path in sorted(result.rglob("*")):
@@ -31,7 +38,8 @@ def sources():
                 yield path, role
     for path in sorted((ROOT / "logs").rglob("*")):
         if not path.is_file() or path.name in {
-            "final_core_verification.log", "final_submission_verification.log"
+            "final_core_verification.log", "final_submission_verification.log",
+            "optional_final_verification.log",
         }:
             continue  # A verification output cannot include its own digest in the manifest.
         if path.name == "base_run.log":
@@ -42,6 +50,8 @@ def sources():
             role = "descriptive-install-record-with-correction"
         elif "diagnostics" in path.parts:
             role = "new-diagnostic-log"
+        elif "jvm_parameter" in path.parts:
+            role = "optional-heap-log"
         else:
             role = "preserved-other-log"
         yield path, role
@@ -56,6 +66,16 @@ def sources():
     for path in sorted((ROOT / "scripts" / "analysis").iterdir()):
         if path.is_file():
             yield path, "analysis-or-diagnostic-script"
+    for path in sorted((ROOT / "scripts" / "jvm_parameter").iterdir()):
+        if path.is_file() and path.suffix in {".py", ".ps1", ".sh"}:
+            yield path, "optional-heap-method"
+    for path in sorted((ROOT / "analysis" / "jvm_parameter").iterdir()):
+        if path.is_file():
+            yield path, "optional-heap-analysis"
+    for path in sorted((ROOT / "images" / "jvm_parameter").iterdir()):
+        if path.is_file():
+            yield path, "optional-heap-plot"
+    yield ROOT / "audit" / "optional_experiment_review.md", "optional-heap-review"
     yield ROOT / "analysis" / "repeat_test_results.csv", "original-repeat-index"
     yield ROOT / "analysis" / "official_reference_base.html", "original-official-snapshot"
     yield ROOT / "analysis" / "official_reference_huawei.html", "new-official-snapshot"

@@ -1,0 +1,61 @@
+PURPOSE=Independent optional -Xmx single-workload attempt; not a compliant full Base result
+RUN_KEY=compress__default__r3
+START_TIME=2026-10-01T19:50:02+08:00
+COMMAND=/home/gubingren/java/java-se-7u75-ri/bin/java -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:/home/gubingren/benchmarks/SPECjvm2008/optional_run_logs/compress__default__r3.gc.log  -jar SPECjvm2008.jar --base -bt 16 compress
+JAVA_HOME=/home/gubingren/java/java-se-7u75-ri
+CLASSPATH=
+UNAME=Linux localhost 6.18.40.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Fri Jul 31 22:12:15 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+MEMORY_BEFORE:
+               total        used        free      shared  buff/cache   available
+Mem:           7.4Gi       2.8Gi       2.4Gi       4.8Mi       2.4Gi       4.5Gi
+Swap:          2.0Gi          0B       2.0Gi
+JAVA_VERSION:
+openjdk version "1.7.0_75"
+OpenJDK Runtime Environment (build 1.7.0_75-b13)
+OpenJDK 64-Bit Server VM (build 24.75-b04, mixed mode)
+MAX_HEAP_FLAG_BEFORE_RUN:
+    uintx MaxHeapSize                              := 1977614336      {product}           
+
+SPECjvm2008 Base
+  Properties file:   none
+  Benchmarks:        compress
+
+  WARNING: Run will not be compliant.
+  Not a compliant sequence of benchmarks for publication.
+
+  Kit signature and checksum is validated.
+  This can take several minutes.
+  Use argument '-ikv' to skip this.
+  ....................................passed.
+
+--- --- --- --- --- --- --- --- ---
+
+  Benchmark:   check
+  Run mode:    static run
+  Test type:   functional
+  Threads:     1
+  Iterations:  1
+  Run length:  1 operation
+
+Iteration 1 (1 operation) begins: Thu Oct 01 19:51:00 CST 2026
+Iteration 1 (1 operation) ends:   Thu Oct 01 19:51:00 CST 2026
+Iteration 1 (1 operation) result: PASSED
+
+Valid run!
+
+
+--- --- --- --- --- --- --- --- ---
+
+  Benchmark:   compress
+  Run mode:    timed run
+  Test type:   multi
+  Threads:     16
+  Warmup:      120s
+  Iterations:  1
+  Run length:  240s
+
+Warmup (120s) begins: Thu Oct 01 19:51:00 CST 2026
+Warmup (120s) ends:   Thu Oct 01 19:53:04 CST 2026
+Warmup (120s) result: 509.03 ops/m
+
+Iteration 1 (240s) begins: Thu Oct 01 19:53:04 CST 2026

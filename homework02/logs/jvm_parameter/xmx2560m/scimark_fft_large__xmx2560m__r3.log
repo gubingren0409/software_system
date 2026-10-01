@@ -1,0 +1,153 @@
+PURPOSE=Independent optional -Xmx single-workload attempt; not a compliant full Base result
+RUN_KEY=scimark_fft_large__xmx2560m__r3
+START_TIME=2026-10-02T03:50:29+08:00
+COMMAND=timeout --signal=TERM --kill-after=30s 900s /home/gubingren/java/java-se-7u75-ri/bin/java -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:/home/gubingren/benchmarks/SPECjvm2008/optional_run_logs/scimark_fft_large__xmx2560m__r3.gc.log -Xmx2560m -jar SPECjvm2008.jar --base -bt 16 scimark.fft.large
+JAVA_HOME=/home/gubingren/java/java-se-7u75-ri
+CLASSPATH=
+UNAME=Linux localhost 6.18.40.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Fri Jul 31 22:12:15 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+MEMORY_BEFORE:
+               total        used        free      shared  buff/cache   available
+Mem:           7.4Gi       3.0Gi       2.6Gi       4.8Mi       2.1Gi       4.4Gi
+Swap:          2.0Gi        32Ki       2.0Gi
+JAVA_VERSION:
+openjdk version "1.7.0_75"
+OpenJDK Runtime Environment (build 1.7.0_75-b13)
+OpenJDK 64-Bit Server VM (build 24.75-b04, mixed mode)
+MAX_HEAP_FLAG_BEFORE_RUN:
+    uintx MaxHeapSize                              := 2684354560      {product}           
+
+SPECjvm2008 Base
+  Properties file:   none
+  Benchmarks:        scimark.fft.large
+
+  WARNING: Run will not be compliant.
+  Not a compliant sequence of benchmarks for publication.
+
+  Kit signature and checksum is validated.
+  This can take several minutes.
+  Use argument '-ikv' to skip this.
+  ....................................passed.
+
+--- --- --- --- --- --- --- --- ---
+
+  Benchmark:   check
+  Run mode:    static run
+  Test type:   functional
+  Threads:     1
+  Iterations:  1
+  Run length:  1 operation
+
+Iteration 1 (1 operation) begins: Fri Oct 02 03:51:21 CST 2026
+Iteration 1 (1 operation) ends:   Fri Oct 02 03:51:21 CST 2026
+Iteration 1 (1 operation) result: PASSED
+
+Valid run!
+
+
+--- --- --- --- --- --- --- --- ---
+
+  Benchmark:   scimark.fft.large
+  Run mode:    timed run
+  Test type:   multi
+  Threads:     16
+  Warmup:      120s
+  Iterations:  1
+  Run length:  240s
+
+Warmup (120s) begins: Fri Oct 02 03:51:21 CST 2026
+Warmup (120s) ends:   Fri Oct 02 03:53:34 CST 2026
+Warmup (120s) result: 107.86 ops/m
+
+Iteration 1 (240s) begins: Fri Oct 02 03:53:34 CST 2026
+Iteration 1 (240s) ends:   Fri Oct 02 03:57:48 CST 2026
+Iteration 1 (240s) result: 117.01 ops/m
+
+Valid run!
+Score on scimark.fft.large: 117.01 ops/m
+
+Results are stored in: 
+/home/gubingren/benchmarks/SPECjvm2008/results/SPECjvm2008.064/SPECjvm2008.064.raw
+Generating reports in:
+/home/gubingren/benchmarks/SPECjvm2008/results/SPECjvm2008.064
+Problems...
+Problems...
+Problems...
+Problems...
+java.lang.NullPointerException
+	at sun.awt.X11FontManager.getDefaultPlatformFont(X11FontManager.java:779)
+	at sun.font.SunFontManager$2.run(SunFontManager.java:433)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.font.SunFontManager.<init>(SunFontManager.java:376)
+	at sun.awt.X11FontManager.<init>(X11FontManager.java:32)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at java.lang.Class.newInstance(Class.java:379)
+	at sun.font.FontManagerFactory$1.run(FontManagerFactory.java:83)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.font.FontManagerFactory.getInstance(FontManagerFactory.java:74)
+	at sun.font.SunFontManager.getInstance(SunFontManager.java:250)
+	at sun.font.FontDesignMetrics.getMetrics(FontDesignMetrics.java:264)
+	at sun.java2d.SunGraphics2D.getFontMetrics(SunGraphics2D.java:819)
+	at org.jfree.text.G2TextMeasurer.getStringWidth(G2TextMeasurer.java:79)
+	at org.jfree.text.TextUtilities.nextLineBreak(TextUtilities.java:285)
+	at org.jfree.text.TextUtilities.createTextBlock(TextUtilities.java:226)
+	at org.jfree.text.TextUtilities.createTextBlock(TextUtilities.java:197)
+	at org.jfree.chart.title.TextTitle.arrangeRR(TextTitle.java:489)
+	at org.jfree.chart.title.TextTitle.arrange(TextTitle.java:450)
+	at org.jfree.chart.JFreeChart.drawTitle(JFreeChart.java:1261)
+	at org.jfree.chart.JFreeChart.draw(JFreeChart.java:1151)
+	at org.jfree.chart.JFreeChart.createBufferedImage(JFreeChart.java:1349)
+	at org.jfree.chart.JFreeChart.createBufferedImage(JFreeChart.java:1329)
+	at org.jfree.chart.ChartUtilities.writeChartAsJPEG(ChartUtilities.java:414)
+	at org.jfree.chart.ChartUtilities.saveChartAsJPEG(ChartUtilities.java:508)
+	at org.jfree.chart.ChartUtilities.saveChartAsJPEG(ChartUtilities.java:460)
+	at spec.reporter.Utils.generateMainChart(Utils.java:286)
+	at spec.reporter.ReportGenerator.generateReport(ReportGenerator.java:396)
+	at spec.reporter.ReportGenerator.main2(ReportGenerator.java:751)
+	at spec.reporter.Reporter.main2(Reporter.java:51)
+	at spec.harness.Launch.createReport(Launch.java:307)
+	at spec.harness.Launch.runBenchmarkSuite(Launch.java:250)
+	at spec.harness.Launch.main(Launch.java:452)
+java.lang.NullPointerException
+	at sun.awt.X11FontManager.getDefaultPlatformFont(X11FontManager.java:779)
+	at sun.font.SunFontManager$2.run(SunFontManager.java:433)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.font.SunFontManager.<init>(SunFontManager.java:376)
+	at sun.awt.X11FontManager.<init>(X11FontManager.java:32)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at java.lang.Class.newInstance(Class.java:379)
+	at sun.font.FontManagerFactory$1.run(FontManagerFactory.java:83)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.font.FontManagerFactory.getInstance(FontManagerFactory.java:74)
+	at sun.font.SunFontManager.getInstance(SunFontManager.java:250)
+	at sun.font.FontDesignMetrics.getMetrics(FontDesignMetrics.java:264)
+	at sun.java2d.SunGraphics2D.getFontMetrics(SunGraphics2D.java:819)
+	at org.jfree.text.G2TextMeasurer.getStringWidth(G2TextMeasurer.java:79)
+	at org.jfree.text.TextUtilities.nextLineBreak(TextUtilities.java:285)
+	at org.jfree.text.TextUtilities.createTextBlock(TextUtilities.java:226)
+	at org.jfree.text.TextUtilities.createTextBlock(TextUtilities.java:197)
+	at org.jfree.chart.title.TextTitle.arrangeRR(TextTitle.java:489)
+	at org.jfree.chart.title.TextTitle.arrange(TextTitle.java:450)
+	at org.jfree.chart.JFreeChart.drawTitle(JFreeChart.java:1261)
+	at org.jfree.chart.JFreeChart.draw(JFreeChart.java:1151)
+	at org.jfree.chart.JFreeChart.createBufferedImage(JFreeChart.java:1349)
+	at org.jfree.chart.JFreeChart.createBufferedImage(JFreeChart.java:1329)
+	at org.jfree.chart.ChartUtilities.writeChartAsJPEG(ChartUtilities.java:414)
+	at org.jfree.chart.ChartUtilities.saveChartAsJPEG(ChartUtilities.java:508)
+	at org.jfree.chart.ChartUtilities.saveChartAsJPEG(ChartUtilities.java:460)
+	at spec.reporter.Utils.generateMainChart(Utils.java:286)
+	at spec.reporter.ReportGenerator.generateReport(ReportGenerator.java:396)
+	at spec.reporter.ReportGenerator.main2(ReportGenerator.java:751)
+	at spec.reporter.Reporter.main2(Reporter.java:51)
+	at spec.harness.Launch.createReport(Launch.java:307)
+	at spec.harness.Launch.runBenchmarkSuite(Launch.java:250)
+	at spec.harness.Launch.main(Launch.java:452)
+
+Noncompliant composite result: 117.01 ops/m
+JAVA_EXIT_STATUS=0
+END_TIME=2026-10-02T03:57:49+08:00
