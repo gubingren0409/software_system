@@ -13,15 +13,27 @@ FOCUS = ("compress", "derby", "sunflow", "crypto.aes", "scimark.fft.small", "sci
 METRICS = ("Composite", "compress", "derby", "sunflow", "crypto", "startup", "scimark.large")
 
 
-def table(path):
+def table_body(body):
     rows = {}
-    for line in path.read_text(encoding="utf-8").splitlines():
+    for line in body.splitlines():
         if not line.startswith("|"):
             continue
         cells = [cell.strip().replace("−", "-") for cell in line.strip("|").split("|")]
         if cells and cells[0]:
             rows[cells[0].replace("`", "")] = cells
     return rows
+
+
+def table(path):
+    return table_body(path.read_text(encoding="utf-8"))
+
+
+def report_section(body, number):
+    start = re.search(rf"^## {number}\. ", body, re.MULTILINE)
+    end = re.search(rf"^## {number + 1}\. ", body, re.MULTILINE)
+    if not start or not end or end.start() <= start.end():
+        raise ValueError(f"README section {number} not found")
+    return body[start.end():end.start()]
 
 
 def csv_rows(name):
@@ -78,7 +90,58 @@ def main():
                                 (4, "deviation_from_mean_ops_per_min"),
                                 (5, "deviation_from_mean_percent")):
             equal_score(cells[position], repeat[field], run + ":" + field)
-    print("PASS: workload, official, and repeat Markdown tables match source CSVs")
+
+    report = (ROOT / "README.md").read_text(encoding="utf-8")
+    base_section = report_section(report, 5)
+    reported_groups = {}
+    for line in base_section.splitlines():
+        if not line.startswith("|"):
+            continue
+        cells = [cell.strip().strip("`*") for cell in line.strip("|").split("|")]
+        if len(cells) == 4:
+            for name, score in ((cells[0], cells[1]), (cells[2], cells[3])):
+                if name in local:
+                    reported_groups[name] = score
+    if set(reported_groups) != set(local):
+        raise ValueError("README does not report all 11 Base groups and Composite")
+    for name, score in local.items():
+        equal_score(reported_groups[name], score, "README Base:" + name)
+
+    report_workloads = table_body(report_section(report, 6))
+    for name in FOCUS:
+        cells = report_workloads.get(name)
+        if cells is None or len(cells) < 3:
+            raise ValueError(f"README workload row missing: {name}")
+        phase = re.fullmatch(r"([0-9.]+)\s*→\s*\*\*([0-9.]+)\*\*", cells[1])
+        if not phase:
+            raise ValueError(f"README workload phases malformed: {name}")
+        equal_score(phase.group(1), measured[name]["warmup_ops_per_min"], name + ":README warmup")
+        equal_score(phase.group(2), measured[name]["measured_ops_per_min"], name + ":README measured")
+        equal_score(cells[2], measured[name]["percent_change"], name + ":README change")
+
+    report_official = table_body(report_section(report, 7))
+    for metric in METRICS:
+        label = metric + " 组" if metric in {"crypto", "startup", "scimark.large"} else metric
+        cells = report_official.get(label)
+        if cells is None or len(cells) < 6:
+            raise ValueError(f"README official row missing: {metric}")
+        equal_score(cells[1], local[metric], metric + ":README local")
+        for offset, reference in ((2, "Huawei RH 2285"), (4, "Sugon I620-G20")):
+            score = official[reference, metric]
+            equal_score(cells[offset], score, reference + ":README score")
+            ratio = (score / local[metric]).quantize(Decimal("0.001"), rounding=ROUND_HALF_UP)
+            equal_score(cells[offset + 1], ratio, reference + ":README ratio")
+
+    report_repeats = table_body(report_section(report, 8))
+    if set(report_repeats).intersection({"Run1", "Run2", "Run3"}) != {"Run1", "Run2", "Run3"}:
+        raise ValueError("README repeat table must have exactly the three original run labels")
+    for repeat in repeats:
+        run = repeat["run"]
+        cells = report_repeats[run]
+        if len(cells) < 4 or repeat["result_id"] != "SPECjvm2008" + cells[1].strip("`"):
+            raise ValueError(f"README repeat ID mismatch: {run}")
+        equal_score(cells[3].strip("*"), repeat["score_ops_per_min"], run + ":README score")
+    print("PASS: analysis and README Base, workload, official, repeat tables match source CSVs")
 
 
 if __name__ == "__main__":

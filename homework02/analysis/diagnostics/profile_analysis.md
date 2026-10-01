@@ -22,4 +22,4 @@
 
 新的 `compress` 522.75 与正式 `.007` 的 551.55、旧重复的 557.34/545.48/522.15 **不可作受控前后差**：跨日、工具包裹、背景负载和完整/单项顺序均不同。新资料不能回溯解释原三次连续下降，也不足以证明某个工作负载的 CPU/cache/GC 瓶颈；因此只保留为方法和调度旁证，不把它升格为报告的核心因果结论。
 
-[遥测可用性命令记录](../../logs/diagnostics/telemetry_feasibility.log)在 **sunflow 正在运行的 04:50** 采得 Windows `LoadPercentage=100`、WSL 可用内存约 3.5 GiB；这绝非原三次或正式 `.007` 的历史负载。该次 Windows ACPI 温度访问被拒，WSL 无 thermal zone 与 `cpu0/cpufreq` 接口，故无可靠温度/频率序列。当前 WSL 内核 `6.18.40.1-microsoft-standard-WSL2` 与正式环境采集的 `6.18.33.2-microsoft-standard-WSL2` 也不同，进一步排除把新旧分数视为仅 profiling 一因素变化的 A/B 实验。额外三次 compress 即便现在执行也无法重现旧时段缺失的温度/GC/背景活动；此处选择仅两项互补 workload 作最小探测，而不把新样本混入旧重复统计。
+当前 WSL 内核 `6.18.40.1-microsoft-standard-WSL2` 与正式环境采集的 `6.18.33.2-microsoft-standard-WSL2` 不同，进一步排除把新旧分数视为仅 profiling 一因素变化的 A/B 实验。额外三次 compress 即便现在执行也无法重现旧时段缺失的温度/GC/背景活动；此处只用两项互补 workload 作最小探测，不把新样本混入旧重复统计。

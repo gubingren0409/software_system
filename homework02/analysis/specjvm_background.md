@@ -27,9 +27,7 @@ SPECjvm2008 主要测量 Java 运行环境（JVM 与类库）执行单个应用�
 | `mpegaudio` | 基于 JLayer 对 MP3 数据解码。 | 官方描述为浮点负载较重；解码循环、数组访问与 JIT/类库实现可能起作用，不能据此断言浮点单元已饱和。[来源](https://www.spec.org/jvm2008/docs/benchmarks/mpegaudio.html) |
 | `serial` | 序列化/反序列化原语及对象，以同机 socket 传递生产者—消费者数据。 | 对象图遍历、`Object.equals()`、分配和同步/缓冲路径可能参与；同机 socket 不等于远程网络吞吐测试。[来源](https://www.spec.org/jvm2008/docs/benchmarks/serial.html) |
 | `sunflow` | 多线程全局光照图像渲染。 | 浮点计算、渲染任务并发和内存访问；官方要求合规运行中每个 Sunflow 实例的内部线程数为 4。[来源](https://www.spec.org/jvm2008/docs/benchmarks/sunflow.html) |
-| `mpegaudio` | 使用 JLayer 对 MP3 音频解码。 | 官方称其浮点运算较重；还可能涉及数据流处理、JIT 热循环与缓存，但瓶颈需测量。[来源](https://www.spec.org/jvm2008/docs/benchmarks/mpegaudio.html) |
 | `scimark.*` | FFT、LU、SOR、稀疏矩阵及 Monte Carlo 浮点计算。 | small 数据集约 512 KiB，着重缓存内计算/JIT；large 约 32 MiB，更受内存层次与带宽影响。[来源](https://www.spec.org/jvm2008/docs/benchmarks/scimark.html) |
-| `serial` | 将基本类型和对象序列化、通过本机 socket 传给消费者再反序列化，包含大量 `Object.equals()`。 | 对象图遍历、分配/GC、锁与本机通信可能参与；此处不是远程网络吞吐测试。[来源](https://www.spec.org/jvm2008/docs/benchmarks/serial.html) |
 | `xml.transform` / `xml.validation` | 分别执行 XSLT 变换与 XML Schema 校验，调用 JRE XML API。 | 解析与对象构造、树/流式处理、类库实现和 GC；正式测量包含多种输入和访问方式。[来源](https://www.spec.org/jvm2008/docs/benchmarks/xml.html) |
 | `startup.*` | 为各 workload 启动新的 JVM 并完成一次 operation。 | JVM 启动、类加载、解释/JIT 初始阶段与 OS 进程创建；与长时间吞吐测量的性能含义不同。[来源](https://www.spec.org/jvm2008/docs/UserGuide.html) |
 
@@ -59,7 +57,6 @@ SPECjvm2008 主要测量 Java 运行环境（JVM 与类库）执行单个应用�
 
 Base/Peak 的区分使读者知道自己在比较什么：Base 偏向不手工调 JVM 的默认式配置，固定预热、测量及完整顺序并披露硬件/OS/软件；Peak 才允许在规则内调整并披露 JVM 选项、预热等，以考察调优后的能力。这不是说 Base 完全不允许控制实验条件：官方允许配置 benchmark 线程，也允许 OS/硬件调节；但不能悄悄改 properties、删掉不利 workload 或修改 measured iteration。课程只要求 Base，因此 `.007` 不与任何选做 JVM 参数结果混成一个“优化后 Base”，也没有运行 Peak。[User’s Guide §1.4](https://www.spec.org/jvm2008/docs/UserGuide.html)、[Run Rules](https://www.spec.org/jvm2008/docs/RunRules.html)。
 
-Base/Peak 双轨并非宣称 Base 在各平台上必然公平到可直接归因硬件：Base 限制 JVM 手工调优，重视默认式部署、可复查与披露；Peak 允许记录过的针对性 JVM 设置和更长预热/测量，关注调优后表现。无论哪类，正确性、套件版本、完整顺序、计时和系统披露仍需遵循规则。这里选择 Base，是为了让课程主结果保留统一的完整套件与可解释配置；单项重复用于研究波动，不能改称另一份合规 Base。`-bt 16` 解决当时 WSL 内存不足造成的 OOM，并不是调优竞赛，也未证明比其他线程数快。[Run Rules §1.4、§2.3](https://www.spec.org/jvm2008/docs/RunRules.html)
 
 ## 官方已知问题与本实验对应
 

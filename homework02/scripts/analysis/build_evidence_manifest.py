@@ -30,8 +30,10 @@ def sources():
             if path.is_file():
                 yield path, role
     for path in sorted((ROOT / "logs").rglob("*")):
-        if not path.is_file() or path.name == "final_core_verification.log":
-            continue  # An output log cannot include its own digest in the manifest.
+        if not path.is_file() or path.name in {
+            "final_core_verification.log", "final_submission_verification.log"
+        }:
+            continue  # A verification output cannot include its own digest in the manifest.
         if path.name == "base_run.log":
             role = "formal-base-log"
         elif path.name == "reporter_regeneration.log":
