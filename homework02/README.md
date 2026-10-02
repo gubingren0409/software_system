@@ -237,6 +237,10 @@ Derby 1024 MiB 是最清楚的异常：分数 **225.753 ops/min（相对默认 �
 
 ![Derby：最大堆、GC 压力与吞吐](images/jvm_parameter/derby_case_study.png)
 
+### Independent OOM/Invalid Reverification
+
+原矩阵中的 9 个 OOM/invalid 单元后来在相同 Java 7 RI、SPECjvm2008、`--base -bt 16`、workload、`-Xmx` 和 GC 选项下独立重跑；日志路径和结果命名空间隔离，统一使用 900 秒安全边界。**9/9 再次出现 OOM、`NOT VALID` 且无正式分数**。Derby/512 MiB 三轮仍表现为长时间 Full GC thrash；FFT large 的 512/1024 MiB 六轮仍在约 63–71 秒内失败，即使 Java/Reporter 外层退出码为 0。新 Result ID `.066`–`.074` 位于 `verification_results/`，未写入原 `results/`，也未回填原 48 次统计。[逐次复核报告](analysis/jvm_parameter/oom_reverification_report.md)与[机器可读结果](analysis/jvm_parameter/oom_reverification_results.csv)
+
 ### Limitations
 
 measurement 阶段是秒级启动时刻加 GC uptime 的估计，不是统一高精度时钟采样；边界不确定事件已排除。GC 日志提供占用变化但不直接测量分配率、对象身份或完整 live set，也没有同步 JIT、锁、硬件计数器、频率/温度及宿主负载时序。诊断 flag 快照晚于 benchmark 采集，只用于复核同一 Java 可执行文件和 `-Xmx` 响应。历史 compress 单次 `.013/.014` 因日期、顺序和采集条件不同，未并入本轮统计。

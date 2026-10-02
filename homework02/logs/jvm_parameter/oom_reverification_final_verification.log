@@ -1,0 +1,35 @@
+OOM/invalid independent reverification final verification
+Date: 2026-10-02 (Asia/Shanghai)
+Branch: homework02
+
+Controller completion:
+OOM_REVERIFICATION_9_ATTEMPTS_CAPTURED=true
+FORMAL_007_UNCHANGED=true
+ORIGINAL_MATRIX_UNCHANGED=true
+
+Command: python -B homework02/scripts/jvm_parameter/build_oom_reverification.py --check
+PASS: 9/9 OOM/invalid failures reproduced
+
+Command: python -B homework02/scripts/jvm_parameter/verify_oom_reverification.py
+PASS: 9/9 failures independently reproduced; original matrix and formal .007 intact
+
+Command: python -B homework02/scripts/jvm_parameter/build_optional_data.py --check
+PASS: 48/48 captured attempts; 39 valid scores; 118230 GC events
+
+Command: python -B homework02/scripts/jvm_parameter/build_enhancement_data.py --check
+PASS: 118230 GC memory rows; phases={'boundary_uncertain': 1575, 'warmup': 25464, 'between_warmup_and_measurement': 499, 'measurement': 51217, 'pre_warmup': 217, 'post_measurement': 653, 'unavailable_invalid_run': 38605}; four JVM flag snapshots
+
+Command: python -B homework02/scripts/jvm_parameter/verify_optional.py
+PASS: 48 attempts (39 valid, 9 invalid), 48 unique optional SPEC result IDs, 118230 GC events, formal .007 intact
+
+Command: python -B homework02/scripts/jvm_parameter/verify_enhancement.py
+PASS: enhancement evidence verified; 118230 events, 51217 measurement events, four flag snapshots, formal .007 intact
+
+Command: pwsh -NoProfile -File homework02/scripts/verify_goal1.ps1
+Goal 1 verification: PASS
+Composite: 421.24 SPECjvm2008 Base ops/m
+SPEC report: Run is compliant
+Raw SHA-256: 4ae651e312061d09760743ab9908129b633e9ce1e5b5b296c13d4a30605e05ad
+
+Command: pwsh -NoProfile -File homework02/scripts/verify_submission.ps1
+Submission verification: PASS (15 required conditions; Markdown report, no PDF required)

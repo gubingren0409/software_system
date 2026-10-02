@@ -1,0 +1,99 @@
+PURPOSE=Independent reproduction of an original OOM/invalid attempt; not part of the 48-cell matrix
+SOURCE_RUN_KEY=derby__xmx512m__r2
+VERIFICATION_RUN_KEY=oomverify__derby__xmx512m__r2
+START_TIME=2026-10-02T15:43:37+08:00
+COMMAND=timeout --signal=TERM --kill-after=30s 900s /home/gubingren/java/java-se-7u75-ri/bin/java -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:/home/gubingren/benchmarks/SPECjvm2008/oom_reverification_logs/oomverify__derby__xmx512m__r2.gc.log -Xmx512m -jar SPECjvm2008.jar --base -bt 16 derby
+COMMAND_EQUIVALENCE=Same Java, SPEC mode, benchmark threads, workload, heap flag and GC flags; only log destination/result namespace differ
+WATCHDOG_NOTE=900 s verification safety boundary; original Derby Run1 used manual termination at 956 s
+JAVA_HOME=/home/gubingren/java/java-se-7u75-ri
+CLASSPATH=
+UNAME=Linux localhost 6.18.40.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Fri Jul 31 22:12:15 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+MEMORY_BEFORE:
+               total        used        free      shared  buff/cache   available
+Mem:           7.4Gi       2.8Gi       1.9Gi       4.8Mi       2.9Gi       4.6Gi
+Swap:          2.0Gi          0B       2.0Gi
+JAVA_VERSION:
+openjdk version "1.7.0_75"
+OpenJDK Runtime Environment (build 1.7.0_75-b13)
+OpenJDK 64-Bit Server VM (build 24.75-b04, mixed mode)
+MAX_HEAP_FLAG_BEFORE_RUN:
+    uintx MaxHeapSize                              := 536870912       {product}           
+
+SPECjvm2008 Base
+  Properties file:   none
+  Benchmarks:        derby
+
+  WARNING: Run will not be compliant.
+  Not a compliant sequence of benchmarks for publication.
+
+  Kit signature and checksum is validated.
+  This can take several minutes.
+  Use argument '-ikv' to skip this.
+  ....................................passed.
+
+--- --- --- --- --- --- --- --- ---
+
+  Benchmark:   check
+  Run mode:    static run
+  Test type:   functional
+  Threads:     1
+  Iterations:  1
+  Run length:  1 operation
+
+Iteration 1 (1 operation) begins: Fri Oct 02 15:44:29 CST 2026
+Iteration 1 (1 operation) ends:   Fri Oct 02 15:44:29 CST 2026
+Iteration 1 (1 operation) result: PASSED
+
+Valid run!
+
+
+--- --- --- --- --- --- --- --- ---
+
+  Benchmark:   derby
+  Run mode:    timed run
+  Test type:   multi
+  Threads:     16
+  Warmup:      120s
+  Iterations:  1
+  Run length:  240s
+
+Warmup (120s) begins: Fri Oct 02 15:45:20 CST 2026
+java.lang.OutOfMemoryError: Java heap spacejava.lang.OutOfMemoryError: Java heap spacejava.lang.OutOfMemoryError: Java heap spacejava.lang.OutOfMemoryError: Java heap spacejava.lang.OutOfMemoryError: Java heap spacejava.lang.OutOfMemoryError: Java heap spaceException in thread "BenchmarkThread derby 7" java.lang.OutOfMemoryError: Java heap space
+java.lang.OutOfMemoryError: Java heap spacejava.lang.OutOfMemoryError: Java heap space#### derby exited with exception: java.lang.OutOfMemoryError: Java heap space ####
+java.lang.OutOfMemoryError: Java heap space
+
+
+Errors in benchmark: derby
+   #### derby exited with exception: java.lang.OutOfMemoryError: Java heap space ####
+
+  [warmup] Interrupted when joining benchmark thread 3: null
+  [warmup] java.lang.InterruptedException: null
+java.lang.Object.wait(Native Method)
+java.lang.Thread.join(Thread.java:1281)
+java.lang.Thread.join(Thread.java:1355)
+spec.harness.ProgramRunner.runIteration(ProgramRunner.java:504)
+spec.harness.ProgramRunner.runBenchmark(ProgramRunner.java:316)
+spec.harness.ProgramRunner.run(ProgramRunner.java:98)
+
+  [warmup] Iteration failed.
+  [warmup][bt:5|op:1] java.lang.OutOfMemoryError: Java heap space
+  [warmup][bt:4|op:1] java.lang.OutOfMemoryError: Java heap space
+  [warmup][bt:6|op:1] java.lang.OutOfMemoryError: Java heap space
+  [warmup][bt:12|op:1] java.lang.OutOfMemoryError: Java heap space
+  [warmup][bt:13|op:1] java.lang.OutOfMemoryError: Java heap space
+Score on derby:  **NOT VALID**
+
+Benchmark derby failed. Aborting run.
+
+Results are stored in: 
+/home/gubingren/benchmarks/SPECjvm2008/results/SPECjvm2008.067/SPECjvm2008.067.raw
+Shutting down due to severe error.
+Shutting down due to severe error.
+Shutting down due to severe error.
+Shutting down due to severe error.
+Generating reports in:
+/home/gubingren/benchmarks/SPECjvm2008/results/SPECjvm2008.067
+[Fatal Error] :111:7: The element type "warmup-result" must be terminated by the matching end-tag "</warmup-result>".
+ERROR: Reporter cannot be initialized (org.xml.sax.SAXParseException; lineNumber: 111; columnNumber: 7; The element type "warmup-result" must be terminated by the matching end-tag "</warmup-result>".)
+JAVA_EXIT_STATUS=255
+END_TIME=2026-10-02T15:56:56+08:00

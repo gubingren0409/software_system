@@ -12,6 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUT = ROOT / "audit" / "evidence_manifest.csv"
 RESULTS = ROOT / "specjvm2008" / "results"
+VERIFICATION_RESULTS = ROOT / "specjvm2008" / "verification_results"
 
 
 def sources():
@@ -40,6 +41,7 @@ def sources():
         if not path.is_file() or path.name in {
             "final_core_verification.log", "final_submission_verification.log",
             "optional_final_verification.log", "enhancement_final_verification.log",
+            "oom_reverification_final_verification.log",
         }:
             continue  # A verification output cannot include its own digest in the manifest.
         if path.name == "base_run.log":
@@ -55,6 +57,10 @@ def sources():
         else:
             role = "preserved-other-log"
         yield path, role
+    if VERIFICATION_RESULTS.is_dir():
+        for path in sorted(VERIFICATION_RESULTS.rglob("*")):
+            if path.is_file():
+                yield path, "oom-reverification-result"
     for path in sorted((ROOT / "environment").iterdir()):
         if path.is_file():
             yield path, "environment-record"
