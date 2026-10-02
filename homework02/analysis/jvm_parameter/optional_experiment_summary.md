@@ -48,3 +48,11 @@ python homework02/scripts/jvm_parameter/verify_optional.py
 ```
 
 三张图分别是[分数](../../images/jvm_parameter/heap_vs_score.png)、[GC 暂停](../../images/jvm_parameter/heap_vs_gc_time.png)、[相对默认变化](../../images/jvm_parameter/heap_vs_score_change.png)。实验的主要结论不是“越大越快”，而是：`-Xmx` 在低于 workload 容量门槛时会导致严重 GC 或无法运行；越过门槛后，继续扩大堆的收益依 workload 而异，并可能饱和、落入自然波动，甚至伴随较低吞吐。
+
+## 增强后的证据链
+
+增强没有增加或替换任何 benchmark 分数，而是从同一批原始 raw/GC 日志补齐中间机制证据。逐事件[`gc_memory_behavior.csv`](gc_memory_behavior.csv)记录 GC 前后总堆用量、实际最大堆占比、事件后 committed-capacity 占比与阶段估计；[`gc_measurement_summary.csv`](gc_measurement_summary.csv)把整进程 GC 与估计 measurement GC 分开；[`jvm_flag_snapshot.csv`](jvm_flag_snapshot.csv)用同一 Java 7 的实际 `PrintFlagsFinal` 输出核对四档最大堆、初始堆、分代比和 Parallel GC 选择。
+
+最强个案是 Derby：1024 MiB 正式分数相对默认 −68.547%，估计 measurement 每轮 1,861.667 次 GC 且全部为 Full GC，暂停 164.417 秒，GC 前/后用量平均占最大堆 94.030%/71.388%；2560 MiB 没有 measurement Full GC，分数恢复到 738.560 ops/min。2560 MiB 相比默认的 +2.900% 仍小于两组约 4% 的 CV，故不声称显著提升。完整推理见[堆压力分析](heap_pressure_analysis.md)与[Derby 个案](derby_case_study.md)。新增[GC 频率图](../../images/jvm_parameter/heap_vs_gc_frequency.png)和[Derby 个案图](../../images/jvm_parameter/derby_case_study.png)均由 CSV 自动生成。
+
+阶段对齐的限制是 raw run date 只有秒级；解析器以 ±1 秒边界排除 1,575 条不确定事件。GC 日志仍不能直接给出对象分配率、live-set 身份、JIT、锁、频率或宿主负载。因此增强后的结论保持不变但证据更具体：**`-Xmx` 影响最大堆与堆压力，进而与 GC 模式和吞吐关联；效果取决于 workload，越过容量门槛后更大堆不保证更快。**

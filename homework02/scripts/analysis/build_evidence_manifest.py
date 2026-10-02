@@ -39,7 +39,7 @@ def sources():
     for path in sorted((ROOT / "logs").rglob("*")):
         if not path.is_file() or path.name in {
             "final_core_verification.log", "final_submission_verification.log",
-            "optional_final_verification.log",
+            "optional_final_verification.log", "enhancement_final_verification.log",
         }:
             continue  # A verification output cannot include its own digest in the manifest.
         if path.name == "base_run.log":
@@ -76,6 +76,7 @@ def sources():
         if path.is_file():
             yield path, "optional-heap-plot"
     yield ROOT / "audit" / "optional_experiment_review.md", "optional-heap-review"
+    yield ROOT / "audit" / "optional_enhancement_review.md", "optional-enhancement-review"
     yield ROOT / "analysis" / "repeat_test_results.csv", "original-repeat-index"
     yield ROOT / "analysis" / "official_reference_base.html", "original-official-snapshot"
     yield ROOT / "analysis" / "official_reference_huawei.html", "new-official-snapshot"

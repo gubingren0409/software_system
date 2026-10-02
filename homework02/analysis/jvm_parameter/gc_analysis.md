@@ -38,3 +38,19 @@ FFT large 的 512 MiB 三次均在 63–64 秒内 OOM，每次 121 个 GC、60 �
 GC 图中的暂停为日志事件持续时间求和，未区分 warmup 与 measurement，也不含并发阶段、分配等待、CPU 消耗或 OOM 之外的所有停顿；不能直接除以 240 秒。`-Xmx` 还会通过 ergonomics 间接改变分代尺寸与扩展策略，实验没有固定 `-Xms`，这是刻意保持“只改 `-Xmx`”的设计而非遗漏。没有 JFR（Java 7 RI 环境）、heap dump、对象年龄直方图、硬件计数器、频率/温度或同步宿主负载序列，因此结论限于“在本机本 JDK/线程设置下的关联”。
 
 可视化见[`heap_vs_gc_time.png`](../../images/jvm_parameter/heap_vs_gc_time.png)；逐事件数据见[`gc_events.csv`](gc_events.csv)，可由脚本从 48 份日志重新生成并用 `--check` 校验。
+
+## 增强：measurement 阶段估计与堆占用
+
+原始 SPEC raw 为每轮 warmup 和 measurement 保存毫秒 epoch 边界；GC 日志则保存 JVM uptime。增强解析器以 raw 的秒级 run date 估计 JVM 启动时刻，再叠加 uptime。由于启动时间只有秒级精度，采用 ±1 秒保守边界：明确落在 measurement 内的事件纳入；靠近 warmup/measurement 起止的 **1,575** 条事件标为 `boundary_uncertain` 并排除。48 轮中共解析 **118,230** 条事件，其中 **51,217** 条明确归入有效运行的 measurement；无效且不完整的运行有 **38,605** 条事件，阶段不可用，未混入有效组均值。[边界表](gc_phase_boundaries.csv)、[逐事件内存表](gc_memory_behavior.csv)与[measurement 聚合表](gc_measurement_summary.csv)均可从原始证据重建。
+
+measurement 结果强化而不推翻整进程观察：Derby 1024 MiB 平均 1,861.667 次事件且全部为 Full GC，暂停 164.417 秒；默认/2560 MiB 为 2,202/1,667 次事件但没有 Full GC，暂停仅 13.580/10.484 秒。Sunflow 512 MiB 相比默认的事件数约为 5,251.667 vs 1,567.667，暂停 31.935 vs 15.159 秒；扩大到 2560 MiB 后事件和暂停下降，但分数没有超过默认。Compress 四档 measurement 暂停均低于 1 秒，不能用 GC 暂停解释 2560 MiB 的较低吞吐。
+
+堆压力以 GC 前后总堆用量除以该轮实际 `MaxHeapSize` 计算。不能把 GC 前用量直接除以同一事件的 logged capacity：HotSpot 7 在 Full GC 过程中可缩放 committed capacity，该容量可能是事件结束时的值。Derby 1024 MiB 在 measurement 的平均 GC 前/后最大堆占比为 94.030%/71.388%，而默认为 73.960%/40.882%、2560 MiB 为 63.518%/30.389%；这与 1 GiB 的 Full GC thrash 相符。更完整解释见[堆压力分析](heap_pressure_analysis.md)和[Derby 个案](derby_case_study.md)。
+
+![由 measurement 聚合 CSV 生成的 GC 频率图](../../images/jvm_parameter/heap_vs_gc_frequency.png)
+
+## 实际 JVM 标志快照
+
+增强阶段用同一 Java 7 可执行文件分别执行四次 `-XX:+PrintFlagsFinal -version`，没有运行 SPEC。原始日志位于[`logs/jvm_parameter/flags/`](../../logs/jvm_parameter/flags/)，结构化结果见[`jvm_flag_snapshot.csv`](jvm_flag_snapshot.csv)。实际 `MaxHeapSize` 为默认 1,977,614,336、512 MiB 536,870,912、1024 MiB 1,073,741,824、2560 MiB 2,684,354,560 bytes；四组 `InitialHeapSize=123,566,528`、`NewRatio=2`、`SurvivorRatio=8`，并均为 `UseParallelGC=true`、`UseParallelOldGC=true`、`UseAdaptiveSizePolicy=true`。
+
+这些快照证明命令对应的 Java 7 配置确实响应 `-Xmx`，并与旧运行日志保存的每轮 `MaxHeapSize` 相符；采集日期晚于 benchmark，因此它们是**同一可执行文件的诊断复核**，不是冒充 benchmark 当时所有动态 flag 状态的同步记录。

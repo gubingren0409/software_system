@@ -200,9 +200,15 @@ java -jar SPECjvm2008.jar --base -bt 16
 
 ## Optional: JVM Parameter Optimization
 
-本节是独立的选做 `-Xmx` 研究，不改变上面的正式 Base：`SPECjvm2008.007` 仍为 **421.24 SPECjvm2008 Base ops/min**。选取 `-Xmx` 是因为最大堆容量会影响 JVM 可用堆、分代自适应、GC 触发与 workload 能否容纳 live set；但实验不预设“越大越快”。
+### Motivation
 
-固定 AMD Ryzen 9 7940HX、WSL2 Ubuntu 24.04、OpenJDK 7u75 RI、SPECjvm2008 1.01、`--base -bt 16`、默认 120 秒 warmup / 240 秒 measurement，仅比较默认、512 MiB、1024 MiB、2560 MiB。compress、derby、sunflow、scimark.fft.large 各配置独立 JVM 重复 3 次，共 **48 个计划尝试：39 个有效正式分数，9 个 OOM/不完整 warmup 失败**；失败分数为空而不是零。各次均保留 raw/TXT、控制台、GC、元数据与命令；另有一次会话中断 `.026` 作为计划外失败证据保留。
+本节是独立的选做 `-Xmx` 研究，不改变上面的正式 Base：`SPECjvm2008.007` 仍为 **421.24 SPECjvm2008 Base ops/min**。选择最大堆是因为它会限制 JVM 可用容量，并通过自适应分代影响堆压力、GC 触发以及 workload 能否容纳存活集合；研究问题是这种机制如何随 workload 改变，而不是预设“越大越快”。
+
+### Experimental Design
+
+固定 AMD Ryzen 9 7940HX、WSL2 Ubuntu 24.04、OpenJDK 7u75 RI、SPECjvm2008 1.01、`--base -bt 16`、默认 120 秒 warmup / 240 秒 measurement，只改变 `-Xmx`：默认、512 MiB、1024 MiB、2560 MiB。compress、derby、sunflow、scimark.fft.large 每个配置以独立 JVM 重复 3 次，共 **48 个计划尝试：39 个有效正式分数，9 个 OOM/不完整 warmup 失败**；失败分数为空而不是零。配置次序在三轮中交叉，各次保留 raw/TXT、控制台、GC、元数据与命令；计划外中断 `.026` 单独保存，不混入 48 次统计。
+
+### Results
 
 | workload | 默认均值 | 512 MiB | 1024 MiB | 2560 MiB | 主要观察 |
 |---|---:|---:|---:|---:|---|
@@ -211,7 +217,7 @@ java -jar SPECjvm2008.jar --base -bt 16
 | sunflow | 312.263 | 283.807 | 304.783 | 304.820 | 512 MiB 比默认低 9.113%，GC 暂停约翻倍 |
 | scimark.fft.large | 112.123 | 0/3 有效 | 0/3 有效 | 113.783 | 1 GiB 及以下 warmup OOM；越过门槛后差异小于运行波动 |
 
-分数单位仅在同一 workload 内有可比意义。有效组均值的样本 SD/CV、逐轮证据和 GC 口径见[完整总结](analysis/jvm_parameter/optional_experiment_summary.md)、[堆大小分析](analysis/jvm_parameter/heap_size_analysis.md)、[GC 分析](analysis/jvm_parameter/gc_analysis.md)与[最终 CSV](analysis/jvm_parameter/heap_parameter_results.csv)。历史 compress 单次 `.013` 默认 546.46→`.014` 2560 MiB 536.04（−1.907%）与新三次均值下降方向相同、幅度不同；因日期、顺序和采集条件不同，未并入本轮统计。
+分数只在同一 workload 内比较。有效组的均值、样本 SD/CV、效应百分比与逐轮证据见[完整总结](analysis/jvm_parameter/optional_experiment_summary.md)、[堆大小分析](analysis/jvm_parameter/heap_size_analysis.md)和[结果 CSV](analysis/jvm_parameter/heap_parameter_results.csv)。`n=3` 不足以支持强显著性结论；例如 Derby 2560 MiB 相对默认 +2.900%，小于两组各约 4% 的 CV。
 
 ![四项 workload 的堆大小与正式分数](images/jvm_parameter/heap_vs_score.png)
 
@@ -219,4 +225,22 @@ java -jar SPECjvm2008.jar --base -bt 16
 
 ![各配置相对同 workload 默认均值的变化](images/jvm_parameter/heap_vs_score_change.png)
 
-结论限于本机、本 JDK 和 16 线程：小于 workload 容量门槛的堆会导致严重 GC 或无法运行；越过门槛后，更大最大堆可能饱和、落入自然波动或伴随更低吞吐。GC 日志覆盖整个 Java 测量进程而非只覆盖 240 秒正式区间，且未采集 live-set、硬件计数器、频率/温度及宿主负载时序，因此这些是关联和机制一致性证据，不是单因果证明。
+### JVM Behavior Analysis
+
+增强解析从 118,230 条已有 GC 事件提取 GC 前后总堆用量，并按每轮实际 `MaxHeapSize` 计算堆压力。SPEC raw 的毫秒阶段边界与 GC uptime 通过秒级 run date 对齐；明确属于 measurement 的 51,217 条事件进入聚合，靠近边界的 1,575 条以 ±1 秒不确定区排除。实际 Java 7 flag 快照确认四档 `MaxHeapSize` 分别为 1,977,614,336 / 536,870,912 / 1,073,741,824 / 2,684,354,560 bytes，且四组均使用 Parallel GC、Parallel Old GC 和 AdaptiveSizePolicy。[GC 口径与限制](analysis/jvm_parameter/gc_analysis.md)及[堆压力分析](analysis/jvm_parameter/heap_pressure_analysis.md)给出完整证据链。
+
+![四项 workload 的估计 measurement GC 频率](images/jvm_parameter/heap_vs_gc_frequency.png)
+
+### Workload Case Study
+
+Derby 1024 MiB 是最清楚的异常：分数 **225.753 ops/min（相对默认 −68.547%）**，估计 measurement 中每轮 **1,861.667 次 GC 且全部为 Full GC**、暂停 **164.417 秒**，GC 前/后用量平均占最大堆 **94.030%/71.388%**。2560 MiB 的 measurement 中没有 Full GC，暂停降至 10.484 秒，吞吐恢复到 738.560 ops/min；但相对默认 +2.900% 仍落在观测 CV 的量级，不能称为稳定提升。[Derby 个案全文](analysis/jvm_parameter/derby_case_study.md)
+
+![Derby：最大堆、GC 压力与吞吐](images/jvm_parameter/derby_case_study.png)
+
+### Limitations
+
+measurement 阶段是秒级启动时刻加 GC uptime 的估计，不是统一高精度时钟采样；边界不确定事件已排除。GC 日志提供占用变化但不直接测量分配率、对象身份或完整 live set，也没有同步 JIT、锁、硬件计数器、频率/温度及宿主负载时序。诊断 flag 快照晚于 benchmark 采集，只用于复核同一 Java 可执行文件和 `-Xmx` 响应。历史 compress 单次 `.013/.014` 因日期、顺序和采集条件不同，未并入本轮统计。
+
+### Conclusion
+
+结论仍是：**`-Xmx` effect is workload dependent（`-Xmx` 的效果取决于 workload）**。低于容量门槛会导致 OOM 或 Full GC thrash；越过门槛后性能可恢复，但继续扩大堆的收益可能饱和、落入自然波动，甚至伴随较低吞吐。现有证据支持机制一致的关联，不证明所有分数差都由堆或 GC 单独造成。
