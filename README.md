@@ -1,9 +1,10 @@
 # Matrix Multiplication Autotuner (P1)
 
-《软件系统优化》实践项目 P1。**P2：运行契约修复与正式完整 Grid 已完成，等待外部审计。**
+《软件系统优化》实践项目 P1。**P2 已完成并推送；用户授权继续 P3，目前实现与验收中。**
 20/20 配置有效，120 次正式执行与 6 次独立复测均通过全矩阵检查。
 本会话测得最低中位数为 **O1/s=128：53.444627760 s**；独立复测为
-**54.779446389 s**（+2.50%）。随机与贪心只做了诊断验证，尚未进行 P3 正式比较。
+**54.779446389 s**（+2.50%）。P3 将按五种子、4/8/12预算比较随机与贪心；
+当前尚无 P3 正式比较结论。P2 未被标记为外部审计通过。
 时钟未独立校准及运行中背景资源扰动限制见
 [`docs/P2_TIMING_NOTE.md`](docs/P2_TIMING_NOTE.md) 和 [`report.md`](report.md)。
 
@@ -68,6 +69,8 @@ wsl.exe -d Ubuntu-24.04 -- bash -lc `
 
 ## 文档入口
 
+- [`docs/P3_PROTOCOL.md`](docs/P3_PROTOCOL.md)：P3 批次、私有观测、复测和比较指标。
+- [`docs/P3_AUDIT_HANDOFF.md`](docs/P3_AUDIT_HANDOFF.md)：P3 执行状态与审计入口。
 - [`docs/P2_PROTOCOL.md`](docs/P2_PROTOCOL.md)：P2 冻结协议、资源条件与续跑规则。
 - [`docs/P2_AUDIT_HANDOFF.md`](docs/P2_AUDIT_HANDOFF.md)：本轮审计及正式证据入口。
 - [`docs/P1_FOUNDATION.md`](docs/P1_FOUNDATION.md)：设计、验证、试跑、协议和成本。
@@ -142,3 +145,23 @@ python scripts/plot_p2_results.py --session-directory evidence/p2/grid-session-0
 CPU 平均≤10%/单次≤20%是**配置开始前的后台负载门槛**，不是限制矩阵程序使用 CPU。
 它减少调度、缓存、带宽和频率/温度变化的干扰；不是老师要求或通用标准，运行中快照也
 不保证资源一直稳定。本轮不因结果改变冻结门槛或事后筛除样本。
+
+## P3 批次入口
+
+`python3 -m autotuner campaign --help` 展示 P3 正式/诊断运行参数。正式运行必须先
+提交内容并通过 `scripts/prepare_p2_content.ps1 -ContentSha <完整内容SHA>` 导出，
+沿用导出器的历史 `p2-content-<SHA>` 名称但实际内容绑定 P3 SHA。在该干净归档目录
+中运行，Git 身份文件是导出器生成的 `build/p2/git_identity.json`：
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 env -u PYTHONPATH python3 scripts/run_p3_clean_validation.py \
+  --content-sha <完整内容SHA> --git-identity <导出器身份JSON绝对路径> \
+  --output <新的小规模验收证据目录>
+PYTHONDONTWRITEBYTECODE=1 env -u PYTHONPATH python3 -m autotuner campaign \
+  --content-sha <相同内容SHA> --git-identity <相同身份JSON路径> \
+  --campaign-directory <P3正式证据绝对目录> --trajectory-limit 2
+```
+
+默认先做首种子的两条完整轨迹；将 limit 增大至 10 并加 `--resume` 可继续冻结顺序。
+当前这些占位命令是接口说明，不是已经执行的正式命令；实际内容 SHA、参数和输出
+由验收/实验日志记录。安全暂停和完整恢复规则见 P3_PROTOCOL。

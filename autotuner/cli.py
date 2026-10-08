@@ -46,6 +46,15 @@ def build_parser() -> argparse.ArgumentParser:
     grid.add_argument("--session-directory", type=Path, required=True)
     grid.add_argument("--resume", action="store_true")
     grid.set_defaults(action=command_grid)
+    campaign = subparsers.add_parser("campaign", help="Run or resume the private P3 search trajectories")
+    campaign.add_argument("--content-sha", required=True)
+    campaign.add_argument("--git-identity", type=Path, required=True)
+    campaign.add_argument("--campaign-directory", type=Path, required=True)
+    campaign.add_argument("--trajectory-limit", type=int, default=2)
+    campaign.add_argument("--resume", action="store_true")
+    campaign.add_argument("--diagnostic-size", type=int, choices=(130,))
+    campaign.add_argument("--diagnostic-cache", type=Path)
+    campaign.set_defaults(action=command_campaign)
     return parser
 
 
@@ -53,6 +62,14 @@ def command_grid(args: argparse.Namespace) -> int:
     from .session import run_grid
     return run_grid(Path(__file__).resolve().parents[1], args.session_directory.resolve(),
                     args.content_sha, args.git_identity, resume=args.resume)
+
+
+def command_campaign(args: argparse.Namespace) -> int:
+    from .campaign import run_campaign
+    return run_campaign(Path(__file__).resolve().parents[1], args.campaign_directory,
+                        args.content_sha, args.git_identity, resume=args.resume,
+                        trajectory_limit=args.trajectory_limit, diagnostic_size=args.diagnostic_size,
+                        cache_root=args.diagnostic_cache)
 
 
 def load_runtime(args: argparse.Namespace) -> tuple[TargetAdapter, ConfigSpace]:
