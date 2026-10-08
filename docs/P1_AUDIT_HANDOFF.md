@@ -20,6 +20,7 @@
 4. `evidence/p1/pilots/summary.json` 与 `reference_manifest.json`。
 5. `configs/measurement_protocol.json` 与 `configs/search_protocol.json`。
 6. `evidence/p1/tests/unit_tests.txt`、`sanitizers.txt` 和 `p1_verification.txt`。
+7. `evidence/p1/remote_verification.txt`：内容提交的推送与 fetch 一致性记录。
 
 原始逐次运行记录位于 `small_cases.jsonl`、`medium_runs.jsonl` 与 `runs.jsonl`；每项
 包含命令、stdout、stderr、退出码、计算/进程时间、资源和来源哈希。128 MiB reference

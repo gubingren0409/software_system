@@ -94,3 +94,10 @@
   7 分钟。O3 完成一次预热和五次重复，CV 1.10%、相对 MAD 0.90%，无需升到七次。
 - P1 结束后再次采样：宿主约 3.5--3.8 GiB 可用，WSL 约 4.7 GiB 可用且无 swap。
   没有启动完整 20 配置长测或随机搜索。
+- 内容提交 `8234a19a6d688ecf5ddfe3243ff5e07b903c3334` 后，两次 Windows Git 推送均在
+  保持 TLS 校验开启时遇到 `unexpected eof while reading`；10808 代理在监听，但
+  Windows curl 也复现 TLS 握手失败。WSL 直连 GitHub 的 TLS 正常，因此使用 WSL
+  Git 和既有 Windows Credential Manager（未读取或输出凭据）完成同一普通推送。
+  显式 fetch 后本地 HEAD 与 `github/project01` 一致。一次组合复核命令因第二个
+  WSL Git 子命令未继承显式 `GIT_DIR/GIT_WORK_TREE` 而报 worktree 路径错误；该错误
+  不影响已成功的 fetch，最终远端 SHA 另以独立命令复核。
