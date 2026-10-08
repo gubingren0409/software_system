@@ -34,8 +34,14 @@ struct options {
 };
 
 static int parse_seed(const char *text, uint64_t *value) {
-    if (text[0] == '-') {
+    if (text[0] == '\0') {
         return 0;
+    }
+    for (const unsigned char *cursor = (const unsigned char *)text;
+         *cursor != '\0'; ++cursor) {
+        if (*cursor < (unsigned char)'0' || *cursor > (unsigned char)'9') {
+            return 0;
+        }
     }
     char *end = NULL;
     errno = 0;
@@ -116,6 +122,9 @@ static size_t sample_coordinates(int coordinates[][2], size_t capacity) {
     for (size_t k = 0; k < candidate_count && count < capacity; ++k) {
         const int i = candidates[k][0];
         const int j = candidates[k][1];
+        if (i < 0 || i >= MATRIX_N || j < 0 || j >= MATRIX_N) {
+            continue;
+        }
         int duplicate = 0;
         for (size_t prior = 0; prior < count; ++prior) {
             if (coordinates[prior][0] == i && coordinates[prior][1] == j) {

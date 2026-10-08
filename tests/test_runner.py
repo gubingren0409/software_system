@@ -11,6 +11,7 @@ from autotuner.core import (
     BuildFailure,
     Config,
     ConfigSpace,
+    ConfigurationError,
     EvaluationContext,
     Evaluator,
     ReferenceArtifact,
@@ -47,6 +48,17 @@ def valid_result() -> dict[str, object]:
         "validation": True,
         "fault_injection": 0,
     }
+
+
+def isolated_target_config(root: Path, directory: Path) -> Path:
+    data = json.loads((root / "configs/target.json").read_text(encoding="utf-8"))
+    data["candidate_source"] = str((root / "code/working/matrix_multiplication.c").resolve())
+    data["reference_source"] = str((root / "code/working/reference_generator.c").resolve())
+    data["shared_sources"] = [str((root / "code/working/matrix_input.h").resolve())]
+    data["cache_root"] = str((directory / "cache").resolve())
+    path = directory / "target.json"
+    path.write_text(json.dumps(data), encoding="utf-8")
+    return path
 
 
 class StrictJsonTests(unittest.TestCase):
@@ -112,18 +124,32 @@ class ConfigSpaceTests(unittest.TestCase):
     def test_search_protocol_is_frozen_with_requested_budgets_and_seeds(self) -> None:
         root = Path(__file__).resolve().parents[1]
         protocol = json.loads((root / "configs/search_protocol.json").read_text(encoding="utf-8"))
-        self.assertEqual(protocol["status"], "frozen-before-formal-grid")
+        self.assertEqual(protocol["schema_version"], 2)
+        self.assertEqual(protocol["status"], "revised-p1-r1-before-formal-grid")
         self.assertEqual(protocol["budgets"], [4, 8, 12])
         self.assertEqual(len(protocol["search_seeds"]), 5)
         self.assertFalse(protocol["grid"]["early_stop"])
+        self.assertIn("seven unique neighbors", protocol["random_restart_greedy"]["neighbors"])
+        self.assertIn("order-dependent", protocol["grid"]["limited_budget_comparison"])
 
 
 class BuildCacheTests(unittest.TestCase):
+    def test_reference_request_rejects_seed_above_uint64(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as directory_text:
+            directory = Path(directory_text)
+            target = TargetAdapter.load(
+                isolated_target_config(root, directory), evidence_root=directory / "evidence"
+            )
+            with self.assertRaises(ConfigurationError):
+                target.get_reference(17, 1 << 64, "random", 30.0)
+
     def test_build_key_covers_size_optimization_and_fault_mode(self) -> None:
         root = Path(__file__).resolve().parents[1]
-        with tempfile.TemporaryDirectory() as directory:
+        with tempfile.TemporaryDirectory() as directory_text:
+            directory = Path(directory_text)
             target = TargetAdapter.load(
-                root / "configs/target.json", evidence_root=Path(directory)
+                isolated_target_config(root, directory), evidence_root=directory / "evidence"
             )
             first = target.build_candidate(17, "O0")
             repeated = target.build_candidate(17, "O0")
@@ -146,9 +172,10 @@ class BuildCacheTests(unittest.TestCase):
 
     def test_performance_cache_requires_explicit_reuse(self) -> None:
         root = Path(__file__).resolve().parents[1]
-        with tempfile.TemporaryDirectory() as directory:
+        with tempfile.TemporaryDirectory() as directory_text:
+            directory = Path(directory_text)
             target = TargetAdapter.load(
-                root / "configs/target.json", evidence_root=Path(directory)
+                isolated_target_config(root, directory), evidence_root=directory / "evidence"
             )
             evaluator = Evaluator(target)
             fresh = evaluator.evaluate(

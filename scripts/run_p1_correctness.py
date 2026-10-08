@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import csv
 import json
 import subprocess
@@ -22,10 +23,21 @@ from autotuner.core import (  # noqa: E402
 
 
 def main() -> int:
-    evidence = REPO / "evidence/p1"
-    raw_evidence = Path("/var/tmp/matrix-autotuner-p1-10245102457/sessions/p1-correctness")
-    target = TargetAdapter.load(REPO / "configs/target.json", evidence_root=raw_evidence)
-    space = ConfigSpace.load(REPO / "configs/config_space.json")
+    parser = argparse.ArgumentParser(description="Run the complete P1 small correctness suite")
+    parser.add_argument("--target", type=Path, default=REPO / "configs/target.json")
+    parser.add_argument("--space", type=Path, default=REPO / "configs/config_space.json")
+    parser.add_argument(
+        "--output-directory", type=Path, default=REPO / "evidence/p1/correctness"
+    )
+    parser.add_argument(
+        "--runtime-evidence-root",
+        type=Path,
+        default=Path("/var/tmp/matrix-autotuner-p1-10245102457/sessions/p1-correctness"),
+    )
+    args = parser.parse_args()
+    raw_evidence = args.runtime_evidence_root.resolve()
+    target = TargetAdapter.load(args.target, evidence_root=raw_evidence)
+    space = ConfigSpace.load(args.space)
     configs = space.all()
     if len(configs) != 20 or len(set(configs)) != 20:
         raise RuntimeError("configuration space is not the required 20 unique combinations")
@@ -115,7 +127,7 @@ def main() -> int:
         "rel_tolerance": target.config["rel_tolerance"],
         "status": "PASS",
     }
-    output_directory = evidence / "correctness"
+    output_directory = args.output_directory.resolve()
     atomic_write_json(output_directory / "summary.json", summary)
     atomic_write_json(output_directory / "faults.json", fault_records)
     atomic_write_json(output_directory / "strict_cli.json", strict_cli_records)

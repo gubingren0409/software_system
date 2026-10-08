@@ -5,6 +5,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import subprocess
+import sys
 from pathlib import Path
 
 
@@ -22,14 +25,42 @@ def require(condition: bool, message: str) -> None:
 
 
 def main() -> None:
+    environment = os.environ.copy()
+    environment.pop("PYTHONPATH", None)
+    environment["PYTHONDONTWRITEBYTECODE"] = "1"
+    core = ROOT / "autotuner/core.py"
+    require(core.is_file(), "required core module is missing")
+    imported = subprocess.run(
+        [sys.executable, "-c", "import autotuner.core"],
+        cwd=ROOT,
+        env=environment,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    require(imported.returncode == 0, f"core module import failed: {imported.stderr}")
+    cli = subprocess.run(
+        [sys.executable, "-m", "autotuner", "--help"],
+        cwd=ROOT,
+        env=environment,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    require(cli.returncode == 0 and "list-configs" in cli.stdout,
+            f"autotuner CLI failed to start: {cli.stderr}")
+
+    sys.path.insert(0, str(ROOT))
+    from autotuner.core import ConfigSpace
+
     original = ROOT / "code/original/matrix_multiplication.c"
     require(hashlib.sha256(original.read_bytes()).hexdigest() == ORIGINAL_SHA256,
             "teacher source hash changed")
 
-    space = load("configs/config_space.json")
-    configs = space["optimization_levels"]
-    blocks = space["block_sizes"]
-    require(len(configs) * len(blocks) == 20, "configuration space is not 20 combinations")
+    space = ConfigSpace.load(ROOT / "configs/config_space.json")
+    configs = space.all()
+    require(len(configs) == 20 and len(set(configs)) == 20,
+            "configuration space is not 20 unique combinations")
 
     correctness = load("evidence/p1/correctness/summary.json")
     require(correctness["status"] == "PASS", "correctness suite did not pass")
@@ -74,6 +105,8 @@ def main() -> None:
     require(not forbidden, f"binary/cache artifact present in P1 deliverables: {forbidden}")
     print("p1_verification=PASS")
     print(f"original_sha256={ORIGINAL_SHA256}")
+    print(f"core_sha256={hashlib.sha256(core.read_bytes()).hexdigest()}")
+    print("core_import=PASS cli_start=PASS unique_configs=20/20")
     print("small_cases=160/160 faults=7/7 strict_cli=6/6")
     print("medium_optimization_levels=4/4 default_optimization_levels=4/4 repeats=5/5")
 

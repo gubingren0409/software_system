@@ -66,8 +66,14 @@ static int parse_positive_int(const char *text, int *value) {
 }
 
 static int parse_seed(const char *text, uint64_t *value) {
-    if (text[0] == '-') {
+    if (text[0] == '\0') {
         return 0;
+    }
+    for (const unsigned char *cursor = (const unsigned char *)text;
+         *cursor != '\0'; ++cursor) {
+        if (*cursor < (unsigned char)'0' || *cursor > (unsigned char)'9') {
+            return 0;
+        }
     }
     char *end = NULL;
     errno = 0;

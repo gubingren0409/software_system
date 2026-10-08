@@ -1,6 +1,7 @@
 {
-  "schema_version": 1,
-  "status": "frozen-before-formal-grid",
+  "schema_version": 2,
+  "status": "revised-p1-r1-before-formal-grid",
+  "revision_reason": "P1-R1 external review corrected the greedy neighborhood before any formal Grid or stochastic search was run.",
   "canonical_order": {
     "outer_dimension": "optimization_levels in configs/config_space.json order",
     "inner_dimension": "block_sizes in configs/config_space.json order"
@@ -12,7 +13,8 @@
   "grid": {
     "rule": "Evaluate all 20 canonical configurations exactly once at the configuration level.",
     "early_stop": false,
-    "limited_budget_comparison": "Use the incumbent after canonical prefixes 4, 8 and 12."
+    "comparison_reference": "The best valid result from the complete 20-configuration Grid is the quality reference for later algorithms.",
+    "limited_budget_comparison": "If canonical Grid prefixes of 4, 8 and 12 are reported, label them as order-dependent; the optimization-level-outer and block-size-inner order can bias prefix quality."
   },
   "random_without_replacement": {
     "rule": "Apply a seeded Fisher-Yates shuffle to the 20 canonical configurations and evaluate in that order.",
@@ -21,7 +23,7 @@
   },
   "random_restart_greedy": {
     "grid": "The two axes are the listed optimization levels and block sizes.",
-    "neighbors": "Manhattan distance one: one adjacent optimization level or one adjacent block-size entry.",
+    "neighbors": "Change exactly one parameter to any other legal value: three alternative optimization levels plus four alternative block sizes, for seven unique neighbors at every point.",
     "start": "Choose uniformly from all unevaluated configurations using the search seed.",
     "neighbor_order": "Shuffle the current point's unevaluated neighbors using the same seeded RNG, then evaluate them in that order.",
     "accept": "After the available neighborhood is evaluated, move to the strictly lower-score best neighbor; break equal scores by canonical order.",
