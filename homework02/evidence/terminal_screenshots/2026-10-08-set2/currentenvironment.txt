@@ -1,0 +1,59 @@
+**********************
+PowerShell transcript start
+Start time: 20261008231005
+Username: 小谷天天开心\28489
+RunAs User: 小谷天天开心\28489
+Configuration Name: 
+Machine: 小谷天天开心 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Users\28489\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -NoLogo -NoProfile -NoExit -File E:\software_system\course_repo\homework02\scripts\screenshots\show_terminal_evidence.ps1 -View CurrentEnvironment -Capture -Session 2026-10-08-set2
+Process ID: 49864
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.26200
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+A2 SPECjvm2008 - CurrentEnvironment
+PS E:\software_system\course_repo\homework02> .\scripts\screenshots\show_terminal_evidence.ps1 -View CurrentEnvironment -Capture -Session 2026-10-08-set2
+Collection time: 2026-10-08T23:10:05.3392716+08:00
+CURRENT CHECK ONLY; not historical measurement evidence.
+
+Read-only step: Get-CimInstance Win32_OperatingSystem | Select Caption,Version,LastBootUpTime
+
+Caption        : Microsoft Windows 11 家庭版 中文版
+Version        : 10.0.26200
+LastBootUpTime : 2026/10/8 19:02:36
+
+Read-only step: wsl -d Ubuntu-24.04 -- bash -c "date -Is; uname -a; lsb_release -ds; lscpu | CPU fields; free -h"
+2026-10-08T23:10:05+08:00
+Linux localhost 6.18.40.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Fri Jul 31 22:12:15 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+Ubuntu 24.04 LTS
+CPU(s):                                  32
+Model name:                              AMD Ryzen 9 7940HX with Radeon Graphics
+Thread(s) per core:                      2
+Core(s) per socket:                      16
+Socket(s):                               1
+               total        used        free      shared  buff/cache   available
+Mem:           7.4Gi       3.3Gi       3.4Gi       4.8Mi       1.0Gi       4.1Gi
+Swap:          2.0Gi          0B       2.0Gi
+Read-only step: wsl -d Ubuntu-24.04 -- bash -c "printenv JAVA_HOME CLASSPATH; command -v java; java -version; /home/gubingren/java/java-se-7u75-ri/bin/java -version"
+Current shell JAVA_HOME= CLASSPATH=
+/usr/bin/java
+openjdk version "17.0.20.1" 2026-08-18
+OpenJDK Runtime Environment (build 17.0.20.1+1-1-24.04-Ubuntu)
+OpenJDK 64-Bit Server VM (build 17.0.20.1+1-1-24.04-Ubuntu, mixed mode, sharing)
+Historical measurement JDK executable check:
+openjdk version "1.7.0_75"
+OpenJDK Runtime Environment (build 1.7.0_75-b13)
+OpenJDK 64-Bit Server VM (build 24.75-b04, mixed mode)
+This current check does not replace environment/environment_info.txt.
+
+Read-only evidence display complete. Original data have not been rewritten.
+**********************
+PowerShell transcript end
+End time: 20261008231007
+**********************

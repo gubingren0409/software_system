@@ -1,0 +1,52 @@
+**********************
+PowerShell transcript start
+Start time: 20261008231051
+Username: 小谷天天开心\28489
+RunAs User: 小谷天天开心\28489
+Configuration Name: 
+Machine: 小谷天天开心 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Users\28489\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -NoLogo -NoProfile -NoExit -File E:\software_system\course_repo\homework02\scripts\screenshots\show_terminal_evidence.ps1 -View OOMRaw -Capture -Session 2026-10-08-set2
+Process ID: 61412
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.26200
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+A2 SPECjvm2008 - OOMRaw
+PS E:\software_system\course_repo\homework02> .\scripts\screenshots\show_terminal_evidence.ps1 -View OOMRaw -Capture -Session 2026-10-08-set2
+Collection time: 2026-10-08T23:10:51.2121545+08:00
+READING HISTORICAL EXPERIMENT FILES; dates come from original sources. No benchmark rerun.
+
+Read-only step: Select-String logs/jvm_parameter/oom_reverification/oomverify__scimark_fft_large__xmx512m__r1.log -Pattern '^SOURCE_RUN_KEY=|^START_TIME=|^COMMAND=|^JAVA_EXIT|^END_TIME=|NOT VALID|OutOfMemoryError' (first OOM only)
+2: SOURCE_RUN_KEY=scimark_fft_large__xmx512m__r1
+4: START_TIME=2026-10-02T16:12:22+08:00
+5: COMMAND=timeout --signal=TERM --kill-after=30s 900s /home/gubingren/java/java-se-7u75-ri/bin/java -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:/home/gubingren/benchmarks/SPECjvm2008/oom_reverification_logs/oomverify__scimark_fft_large__xmx512m__r1.gc.log -Xmx512m -jar SPECjvm2008.jar --base -bt 16 scimark.fft.large
+62: Warmup (120s) result:  **NOT VALID**
+66:   [warmup][bt:16|op:1] java.lang.OutOfMemoryError: Java heap space
+82: Score on scimark.fft.large:  **NOT VALID**
+169: Composite result: not valid
+183: JAVA_EXIT_STATUS=0
+184: END_TIME=2026-10-02T16:13:25+08:00
+Read-only step: Select-String logs/jvm_parameter/oom_reverification/oomverify__scimark_fft_large__xmx512m__r1.meta -Pattern '^result_id=|^heap_config=|^java_exit_status=|^reporter_exit_status=|^start_time=|^end_time='
+heap_config=xmx512m
+start_time=2026-10-02T16:12:22+08:00
+end_time=2026-10-02T16:13:27+08:00
+java_exit_status=0
+reporter_exit_status=0
+result_id=SPECjvm2008.069
+Read-only step: Select-String specjvm2008/verification_results/SPECjvm2008.069/SPECjvm2008.069.txt -Pattern "Run is|NOT VALID|Composite"
+Run is not valid
+scimark.large                 not valid
+Composite result: not valid
+Evidence above is a failed historical run despite Java exit=0; no valid measured score.
+
+Read-only evidence display complete. Original data have not been rewritten.
+**********************
+PowerShell transcript end
+End time: 20261008231051
+**********************

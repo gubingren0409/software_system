@@ -1,0 +1,176 @@
+{
+  "view": "OOMSummary",
+  "collected_at": "2026-10-08T23:10:47.0099899+08:00",
+  "historical": true,
+  "project_root": "E:\\software_system\\course_repo\\homework02",
+  "display_script_sha256": "6b25ec37d4690804c2cfaaa395303efadfe64f3a1f4418eb4a18d07c63190aac",
+  "commands": [
+    "python -B scripts/jvm_parameter/build_oom_reverification.py --check",
+    "Import-Csv analysis/jvm_parameter/oom_reverification_results.csv | Select-Object workload,heap_config,run_id,@{n='Result';e={$_.verification_result_id}},@{n='JavaExit';e={$_.verification_java_exit_status}},@{n='ReporterExit';e={$_.verification_reporter_exit_status}},@{n='OOM';e={$_.verification_oom_occurrences}},@{n='NOT_VALID';e={$_.verification_not_valid}},@{n='reproduced';e={$_.failure_reproduced}} | Format-Table -AutoSize",
+    "python -B scripts/jvm_parameter/verify_oom_reverification.py"
+  ],
+  "sources": [
+    {
+      "path": "analysis/jvm_parameter/oom_reverification_results.csv",
+      "sha256": "6e64461121833d39492216ee3027b8be4a54c11c1fc7f13cd22bc9d78c61ecce"
+    },
+    {
+      "path": "logs/jvm_parameter/oom_reverification/gc/oomverify__derby__xmx512m__r1.gc.log",
+      "sha256": "dc938dc422051b5fb647d4f7647c065bf0dd9705333dc79d91ce60d12aa154cc"
+    },
+    {
+      "path": "logs/jvm_parameter/oom_reverification/gc/oomverify__derby__xmx512m__r2.gc.log",
+      "sha256": "4d2580f1ed83f9bc8ab883450ebb34b657f2fe4290a7ec6de64289c3453d2ffc"
+    },
+    {
+      "path": "logs/jvm_parameter/oom_reverification/gc/oomverify__derby__xmx512m__r3.gc.log",
+      "sha256": "a52abf00c468419a3ffd8c5ec7671350db4e69b5fa9c9a4cfce9a19f3e45461c"
+    },
+    {
+      "path": "logs/jvm_parameter/oom_reverification/gc/oomverify__scimark_fft_large__xmx1024m__r1.gc.log",
+      "sha256": "3ca266f32c8d0d037b316d299b46771b5b0834e2de80a335b117bc8abcdd314b"
+    },
+    {
+      "path": "logs/jvm_parameter/oom_reverification/gc/oomverify__scimark_fft_large__xmx1024m__r2.gc.log",
+      "sha256": "50601458c5cc2a56c6721acf6c84512220f8d19bc3925ab6593da4ec190a3953"
+    },
+    {
+      "path": "logs/jvm_parameter/oom_reverification/gc/oomverify__scimark_fft_large__xmx1024m__r3.gc.log",
+      "sha256": "d5027b52ef0518811162e4212d0fe62472a12ed48ca5dba7abec8bd9adf06ed1"
+    },
+    {
+      "path": "logs/jvm_parameter/oom_reverification/gc/oomverify__scimark_fft_large__xmx512m__r1.gc.log",
+      "sha256": "833971fef4172779dfa8329f9313f9cbfa2ee848f2a0775b572074168f9e1251"
+    },
+    {
+      "path": "logs/jvm_parameter/oom_reverification/gc/oomverify__scimark_fft_large__xmx512m__r2.gc.log",
+      "sha256": "46d314b207b79d726dcdff6cc775918af24098cb51cdeb2dba742e7025eb28ed"
+    },
+    {
+      "path": "logs/jvm_parameter/oom_reverification/gc/oomverify__scimark_fft_large__xmx512m__r3.gc.log",
+      "sha256": "c4431d0188ff5e9820ad06993815b1fae7b197d53cf9479b64b47fdb3f903d7a"
+    },
+    {
+      "path": "logs/jvm_parameter/oom_reverification/oomverify__derby__xmx512m__r1.log",
+      "sha256": "ed5457d0dade3411f06e1ddf711f35ac2d37e37aa351d861be8537a50e9b47bd"
+    },
+    {
+      "path": "logs/jvm_parameter/oom_reverification/oomverify__derby__xmx512m__r2.log",
+      "sha256": "32b50bda3c8515d1c9a0b4efefd90558c2ff417547d478f45842a50f451d8d5b"
+    },
+    {
+      "path": "logs/jvm_parameter/oom_reverification/oomverify__derby__xmx512m__r3.log",
+      "sha256": "a43263b055a74c7760c9c3c32b3a43b7e33680d2493ab032e995bf1ea1fbaa61"
+    },
+    {
+      "path": "logs/jvm_parameter/oom_reverification/oomverify__scimark_fft_large__xmx1024m__r1.log",
+      "sha256": "fd0b9c14263c9a5f942a1d42a3875a826ad5080e1874da271ae3dfdc20d8a4e3"
+    },
+    {
+      "path": "logs/jvm_parameter/oom_reverification/oomverify__scimark_fft_large__xmx1024m__r2.log",
+      "sha256": "b30acb663e9816416797cf853206e696072690f5a5ae2572b0b738a85b954014"
+    },
+    {
+      "path": "logs/jvm_parameter/oom_reverification/oomverify__scimark_fft_large__xmx1024m__r3.log",
+      "sha256": "6193c1156fb2ade516d8db43f83af94a9f17b80498b84258f970a5b6d857ca1f"
+    },
+    {
+      "path": "logs/jvm_parameter/oom_reverification/oomverify__scimark_fft_large__xmx512m__r1.log",
+      "sha256": "626e82aa34ac2203f9fb0c785f571c8e2ca2edaf0babe72f57761e57b6ec6999"
+    },
+    {
+      "path": "logs/jvm_parameter/oom_reverification/oomverify__scimark_fft_large__xmx512m__r2.log",
+      "sha256": "839e580338f6b06c5352ce346a218a4a070d7bf2a7c330ac298f5810c34769c2"
+    },
+    {
+      "path": "logs/jvm_parameter/oom_reverification/oomverify__scimark_fft_large__xmx512m__r3.log",
+      "sha256": "33b0aabc449e976782b2038ef22c73b153a3039718f7dc84f8004f3eac33adfb"
+    },
+    {
+      "path": "specjvm2008/verification_results/SPECjvm2008.066/SPECjvm2008.066.raw",
+      "sha256": "9d3235ece2bb9195c4229a25a6eddb794f4f1a4400cf2c2ce00cd35d3d457d3f"
+    },
+    {
+      "path": "specjvm2008/verification_results/SPECjvm2008.066/SPECjvm2008.066.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "specjvm2008/verification_results/SPECjvm2008.067/SPECjvm2008.067.raw",
+      "sha256": "d7d813770f94cd6fec13af21565976f25a329e55bc3b400c4ded5347d8110fe8"
+    },
+    {
+      "path": "specjvm2008/verification_results/SPECjvm2008.067/SPECjvm2008.067.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "specjvm2008/verification_results/SPECjvm2008.068/SPECjvm2008.068.raw",
+      "sha256": "cf490ca1bdfc320776a7638f9220e8a216fdadf6ab5a33d6aaf032968d8725e9"
+    },
+    {
+      "path": "specjvm2008/verification_results/SPECjvm2008.068/SPECjvm2008.068.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "specjvm2008/verification_results/SPECjvm2008.069/SPECjvm2008.069.raw",
+      "sha256": "5ae528c1f2c3d37159f2753158e40c247f909d142c3f324c146dfafe4862d4a0"
+    },
+    {
+      "path": "specjvm2008/verification_results/SPECjvm2008.069/SPECjvm2008.069.txt",
+      "sha256": "96c3c0855ccb9459995c07db08aaaa216ae5e5e5e27d1d0687c3b2ecbf3c0669"
+    },
+    {
+      "path": "specjvm2008/verification_results/SPECjvm2008.070/SPECjvm2008.070.raw",
+      "sha256": "fd7c1a44bb727b2dafda190d10829ca8d3db2c334e6224b57d674da183054670"
+    },
+    {
+      "path": "specjvm2008/verification_results/SPECjvm2008.070/SPECjvm2008.070.txt",
+      "sha256": "09e17dde425e44e3f30e6f70ead0070ce50e66728c3b50e5ab30d4a817e2c17b"
+    },
+    {
+      "path": "specjvm2008/verification_results/SPECjvm2008.071/SPECjvm2008.071.raw",
+      "sha256": "cd6535b493b092a995d3864d68cda8de63602975e3269a61289f309a5d11f450"
+    },
+    {
+      "path": "specjvm2008/verification_results/SPECjvm2008.071/SPECjvm2008.071.txt",
+      "sha256": "5a0e479ca12eda4621ae19368992a0f25031d10ff58c3243933ef05115b76f2f"
+    },
+    {
+      "path": "specjvm2008/verification_results/SPECjvm2008.072/SPECjvm2008.072.raw",
+      "sha256": "422bb46824378fd3f492bbbe002c9dcdb389859359319fa81d44127ad63b40df"
+    },
+    {
+      "path": "specjvm2008/verification_results/SPECjvm2008.072/SPECjvm2008.072.txt",
+      "sha256": "e560e2e661fb6d13bb289512bbd828f7e4ed2c5fce8940448f8a1f2073c1468a"
+    },
+    {
+      "path": "specjvm2008/verification_results/SPECjvm2008.073/SPECjvm2008.073.raw",
+      "sha256": "30b984d83054519894db3ef6ab16224890f73851ddcadc6cc1b06a254fcb5eab"
+    },
+    {
+      "path": "specjvm2008/verification_results/SPECjvm2008.073/SPECjvm2008.073.txt",
+      "sha256": "567c00721c70889672b76e34e3fc9a911c4963064fd3fc53362700ceb3effc05"
+    },
+    {
+      "path": "specjvm2008/verification_results/SPECjvm2008.074/SPECjvm2008.074.raw",
+      "sha256": "5b4ecd6bcbb0515430a9446edbd12c409c3824897650362005da5843f13332bf"
+    },
+    {
+      "path": "specjvm2008/verification_results/SPECjvm2008.074/SPECjvm2008.074.txt",
+      "sha256": "628ee0285e9467c6d6d0875122afcef8ccb0848a4414e176a2c01a1aad67f671"
+    }
+  ],
+  "transcript": "evidence/terminal_screenshots/2026-10-08-set2/oomsummary.txt",
+  "native_screen_capture": true,
+  "capture_api": "System.Drawing.Graphics.CopyFromScreen (Windows desktop pixels; DWM visible window bounds)",
+  "window_handle": 5507642,
+  "window_rect": {
+    "top": 20,
+    "left": 29,
+    "right": 1907,
+    "bottom": 904
+  },
+  "rendered_rows": 30,
+  "visible_rows": 31,
+  "screenshot": "images/terminal/2026-10-08-set2/oomsummary.png",
+  "screenshot_sha256": "7975575043037351fedacdd3dc3e16b50506e35350523d5b82946f268941ae4d"
+}

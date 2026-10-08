@@ -3,19 +3,19 @@
 学号：10245102457　姓名：谷秉仁<br>
 实验日期：2026-09-30（北京时间）　提交分支：`homework02`
 
+正文对应老师第 1—7 题。
+
+截图说明：前序实验进行时忘记截取即时的终端输出，因此报告中的实验结果终端截图是在撰写报告期间（2026-10-08），根据保存的日志、原始结果和实验记录，重新执行读取、汇总与验证命令，复现结果展示后采集的。此次未重新运行性能实验，实验时间以原始记录为准；截图对应的命令、来源和校验记录见[截图来源与验收记录](evidence/terminal_screenshots/README.md)。
+
 **核心结果：** 在 WSL2 Ubuntu 24.04、OpenJDK 7u75 RI、16 个 benchmark 线程下，完整运行 SPECjvm2008 1.01 Base，结果编号 **`SPECjvm2008.007`**，综合得分 **421.24 SPECjvm2008 Base ops/min**。本地 SPEC 报告标记 **`Run is compliant`**；这不是声称该结果已经提交或获 SPEC 官方发表。[正式文本报告](specjvm2008/results/SPECjvm2008.007/SPECjvm2008.007.txt)与[原始 raw](specjvm2008/results/SPECjvm2008.007/SPECjvm2008.007.raw)是本文所有本机正式分数的起点。
 
-## 1. 实验目标
+## 1. SPECjvm2008 背景、用途与 Base/Peak（第 1 题）
 
-按课程要求完成一次可复查的标准 benchmark 流程：检查并记录系统/JVM 环境，安装原版套件，执行完整 Base，分析不同 Java workload 的性能特征，与一份 SPEC 已发表 Base 结果作有边界的比较，并以同环境三次单项重复量化波动。重点不只是获得总分，还要核实有效性、保留原始输出，并区分测量事实、观察、机制解释与尚未证明的因果关系。课程只要求 Base；选做参数试验另行保留，不纳入正式 Base 结论。
-
-## 2. SPECjvm2008 背景与计分
-
-### 2.1 SPEC 与标准基准测试
+### 1.1 SPEC 与标准基准测试
 
 [SPEC](https://www.spec.org/spec/spec.html)（Standard Performance Evaluation Corporation）制定并维护标准化性能基准及结果规则。统一 workload、计时、正确性检验和配置披露，让成绩具备可复核的共同语境；它并不能替代实际业务负载或消除不同平台的全部混杂因素。[Run and Reporting Rules](https://www.spec.org/jvm2008/docs/RunRules.html)规定何种运行可报告为合规成绩。
 
-### 2.2 测量对象与 workload 覆盖
+### 1.2 测量对象与 workload 覆盖
 
 按 [User’s Guide §1](https://www.spec.org/jvm2008/docs/UserGuide.html)，SPECjvm2008 主要测量 JRE（JVM 及类库）执行单个应用时的性能，也反映硬件 CPU、内存子系统与 OS 的影响；它对文件 I/O 依赖较小，不包含远程网络 I/O，因此不是磁盘、网络或完整服务端系统的通用基准。
 
@@ -31,7 +31,7 @@
 
 各项的官方定义与更多敏感因素见[背景资料](analysis/specjvm_background.md)及[SPEC benchmark 说明](https://www.spec.org/jvm2008/docs/benchmarks/)；`crypto.aes` **并非纯 AES 微基准**，其定义还含 DES/CBC 路径。
 
-### 2.3 测量、汇总与 Base/Peak
+### 1.3 测量、汇总与 Base/Peak
 
 一次 *operation* 是该 workload 固定的一份工作，**不同项的 operation 并不等量**。吞吐项默认预热 120 秒、正式迭代 240 秒，按 `operations × 60000 / 实际耗时(ms)` 计算 ops/min；预热不计最终分数。`startup.*` 则为每个任务启动新 JVM，含义与长时间吞吐不同。套件先对同类子项求几何平均，再对 **11 个组**求几何平均形成 Composite；它不是把各项 ops/min 相加。[User’s Guide §1、§6](https://www.spec.org/jvm2008/docs/UserGuide.html)
 
@@ -42,7 +42,13 @@
 
 这不是说 Base 禁止 OS/硬件设置，也不是说 Peak 可以忽略正确性。[User’s Guide §1.4](https://www.spec.org/jvm2008/docs/UserGuide.html)、[Run Rules](https://www.spec.org/jvm2008/docs/RunRules.html)和[FAQ](https://www.spec.org/jvm2008/docs/FAQ.html)给出边界。仅选一个 workload 的重复或诊断可以有效，却不能称为完整合规 Base。
 
-## 3. 实验环境
+## 2. 安装、环境配置与完整 Base 结果（第 2 题）
+
+### 2.1 正式环境与本次检查
+
+![测量环境与正式运行命令](images/terminal/2026-10-08-set2/historicalenvironment.png)
+
+图 1：正式实验的 OS、CPU、内存、Java 环境、环境变量及 Base 启动命令。
 
 以下是**正式测量时**的环境，不把后续诊断时变化的 WSL 内核当作旧运行环境。原始命令输出（`uname -a`、`lsb_release -a`、`/etc/os-release`、`lscpu`、`free -h`、`java -version`、`javac -version` 及环境变量）见[环境原始记录](environment/environment_info.txt)，解释见[环境摘要](analysis/environment_summary.md)。
 
@@ -56,29 +62,39 @@
 | 环境变量 | `JAVA_HOME=/home/gubingren/java/java-se-7u75-ri`；`PATH` 首项为 `$JAVA_HOME/bin`；`CLASSPATH` 为空，完整原值见原始记录 |
 | 正式线程设置 | `--base -bt 16`；这是 benchmark 线程配置，不代表 Java 进程总线程数恒为 16 |
 
-套件与 JDK 安装于 WSL 独立目录，没有替换系统 Java；仓库保留[安装位置/校验和](specjvm2008/INSTALL_LOCATION.txt)、执行脚本、完整日志及[完整 results 目录](specjvm2008/results/)，不在 Git 中重复提交大型安装包/JDK 压缩包。当前仓库检出目录与当时实验目录不同；历史脚本内的固定路径要调整后才能在新目录执行，不能声称“克隆即一键重跑”。
+套件与 JDK 安装于 WSL 独立目录，没有替换系统 Java；仓库保留[安装位置/校验和](specjvm2008/INSTALL_LOCATION.txt)、执行脚本、完整日志及[完整 results 目录](specjvm2008/results/)，不在 Git 中重复提交大型安装包/JDK 压缩包。当前仓库检出目录与当时实验目录不同；历史脚本内的固定路径要调整后才能在新目录执行。
 
-## 4. 安装、兼容性与实验配置
+![报告整理时的 Windows 与 WSL 环境检查](images/terminal/2026-10-08-set2/currentenvironment.png)
 
-### 4.1 原版安装与版本选择
+图 2：报告整理时的 Windows 与 WSL 环境检查。
 
-先发现系统有 Java 17、无可用 SPEC 安装。按课程建议独立安装 [OpenJDK 8u41 RI](https://download.java.net/openjdk/jdk8u41/ri/openjdk-8u41-b04-linux-x64-14_jan_2020.tar.gz)，再从 [SPEC 官方安装包](https://www.spec.org/downloads/osg/java/SPECjvm2008_1_01_setup.jar)安装 1.01；安装包 SHA-256 为 `4d3ed86fa7141abf6bef45bc738916d06abc1ebad23423115787f5d8a5e69cde`，JAR 可列目录。安装命令是 `java -jar downloads/SPECjvm2008_1_01_setup.jar -i console`，未修改套件 properties。Java 8 的完整 Base 尝试卡在 `startup.compiler.sunflow`：jstack 显示 javac 输出诊断时线程受阻。SPEC [Known Issues §8](https://www.spec.org/jvm2008/docs/KnownIssues.html)指出旧编译器不兼容 Java 8+ 类库；删去 compiler 项会失去完整性。于是另装 [OpenJDK 7u75 RI](https://download.java.net/openjdk/jdk7u75/ri/openjdk-7u75-b13-linux-x64-18_dec_2014.tar.gz)作为**测量 JVM**，先用短项验证 `startup.compiler.sunflow` 可运行，再执行完整套件。选择 Java 7 的首要理由是兼容性，**不是证明它更快**。[安装记录](logs/install.log)、[Java 8 失败输出](logs/base_run_java8_failed.log)、[线程栈](logs/startup_sunflow_hang_jstack.txt)及[Java 7 检查](logs/java7_compiler_check.log)保存了该链条。
+2026-10-08 检查时，WSL 内核为 `6.18.40.1`，默认 `/usr/bin/java` 为 OpenJDK `17.0.20.1`，检查 shell 的 `JAVA_HOME` 为空；独立 Java 7u75 可执行文件仍可查询。这些信息用于说明环境后续变化，正式实验环境仍以图 1 及上表为准。
 
-### 4.2 32 线程 OOM 与 16 线程决策
+### 2.2 安装、兼容性与配置决策
+
+#### 原版安装与版本选择
+
+先发现系统有 Java 17、无可用 SPEC 安装。按课程建议独立安装 [OpenJDK 8u41 RI](https://download.java.net/openjdk/jdk8u41/ri/openjdk-8u41-b04-linux-x64-14_jan_2020.tar.gz)，再从 [SPEC 官方安装包](https://www.spec.org/downloads/osg/java/SPECjvm2008_1_01_setup.jar)安装 1.01；安装包 SHA-256 为 `4d3ed86fa7141abf6bef45bc738916d06abc1ebad23423115787f5d8a5e69cde`，JAR 可列目录。安装命令是 `java -jar downloads/SPECjvm2008_1_01_setup.jar -i console`，未修改套件 properties。Java 8 的完整 Base 尝试卡在 `startup.compiler.sunflow`：jstack 显示 javac 输出诊断时线程受阻。SPEC [Known Issues §8](https://www.spec.org/jvm2008/docs/KnownIssues.html)指出旧编译器不兼容 Java 8+ 类库；删去 compiler 项会失去完整性。于是另装 [OpenJDK 7u75 RI](https://download.java.net/openjdk/jdk7u75/ri/openjdk-7u75-b13-linux-x64-18_dec_2014.tar.gz)作为**测量 JVM**，先用短项验证 `startup.compiler.sunflow` 可运行，再执行完整套件。选择 Java 7 的首要理由是兼容性。[安装记录](logs/install.log)、[Java 8 失败输出](logs/base_run_java8_failed.log)、[线程栈](logs/startup_sunflow_hang_jstack.txt)及[Java 7 检查](logs/java7_compiler_check.log)保存了该链条。
+
+#### 32 线程 OOM 与 16 线程决策
 
 WSL 可见 32 逻辑 CPU，但仅有 7.4 GiB 内存。默认线程数试跑在 `scimark.fft.large` 暖机期间出现 `OutOfMemoryError` 和 `NOT VALID`，不能当成绩；其日志机器时间为 **15:06:31–16:00:50**。SPEC [Known Issues §1](https://www.spec.org/jvm2008/docs/KnownIssues.html)说明活数据量随 benchmark 线程数增加，可通过 `-bt` 降低。**16:07:35–16:09:12** 的 `-bt 16` 单项短测先验证该项可完成，随后才运行完整 Base。16 恰等于物理核心数，但证据仅支持“在此内存条件下可完成”，**不证明 16 是性能最优值**。[OOM 日志](logs/base_run_oom_failed.log)、[短测日志](logs/scimark_large_16t_check.log)、[时间线审计](audit/core_evidence_audit.md)可复核。原 `install.log` 手写的 OOM 结束时间 `16:48` 与机器日志冲突，文件末尾已保留校注，不能据此误判两次测试重叠。
 
-### 4.3 WSL 时钟与报告器
+#### WSL 时钟与报告器
 
 更早的一轮在 WSL 墙钟从 **11:18:49 跳到 15:02:30** 时出现不可能的负吞吐/`compress 0.00`，已废弃。正式包装器在启动前按 Windows UTC 同步并检查 WSL 时钟偏差、临时防止宿主休眠；没有独立保留该次偏差数值，因此只称“使用了此检查逻辑”，不称已证明全程无时钟扰动。[跳钟失败日志](logs/base_run_clock_jump_failed.log)、[包装器](scripts/run_base.ps1)
 
 正式 `.007` 的 38 项测量完成后，Java 7 在图表渲染阶段抛出 `X11FontManager` `NullPointerException`。按 [User’s Guide §5.2](https://www.spec.org/jvm2008/docs/UserGuide.html)的独立 reporter 用法，用已安装的 Java 8 对既有 `.007.raw` 执行 `--reporter`，成功生成 HTML、TXT、summary、submission 文件及图，不重新运行 workload。[正式日志](logs/base_run.log)与[reporter 日志](logs/reporter_regeneration.log)区分了两个阶段。当前 raw SHA-256 与早期[校验和记录](environment/artifact_sha256.txt)相同，且 raw/各报告得分一致；当时未独立采集 reporter **前后两份** raw 哈希，因此不把“raw 从未被任何程序写入”夸大成已独立证明的事实。
 
-## 5. 完整 Base 测试与结果
+### 2.3 完整 Base 测试与结果
 
-### 5.1 协议与有效性
+![SPECjvm2008.007 Base 结果](images/terminal/2026-10-08-set2/base.png)
 
-测量 JVM 的 `JAVA_HOME` 与 `PATH` 如第 3 节；在原版安装目录运行，**不添加 JVM 调优参数、不修改 properties、不跳过 workload**：
+图 3：`SPECjvm2008.007` 的测试日期、11 组成绩与综合得分 421.24 ops/min，报告状态为 `Run is compliant`。
+
+#### 协议与有效性
+
+测量 JVM 的 `JAVA_HOME` 与 `PATH` 如第 2.1 节；在原版安装目录运行，**不添加 JVM 调优参数、不修改 properties、不跳过 workload**。下面是历史正式命令，不是此次新启动的命令：
 
 ```bash
 java -jar SPECjvm2008.jar --base -bt 16
@@ -86,11 +102,11 @@ java -jar SPECjvm2008.jar --base -bt 16
 
 正式日志记录开始 `2026-09-30T16:10:03+08:00`、结束 `18:25:15+08:00`（约 2 小时 15 分）。`.007` 有 **38 个计分 workload**（17 个 `startup.*`、21 个吞吐项）和另 1 个功能 `check`；日志有 39 次 `Valid run!`，无 `NOT VALID` 或 OOM。SPEC [文本](specjvm2008/results/SPECjvm2008.007/SPECjvm2008.007.txt)、[HTML](specjvm2008/results/SPECjvm2008.007/SPECjvm2008.007.html)、[summary](specjvm2008/results/SPECjvm2008.007/SPECjvm2008.007.summary)及[submission 元数据](specjvm2008/results/SPECjvm2008.007/SPECjvm2008.007.sub)一致显示 **421.24 ops/min**，文本及 HTML 标记 `Run is compliant`。`EXIT_STATUS=0` 单独不足以证明合规：失败 OOM 轮也曾以 0 退出；此处判定是多项原始证据的交叉核查。[逐项审计](audit/core_evidence_audit.md)
 
-### 5.2 SPEC 原图与 11 组成绩
+#### SPEC 原图与 11 组成绩
 
-![正式 SPECjvm2008.007 reporter 的原始 Base 图](images/base_scores.jpg)
+![SPECjvm2008.007 Base 成绩图](images/base_scores.jpg)
 
-图 1：原版 reporter 的 `.007/images/all.jpg` 原样拷贝，已用 SHA-256 核对；反映各组得分，不是另外一轮测试。
+图 4：SPEC reporter 生成的 `.007` 各组成绩图。
 
 | 分组 | ops/min | 分组 | ops/min |
 |---|---:|---|---:|
@@ -103,9 +119,9 @@ java -jar SPECjvm2008.jar --base -bt 16
 
 ![由正式 raw 派生的 11 组分数图；startup 使用独立刻度](images/analysis/base_group_scores.png)
 
-图 2：由[组分 CSV](analysis/base_result_table.csv)自动生成；`startup` 单列独立坐标，避免与吞吐项共用尺度造成误读。各组 operation 含义不同，柱长**不是**“不同应用的速度排行榜”。[全 38 项测量表](analysis/workload_measurements.csv)可追溯至 `.007.raw`。
+图 5：11 组分数，`startup` 使用独立坐标。各组 operation 含义不同，柱长不是应用速度排行榜。[组分 CSV](analysis/base_result_table.csv)与[全 38 项测量表](analysis/workload_measurements.csv)提供详细数据。
 
-## 6. Workload 性能分析
+## 3. 具体 Workload 的分数与性能机制（第 3 题）
 
 下列六项都取 `.007` 正式迭代，单位 ops/min；Δ 为“正式相对预热”的百分比，**不是跨平台加速比**。[逐项原始数据与计算](analysis/workload_analysis.md)
 
@@ -120,13 +136,13 @@ java -jar SPECjvm2008.jar --base -bt 16
 
 ![六项 workload 预热到正式阶段的百分比变化](images/analysis/warmup_measured.png)
 
-图 3：由[逐项 CSV](analysis/workload_measurements.csv)生成。SciMark large 的一次下降不等于长期趋势；跨 workload 的绝对 ops/min 也不能解读为“Derby 比 Sunflow 快 2 倍”。`crypto` **组分 676.52** 是多个密码学子项的几何平均，不能与 `crypto.aes 206.89` 混称。对应工作机制见[SPEC 官方说明](https://www.spec.org/jvm2008/docs/benchmarks/)与[六项深度分析](analysis/workload_analysis.md)。
+图 6：由[逐项 CSV](analysis/workload_measurements.csv)生成的分析图。SciMark large 的一次下降不等于长期趋势；跨 workload 的 ops/min 不能解读为“Derby 比 Sunflow 快 2 倍”。`crypto` 组分 676.52 是子项几何平均，不等于 `crypto.aes 206.89`。[六项深度分析](analysis/workload_analysis.md)
 
 补充诊断：后来以相同 JDK/`-bt 16` 对 `compress` `.015` 和 `sunflow` `.016` 各做一次独立单项 profiling。整个 Java 进程的 `/usr/bin/time -v` 记录：后者 CPU 百分比 2499%（前者 1382%）、最大 RSS 1,128,580 KiB（前者 669,080 KiB）、上下文切换更多；与 Sunflow 内部并行设计相容。但**不同 workload、跨日、整进程范围、工具及 WSL 虚拟计数器**使它们不能证明 `.007` 的瓶颈或解释旧重复的下降，也不是第二份合规 Base。[诊断分析及原始证据](analysis/diagnostics/profile_analysis.md)
 
-## 7. 与 SPEC 官方发表结果比较
+## 4. 与 SPEC 官方 Base 结果比较（第 4 题）
 
-### 7.1 选择与环境差异
+### 4.1 选择与环境差异
 
 从[SPEC 公开 Base 列表](https://www.spec.org/jvm2008/results/jvm2008/)筛出同为 **1.01 / Java 7** 的报告；[候选审查表](analysis/official_reference_candidates.csv)保留全部六条。主参考选 [Huawei RH 2285 Base 335.78](https://www.spec.org/jvm2008/results/res2012q1/jvm2008-20111230-00013.base/SPECjvm2008.base.html)：其 12 核/24 逻辑线程、24 benchmark 线程比更大型服务器接近本机尺度。补充保留 [Sugon I620-G20 Base 853.15](https://www.spec.org/jvm2008/results/res2015q1/jvm2008-20150120-00018.base/SPECjvm2008.base.html)：同属 OpenJDK 7 HotSpot 家族，但 40 线程/256 GB 规模差距大。**主参考并非控制组**；本机报告合规但未在 SPEC 官网页面发表。
 
@@ -138,7 +154,7 @@ java -jar SPECjvm2008.jar --base -bt 16
 | JVM | OpenJDK 7u75 RI，HotSpot 24.75-b04 | Oracle Java 7u02 HotSpot | Red Hat OpenJDK 7u45，HotSpot 24.45-b08 |
 | OS | Ubuntu 24.04 on WSL2/Windows 11 | SUSE Linux Enterprise Server 11 SP1 | RHEL 6.5 |
 
-### 7.2 同名指标的观察
+### 4.2 同名指标的观察
 
 下表只比较**同名指标**；比值定义为“官方 / 本机”，不按核心、频率或线程归一化。数据由[官方网页快照](analysis/official_reference_huawei.html)、[Sugon 快照](analysis/official_reference_base.html)与[本机组分表](analysis/base_result_table.csv)核对。[完整比较与来源 CSV](analysis/official_comparison.md)
 
@@ -154,9 +170,13 @@ java -jar SPECjvm2008.jar --base -bt 16
 
 ![两份官方 Base 与本机的同名指标倍率](images/analysis/official_comparison.png)
 
-图 4：无量纲的同名指标比值；虚线为 1，`startup` 因性质不同也只作自身比值。观察上，Huawei 的 `compress` 接近本机而 `sunflow` 约为本机 0.587；Sugon 的 `crypto` 组约为本机 4.251，说明不同工作负载对整个系统配置的响应并不一致。**解释边界：** CPU 架构/主频/核心数、内存、benchmark 线程、JDK 实现/版本、OS 与 WSL 层同时变化；无控制变量实验或运行时计数器，不能把某个倍率单独归因于“大内存”“核心数”或特定指令。Huawei 报告还含部分软件调优占位字段，披露质量亦限制解释。两份服务器结果均为 SPEC 已发表 Base，本机只是本地 reporter 标记合规。
+图 7：同名指标的“官方 / 本机”比值，虚线为 1。Huawei 的 `compress` 接近本机而 `sunflow` 约为本机 0.587；Sugon 的 `crypto` 组约为本机 4.251，说明响应随 workload 改变。CPU 架构、主频、核心数、内存、线程、JDK 与 OS/WSL 同时变化，**不能把倍率单独归因于某一因素**。Huawei 还含软件调优占位字段，披露质量限制解释。两份服务器结果已由 SPEC 发表，本机仅为本地 reporter 标记合规。
 
-## 8. 同环境三次 `compress` 重复
+## 5. 同环境三次 compress 重复与波动（第 5 题）
+
+![三次 compress 重复实验与统计](images/terminal/2026-10-08-set2/repeats.png)
+
+图 8：`.008/.009/.010` 三次 compress 的正式成绩、均值、样本标准差（`n−1`）及 CV。
 
 在同一 WSL/JDK/套件与 `-bt 16` 下，依次执行 `java -jar SPECjvm2008.jar --base -bt 16 compress`；每次新 JVM，默认预热 120 秒、正式测量 240 秒。三份报告都写 **`Run is valid, but not compliant`**（仅单项）；不能拿它们求全套 Composite，也不能替换 `.007`。[原始索引](analysis/repeat_test_results.csv)、[三份 raw/TXT](specjvm2008/results/)与[重复分析](analysis/repeat_test_analysis.md)
 
@@ -170,9 +190,11 @@ java -jar SPECjvm2008.jar --base -bt 16
 
 ![三次 compress 正式分数与均值；纵轴放大且不从零起](images/analysis/repeat_compress.png)
 
-图 5：图中虚线为均值，**纵轴放大**只为看清小幅波动，不暗示长期下降趋势。Run3 的 warmup 为 548.53，正式却降至 522.15；这是观察。每次 JVM 的 JIT/GC 时序、OS/WSL 调度、后台负载、动态频率及热/功耗策略都是可能因素，但原三次**没有同步 GC、频率、温度、功耗或系统负载序列**。所以不能断言“热降频造成第三次下降”，也不能把 `n=3` 当成可靠长期趋势或置信区间。后做的 `.015/.016` 诊断时间/负载不同，不能回溯证明旧三次的原因。原始[Run1](logs/repeat_compress_run1.log)、[Run2](logs/repeat_compress_run2.log)、[Run3](logs/repeat_compress_run3.log)日志均保留。
+图 9：虚线为均值，**纵轴放大**只为看清波动，不暗示长期趋势。Run3 预热 548.53、正式 522.15 是观察；每次新 JVM 的 JIT/GC、OS/WSL 调度、后台任务和 CPU 频率/热功耗策略都可能参与，但没有同步遥测，不能断言热降频或其他唯一原因，`n=3` 也不足以推断长期趋势。后来 `.015/.016` 的诊断不能回溯解释旧三次。原始[Run1](logs/repeat_compress_run1.log)、[Run2](logs/repeat_compress_run2.log)、[Run3](logs/repeat_compress_run3.log)日志均保留。
 
-## 9. 问题、定位证据与处理
+## 6. 实验体会、问题与解决过程（第 6 题）
+
+### 6.1 问题与证据
 
 | 问题 | 现象与定位证据 | 处理 | 对正式 `.007` 的影响 |
 |---|---|---|---|
@@ -184,25 +206,25 @@ java -jar SPECjvm2008.jar --base -bt 16
 
 失败结果与其他探索性单项仍完整保存在 `logs/` 和 `specjvm2008/results/`，未删除、未伪装为合规成绩。`install.log` 的 OOM 终点手写错误及其校注见[证据审计](audit/core_evidence_audit.md)。
 
-## 10. 实验反思与复现边界
+### 6.2 体会与复现边界
 
 一次 benchmark 的可用性不能只看进程退出码或一张图：须同时核对套件范围、每项正确性、预热/计时、`raw`、报告状态和运行配置。`.007` 的 421.24 来自完整、经本地 reporter 标记合规的 Base；重复/诊断/参数单项即使“valid”，其研究用途和合规属性仍不同。保留失败日志揭示 Java 兼容、WSL 时钟与内存约束，也让线程设置有可追溯动机，而不是事后挑选分数。
 
 复现要求记录 **JDK 构建、套件版本、OS/WSL、线程、命令、时间及完整结果树**；原始环境/安装包校验和与[证据映射](audit/final_report_evidence_map.md)便于核查。不过 WSL 虚拟化、宿主负载、未记录的正式运行频率/温度/GC，以及跨机 JVM/OS/线程差异，限制了单因素解释。SciMark small/large 与不同应用的 operation 定义也不等量。若要进一步检验热或 GC 假说，应在**新实验**同步采样并做受控、交错重复，而不能用事后快照冒充历史证据。[剩余局限](audit/remaining_risks.md)
 
-选做 `-Xmx` 单项对照曾观察到 546.46→536.04 ops/min，但只有顺序两次、差值落在既有重复波动范围内，且并非完整合规 Base；只在[独立记录](analysis/jvm_parameter_experiment.md)保留，不用于上面的正式结论。没有运行完整 Peak 套件。
+早期两次 `-Xmx` 探索仅保存在[独立记录](analysis/jvm_parameter_experiment.md)，未混入第 7 题的 48 次矩阵。没有运行完整 Peak 套件。
 
-## 11. 结论与提交导航
+### 6.3 结论与材料导航
 
-本实验实际获得一份本地 reporter 标记合规的完整 SPECjvm2008 1.01 Base 结果：**`.007`、421.24 ops/min、16 benchmark 线程**；六项 workload 分析显示阶段变化与资源路径不同，但未证明单一瓶颈。两份官方 Base 只支持带环境披露的观察比较。三次原始 `compress` 单项分数为 **557.34 / 545.48 / 522.15 ops/min**，CV **3.305%**；波动原因仍需同步遥测与受控新实验。
+完整结果在 [`specjvm2008/results/`](specjvm2008/results/)，安装及测量输出在 [`logs/`](logs/)，环境在 [`environment/`](environment/)，CSV、官方快照和深度解释在 [`analysis/`](analysis/)，历史审计在 [`audit/`](audit/)。本次[截图与第 1—7 题映射](evidence/terminal_screenshots/README.md)及[新验收日志](evidence/terminal_screenshots/2026-10-08-set2/final_verification.txt)单独保存，不覆盖[旧验收日志](logs/final_submission_verification.log)。报告采用课程允许的 Markdown。
 
-提交材料集中在本目录：[`specjvm2008/results/`](specjvm2008/results/) 保留完整结果；[`logs/`](logs/) 保留安装、正式、失败、重复及诊断输出；[`environment/`](environment/) 保留命令获取的环境与旧哈希；[`analysis/`](analysis/) 保留深度解释、官方快照、CSV 与图表来源；[`audit/`](audit/) 保留证据映射和复审；[`scripts/verify_submission.ps1`](scripts/verify_submission.ps1) 可复核关键提交条件，[最终验收日志](logs/final_submission_verification.log)记录实际运行。报告采用 Markdown，课程允许 Markdown 或 PDF，故不另造重复 `report.md`。
+## 7. JVM 参数优化（选做，第 7 题）
 
-## Optional: JVM Parameter Optimization
+本节对应 Optional: JVM Parameter Optimization；研究单项 `-Xmx`，不运行完整 Peak，也不改变正式 Base。
 
 ### Motivation
 
-本节是独立的选做 `-Xmx` 研究，不改变上面的正式 Base：`SPECjvm2008.007` 仍为 **421.24 SPECjvm2008 Base ops/min**。选择最大堆是因为它会限制 JVM 可用容量，并通过自适应分代影响堆压力、GC 触发以及 workload 能否容纳存活集合；研究问题是这种机制如何随 workload 改变，而不是预设“越大越快”。
+最大堆限制 JVM 可用容量，并通过自适应分代影响堆压力、GC 触发和 workload 能否容纳存活集合；研究问题是这种机制如何随 workload 改变，而不是预设“越大越快”。
 
 ### Experimental Design
 
@@ -210,10 +232,14 @@ java -jar SPECjvm2008.jar --base -bt 16
 
 ### Results
 
+![四种堆配置与四个 workload 的对照结果](images/terminal/2026-10-08-set2/heapmatrix.png)
+
+图 10：四种堆配置与四个 workload 的有效/无效次数、成绩均值及 CV。
+
 | workload | 默认均值 | 512 MiB | 1024 MiB | 2560 MiB | 主要观察 |
 |---|---:|---:|---:|---:|---|
 | compress | 517.567 | 508.677 | 516.047 | 486.177 | 大堆无单调收益；2560 MiB 比默认低 6.065% |
-| derby | 717.743 | 0/3 有效 | 225.753 | 738.560 | 512 MiB OOM/Full GC thrash；1024 MiB GC 暂停均值 260.711 s |
+| derby | 717.743 | 0/3 有效 | 225.753 | 738.560 | 512 MiB OOM/Full GC thrash；1024 MiB **整进程** GC 暂停均值 260.711 s |
 | sunflow | 312.263 | 283.807 | 304.783 | 304.820 | 512 MiB 比默认低 9.113%，GC 暂停约翻倍 |
 | scimark.fft.large | 112.123 | 0/3 有效 | 0/3 有效 | 113.783 | 1 GiB 及以下 warmup OOM；越过门槛后差异小于运行波动 |
 
@@ -221,9 +247,15 @@ java -jar SPECjvm2008.jar --base -bt 16
 
 ![四项 workload 的堆大小与正式分数](images/jvm_parameter/heap_vs_score.png)
 
+图 11：各 workload 在不同堆配置下的成绩均值、误差条与失败标识。
+
 ![四项 workload 的整进程 GC 暂停](images/jvm_parameter/heap_vs_gc_time.png)
 
+图 12：**整 Java 进程窗口**的 GC 暂停，包含 warmup；不与图 15 的 measurement 窗口混用。
+
 ![各配置相对同 workload 默认均值的变化](images/jvm_parameter/heap_vs_score_change.png)
+
+图 13：各配置相对同 workload 默认均值的百分比变化；失败不填零。
 
 ### JVM Behavior Analysis
 
@@ -231,13 +263,29 @@ java -jar SPECjvm2008.jar --base -bt 16
 
 ![四项 workload 的估计 measurement GC 频率](images/jvm_parameter/heap_vs_gc_frequency.png)
 
+图 14：估计 measurement 窗口的 GC 频率；边界 ±1 秒不确定事件排除。
+
 ### Workload Case Study
+
+![Derby 吞吐与两种 GC 统计窗口](images/terminal/2026-10-08-set2/derbygc.png)
+
+图 15：Derby 的正式吞吐、Full GC 次数与暂停时间；上表为**估计 measurement 窗口（排除边界 ±1 秒）**，下表为**整进程窗口（包含 warmup）**。数据为有效轮的每轮均值，512 MiB 失败不进入 measurement 统计。
 
 Derby 1024 MiB 是最清楚的异常：分数 **225.753 ops/min（相对默认 −68.547%）**，估计 measurement 中每轮 **1,861.667 次 GC 且全部为 Full GC**、暂停 **164.417 秒**，GC 前/后用量平均占最大堆 **94.030%/71.388%**。2560 MiB 的 measurement 中没有 Full GC，暂停降至 10.484 秒，吞吐恢复到 738.560 ops/min；但相对默认 +2.900% 仍落在观测 CV 的量级，不能称为稳定提升。[Derby 个案全文](analysis/jvm_parameter/derby_case_study.md)
 
 ![Derby：最大堆、GC 压力与吞吐](images/jvm_parameter/derby_case_study.png)
 
+图 16：Derby 的吞吐与估计 measurement GC 压力分析图；GC 后占用不是完整 live-set 或分配率的直接测量。
+
 ### Independent OOM/Invalid Reverification
+
+![九次独立失败复核汇总](images/terminal/2026-10-08-set2/oomsummary.png)
+
+图 17：`.066`—`.074` 九次独立复核的退出状态、OOM 次数、`NOT VALID` 与失败复现判定。
+
+![SPECjvm2008.069 OOM 与退出状态](images/terminal/2026-10-08-set2/oomraw.png)
+
+图 18：FFT large / `-Xmx512m` / Run1 的 `.069` 显示 `OutOfMemoryError` 和 `NOT VALID`，Java 与 Reporter 的退出状态均为 0。
 
 原矩阵中的 9 个 OOM/invalid 单元后来在相同 Java 7 RI、SPECjvm2008、`--base -bt 16`、workload、`-Xmx` 和 GC 选项下独立重跑；日志路径和结果命名空间隔离，统一使用 900 秒安全边界。**9/9 再次出现 OOM、`NOT VALID` 且无正式分数**。Derby/512 MiB 三轮仍表现为长时间 Full GC thrash；FFT large 的 512/1024 MiB 六轮仍在约 63–71 秒内失败，即使 Java/Reporter 外层退出码为 0。新 Result ID `.066`–`.074` 位于 `verification_results/`，未写入原 `results/`，也未回填原 48 次统计。[逐次复核报告](analysis/jvm_parameter/oom_reverification_report.md)与[机器可读结果](analysis/jvm_parameter/oom_reverification_results.csv)
 

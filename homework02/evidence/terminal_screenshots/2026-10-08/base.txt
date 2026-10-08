@@ -1,0 +1,56 @@
+**********************
+PowerShell transcript start
+Start time: 20261008230644
+Username: 小谷天天开心\28489
+RunAs User: 小谷天天开心\28489
+Configuration Name: 
+Machine: 小谷天天开心 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Users\28489\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -NoLogo -NoProfile -NoExit -File E:\software_system\course_repo\homework02\scripts\screenshots\show_terminal_evidence.ps1 -View Base -Capture
+Process ID: 57264
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.26200
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+A2 SPECjvm2008 - Base
+PS E:\software_system\course_repo\homework02> .\scripts\screenshots\show_terminal_evidence.ps1 -View Base
+Collection time: 2026-10-08T23:06:44.7462707+08:00
+READING HISTORICAL EXPERIMENT FILES; dates come from original sources. No benchmark rerun.
+
+> python -B scripts/analysis/build_core_data.py --check
+PASS: 38 workloads, 11 groups, Base 421.24; repeats [557.34, 545.48, 522.15]
+.007 raw SHA-256: 4ae651e312061d09760743ab9908129b633e9ce1e5b5b296c13d4a30605e05ad
+> Get-Content specjvm2008/results/SPECjvm2008.007/SPECjvm2008.007.txt -TotalCount 22
+================================
+SPECjvm2008 Base
+================================
+n/a n/a
+Oracle Corporation OpenJDK 64-Bit Server VM
+Tested by: n/a Test date: Wed Sep 30 16:10:04 CST 2026
+Run is compliant
+
+================================
+compiler                      865.65
+compress                      551.55
+crypto                        676.52
+derby                         820.63
+mpegaudio                     452.38
+scimark.large                 90.84
+scimark.small                 928.13
+serial                        535
+startup                       26.74
+sunflow                       350.25
+xml                           1462.69
+Composite result: 421.24 SPECjvm2008 Base ops/m
+================================
+
+Read-only evidence display complete. Original data have not been rewritten.
+**********************
+PowerShell transcript end
+End time: 20261008230645
+**********************

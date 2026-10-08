@@ -1,0 +1,27 @@
+{
+  "view": "CurrentEnvironment",
+  "collected_at": "2026-10-08T23:10:09.2870368+08:00",
+  "historical": false,
+  "project_root": "E:\\software_system\\course_repo\\homework02",
+  "display_script_sha256": "6b25ec37d4690804c2cfaaa395303efadfe64f3a1f4418eb4a18d07c63190aac",
+  "commands": [
+    "Get-CimInstance Win32_OperatingSystem | Select-Object Caption,Version,LastBootUpTime | Format-List",
+    "wsl -d Ubuntu-24.04 -- bash -c 'date -Is; uname -a; lsb_release -ds; lscpu | grep -E \"^CPU\\(s\\):|^Model name:|^Thread\\(s\\)|^Core\\(s\\)|^Socket\\(s\\)\"; free -h'",
+    "wsl -d Ubuntu-24.04 -- bash -c 'printf \"Current shell JAVA_HOME=%s CLASSPATH=%s\\n\" \"$JAVA_HOME\" \"$CLASSPATH\"; command -v java; java -version 2>&1; printf \"Historical measurement JDK executable check:\\n\"; /home/gubingren/java/java-se-7u75-ri/bin/java -version 2>&1'"
+  ],
+  "sources": [],
+  "transcript": "evidence/terminal_screenshots/2026-10-08-set2/currentenvironment.txt",
+  "native_screen_capture": true,
+  "capture_api": "System.Drawing.Graphics.CopyFromScreen (Windows desktop pixels; DWM visible window bounds)",
+  "window_handle": 984932,
+  "window_rect": {
+    "top": 20,
+    "right": 1907,
+    "bottom": 1147,
+    "left": 29
+  },
+  "rendered_rows": 39,
+  "visible_rows": 40,
+  "screenshot": "images/terminal/2026-10-08-set2/currentenvironment.png",
+  "screenshot_sha256": "f371b57d9bba3c21c642a724c711e6ad4546ce81681ea40f393bc0581a4a3868"
+}

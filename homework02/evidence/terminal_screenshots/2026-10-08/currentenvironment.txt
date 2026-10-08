@@ -1,0 +1,53 @@
+**********************
+PowerShell transcript start
+Start time: 20261008230806
+Username: 小谷天天开心\28489
+RunAs User: 小谷天天开心\28489
+Configuration Name: 
+Machine: 小谷天天开心 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Users\28489\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -NoLogo -NoProfile -NoExit -File E:\software_system\course_repo\homework02\scripts\screenshots\show_terminal_evidence.ps1 -View CurrentEnvironment -Capture
+Process ID: 50200
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.26200
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+A2 SPECjvm2008 - CurrentEnvironment
+PS E:\software_system\course_repo\homework02> .\scripts\screenshots\show_terminal_evidence.ps1 -View CurrentEnvironment
+Collection time: 2026-10-08T23:08:06.5612821+08:00
+CURRENT CHECK ONLY; not historical measurement evidence.
+
+> Get-CimInstance Win32_OperatingSystem | Select Caption,Version,LastBootUpTime
+
+Caption        : Microsoft Windows 11 家庭版 中文版
+Version        : 10.0.26200
+LastBootUpTime : 2026/10/8 19:02:36
+
+> wsl -d Ubuntu-24.04 -- bash -c "date -Is; uname -a; lsb_release -ds; lscpu | CPU fields; free -h"
+2026-10-08T23:08:08+08:00
+Linux localhost 6.18.40.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Fri Jul 31 22:12:15 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+Ubuntu 24.04 LTS
+CPU(s):                                  32
+Model name:                              AMD Ryzen 9 7940HX with Radeon Graphics
+Thread(s) per core:                      2
+Core(s) per socket:                      16
+Socket(s):                               1
+               total        used        free      shared  buff/cache   available
+Mem:           7.4Gi       3.3Gi       3.5Gi       4.8Mi       961Mi       4.1Gi
+Swap:          2.0Gi          0B       2.0Gi
+> wsl -d Ubuntu-24.04 -- bash -c "printenv JAVA_HOME CLASSPATH; command -v java; java -version; /home/gubingren/java/java-se-7u75-ri/bin/java -version"
+Current shell JAVA_HOME= CLASSPATH=
+/usr/bin/java
+Historical measurement JDK executable check:
+This current check does not replace environment/environment_info.txt.
+
+Read-only evidence display complete. Original data have not been rewritten.
+**********************
+PowerShell transcript end
+End time: 20261008230808
+**********************

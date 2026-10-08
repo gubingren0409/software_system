@@ -58,7 +58,7 @@ foreach ($relative in $required) {
 Write-Output 'PASS [02,08,11]: main Markdown report, SPEC chart, official comparison and supporting artifacts exist'
 
 $report = Get-Content -LiteralPath (Join-Path $projectRoot 'README.md') -Raw
-$expectedSections = 1..11
+$expectedSections = 1..7  # Match the instructor's seven questions.
 foreach ($section in $expectedSections) {
     if ($report -notmatch "(?m)^## $section\.") { throw "Report section missing: $section" }
 }

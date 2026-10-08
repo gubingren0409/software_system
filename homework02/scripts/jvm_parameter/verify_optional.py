@@ -105,7 +105,7 @@ def main():
             require(len(cell) == 3 and {r["run_id"] for r in cell} == {"Run1", "Run2", "Run3"},
                     f"Incomplete repetition cell: {workload}/{heap}")
     report = (ROOT / "README.md").read_text(encoding="utf-8")
-    require("## Optional: JVM Parameter Optimization" in report,
+    require("## 7. JVM 参数优化（选做，第 7 题）" in report,
             "Optional README section not yet integrated")
     require("421.24" in report and "SPECjvm2008.007" in report,
             "Mandatory Base result not visibly retained in README")

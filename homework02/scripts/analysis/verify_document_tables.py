@@ -92,7 +92,7 @@ def main():
             equal_score(cells[position], repeat[field], run + ":" + field)
 
     report = (ROOT / "README.md").read_text(encoding="utf-8")
-    base_section = report_section(report, 5)
+    base_section = report_section(report, 2)
     reported_groups = {}
     for line in base_section.splitlines():
         if not line.startswith("|"):
@@ -107,7 +107,7 @@ def main():
     for name, score in local.items():
         equal_score(reported_groups[name], score, "README Base:" + name)
 
-    report_workloads = table_body(report_section(report, 6))
+    report_workloads = table_body(report_section(report, 3))
     for name in FOCUS:
         cells = report_workloads.get(name)
         if cells is None or len(cells) < 3:
@@ -119,7 +119,7 @@ def main():
         equal_score(phase.group(2), measured[name]["measured_ops_per_min"], name + ":README measured")
         equal_score(cells[2], measured[name]["percent_change"], name + ":README change")
 
-    report_official = table_body(report_section(report, 7))
+    report_official = table_body(report_section(report, 4))
     for metric in METRICS:
         label = metric + " 组" if metric in {"crypto", "startup", "scimark.large"} else metric
         cells = report_official.get(label)
@@ -132,7 +132,7 @@ def main():
             ratio = (score / local[metric]).quantize(Decimal("0.001"), rounding=ROUND_HALF_UP)
             equal_score(cells[offset + 1], ratio, reference + ":README ratio")
 
-    report_repeats = table_body(report_section(report, 8))
+    report_repeats = table_body(report_section(report, 5))
     if set(report_repeats).intersection({"Run1", "Run2", "Run3"}) != {"Run1", "Run2", "Run3"}:
         raise ValueError("README repeat table must have exactly the three original run labels")
     for repeat in repeats:

@@ -1,0 +1,70 @@
+**********************
+PowerShell transcript start
+Start time: 20261008232208
+Username: 小谷天天开心\28489
+RunAs User: 小谷天天开心\28489
+Configuration Name: 
+Machine: 小谷天天开心 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Users\28489\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -Command try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}
+$ErrorActionPreference = 'Stop'
+$PSNativeCommandUseErrorActionPreference = $true
+Start-Transcript -LiteralPath homework02\evidence\terminal_screenshots\2026-10-08-set2\post_render_verification.txt
+try {
+    Get-Date -Format o
+    & .\homework02\scripts\verify_submission.ps1
+    python -B homework02\scripts\screenshots\verify_screenshots.py
+    git diff --check
+    $protectedChanges = @(git diff --name-only -- homework02/logs homework02/environment homework02/specjvm2008 homework02/analysis homework02/images/analysis homework02/images/jvm_parameter)
+    if ($protectedChanges.Count) { throw "Protected experiment paths changed: $protectedChanges" }
+    $baselineRows = Import-Csv -LiteralPath homework02\evidence\terminal_screenshots\2026-10-08\original_evidence_manifest.csv
+    $mtimeDifferent = @($baselineRows | Where-Object { [Math]::Abs(((Get-Item -LiteralPath (Join-Path homework02 $_.relative_path)).LastWriteTimeUtc - [DateTimeOffset]::Parse($_.modified_utc).UtcDateTime).TotalSeconds) -gt 0.01 })
+    "Original manifest records=$($baselineRows.Count); checkout/edited filesystem mtimes differ=$($mtimeDifferent.Count); SHA-256 preservation independently passed above"
+    git branch --show-current
+    git rev-parse HEAD
+    Write-Output 'POST_RENDER_VERIFICATION=PASS; report and all local links verified after layout QA; protected experimental paths unchanged'
+} finally { Stop-Transcript }
+Process ID: 59748
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.26200
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Transcript started, output file is homework02\evidence\terminal_screenshots\2026-10-08-set2\post_render_verification.txt
+2026-10-08T23:22:08.4226552+08:00
+Goal 1 verification: PASS
+Workload scores: 38
+Valid runs (including check): 39
+Composite: 421.24 SPECjvm2008 Base ops/m
+SPEC report: Run is compliant
+Git branch: homework02
+Raw SHA-256: 4ae651e312061d09760743ab9908129b633e9ce1e5b5b296c13d4a30605e05ad
+Historical core hashes verified: 6
+PASS [01,03-06,15]: homework02 branch; formal .007 raw/TXT, compliance, Composite, historical hashes
+PASS [02,08,11]: main Markdown report, SPEC chart, official comparison and supporting artifacts exist
+PASS [07]: six expected workload scores match the analysis table and README
+PASS [09-10]: exactly three original compress repeats, fixed IDs/scores, raw/TXT files present
+PASS [12-14]: 315 local Markdown links resolve within submission; 20 image links; four analysis plots embedded
+
+PASS [05-07,10]: formal and repeat raw/TXT agree with derived scores and CSVs
+
+
+
+
+
+PASS [08,11,13,15]: SPEC graph, official snapshots, derived plots and source-hash manifest verified
+Submission verification: PASS (15 required conditions; Markdown report, no PDF required)
+
+
+Original manifest records=1124; checkout/edited filesystem mtimes differ=1124; SHA-256 preservation independently passed above
+
+
+POST_RENDER_VERIFICATION=PASS; report and all local links verified after layout QA; protected experimental paths unchanged
+**********************
+PowerShell transcript end
+End time: 20261008232220
+**********************

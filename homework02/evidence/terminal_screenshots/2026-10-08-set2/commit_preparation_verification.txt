@@ -1,0 +1,117 @@
+**********************
+PowerShell transcript start
+Start time: 20261008234011
+Username: 小谷天天开心\28489
+RunAs User: 小谷天天开心\28489
+Configuration Name: 
+Machine: 小谷天天开心 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Users\28489\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -Command try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}
+$ErrorActionPreference = 'Stop'
+$PSNativeCommandUseErrorActionPreference = $true
+$verificationLog = 'homework02\evidence\terminal_screenshots\2026-10-08-set2\commit_preparation_verification.txt'
+if (Test-Path -LiteralPath $verificationLog) { throw "Refusing to overwrite evidence: $verificationLog" }
+Start-Transcript -LiteralPath $verificationLog
+try {
+    Get-Date -Format o | Out-Host
+    git branch --show-current | Out-Host
+    git rev-parse HEAD | Out-Host
+    Write-Host 'COMMAND: homework02/scripts/verify_submission.ps1'
+    & .\homework02\scripts\verify_submission.ps1 | Out-Host
+    Write-Host 'COMMAND: python -B homework02/scripts/jvm_parameter/build_optional_data.py --check'
+    python -B homework02\scripts\jvm_parameter\build_optional_data.py --check | Out-Host
+    Write-Host 'COMMAND: python -B homework02/scripts/jvm_parameter/build_enhancement_data.py --check'
+    python -B homework02\scripts\jvm_parameter\build_enhancement_data.py --check | Out-Host
+    Write-Host 'COMMAND: python -B homework02/scripts/jvm_parameter/build_oom_reverification.py --check'
+    python -B homework02\scripts\jvm_parameter\build_oom_reverification.py --check | Out-Host
+    python -B homework02\scripts\jvm_parameter\verify_optional.py | Out-Host
+    python -B homework02\scripts\jvm_parameter\verify_enhancement.py | Out-Host
+    python -B homework02\scripts\jvm_parameter\verify_oom_reverification.py | Out-Host
+    Write-Host 'COMMAND: python -B homework02/scripts/screenshots/verify_screenshots.py'
+    python -B homework02\scripts\screenshots\verify_screenshots.py | Out-Host
+    Write-Host 'COMMAND: python -B homework02/scripts/screenshots/verify_git_assets.py (Git INDEX)'
+    python -B homework02\scripts\screenshots\verify_git_assets.py | Out-Host
+    Write-Host 'COMMAND: git diff --cached --check'
+    git diff --cached --check | Out-Host
+    $protectedStaged = @(git diff --cached --name-only -- homework02/logs homework02/environment homework02/specjvm2008 homework02/analysis homework02/images/analysis homework02/images/jvm_parameter)
+    $protectedUnstaged = @(git diff --name-only -- homework02/logs homework02/environment homework02/specjvm2008 homework02/analysis homework02/images/analysis homework02/images/jvm_parameter)
+    if ($protectedStaged.Count -or $protectedUnstaged.Count) { throw "Original experimental paths changed: $protectedStaged $protectedUnstaged" }
+    Write-Host 'PASS: original experiment results, logs, environment, statistics and analytical figures unchanged in index and worktree'
+    Get-FileHash -LiteralPath homework02\README.md -Algorithm SHA256 | Format-List | Out-Host
+    Write-Host 'COMMIT_PREPARATION_VERIFICATION=PASS; intended local homework02 commit; no benchmark rerun; no remote push'
+    Get-Date -Format o | Out-Host
+} finally { Stop-Transcript }
+Process ID: 53384
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.26200
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Transcript started, output file is homework02\evidence\terminal_screenshots\2026-10-08-set2\commit_preparation_verification.txt
+2026-10-08T23:40:12.0436483+08:00
+homework02
+6a485a8c9a2e783014c950ab37edbc30b7a32ee3
+COMMAND: homework02/scripts/verify_submission.ps1
+Goal 1 verification: PASS
+Workload scores: 38
+Valid runs (including check): 39
+Composite: 421.24 SPECjvm2008 Base ops/m
+SPEC report: Run is compliant
+Git branch: homework02
+Raw SHA-256: 4ae651e312061d09760743ab9908129b633e9ce1e5b5b296c13d4a30605e05ad
+Historical core hashes verified: 6
+PASS [01,03-06,15]: homework02 branch; formal .007 raw/TXT, compliance, Composite, historical hashes
+PASS [02,08,11]: main Markdown report, SPEC chart, official comparison and supporting artifacts exist
+PASS [07]: six expected workload scores match the analysis table and README
+PASS [09-10]: exactly three original compress repeats, fixed IDs/scores, raw/TXT files present
+PASS [12-14]: 310 local Markdown links resolve within submission; 20 image links; four analysis plots embedded
+PASS: 38 workloads, 11 groups, Base 421.24; repeats [557.34, 545.48, 522.15]
+.007 raw SHA-256: 4ae651e312061d09760743ab9908129b633e9ce1e5b5b296c13d4a30605e05ad
+PASS [05-07,10]: formal and repeat raw/TXT agree with derived scores and CSVs
+PASS: 1124 preserved evidence artifacts inventoried (path, role, bytes, SHA-256; mtimes informational)
+PASS: 14 selected official scores match two immutable SPEC report snapshots
+PASS: analysis and README Base, workload, official, repeat tables match source CSVs
+PASS: two noncompliant diagnostic profiles match raw, text, and logs
+PASS: four CSV-driven core figures
+PASS [08,11,13,15]: SPEC graph, official snapshots, derived plots and source-hash manifest verified
+Submission verification: PASS (15 required conditions; Markdown report, no PDF required)
+COMMAND: python -B homework02/scripts/jvm_parameter/build_optional_data.py --check
+PASS: 48/48 captured attempts; 39 valid scores; 118230 GC events
+COMMAND: python -B homework02/scripts/jvm_parameter/build_enhancement_data.py --check
+PASS: 118230 GC memory rows; phases={'boundary_uncertain': 1575, 'warmup': 25464, 'between_warmup_and_measurement': 499, 'measurement': 51217, 'pre_warmup': 217, 'post_measurement': 653, 'unavailable_invalid_run': 38605}; four JVM flag snapshots
+COMMAND: python -B homework02/scripts/jvm_parameter/build_oom_reverification.py --check
+PASS: 9/9 OOM/invalid failures reproduced
+PASS: 48 attempts (39 valid, 9 invalid), 48 unique optional SPEC result IDs, 118230 GC events, formal .007 intact
+PASS: enhancement evidence verified; 118230 events, 51217 measurement events, four flag snapshots, formal .007 intact
+PASS: 9/9 failures independently reproduced; original matrix and formal .007 intact
+COMMAND: python -B homework02/scripts/screenshots/verify_screenshots.py
+PASS: historicalenvironment: native screen 1878x1154; 2 input hashes; visible output; README image
+PASS: currentenvironment: native screen 1878x1127; 0 input hashes; visible output; README image
+PASS: base: native screen 1878x1019; 3 input hashes; visible output; README image
+PASS: repeats: native screen 1878x1235; 6 input hashes; visible output; README image
+PASS: heapmatrix: native screen 1878x1181; 193 input hashes; visible output; README image
+PASS: derbygc: native screen 1878x1019; 49 input hashes; visible output; README image
+PASS: oomsummary: native screen 1878x884; 37 input hashes; visible output; README image
+PASS: oomraw: native screen 1878x1046; 3 input hashes; visible output; README image
+PASS: 1120/1124 original evidence artifacts unchanged; only four explicitly listed verifier/method edits exempted
+PASS: 8/8 screenshots, 242 distinct input hashes, one introductory screenshot disclosure; no pending screenshot
+COMMAND: python -B homework02/scripts/screenshots/verify_git_assets.py (Git INDEX)
+PASS [INDEX]: 18 README images; 20 Markdown image references; relative POSIX paths, exact case, PNG/JPEG bytes in Git
+PASS [INDEX]: 8 native screenshots, transcripts, method hash and 242 distinct source files included
+COMMAND: git diff --cached --check
+PASS: original experiment results, logs, environment, statistics and analytical figures unchanged in index and worktree
+
+Algorithm : SHA256
+Hash      : 1F08B3440D6798A6E4819BC1CA3C12074F858C65BD7813C9303BA277D432B477
+Path      : E:\software_system\course_repo\homework02\README.md
+
+COMMIT_PREPARATION_VERIFICATION=PASS; intended local homework02 commit; no benchmark rerun; no remote push
+2026-10-08T23:40:47.3244866+08:00
+**********************
+PowerShell transcript end
+End time: 20261008234047
+**********************

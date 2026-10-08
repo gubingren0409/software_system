@@ -1,0 +1,35 @@
+{
+  "view": "HistoricalEnvironment",
+  "collected_at": "2026-10-08T23:10:00.8629644+08:00",
+  "historical": true,
+  "project_root": "E:\\software_system\\course_repo\\homework02",
+  "display_script_sha256": "6b25ec37d4690804c2cfaaa395303efadfe64f3a1f4418eb4a18d07c63190aac",
+  "commands": [
+    "Select-String -LiteralPath environment/environment_info.txt -Pattern 'Collection time|^2026-|^Linux |^Description:|^CPU\\(s\\):|^Model name:|^Thread\\(s\\)|^Core\\(s\\)|^Socket\\(s\\)|^Mem:|^Swap:|^openjdk |^OpenJDK |^javac |^JAVA_HOME=|^CLASSPATH=' | ForEach-Object { $_.Line }",
+    "Get-Content -LiteralPath logs/base_run.log -TotalCount 8\n            Select-String -LiteralPath logs/base_run.log -Pattern '^END_TIME=|^EXIT_STATUS=' | ForEach-Object { $_.Line }"
+  ],
+  "sources": [
+    {
+      "path": "environment/environment_info.txt",
+      "sha256": "2a47d87b5827cb862399e2b65cac3f3286818a0c12f5d548893ad0ef0ebb43f6"
+    },
+    {
+      "path": "logs/base_run.log",
+      "sha256": "ea605742cf6a93caeafac03246dde16b11fe4a6af206e70479ecf2f918df5e0d"
+    }
+  ],
+  "transcript": "evidence/terminal_screenshots/2026-10-08-set2/historicalenvironment.txt",
+  "native_screen_capture": true,
+  "capture_api": "System.Drawing.Graphics.CopyFromScreen (Windows desktop pixels; DWM visible window bounds)",
+  "window_handle": 919396,
+  "window_rect": {
+    "left": 29,
+    "top": 20,
+    "bottom": 1174,
+    "right": 1907
+  },
+  "rendered_rows": 40,
+  "visible_rows": 41,
+  "screenshot": "images/terminal/2026-10-08-set2/historicalenvironment.png",
+  "screenshot_sha256": "9fa08791025b22f8baad72a42102f12443e24eadecb517e92850cb9e04a9ea23"
+}

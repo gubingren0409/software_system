@@ -1,0 +1,57 @@
+**********************
+PowerShell transcript start
+Start time: 20261008232113
+Username: 小谷天天开心\28489
+RunAs User: 小谷天天开心\28489
+Configuration Name: 
+Machine: 小谷天天开心 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Users\28489\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -Command try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}
+Start-Transcript -LiteralPath homework02\evidence\terminal_screenshots\2026-10-08-set2\render_check.txt
+Get-Date -Format o
+Get-FileHash -LiteralPath homework02\README.md -Algorithm SHA256
+pandoc --version | Select-Object -First 2
+$qaDirectory = 'C:\Users\28489\.codex\visualizations\2026\09\30\01a0f019-ecd5-7cf2-aa95-2c7bd60163d5'
+Write-Output 'COMMAND: Chrome --headless=new --dump-dom (local pandoc GFM report preview); body dataset checks naturalWidth for all images'
+$browserArguments = @('--headless=new','--disable-gpu','--no-first-run','--disable-background-networking',"--user-data-dir=$qaDirectory\a2-preview-browser-profile",'--allow-file-access-from-files','--run-all-compositor-stages-before-draw','--disable-features=PaintHolding','--dump-dom','file:///C:/Users/28489/.codex/visualizations/2026/09/30/01a0f019-ecd5-7cf2-aa95-2c7bd60163d5/a2-report-preview.html')
+& 'C:\Program Files\Google\Chrome\Application\chrome.exe' @browserArguments 2>&1 | Select-String -Pattern '^<body data-image-count=' | ForEach-Object { $_.Line }
+Get-Item -LiteralPath "$qaDirectory\a2-base-section-preview.png","$qaDirectory\a2-derby-section-preview.png" | Select-Object FullName,Length
+Write-Output 'VISUAL_QA: all eight native terminal PNGs inspected; report top, Base screenshot/caption, Derby screenshot/caption/plot inspected in browser-rendered previews'
+Write-Output 'NOTE: Browser QA previews are report display checks only, not native terminal screenshots and not included among the eight submitted terminal images'
+Stop-Transcript
+Process ID: 61788
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.26200
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Transcript started, output file is homework02\evidence\terminal_screenshots\2026-10-08-set2\render_check.txt
+2026-10-08T23:21:13.6675949+08:00
+
+Algorithm       Hash                                                                   Path
+---------       ----                                                                   ----
+SHA256          E8BEBE0B1FA7D460BAF97468909355751875329F6B201380B37FBEA38AF27B1B       E:\software_system\course_repo\…
+pandoc 3.9
+Features: +server +lua
+COMMAND: Chrome --headless=new --dump-dom (local pandoc GFM report preview); body dataset checks naturalWidth for all images
+<body data-image-count="18" data-images-ok="true" data-unloaded-images="">
+
+FullName : C:\Users\28489\.codex\visualizations\2026\09\30\01a0f019-ecd5-7cf2-aa95-2c7bd60163d5\a2-base-section-preview
+           .png
+Length   : 278225
+
+
+FullName : C:\Users\28489\.codex\visualizations\2026\09\30\01a0f019-ecd5-7cf2-aa95-2c7bd60163d5\a2-derby-section-previe
+           w.png
+Length   : 333261
+
+VISUAL_QA: all eight native terminal PNGs inspected; report top, Base screenshot/caption, Derby screenshot/caption/plot inspected in browser-rendered previews
+NOTE: Browser QA previews are report display checks only, not native terminal screenshots and not included among the eight submitted terminal images
+**********************
+PowerShell transcript end
+End time: 20261008232115
+**********************

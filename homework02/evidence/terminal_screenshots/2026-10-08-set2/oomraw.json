@@ -1,0 +1,40 @@
+{
+  "view": "OOMRaw",
+  "collected_at": "2026-10-08T23:10:53.4244517+08:00",
+  "historical": true,
+  "project_root": "E:\\software_system\\course_repo\\homework02",
+  "display_script_sha256": "6b25ec37d4690804c2cfaaa395303efadfe64f3a1f4418eb4a18d07c63190aac",
+  "commands": [
+    "$shownOOM = $false\n            Select-String -LiteralPath $log -Pattern '^SOURCE_RUN_KEY=|^START_TIME=|^COMMAND=|^JAVA_EXIT|^END_TIME=|NOT VALID|OutOfMemoryError' | ForEach-Object {\n                if ($_.Line -match 'OutOfMemoryError') { if ($shownOOM) { return }; $shownOOM = $true }\n                \"{0}: {1}\" -f $_.LineNumber,$_.Line\n            }",
+    "Select-String -LiteralPath $meta -Pattern '^result_id=|^heap_config=|^java_exit_status=|^reporter_exit_status=|^start_time=|^end_time=' | ForEach-Object { $_.Line }",
+    "Select-String -LiteralPath specjvm2008/verification_results/SPECjvm2008.069/SPECjvm2008.069.txt -Pattern 'Run is|NOT VALID|Composite' | ForEach-Object { $_.Line }"
+  ],
+  "sources": [
+    {
+      "path": "logs/jvm_parameter/oom_reverification/oomverify__scimark_fft_large__xmx512m__r1.log",
+      "sha256": "626e82aa34ac2203f9fb0c785f571c8e2ca2edaf0babe72f57761e57b6ec6999"
+    },
+    {
+      "path": "logs/jvm_parameter/oom_reverification/oomverify__scimark_fft_large__xmx512m__r1.meta",
+      "sha256": "a316b30e4d7a37c6d997f82332e171a121635f6f05a3964a40c381039adf47bb"
+    },
+    {
+      "path": "specjvm2008/verification_results/SPECjvm2008.069/SPECjvm2008.069.txt",
+      "sha256": "96c3c0855ccb9459995c07db08aaaa216ae5e5e5e27d1d0687c3b2ecbf3c0669"
+    }
+  ],
+  "transcript": "evidence/terminal_screenshots/2026-10-08-set2/oomraw.txt",
+  "native_screen_capture": true,
+  "capture_api": "System.Drawing.Graphics.CopyFromScreen (Windows desktop pixels; DWM visible window bounds)",
+  "window_handle": 2229750,
+  "window_rect": {
+    "right": 1907,
+    "top": 20,
+    "bottom": 1066,
+    "left": 29
+  },
+  "rendered_rows": 36,
+  "visible_rows": 37,
+  "screenshot": "images/terminal/2026-10-08-set2/oomraw.png",
+  "screenshot_sha256": "46caf39c8e2e70712a3a1abdc4728326f80f684cf777b52cc91800b565faa452"
+}

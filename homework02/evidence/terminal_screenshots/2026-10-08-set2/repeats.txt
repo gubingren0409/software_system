@@ -1,0 +1,64 @@
+**********************
+PowerShell transcript start
+Start time: 20261008231015
+Username: 小谷天天开心\28489
+RunAs User: 小谷天天开心\28489
+Configuration Name: 
+Machine: 小谷天天开心 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Users\28489\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -NoLogo -NoProfile -NoExit -File E:\software_system\course_repo\homework02\scripts\screenshots\show_terminal_evidence.ps1 -View Repeats -Capture -Session 2026-10-08-set2
+Process ID: 50172
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.26200
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+A2 SPECjvm2008 - Repeats
+PS E:\software_system\course_repo\homework02> .\scripts\screenshots\show_terminal_evidence.ps1 -View Repeats -Capture -Session 2026-10-08-set2
+Collection time: 2026-10-08T23:10:15.5143084+08:00
+READING HISTORICAL EXPERIMENT FILES; dates come from original sources. No benchmark rerun.
+
+Read-only step: python -B scripts/analysis/build_core_data.py --check
+PASS: 38 workloads, 11 groups, Base 421.24; repeats [557.34, 545.48, 522.15]
+.007 raw SHA-256: 4ae651e312061d09760743ab9908129b633e9ce1e5b5b296c13d4a30605e05ad
+Read-only step: python -B scripts/screenshots/summarize_repeats.py
+Source: specjvm2008/results/SPECjvm2008.008/SPECjvm2008.008.txt
+Raw:    specjvm2008/results/SPECjvm2008.008/SPECjvm2008.008.raw
+Tested by: n/a Test date: Wed Sep 30 19:41:42 CST 2026
+Run is valid, but not compliant
+compress                      557.34
+compress                      warmup         120000         120000         1100.69        550.34
+compress                      iteration 1    240000         240000         2229.38        557.34
+Raw/TXT score cross-check: PASS (557.34 ops/min)
+
+Source: specjvm2008/results/SPECjvm2008.009/SPECjvm2008.009.txt
+Raw:    specjvm2008/results/SPECjvm2008.009/SPECjvm2008.009.raw
+Tested by: n/a Test date: Wed Sep 30 19:48:44 CST 2026
+Run is valid, but not compliant
+compress                      545.48
+compress                      warmup         120000         120000         1090.33        545.17
+compress                      iteration 1    240000         240000         2181.93        545.48
+Raw/TXT score cross-check: PASS (545.48 ops/min)
+
+Source: specjvm2008/results/SPECjvm2008.010/SPECjvm2008.010.txt
+Raw:    specjvm2008/results/SPECjvm2008.010/SPECjvm2008.010.raw
+Tested by: n/a Test date: Wed Sep 30 19:55:47 CST 2026
+Run is valid, but not compliant
+compress                      522.15
+compress                      warmup         120000         120000         1097.06        548.53
+compress                      iteration 1    240000         240000         2088.59        522.15
+Raw/TXT score cross-check: PASS (522.15 ops/min)
+
+n=3; mean=541.657 ops/min
+Sample SD (n-1)=17.904 ops/min; CV=100*SD/mean=3.305%
+Range=35.19 ops/min; median=545.48 ops/min
+
+Read-only evidence display complete. Original data have not been rewritten.
+**********************
+PowerShell transcript end
+End time: 20261008231016
+**********************

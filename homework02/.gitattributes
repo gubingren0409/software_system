@@ -1,2 +1,6 @@
 # Preserve benchmark outputs and all other coursework artifacts byte-for-byte.
 * -text
+
+# Preserve native Windows capture records, including CRLF and console padding.
+evidence/terminal_screenshots/**/*.json whitespace=cr-at-eol
+evidence/terminal_screenshots/**/*.txt whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol

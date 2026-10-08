@@ -1,0 +1,59 @@
+**********************
+PowerShell transcript start
+Start time: 20261008230958
+Username: 小谷天天开心\28489
+RunAs User: 小谷天天开心\28489
+Configuration Name: 
+Machine: 小谷天天开心 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Users\28489\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -NoLogo -NoProfile -NoExit -File E:\software_system\course_repo\homework02\scripts\screenshots\show_terminal_evidence.ps1 -View HistoricalEnvironment -Capture -Session 2026-10-08-set2
+Process ID: 37484
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.26200
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+A2 SPECjvm2008 - HistoricalEnvironment
+PS E:\software_system\course_repo\homework02> .\scripts\screenshots\show_terminal_evidence.ps1 -View HistoricalEnvironment -Capture -Session 2026-10-08-set2
+Collection time: 2026-10-08T23:09:58.5817365+08:00
+READING HISTORICAL EXPERIMENT FILES; dates come from original sources. No benchmark rerun.
+
+Read-only step: Select-String environment/environment_info.txt -Pattern 'Collection time|^2026-|^Linux |^Description:|^CPU\(s\):|^Model name:|^Thread\(s\)|^Core\(s\)|^Socket\(s\)|^Mem:|^Swap:|^openjdk |^OpenJDK |^javac |^JAVA_HOME=|^CLASSPATH='
+# Collection time
+2026-09-30T15:05:24+08:00
+Linux localhost 6.18.33.2-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Thu Jun 18 21:54:43 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+Description:	Ubuntu 24.04 LTS
+CPU(s):                                  32
+Model name:                              AMD Ryzen 9 7940HX with Radeon Graphics
+Thread(s) per core:                      2
+Core(s) per socket:                      16
+Socket(s):                               1
+Mem:           7.4Gi       1.4Gi       4.7Gi       4.2Mi       1.4Gi       6.0Gi
+Swap:          2.0Gi          0B       2.0Gi
+openjdk version "1.7.0_75"
+OpenJDK Runtime Environment (build 1.7.0_75-b13)
+OpenJDK 64-Bit Server VM (build 24.75-b04, mixed mode)
+javac 1.7.0_75
+JAVA_HOME=/home/gubingren/java/java-se-7u75-ri
+CLASSPATH=
+Read-only step: Get-Content logs/base_run.log -TotalCount 8; Select-String logs/base_run.log -Pattern "^END_TIME=|^EXIT_STATUS="
+START_TIME=2026-09-30T16:10:03+08:00
+WORKING_DIRECTORY=/home/gubingren/benchmarks/SPECjvm2008
+COMMAND=java -jar SPECjvm2008.jar --base -bt 16
+JAVA_HOME=/home/gubingren/java/java-se-7u75-ri
+CLASSPATH=
+openjdk version "1.7.0_75"
+OpenJDK Runtime Environment (build 1.7.0_75-b13)
+OpenJDK 64-Bit Server VM (build 24.75-b04, mixed mode)
+END_TIME=2026-09-30T18:25:15+08:00
+EXIT_STATUS=0
+
+Read-only evidence display complete. Original data have not been rewritten.
+**********************
+PowerShell transcript end
+End time: 20261008230958
+**********************

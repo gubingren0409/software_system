@@ -1,0 +1,50 @@
+**********************
+PowerShell transcript start
+Start time: 20261008231043
+Username: 小谷天天开心\28489
+RunAs User: 小谷天天开心\28489
+Configuration Name: 
+Machine: 小谷天天开心 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Users\28489\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -NoLogo -NoProfile -NoExit -File E:\software_system\course_repo\homework02\scripts\screenshots\show_terminal_evidence.ps1 -View OOMSummary -Capture -Session 2026-10-08-set2
+Process ID: 37936
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.26200
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+A2 SPECjvm2008 - OOMSummary
+PS E:\software_system\course_repo\homework02> .\scripts\screenshots\show_terminal_evidence.ps1 -View OOMSummary -Capture -Session 2026-10-08-set2
+Collection time: 2026-10-08T23:10:43.7406926+08:00
+READING HISTORICAL EXPERIMENT FILES; dates come from original sources. No benchmark rerun.
+
+Read-only step: python -B scripts/jvm_parameter/build_oom_reverification.py --check
+PASS: 9/9 OOM/invalid failures reproduced
+Read-only step: Import-Csv analysis/jvm_parameter/oom_reverification_results.csv | Select workload,heap_config,run_id,Result,JavaExit,ReporterExit,OOM,NOT_VALID,reproduced
+
+workload          heap_config run_id Result          JavaExit ReporterExit OOM NOT_VALID reproduced
+--------          ----------- ------ ------          -------- ------------ --- --------- ----------
+derby             xmx512m     Run1   SPECjvm2008.066 124      255          5   true      true
+derby             xmx512m     Run2   SPECjvm2008.067 255      255          17  true      true
+derby             xmx512m     Run3   SPECjvm2008.068 124      255          9   true      true
+scimark.fft.large xmx512m     Run1   SPECjvm2008.069 0        0            16  true      true
+scimark.fft.large xmx1024m    Run1   SPECjvm2008.070 0        0            10  true      true
+scimark.fft.large xmx512m     Run2   SPECjvm2008.071 0        0            16  true      true
+scimark.fft.large xmx1024m    Run2   SPECjvm2008.072 0        0            10  true      true
+scimark.fft.large xmx512m     Run3   SPECjvm2008.073 0        0            16  true      true
+scimark.fft.large xmx1024m    Run3   SPECjvm2008.074 0        0            10  true      true
+
+Read-only step: python -B scripts/jvm_parameter/verify_oom_reverification.py
+PASS: 9/9 failures independently reproduced; original matrix and formal .007 intact
+Independent namespace: specjvm2008/verification_results/. Original 48-attempt matrix unchanged.
+Watchdog: 900 s; exit 124 = timeout, 255 = nonzero failure, 0 alone does not establish validity.
+
+Read-only evidence display complete. Original data have not been rewritten.
+**********************
+PowerShell transcript end
+End time: 20261008231044
+**********************

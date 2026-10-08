@@ -1,0 +1,224 @@
+{
+  "view": "DerbyGC",
+  "collected_at": "2026-10-08T23:10:39.6255279+08:00",
+  "historical": true,
+  "project_root": "E:\\software_system\\course_repo\\homework02",
+  "display_script_sha256": "6b25ec37d4690804c2cfaaa395303efadfe64f3a1f4418eb4a18d07c63190aac",
+  "commands": [
+    "python -B scripts/jvm_parameter/build_enhancement_data.py --check",
+    "Import-Csv analysis/jvm_parameter/gc_measurement_summary.csv | Where-Object workload -eq derby | Select-Object heap_config,valid_n,@{n='score_ops/min';e={$_.mean_score_ops_per_min}},@{n='FullGC_mean';e={$_.mean_measurement_full_gc_count}},@{n='pause_s_mean';e={$_.mean_measurement_gc_pause_s}},@{n='pre_heap_%';e={$_.mean_measurement_pre_gc_max_heap_percent}},@{n='post_heap_%';e={$_.mean_measurement_post_gc_max_heap_percent}} | Format-Table -AutoSize",
+    "Import-Csv analysis/jvm_parameter/heap_parameter_results.csv | Where-Object workload -eq derby | Group-Object heap_config | ForEach-Object {\n                $valid = @($_.Group | Where-Object status -eq valid)\n                [pscustomobject]@{heap=$_.Name;valid=$valid.Count;FullGC_mean=$(if ($valid.Count) { '{0:F3}' -f ($valid | Measure-Object gc_full_count -Average).Average } else {'N/A'});pause_s_mean=$(if ($valid.Count) { '{0:F6}' -f ($valid | Measure-Object gc_time_s -Average).Average } else {'N/A'})}\n            } | Format-Table -AutoSize"
+  ],
+  "sources": [
+    {
+      "path": "analysis/jvm_parameter/gc_measurement_summary.csv",
+      "sha256": "43875eabe5a52c7207847b13c0481d3737ffea0638d2b1f49a81a9ba5bb75a96"
+    },
+    {
+      "path": "analysis/jvm_parameter/heap_parameter_results.csv",
+      "sha256": "56fe8955ac5b27757bb01e93ae58e471c74ca3dabc22fd46d748abb9701fc09f"
+    },
+    {
+      "path": "logs/jvm_parameter/default/derby__default__r1.log",
+      "sha256": "e3574c1488b84a777e23560cfdf3dc4d47b8b176b56856b63b0b52472f0bab41"
+    },
+    {
+      "path": "logs/jvm_parameter/default/derby__default__r2.log",
+      "sha256": "479de1583005d951aaf379c2e2aee925929cffd2a3c10207673dd30ecd4c67fe"
+    },
+    {
+      "path": "logs/jvm_parameter/default/derby__default__r3.log",
+      "sha256": "cabaf24be8e6bf68bf3937a2e19ee6a3e866a6b50ca0c0a97ccaa2f03cde1a42"
+    },
+    {
+      "path": "logs/jvm_parameter/gc/derby__default__r1.gc.log",
+      "sha256": "8e6be49ebb0b5791e2e7cdbf15d2007c3e5dca949acafa1d8742cbabc24e89f5"
+    },
+    {
+      "path": "logs/jvm_parameter/gc/derby__default__r2.gc.log",
+      "sha256": "e3d77e08ae40611bf55c611a429cdcfbc6db323a32e7edc346a2dd77eaba2aa8"
+    },
+    {
+      "path": "logs/jvm_parameter/gc/derby__default__r3.gc.log",
+      "sha256": "0cb507a3efb9207d2a98600437267ebcb7687bf075fb3d033fb9de3b5f0d4fc8"
+    },
+    {
+      "path": "logs/jvm_parameter/gc/derby__xmx1024m__r1.gc.log",
+      "sha256": "ad26296f68494180d466191c75014f2010436e46eba1452d7455f7b73fb15552"
+    },
+    {
+      "path": "logs/jvm_parameter/gc/derby__xmx1024m__r2.gc.log",
+      "sha256": "938e52e4bb8e9b255b03159c1f4aca7fb04b4eee4799f95c5af8a9ee39f32a52"
+    },
+    {
+      "path": "logs/jvm_parameter/gc/derby__xmx1024m__r3.gc.log",
+      "sha256": "f77ec1775b55c687aee963e43dd763c4d0c477832972da8fb4fab3e8bd48c905"
+    },
+    {
+      "path": "logs/jvm_parameter/gc/derby__xmx2560m__r1.gc.log",
+      "sha256": "bbcef86d3deb5a12dbd0d1d545782e27d25afb2580df9650f91c97e0a346356c"
+    },
+    {
+      "path": "logs/jvm_parameter/gc/derby__xmx2560m__r2.gc.log",
+      "sha256": "841bfba2615d4c67eb330c61a6639f985bdb782fb83b461deaec05db14f8d3eb"
+    },
+    {
+      "path": "logs/jvm_parameter/gc/derby__xmx2560m__r3.gc.log",
+      "sha256": "c64db9a8b138cffde97cc48bd3c78e07e9dbfea0fe0d8842fdd438b0b67451d1"
+    },
+    {
+      "path": "logs/jvm_parameter/gc/derby__xmx512m__r1.gc.log",
+      "sha256": "a70cf4568c6b5d1a343f4999cbc5845ea8982a9183be19c9ac015bc347ecd43d"
+    },
+    {
+      "path": "logs/jvm_parameter/gc/derby__xmx512m__r2.gc.log",
+      "sha256": "7ef4ae98ec67852ab428d515080c9a0462996ba469936995d26e74c5628f92b1"
+    },
+    {
+      "path": "logs/jvm_parameter/gc/derby__xmx512m__r3.gc.log",
+      "sha256": "bfe77157b606d7f8437ac444410c35879c76f43a59e956775c49a22b0339c455"
+    },
+    {
+      "path": "logs/jvm_parameter/xmx1024m/derby__xmx1024m__r1.log",
+      "sha256": "921b21c3e33b0a58c7b0592aad4d6996191fa7d3052351b1691da38f33d688ee"
+    },
+    {
+      "path": "logs/jvm_parameter/xmx1024m/derby__xmx1024m__r2.log",
+      "sha256": "47460243029f33a9838d5071bc8d5bcb5eca4e730ae5a09fd88626f30fe2e525"
+    },
+    {
+      "path": "logs/jvm_parameter/xmx1024m/derby__xmx1024m__r3.log",
+      "sha256": "5239856bf3c2d805b81069c10fde47a351f803a7b4c2b3cc86dc9ef8a4a719ba"
+    },
+    {
+      "path": "logs/jvm_parameter/xmx2560m/derby__xmx2560m__r1.log",
+      "sha256": "3dfc21a224470f936b47705229ee21cd3037c30b4b6bbfa234be355127a6d904"
+    },
+    {
+      "path": "logs/jvm_parameter/xmx2560m/derby__xmx2560m__r2.log",
+      "sha256": "bb9f6c73ec2cfac874d899de58a468feec3764c6b126bdf7632b2a2e5d35fce1"
+    },
+    {
+      "path": "logs/jvm_parameter/xmx2560m/derby__xmx2560m__r3.log",
+      "sha256": "a38f5489e082cfea7f7bd1f8c8a1950ed28c8769c1f300259ae0c75b9c1f88d3"
+    },
+    {
+      "path": "logs/jvm_parameter/xmx512m/derby__xmx512m__r1.log",
+      "sha256": "7f18e286922f2db4ab05cf0ab595ca3dd6e8aec143f52dbc6b66840f8b293158"
+    },
+    {
+      "path": "logs/jvm_parameter/xmx512m/derby__xmx512m__r2.log",
+      "sha256": "fe250bdd0d74d4002d03512f309c7c490de206fff5dfe8f9eb7cae8f7062030b"
+    },
+    {
+      "path": "logs/jvm_parameter/xmx512m/derby__xmx512m__r3.log",
+      "sha256": "30f9b6142ae99cf7e2f52416cd8203140af0b78150a507a0cab43632bf507785"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.030/SPECjvm2008.030.raw",
+      "sha256": "f8ee62121a97c178211193fd7f78a235f475d0ae357ab33ea4fb883f39a015ec"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.030/SPECjvm2008.030.txt",
+      "sha256": "8c117b46e0923220015731c5ebf05f9294ac30e6a257da0bbaf8efdb19d7ebb7"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.031/SPECjvm2008.031.raw",
+      "sha256": "ac5d2cbe653f3151b77fccab4b16be97eccc044872a2127322a6b89ca8f50e98"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.032/SPECjvm2008.032.raw",
+      "sha256": "1db97863557e9123e7dbac1c379d9cc56f816766f81983ad01ece4d2a99690c2"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.032/SPECjvm2008.032.txt",
+      "sha256": "aa5b584fffef865d899e67697c2ccc257fbd10c435878cdf82679a4f54858e55"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.033/SPECjvm2008.033.raw",
+      "sha256": "c47c7b9dc245f25d282aa61847639087eaeaeb148d04302af5c26ad127a974ca"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.033/SPECjvm2008.033.txt",
+      "sha256": "83e14b37cafb3340c58d23e6210d1d595aebf94cfd809e68d8e344d6414d3fce"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.034/SPECjvm2008.034.raw",
+      "sha256": "4050c65138668f829f010a61c5d73ac83f43171fc2c12b6e1a7843283b6ce8e5"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.034/SPECjvm2008.034.txt",
+      "sha256": "bbf80e67230586af65bb5862fede22fb755df080399f63ed3221edfc55233e2f"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.035/SPECjvm2008.035.raw",
+      "sha256": "cb7aac253c2226acbcc003e5d611012f6ef1a5a7adcb34b9cdc6e4e6b0be3f2f"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.035/SPECjvm2008.035.txt",
+      "sha256": "893927b10a6584aea808d0aa4c7c7b2b019bf20f236f079e28be1b456613c6ab"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.036/SPECjvm2008.036.raw",
+      "sha256": "479e8bf35c0970b7654ee9df8ebc989a1e884062844bf6ed7e0d344479598ef3"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.036/SPECjvm2008.036.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.037/SPECjvm2008.037.raw",
+      "sha256": "551da143778223d8e94126ba2199c5b5af1299fd358986db4951968ba2efed9c"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.037/SPECjvm2008.037.txt",
+      "sha256": "800be504698ab24fd93c306a0383e9c083d6a35b0351a59f25b8f0abe7e75977"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.038/SPECjvm2008.038.raw",
+      "sha256": "e5da5f8f658795a5501917a4e23aab2269fe6e759dd45f0be57f7e7cf084c145"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.038/SPECjvm2008.038.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.039/SPECjvm2008.039.raw",
+      "sha256": "b2e02df8494c872b932b95fb1db3a93eeab12d04f08fc988694793c8b6d01723"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.039/SPECjvm2008.039.txt",
+      "sha256": "923b91390afbed827ed4e78746f4990ee9d15e1e8613d1c02e0ff8c589511b30"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.040/SPECjvm2008.040.raw",
+      "sha256": "0fb7767d8926278d542d4098971bb00324f173a4921830bd3e0adabf601da111"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.040/SPECjvm2008.040.txt",
+      "sha256": "e1fe90f6f0c314cc40fa6987b29c21101e15969061aece496dade9984307949f"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.041/SPECjvm2008.041.raw",
+      "sha256": "8ef9292a65f5e42ae82d3009be3c49405cb4397cd1f7db0c4c0de33c59152764"
+    },
+    {
+      "path": "specjvm2008/results/SPECjvm2008.041/SPECjvm2008.041.txt",
+      "sha256": "db53e8dac5204f04b5e4a744a83cbba0f2c29c865065adcb1ead375951fc478f"
+    }
+  ],
+  "transcript": "evidence/terminal_screenshots/2026-10-08-set2/derbygc.txt",
+  "native_screen_capture": true,
+  "capture_api": "System.Drawing.Graphics.CopyFromScreen (Windows desktop pixels; DWM visible window bounds)",
+  "window_handle": 1181540,
+  "window_rect": {
+    "right": 1907,
+    "bottom": 1039,
+    "top": 20,
+    "left": 29
+  },
+  "rendered_rows": 35,
+  "visible_rows": 36,
+  "screenshot": "images/terminal/2026-10-08-set2/derbygc.png",
+  "screenshot_sha256": "81dafbf46d31a498baccf3d2fb1e2ed76bd4f563f31e72ec06e271b3b204589d"
+}

@@ -1,0 +1,53 @@
+**********************
+PowerShell transcript start
+Start time: 20261008231033
+Username: 小谷天天开心\28489
+RunAs User: 小谷天天开心\28489
+Configuration Name: 
+Machine: 小谷天天开心 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Users\28489\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -NoLogo -NoProfile -NoExit -File E:\software_system\course_repo\homework02\scripts\screenshots\show_terminal_evidence.ps1 -View DerbyGC -Capture -Session 2026-10-08-set2
+Process ID: 63020
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.26200
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+A2 SPECjvm2008 - DerbyGC
+PS E:\software_system\course_repo\homework02> .\scripts\screenshots\show_terminal_evidence.ps1 -View DerbyGC -Capture -Session 2026-10-08-set2
+Collection time: 2026-10-08T23:10:33.0916001+08:00
+READING HISTORICAL EXPERIMENT FILES; dates come from original sources. No benchmark rerun.
+
+Read-only step: python -B scripts/jvm_parameter/build_enhancement_data.py --check
+PASS: 118230 GC memory rows; phases={'boundary_uncertain': 1575, 'warmup': 25464, 'between_warmup_and_measurement': 499, 'measurement': 51217, 'pre_warmup': 217, 'post_measurement': 653, 'unavailable_invalid_run': 38605}; four JVM flag snapshots
+Window: ESTIMATED measurement phase; +/-1 s uncertain boundary events excluded.
+Read-only step: Import-Csv analysis/jvm_parameter/gc_measurement_summary.csv | Where workload -eq derby | Select heap_config,valid_n,score,FullGC,pause,pre%,post%
+
+heap_config valid_n score_ops/min FullGC_mean pause_s_mean pre_heap_% post_heap_%
+----------- ------- ------------- ----------- ------------ ---------- -----------
+default     3       717.743       0.000       13.579731    73.960     40.882
+xmx512m     0
+xmx1024m    3       225.753       1861.667    164.416770   94.030     71.388
+xmx2560m    3       738.560       0.000       10.483663    63.518     30.389
+
+Separate window: WHOLE JAVA PROCESS (includes warmup; valid runs only).
+Read-only step: Import-Csv analysis/jvm_parameter/heap_parameter_results.csv | Where workload -eq derby | Group heap_config | compute valid means(gc_full_count,gc_time_s)
+
+heap     valid FullGC_mean pause_s_mean
+----     ----- ----------- ------------
+default      3 9.333       22.350808
+xmx1024m     3 2831.333    260.711335
+xmx2560m     3 9.000       17.582350
+xmx512m      0 N/A         N/A
+
+512 MiB has no valid measured score; do not count its failed warmup as measurement.
+
+Read-only evidence display complete. Original data have not been rewritten.
+**********************
+PowerShell transcript end
+End time: 20261008231037
+**********************

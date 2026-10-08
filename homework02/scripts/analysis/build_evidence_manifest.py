@@ -113,12 +113,18 @@ def main():
     args = parser.parse_args()
     content, count = build()
     if args.check:
-        if not OUTPUT.is_file() or OUTPUT.read_text(encoding="utf-8") != content:
+        # Git checkout changes filesystem mtimes, not preserved experiment content.
+        # Keep modified_utc as provenance, but verify identity with stable fields.
+        def identity(text):
+            return [{key: row[key] for key in ("relative_path", "role", "bytes", "sha256")}
+                    for row in csv.DictReader(io.StringIO(text))]
+
+        if not OUTPUT.is_file() or identity(OUTPUT.read_text(encoding="utf-8")) != identity(content):
             raise ValueError("Evidence manifest differs from present source artifacts")
     else:
         OUTPUT.parent.mkdir(parents=True, exist_ok=True)
         OUTPUT.write_text(content, encoding="utf-8", newline="")
-    print(f"PASS: {count} preserved evidence artifacts inventoried")
+    print(f"PASS: {count} preserved evidence artifacts inventoried (path, role, bytes, SHA-256; mtimes informational)")
 
 
 if __name__ == "__main__":

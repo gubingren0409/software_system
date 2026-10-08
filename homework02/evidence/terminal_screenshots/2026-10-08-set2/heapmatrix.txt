@@ -1,0 +1,61 @@
+**********************
+PowerShell transcript start
+Start time: 20261008231023
+Username: 小谷天天开心\28489
+RunAs User: 小谷天天开心\28489
+Configuration Name: 
+Machine: 小谷天天开心 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Users\28489\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -NoLogo -NoProfile -NoExit -File E:\software_system\course_repo\homework02\scripts\screenshots\show_terminal_evidence.ps1 -View HeapMatrix -Capture -Session 2026-10-08-set2
+Process ID: 62384
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.26200
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+A2 SPECjvm2008 - HeapMatrix
+PS E:\software_system\course_repo\homework02> .\scripts\screenshots\show_terminal_evidence.ps1 -View HeapMatrix -Capture -Session 2026-10-08-set2
+Collection time: 2026-10-08T23:10:23.6413697+08:00
+READING HISTORICAL EXPERIMENT FILES; dates come from original sources. No benchmark rerun.
+
+Read-only step: python -B scripts/jvm_parameter/build_optional_data.py --check
+PASS: 48/48 captured attempts; 39 valid scores; 118230 GC events
+Read-only step: Import-Csv analysis/jvm_parameter/heap_parameter_summary.csv | Select workload,heap_config,valid_n,invalid_n,mean_score_ops_per_min,cv_score_percent | Format-Table
+
+workload          heap_config valid_n invalid_n mean_score_ops_per_min cv_score_percent
+--------          ----------- ------- --------- ---------------------- ----------------
+compress          default     3       0         517.567                1.169
+compress          xmx512m     3       0         508.677                0.168
+compress          xmx1024m    3       0         516.047                1.963
+compress          xmx2560m    3       0         486.177                1.729
+derby             default     3       0         717.743                4.572
+derby             xmx512m     0       3
+derby             xmx1024m    3       0         225.753                4.086
+derby             xmx2560m    3       0         738.560                3.967
+sunflow           default     3       0         312.263                1.797
+sunflow           xmx512m     3       0         283.807                1.656
+sunflow           xmx1024m    3       0         304.783                4.132
+sunflow           xmx2560m    3       0         304.820                1.334
+scimark.fft.large default     3       0         112.123                5.094
+scimark.fft.large xmx512m     0       3
+scimark.fft.large xmx1024m    0       3
+scimark.fft.large xmx2560m    3       0         113.783                4.738
+
+Read-only step: Import-Csv analysis/jvm_parameter/heap_parameter_results.csv | Group-Object status | Select Name,Count
+
+Name    Count
+----    -----
+invalid     9
+valid      39
+
+Blank scores are failures, NOT zero performance. Each cell has three independent JVM attempts.
+
+Read-only evidence display complete. Original data have not been rewritten.
+**********************
+PowerShell transcript end
+End time: 20261008231026
+**********************
