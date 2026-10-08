@@ -29,7 +29,9 @@ def valid_result() -> dict[str, object]:
         "block_size": 8,
         "seed": 1,
         "input": "random",
+        "input_generator": "splitmix64-interleaved-v1",
         "elapsed_seconds": 0.1,
+        "validation_seconds": 0.001,
         "checksum": 1.0,
         "reference_checksum": 1.0,
         "max_abs_error": 0.0,
@@ -76,6 +78,27 @@ class StrictJsonTests(unittest.TestCase):
 
 
 class ClassificationTests(unittest.TestCase):
+    def test_success_json_with_nonzero_exit_is_never_success(self) -> None:
+        for code in (64, 65):
+            self.assertNotEqual(classify_execution(code, False, json.dumps(valid_result()))[0], "success")
+
+    def test_error_classification_requires_schema(self) -> None:
+        for code, status in ((64, "parameter_error"), (65, "validation_failed")):
+            self.assertEqual(classify_execution(code, False, json.dumps(
+                {"schema": "wrong", "status": status}))[0], "output_parse_failure")
+
+    def test_request_identity_and_tolerance_are_required(self) -> None:
+        expected = {key: valid_result()[key] for key in
+                    ("n", "block_size", "seed", "input", "input_generator", "abs_tol", "rel_tol")}
+        for field, value in (("n", 18), ("block_size", 16), ("seed", 2), ("input", "zero"),
+                             ("input_generator", "other"), ("checked_entries", 0),
+                             ("abs_tol", 0.01), ("rel_tol", 0.01), ("abs_tol", -1),
+                             ("rel_tol", None), ("max_abs_error", -0.1), ("max_rel_error", -0.1),
+                             ("block_size", 0), ("seed", -1), ("seed", 1 << 64)):
+            result = valid_result()
+            result[field] = value
+            with self.subTest(field=field, value=value):
+                self.assertNotEqual(classify_execution(0, False, json.dumps(result), expected=expected)[0], "success")
     def test_success(self) -> None:
         classification, _, _ = classify_execution(0, False, json.dumps(valid_result()))
         self.assertEqual(classification, "success")
@@ -265,6 +288,20 @@ class FakeTarget:
 
 
 class EvaluatorFailurePathTests(unittest.TestCase):
+    def test_evaluator_binds_success_output_to_request(self) -> None:
+        for field, value in (("n", 18), ("block_size", 16), ("seed", 2), ("input", "zero"),
+                             ("checked_entries", 0), ("abs_tol", 1.0)):
+            result = valid_result()
+            result[field] = value
+            record = self.run_fake(f"print({json.dumps(result)!r})\n")
+            self.assertNotEqual(record["classification"], "success")
+            self.assertIsNone(record["score_seconds"])
+
+    def test_evaluator_never_scores_success_json_on_exit_64_65(self) -> None:
+        for code in (64, 65):
+            record = self.run_fake(f"import sys\nprint({json.dumps(valid_result())!r})\nsys.exit({code})\n")
+            self.assertIsNone(record["score_seconds"])
+
     def run_fake(self, body: str, mode: str = "run", timeout: float = 1.0) -> dict[str, object]:
         with tempfile.TemporaryDirectory() as directory_text:
             directory = Path(directory_text)

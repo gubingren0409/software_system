@@ -1,6 +1,7 @@
 {
-  "schema_version": 1,
-  "status": "frozen-after-p1-limited-pilot",
+  "schema_version": 2,
+  "status": "frozen-before-p2-grid",
+  "revision_reason": "P2 uses 2 GiB available on both host and WSL; the measured candidate peak RSS was about 386 MiB and reference generation needs about 384 MiB. This retains roughly fourfold memory headroom while preserving the host CPU gate.",
   "target_matrix_n": 4096,
   "matrix_input_seed": 20261008,
   "input_pattern": "random",
@@ -18,8 +19,9 @@
     "functional_host_minimum_available_bytes": 2147483648,
     "functional_wsl_minimum_available_bytes": 2147483648,
     "functional_wsl_root_minimum_free_bytes": 1073741824,
-    "formal_host_minimum_available_bytes": 4294967296,
-    "formal_wsl_minimum_available_bytes": 4294967296,
+    "formal_host_minimum_available_bytes": 2147483648,
+    "formal_wsl_minimum_available_bytes": 2147483648,
+    "formal_wsl_root_minimum_free_bytes": 1073741824,
     "formal_host_cpu_average_maximum_percent": 10,
     "formal_host_cpu_single_sample_maximum_percent": 20
   },
@@ -36,13 +38,13 @@
     "score_statistic": "median compute_seconds",
     "also_report": ["minimum", "maximum", "mean", "sample_stdev", "coefficient_of_variation", "median_absolute_deviation", "relative_mad"],
     "failure_policy": "Any failed measured run makes the configuration evaluation invalid; do not score a successful subset.",
-    "repeat_escalation_rule": "Before Grid, raise every configuration to 7 measured runs if the P1 representative has CV > 0.05 or relative MAD > 0.03.",
+    "repeat_escalation_rule": "Frozen at five measured runs from P1 pilot CV 0.011 and relative MAD 0.009; post-hoc escalation is not used in this session.",
     "timeout_rule_after_p1": "For each optimization level use max(60 seconds, ceil(3 * the largest measured default-size P1 pilot process wall time for that level)); O3 includes its repeatability runs.",
     "cost_accounting": "Record core compute time separately from build, reference generation, validation and total process wall time."
   },
   "cache_policy": {
     "build_reference_and_performance_caches_are_separate": true,
     "formal_measurement_default": "fresh execution",
-    "performance_cache_use": "explicit interrupted-session recovery only"
+    "performance_cache_use": "Forbidden for formal samples. Resume only complete configuration groups from this session's original raw samples."
   }
 }

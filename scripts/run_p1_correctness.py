@@ -198,6 +198,7 @@ def run_strict_cli_checks(target: TargetAdapter) -> list[dict[str, object]]:
 def attach_raw_evidence(
     record: dict[str, object], run_directory: Path
 ) -> dict[str, object]:
+    run_directory = Path(str(record.get("run_directory", run_directory)))
     enriched = dict(record)
     for key, filename in (
         ("raw_stdout", "stdout.txt"),

@@ -1,0 +1,34 @@
+# P2 运行契约与冻结协议
+
+基线为 `7e8ab2e0ccb28cff25f9d3146c6a38d284bfd4de`。本阶段先修复并验证运行契约，
+再提交代码与冻结协议。正式实验从该内容提交的 Git archive 运行，session 绑定内容 SHA。
+
+成功必须同时满足退出码 0、预期 schema/status、全部有限性与正确性条件、请求身份
+一致。身份包括 n、s、seed、input、input_generator；checked_entries 等于 n²，误差
+非负，容差等于冻结协议。64/65 即使输出成功 JSON 也不能计分。原来的乘法循环与
+输入规则不变；计时区外新增 validation_seconds 供验证成本单独统计。
+
+每个配置由 ConfigurationEvaluator 完成一成功预热和五个 fresh_measurement，
+force_remeasure 恒为 true，中位数计分，同时保存均值、标准差、CV、MAD、墙钟。
+失败不筛选成功子集，样本 UUID、失败与放弃记录保留。策略仅获得自身 ask/tell 观测。
+Grid 为优化级别外层、块大小内层的 20 配置；随机用 Fisher--Yates 无放回排列；
+重启贪心的邻域为单参数到任意其他值，共 7 个邻居，允许已观测邻居参与严格改善
+决策且不重复计入唯一预算。随机与贪心本阶段只做受控测试及 n=130 诊断。
+
+measurement_protocol schema 2 将宿主和 WSL 可用内存统一改为 2 GiB，根目录至少
+1 GiB；宿主 CPU 平均 ≤10%、单样本 ≤20%。依据是 P1 候选峰值 RSS 约 386 MiB，
+独立 reference 生成三矩阵约 384 MiB，2 GiB 保留约四倍空间。P1 pilot 继续作为
+历史诊断，不追认为正式数据。预热、五重复、random、seed=20261008、SplitMix64
+规则、1e-12/1e-12 容差和 O0/O1/O2/O3 的 1271/244/151/243 秒超时均在 Grid 前冻结。
+
+check_p2_resources.ps1 的 Formal 模式输出 JSON。运行器检查 formal_gate 及各数值
+门槛；每个配置开始前重新采集，失败保存检查点并等待。目标执行期间每 5 秒采集
+WSL 内存、swap、vmstat 和 memory PSI，每约 30 秒采集宿主可用内存、commit、分页
+速率与 CPU；/usr/bin/time -v 记录进程峰值 RSS。温度与节流可靠信息仍为 unknown。
+
+续跑检查内容 SHA、Git blob 与执行 SHA-256/换行、编译器、二进制、输入、reference
+及协议哈希。完成配置必须从全部六条原始样本重新校验；中断配置保留旧样本为放弃
+记录，重新预热及完整测量。性能缓存不能恢复五次重复。协议或源码变化必须新 session。
+
+正式 Grid 完成后，对测得最低中位数配置再进行独立一预热五测量；该组单独保存。
+最初 6 小时仅为估计，日志按已完成配置更新剩余成本。

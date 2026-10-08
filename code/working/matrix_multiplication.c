@@ -165,6 +165,12 @@ int main(int argc, char **argv) {
     }
     double elapsed_seconds = seconds_between(&start, &end);
 
+    struct timespec validation_start;
+    struct timespec validation_end;
+    if (clock_gettime(CLOCK_MONOTONIC, &validation_start) != 0) {
+        return 70;
+    }
+
 #if MM_TEST_FAULT == 1
     C[0][0] += 1.0;
 #elif MM_TEST_FAULT == 2
@@ -261,6 +267,11 @@ int main(int argc, char **argv) {
         return 70;
     }
 
+    if (clock_gettime(CLOCK_MONOTONIC, &validation_end) != 0) {
+        return 70;
+    }
+    const double validation_seconds = seconds_between(&validation_start, &validation_end);
+
 #if MM_TEST_FAULT == 5
     elapsed_seconds = NAN;
 #elif MM_TEST_FAULT == 6
@@ -278,7 +289,8 @@ int main(int argc, char **argv) {
                       reference_checksum_finite && error_summary_finite &&
                       mismatch_count == 0 && nonfinite_result_count == 0 &&
                       nonfinite_reference_count == 0 &&
-                      nonfinite_error_count == 0;
+                      nonfinite_error_count == 0 && isfinite(validation_seconds) &&
+                      validation_seconds >= 0.0;
 
     printf("{\"schema\":\"matrix-multiplication-result-v1\","
            "\"status\":\"%s\",\"n\":%d,\"block_size\":%d,"
@@ -296,7 +308,7 @@ int main(int argc, char **argv) {
     print_number_or_null(max_abs_error);
     printf(",\"max_rel_error\":");
     print_number_or_null(max_rel_error);
-    printf(",\"abs_tol\":%.1Le,\"rel_tol\":%.1Le,"
+    printf(",\"validation_seconds\":%.17g,\"abs_tol\":%.1Le,\"rel_tol\":%.1Le,"
            "\"checked_entries\":%" PRIu64 ","
            "\"mismatch_count\":%" PRIu64 ","
            "\"nonfinite_result_count\":%" PRIu64 ","
@@ -306,7 +318,7 @@ int main(int argc, char **argv) {
            "\"finite_reference_checksum\":%s,"
            "\"finite_error_summary\":%s,\"validation\":%s,"
            "\"fault_injection\":%d}\n",
-           ABS_TOL, REL_TOL, (uint64_t)MATRIX_N * (uint64_t)MATRIX_N,
+           validation_seconds, ABS_TOL, REL_TOL, (uint64_t)MATRIX_N * (uint64_t)MATRIX_N,
            mismatch_count, nonfinite_result_count, nonfinite_reference_count,
            nonfinite_error_count, elapsed_finite ? "true" : "false",
            checksum_finite ? "true" : "false",

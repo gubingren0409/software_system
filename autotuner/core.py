@@ -7,6 +7,7 @@ import os
 import shutil
 import signal
 import subprocess
+import threading
 import tempfile
 import time
 import uuid
@@ -21,6 +22,7 @@ REFERENCE_SCHEMA = "matrix-reference-v1"
 RUNNER_SCHEMA = "matrix-autotuner-evaluation-v1"
 VALID_OPTIMIZATIONS = ("O0", "O1", "O2", "O3")
 VALID_INPUTS = ("random", "zero", "identity")
+INPUT_GENERATOR = "splitmix64-interleaved-v1"
 
 
 class ConfigurationError(ValueError):
@@ -263,6 +265,8 @@ class TargetAdapter:
             "command": [*command[:-1], str(binary)],
             "binary_sha256": binary_hash,
             "created_at": utc_now(),
+            "compiler_stdout": completed.stdout, "compiler_stderr": completed.stderr,
+            "compiler_returncode": completed.returncode,
         }
         atomic_write_json(manifest, metadata)
         return BuildArtifact(
@@ -324,6 +328,8 @@ class TargetAdapter:
             "command": [*command[:-1], str(binary)],
             "binary_sha256": binary_hash,
             "created_at": utc_now(),
+            "compiler_stdout": completed.stdout, "compiler_stderr": completed.stderr,
+            "compiler_returncode": completed.returncode,
         }
         atomic_write_json(manifest, metadata)
         return BuildArtifact(
@@ -482,19 +488,25 @@ class TargetAdapter:
 
 
 class Evaluator:
-    def __init__(self, target: TargetAdapter):
+    def __init__(self, target: TargetAdapter, host_snapshot_command: list[str] | None = None):
         self.target = target
+        self.host_snapshot_command = host_snapshot_command
 
     def evaluate(self, config: Config, context: EvaluationContext) -> dict[str, Any]:
         label = sanitize_label(context.evidence_label)
         if not label:
             label = uuid.uuid4().hex
+        run_id = uuid.uuid4().hex
+        label = f"{label}_{run_id}"
         run_directory = (
             self.target.evidence_root / "runs" / label
             if self.target.evidence_root
             else Path(tempfile.mkdtemp(prefix="mm-evaluation-"))
         )
         run_directory.mkdir(parents=True, exist_ok=True)
+
+        overall_started = time.monotonic()
+        build_started = time.monotonic()
 
         try:
             artifact = self.target.build_candidate(
@@ -513,6 +525,9 @@ class Evaluator:
             )
             self._write_record(run_directory, record, error.stdout, error.stderr, "")
             return record
+
+        build_seconds = time.monotonic() - build_started
+        reference_started = time.monotonic()
 
         try:
             reference = self.target.get_reference(
@@ -536,6 +551,15 @@ class Evaluator:
             self._write_record(run_directory, record, "", str(error), "")
             return record
 
+        reference_seconds = time.monotonic() - reference_started
+        expected = {
+            "n": context.matrix_n, "block_size": config.block_size,
+            "seed": context.seed, "input": context.input_pattern,
+            "input_generator": INPUT_GENERATOR,
+            "abs_tol": self.target.config.get("abs_tolerance", 1e-12),
+            "rel_tol": self.target.config.get("rel_tolerance", 1e-12),
+        }
+
         performance_key = sha256_json(
             {
                 "schema": "performance-cache-key-v1",
@@ -554,11 +578,14 @@ class Evaluator:
             and performance_path.is_file()
         ):
             cached = _load_json_file(performance_path)
-            if cached.get("classification") == "success" and is_finite_number(
-                cached.get("score_seconds")
-            ):
+            cached_classification, _, _ = classify_execution(
+                cached.get("returncode", -1), cached.get("timed_out", True),
+                cached.get("raw_stdout", ""), self.target.config["result_schema"], expected,
+            )
+            if cached_classification == "success":
                 record = dict(cached)
                 record["source"] = "performance_cache"
+                record["run_id"] = run_id
                 record["cache_reused_at"] = utc_now()
                 self._write_record(run_directory, record, "", "", "")
                 return record
@@ -602,6 +629,27 @@ class Evaluator:
             stderr=subprocess.PIPE,
             start_new_session=True,
         )
+        samples: list[dict[str, Any]] = []
+        stopped = threading.Event()
+
+        def monitor() -> None:
+            last_host = -30.0
+            while not stopped.is_set():
+                sample = resource_snapshot()
+                if self.host_snapshot_command and time.monotonic() - last_host >= 30:
+                    last_host = time.monotonic()
+                    try:
+                        host = subprocess.run(self.host_snapshot_command, text=True,
+                                              capture_output=True, timeout=20, check=False)
+                        sample["host_command_returncode"] = host.returncode
+                        sample["host"] = json.loads(host.stdout.lstrip("\ufeff"))
+                    except (ValueError, OSError, subprocess.TimeoutExpired) as error:
+                        sample["host"] = {"status": "unknown", "error": str(error)}
+                samples.append(sample)
+                stopped.wait(5.0)
+
+        monitoring = threading.Thread(target=monitor, daemon=True)
+        monitoring.start()
         timed_out = False
         try:
             stdout, stderr = process.communicate(timeout=context.timeout_seconds)
@@ -610,10 +658,12 @@ class Evaluator:
             os.killpg(process.pid, signal.SIGKILL)
             stdout, stderr = process.communicate()
         process_wall_seconds = time.monotonic() - started
+        stopped.set()
+        monitoring.join(timeout=21)
         after = resource_snapshot()
         resource_text = time_output.read_text(encoding="utf-8") if time_output.exists() else ""
         classification, parsed, detail = classify_execution(
-            process.returncode, timed_out, stdout, self.target.config["result_schema"]
+            process.returncode, timed_out, stdout, self.target.config["result_schema"], expected
         )
         score = parsed.get("elapsed_seconds") if classification == "success" else None
         record = self._base_record(config, context)
@@ -638,6 +688,13 @@ class Evaluator:
                 "resource_after": after,
                 "target_result": parsed,
                 "source": "fresh_measurement",
+                "run_id": run_id,
+                "run_directory": str(run_directory),
+                "raw_stdout": stdout, "raw_stderr": stderr, "raw_resource": resource_text,
+                "resource_samples": samples,
+                "build_lookup_seconds": build_seconds,
+                "reference_lookup_seconds": reference_seconds,
+                "execution_total_seconds": time.monotonic() - overall_started,
             }
         )
         self._write_record(run_directory, record, stdout, stderr, resource_text)
@@ -662,6 +719,11 @@ class Evaluator:
         stderr: str,
         resource_text: str,
     ) -> None:
+        record.setdefault("run_id", directory.name.rsplit("_", 1)[-1])
+        record.setdefault("run_directory", str(directory))
+        record.setdefault("raw_stdout", stdout)
+        record.setdefault("raw_stderr", stderr)
+        record.setdefault("raw_resource", resource_text)
         atomic_write_text(directory / "stdout.txt", stdout)
         atomic_write_text(directory / "stderr.txt", stderr)
         if resource_text:
@@ -670,7 +732,8 @@ class Evaluator:
 
 
 def classify_execution(
-    returncode: int, timed_out: bool, stdout: str, expected_schema: str = RESULT_SCHEMA
+    returncode: int, timed_out: bool, stdout: str, expected_schema: str = RESULT_SCHEMA,
+    expected: dict[str, Any] | None = None,
 ) -> tuple[str, dict[str, Any], str]:
     if timed_out:
         return "timeout", {}, "deadline exceeded and process group was terminated"
@@ -682,10 +745,12 @@ def classify_execution(
         parsed = strict_json_line(stdout)
     except ValueError as error:
         return "output_parse_failure", {}, str(error)
-    if returncode == 64 and parsed.get("status") == "parameter_error":
-        return "parameter_rejected", parsed, "target reported invalid arguments"
-    if returncode == 65 and parsed.get("status") == "validation_failed":
-        return "validation_failure", parsed, "target correctness gate rejected the result"
+    if returncode in (64, 65):
+        status = "parameter_error" if returncode == 64 else "validation_failed"
+        if parsed.get("schema") == expected_schema and parsed.get("status") == status:
+            classification = "parameter_rejected" if returncode == 64 else "validation_failure"
+            return classification, parsed, "nonzero exit with matching error contract"
+        return "output_parse_failure", parsed, "nonzero exit contradicts output contract"
     if parsed.get("schema") != expected_schema or parsed.get("status") != "ok":
         return "output_parse_failure", parsed, "unexpected schema or status"
     required_integer_fields = (
@@ -718,11 +783,26 @@ def classify_execution(
         "max_rel_error",
         "abs_tol",
         "rel_tol",
+        "validation_seconds",
     )
     if any(not is_finite_number(parsed.get(field)) for field in finite_fields):
         return "validation_failure", parsed, "non-finite or missing numeric result field"
     if parsed["elapsed_seconds"] <= 0:
         return "validation_failure", parsed, "non-positive compute time"
+    if (
+        parsed["n"] < 1 or not 1 <= parsed["block_size"] <= parsed["n"]
+        or not 0 <= parsed["seed"] <= (1 << 64) - 1
+        or parsed.get("input") not in VALID_INPUTS
+        or parsed.get("input_generator") != INPUT_GENERATOR
+        or parsed["checked_entries"] != parsed["n"] ** 2
+        or parsed["max_abs_error"] < 0 or parsed["max_rel_error"] < 0
+        or parsed["abs_tol"] < 0 or parsed["rel_tol"] < 0
+        or parsed["validation_seconds"] < 0
+    ):
+        return "validation_failure", parsed, "illegal range, error, identity or checked-entry count"
+    identity = expected or {"input_generator": INPUT_GENERATOR, "abs_tol": 1e-12, "rel_tol": 1e-12}
+    if any(parsed.get(field) != value for field, value in identity.items()):
+        return "validation_failure", parsed, "result identity or tolerance differs from request/protocol"
     if (
         not all(parsed[field] for field in required_boolean_fields)
         or parsed["mismatch_count"] != 0
@@ -762,10 +842,12 @@ def strict_json_line(text: str) -> dict[str, Any]:
 def resource_snapshot() -> dict[str, Any]:
     mem_available = 0
     mem_total = 0
+    memory: dict[str, int] = {}
     with Path("/proc/meminfo").open(encoding="utf-8") as stream:
         for line in stream:
             name, value = line.split(":", 1)
             kib = int(value.strip().split()[0])
+            memory[name] = kib * 1024
             if name == "MemAvailable":
                 mem_available = kib * 1024
             elif name == "MemTotal":
@@ -777,6 +859,11 @@ def resource_snapshot() -> dict[str, Any]:
             allowed = line.split(":", 1)[1].strip()
             break
     disk = shutil.disk_usage("/")
+    vmstat = {}
+    for line in Path("/proc/vmstat").read_text(encoding="utf-8").splitlines():
+        key, value = line.split()
+        if key in ("pswpin", "pswpout", "pgmajfault"):
+            vmstat[key] = int(value)
     return {
         "captured_at": utc_now(),
         "mem_total_bytes": mem_total,
@@ -784,11 +871,19 @@ def resource_snapshot() -> dict[str, Any]:
         "loadavg": load_average,
         "cpus_allowed_list": allowed,
         "root_disk_free_bytes": disk.free,
+        "swap_total_bytes": memory.get("SwapTotal"),
+        "swap_free_bytes": memory.get("SwapFree"),
+        "vmstat": vmstat,
+        "memory_pressure": Path("/proc/pressure/memory").read_text().strip()
+        if Path("/proc/pressure/memory").exists() else "unknown",
     }
 
 
 def is_finite_number(value: Any) -> bool:
-    return type(value) in (int, float) and math.isfinite(float(value))
+    try:
+        return type(value) in (int, float) and math.isfinite(float(value))
+    except OverflowError:
+        return False
 
 
 def sha256_file(path: Path) -> str:

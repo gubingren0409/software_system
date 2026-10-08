@@ -40,7 +40,19 @@ def build_parser() -> argparse.ArgumentParser:
     evaluate.add_argument("--min-wsl-available-bytes", type=int, default=0)
     evaluate.add_argument("--fault-injection", type=int, choices=range(0, 8), default=0)
     evaluate.set_defaults(action=command_evaluate)
+    grid = subparsers.add_parser("grid", help="Run or resume the formal 20-configuration Grid session")
+    grid.add_argument("--content-sha", required=True)
+    grid.add_argument("--git-identity", type=Path, required=True)
+    grid.add_argument("--session-directory", type=Path, required=True)
+    grid.add_argument("--resume", action="store_true")
+    grid.set_defaults(action=command_grid)
     return parser
+
+
+def command_grid(args: argparse.Namespace) -> int:
+    from .session import run_grid
+    return run_grid(Path(__file__).resolve().parents[1], args.session_directory.resolve(),
+                    args.content_sha, args.git_identity, resume=args.resume)
 
 
 def load_runtime(args: argparse.Namespace) -> tuple[TargetAdapter, ConfigSpace]:
