@@ -23,9 +23,16 @@ def source_identity(root: Path, git_identity: dict[str, str]) -> dict[str, Any]:
     for relative, blob in git_identity.items():
         data = (root / relative).read_bytes()
         actual_blob = hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest()
+        git_bytes = data
         if actual_blob != blob:
-            raise ValueError(f"executed bytes differ from content commit: {relative}")
+            # Git archive applies eol attributes/core.autocrlf on Windows. Accept only
+            # the verified newline conversion, and preserve both byte identities.
+            git_bytes = data.replace(b"\r\n", b"\n")
+            normalized_blob = hashlib.sha1(b"blob " + str(len(git_bytes)).encode() + b"\0" + git_bytes).hexdigest()
+            if relative.startswith("code/original/") or normalized_blob != blob:
+                raise ValueError(f"executed bytes differ from content commit: {relative}")
         result[relative] = {"git_blob_sha1": blob, "executed_sha256": hashlib.sha256(data).hexdigest(),
+                            "git_content_sha256": hashlib.sha256(git_bytes).hexdigest(),
                             "byte_count": len(data), "crlf_count": data.count(b"\r\n"),
                             "lf_count": data.count(b"\n")}
     return result
