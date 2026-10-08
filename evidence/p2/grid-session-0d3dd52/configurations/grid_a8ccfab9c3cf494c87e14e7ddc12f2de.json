@@ -1,0 +1,2580 @@
+{
+  "attempt_id": "a8ccfab9c3cf494c87e14e7ddc12f2de",
+  "classification": "success",
+  "compute_total_seconds": 432.096835939,
+  "config": {
+    "block_size": 24,
+    "optimization": "O3"
+  },
+  "evaluation_wall_seconds": 443.5439790140008,
+  "measured_compute_seconds": [
+    74.798416502,
+    71.65519356,
+    72.235673604,
+    70.311928222,
+    69.825698155
+  ],
+  "process_wall_seconds": 438.8415260130023,
+  "purpose": "grid",
+  "samples": [
+    {
+      "attempt_id": "a8ccfab9c3cf494c87e14e7ddc12f2de",
+      "binary_sha256": "eaab26ff30e135cd0d29864646a38468ce9bf324a79c27512de1a80f1cc98f05",
+      "build_key": "3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e",
+      "build_lookup_seconds": 0.017117370996857062,
+      "classification": "success",
+      "classification_detail": "validated result",
+      "command": [
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/build/3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e/candidate",
+        "--block-size",
+        "24",
+        "--seed",
+        "20261008",
+        "--input",
+        "random",
+        "--reference",
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/reference/ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513/reference.bin"
+      ],
+      "config": {
+        "block_size": 24,
+        "optimization": "O3"
+      },
+      "context": {
+        "evidence_label": "grid_a8ccfab9c3cf494c87e14e7ddc12f2de_0",
+        "fault_injection": 0,
+        "force_remeasure": true,
+        "input_pattern": "random",
+        "matrix_n": 4096,
+        "min_wsl_available_bytes": 2147483648,
+        "protocol_hash": "2b1a75e9c5f88b80d83a47be4e34c2c5577d82d1468f37fd976e0d6d6ce5b828",
+        "seed": 20261008,
+        "timeout_seconds": 243
+      },
+      "created_at": "2026-10-08T15:52:10.093641+00:00",
+      "execution_total_seconds": 75.59202386600009,
+      "process_wall_seconds": 75.08364974800133,
+      "purpose": "grid",
+      "raw_resource": "\tCommand being timed: \"/var/tmp/matrix-autotuner-p2-10245102457/cache/build/3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e/candidate --block-size 24 --seed 20261008 --input random --reference /var/tmp/matrix-autotuner-p2-10245102457/cache/reference/ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513/reference.bin\"\n\tUser time (seconds): 69.37\n\tSystem time (seconds): 1.16\n\tPercent of CPU this job got: 101%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 1:09.62\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 394536\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 0\n\tMinor (reclaiming a frame) page faults: 98390\n\tVoluntary context switches: 0\n\tInvoluntary context switches: 1244\n\tSwaps: 0\n\tFile system inputs: 0\n\tFile system outputs: 0\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+      "raw_stderr": "",
+      "raw_stdout": "{\"schema\":\"matrix-multiplication-result-v1\",\"status\":\"ok\",\"n\":4096,\"block_size\":24,\"seed\":20261008,\"input\":\"random\",\"input_generator\":\"splitmix64-interleaved-v1\",\"elapsed_seconds\":73.2699258960000037177,\"checksum\":17181902562.027436398,\"reference_checksum\":17181902562.027436398,\"max_abs_error\":0,\"max_rel_error\":0,\"validation_seconds\":0.46571814400000006,\"abs_tol\":1.0e-12,\"rel_tol\":1.0e-12,\"checked_entries\":16777216,\"mismatch_count\":0,\"nonfinite_result_count\":0,\"nonfinite_reference_count\":0,\"nonfinite_error_count\":0,\"finite_elapsed\":true,\"finite_checksum\":true,\"finite_reference_checksum\":true,\"finite_error_summary\":true,\"validation\":true,\"fault_injection\":0}\n",
+      "reference_key": "ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513",
+      "reference_lookup_seconds": 0.4676398649971816,
+      "reference_sha256": "cc476da46f43613ef67dad7841b73d7f2d70b7f1d636a9f23d7d7124b8b499f5",
+      "resource_after": {
+        "captured_at": "2026-10-08T15:52:10.073037+00:00",
+        "cpus_allowed_list": "0-31",
+        "loadavg": "0.82 0.59 0.76 1/1270 19081",
+        "mem_available_bytes": 4180140032,
+        "mem_total_bytes": 7908261888,
+        "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+        "root_disk_free_bytes": 225517846528,
+        "swap_free_bytes": 2147483648,
+        "swap_total_bytes": 2147483648,
+        "vmstat": {
+          "pgmajfault": 18965,
+          "pswpin": 0,
+          "pswpout": 0
+        }
+      },
+      "resource_before": {
+        "captured_at": "2026-10-08T15:51:00.426827+00:00",
+        "cpus_allowed_list": "0-31",
+        "loadavg": "0.06 0.43 0.73 1/1280 18991",
+        "mem_available_bytes": 4158554112,
+        "mem_total_bytes": 7908261888,
+        "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+        "root_disk_free_bytes": 225517707264,
+        "swap_free_bytes": 2147483648,
+        "swap_total_bytes": 2147483648,
+        "vmstat": {
+          "pgmajfault": 18946,
+          "pswpin": 0,
+          "pswpout": 0
+        }
+      },
+      "resource_samples": [
+        {
+          "captured_at": "2026-10-08T15:51:00.434857+00:00",
+          "cpus_allowed_list": "0-31",
+          "host": {
+            "captured_at_local": "2026-10-08T23:51:03.4675273+08:00",
+            "formal_gate": "NOT_APPLICABLE",
+            "host_cpu_average_percent": 17,
+            "host_cpu_maximum_percent": 17,
+            "host_minimum_available_bytes": 3260555264,
+            "host_samples": [
+              {
+                "available_memory_bytes": 3260555264,
+                "commit_limit_bytes": 54425735168,
+                "committed_bytes": 30038581248,
+                "cpu_percent": 17,
+                "memory_temperature_or_throttling": "unknown",
+                "page_reads_per_second": 3,
+                "pages_per_second": 3,
+                "percent_committed_bytes_in_use": 55,
+                "timestamp": "2026-10-08T23:51:03.4338247+08:00"
+              }
+            ],
+            "host_total_visible_bytes": 16340406272,
+            "minimum_disk_bytes": 1073741824,
+            "minimum_memory_bytes": 2147483648,
+            "mode": "Snapshot",
+            "schema": "p2-resource-gate-v2"
+          },
+          "host_command_returncode": 0,
+          "loadavg": "0.06 0.43 0.73 1/1282 18993",
+          "mem_available_bytes": 4158554112,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517707264,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18947,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:51:08.492387+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "0.29 0.47 0.74 2/1280 19016",
+          "mem_available_bytes": 3750952960,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517707264,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18947,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:51:11.739678+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "0.35 0.47 0.74 2/1275 19020",
+          "mem_available_bytes": 3752648704,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517764608,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18953,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:51:16.740878+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "0.40 0.48 0.74 2/1276 19023",
+          "mem_available_bytes": 3753312256,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517740032,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18953,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:51:21.743428+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "0.45 0.49 0.74 2/1272 19023",
+          "mem_available_bytes": 3753156608,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517740032,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18953,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:51:26.747657+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "0.49 0.50 0.74 2/1271 19023",
+          "mem_available_bytes": 3753156608,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517740032,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18953,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:51:30.781761+00:00",
+          "cpus_allowed_list": "0-31",
+          "host": {
+            "captured_at_local": "2026-10-08T23:51:35.0758632+08:00",
+            "formal_gate": "NOT_APPLICABLE",
+            "host_cpu_average_percent": 19,
+            "host_cpu_maximum_percent": 19,
+            "host_minimum_available_bytes": 3378913280,
+            "host_samples": [
+              {
+                "available_memory_bytes": 3378913280,
+                "commit_limit_bytes": 54425735168,
+                "committed_bytes": 29836800000,
+                "cpu_percent": 19,
+                "memory_temperature_or_throttling": "unknown",
+                "page_reads_per_second": 278,
+                "pages_per_second": 847,
+                "percent_committed_bytes_in_use": 54,
+                "timestamp": "2026-10-08T23:51:35.0415552+08:00"
+              }
+            ],
+            "host_total_visible_bytes": 16340406272,
+            "minimum_disk_bytes": 1073741824,
+            "minimum_memory_bytes": 2147483648,
+            "mode": "Snapshot",
+            "schema": "p2-resource-gate-v2"
+          },
+          "host_command_returncode": 0,
+          "loadavg": "0.53 0.51 0.75 2/1271 19025",
+          "mem_available_bytes": 3750895616,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517735936,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18953,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:51:39.052195+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "0.57 0.52 0.75 2/1287 19048",
+          "mem_available_bytes": 3749773312,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517731840,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18953,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:51:43.366367+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "0.60 0.53 0.75 2/1275 19052",
+          "mem_available_bytes": 3758366720,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517785088,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18959,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:51:48.369270+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "0.64 0.53 0.75 2/1277 19056",
+          "mem_available_bytes": 3768209408,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517785088,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18959,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:51:53.372170+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "0.75 0.56 0.76 2/1272 19056",
+          "mem_available_bytes": 3766419456,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517785088,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18959,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:51:58.377919+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "0.77 0.57 0.76 2/1271 19056",
+          "mem_available_bytes": 3767066624,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517785088,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18959,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:52:03.383120+00:00",
+          "cpus_allowed_list": "0-31",
+          "host": {
+            "captured_at_local": "2026-10-08T23:52:05.9777379+08:00",
+            "formal_gate": "NOT_APPLICABLE",
+            "host_cpu_average_percent": 24,
+            "host_cpu_maximum_percent": 24,
+            "host_minimum_available_bytes": 3208441856,
+            "host_samples": [
+              {
+                "available_memory_bytes": 3208441856,
+                "commit_limit_bytes": 54425735168,
+                "committed_bytes": 29971398656,
+                "cpu_percent": 24,
+                "memory_temperature_or_throttling": "unknown",
+                "page_reads_per_second": 163,
+                "pages_per_second": 1166,
+                "percent_committed_bytes_in_use": 55,
+                "timestamp": "2026-10-08T23:52:05.9419183+08:00"
+              }
+            ],
+            "host_total_visible_bytes": 16340406272,
+            "minimum_disk_bytes": 1073741824,
+            "minimum_memory_bytes": 2147483648,
+            "mode": "Snapshot",
+            "schema": "p2-resource-gate-v2"
+          },
+          "host_command_returncode": 0,
+          "loadavg": "0.79 0.57 0.76 2/1271 19056",
+          "mem_available_bytes": 3769679872,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517785088,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18959,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:52:09.618466+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "0.82 0.59 0.76 2/1273 19081",
+          "mem_available_bytes": 3773788160,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517846528,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18965,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        }
+      ],
+      "returncode": 0,
+      "role": "warmup",
+      "run_directory": "/mnt/e/software_system/project01/evidence/p2/grid-session-0d3dd52/runs/grid_a8ccfab9c3cf494c87e14e7ddc12f2de_0_04804e47255a40839372e90db4c88262",
+      "run_id": "04804e47255a40839372e90db4c88262",
+      "sample_index": 0,
+      "schema": "matrix-autotuner-evaluation-v1",
+      "score_seconds": 73.269925896,
+      "signal": null,
+      "source": "fresh_measurement",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "a0f3b7a1b910060a321329ab6a59b58e095eedc36955dc719cd912ab52bdbad0",
+      "target_result": {
+        "abs_tol": 1e-12,
+        "block_size": 24,
+        "checked_entries": 16777216,
+        "checksum": 17181902562.027435,
+        "elapsed_seconds": 73.269925896,
+        "fault_injection": 0,
+        "finite_checksum": true,
+        "finite_elapsed": true,
+        "finite_error_summary": true,
+        "finite_reference_checksum": true,
+        "input": "random",
+        "input_generator": "splitmix64-interleaved-v1",
+        "max_abs_error": 0,
+        "max_rel_error": 0,
+        "mismatch_count": 0,
+        "n": 4096,
+        "nonfinite_error_count": 0,
+        "nonfinite_reference_count": 0,
+        "nonfinite_result_count": 0,
+        "reference_checksum": 17181902562.027435,
+        "rel_tol": 1e-12,
+        "schema": "matrix-multiplication-result-v1",
+        "seed": 20261008,
+        "status": "ok",
+        "validation": true,
+        "validation_seconds": 0.46571814400000006
+      },
+      "timed_command": [
+        "/usr/bin/time",
+        "-v",
+        "-o",
+        "/mnt/e/software_system/project01/evidence/p2/grid-session-0d3dd52/runs/grid_a8ccfab9c3cf494c87e14e7ddc12f2de_0_04804e47255a40839372e90db4c88262/resource.txt",
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/build/3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e/candidate",
+        "--block-size",
+        "24",
+        "--seed",
+        "20261008",
+        "--input",
+        "random",
+        "--reference",
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/reference/ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513/reference.bin"
+      ],
+      "timed_out": false
+    },
+    {
+      "attempt_id": "a8ccfab9c3cf494c87e14e7ddc12f2de",
+      "binary_sha256": "eaab26ff30e135cd0d29864646a38468ce9bf324a79c27512de1a80f1cc98f05",
+      "build_key": "3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e",
+      "build_lookup_seconds": 0.001184119999379618,
+      "classification": "success",
+      "classification_detail": "validated result",
+      "command": [
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/build/3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e/candidate",
+        "--block-size",
+        "24",
+        "--seed",
+        "20261008",
+        "--input",
+        "random",
+        "--reference",
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/reference/ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513/reference.bin"
+      ],
+      "config": {
+        "block_size": 24,
+        "optimization": "O3"
+      },
+      "context": {
+        "evidence_label": "grid_a8ccfab9c3cf494c87e14e7ddc12f2de_1",
+        "fault_injection": 0,
+        "force_remeasure": true,
+        "input_pattern": "random",
+        "matrix_n": 4096,
+        "min_wsl_available_bytes": 2147483648,
+        "protocol_hash": "2b1a75e9c5f88b80d83a47be4e34c2c5577d82d1468f37fd976e0d6d6ce5b828",
+        "seed": 20261008,
+        "timeout_seconds": 243
+      },
+      "created_at": "2026-10-08T15:53:22.871215+00:00",
+      "execution_total_seconds": 75.97238546399967,
+      "process_wall_seconds": 75.7461168919981,
+      "purpose": "grid",
+      "raw_resource": "\tCommand being timed: \"/var/tmp/matrix-autotuner-p2-10245102457/cache/build/3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e/candidate --block-size 24 --seed 20261008 --input random --reference /var/tmp/matrix-autotuner-p2-10245102457/cache/reference/ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513/reference.bin\"\n\tUser time (seconds): 70.65\n\tSystem time (seconds): 0.34\n\tPercent of CPU this job got: 98%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 1:12.09\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 394856\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 0\n\tMinor (reclaiming a frame) page faults: 98391\n\tVoluntary context switches: 0\n\tInvoluntary context switches: 1223\n\tSwaps: 0\n\tFile system inputs: 0\n\tFile system outputs: 0\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+      "raw_stderr": "",
+      "raw_stdout": "{\"schema\":\"matrix-multiplication-result-v1\",\"status\":\"ok\",\"n\":4096,\"block_size\":24,\"seed\":20261008,\"input\":\"random\",\"input_generator\":\"splitmix64-interleaved-v1\",\"elapsed_seconds\":74.7984165019999949209,\"checksum\":17181902562.027436398,\"reference_checksum\":17181902562.027436398,\"max_abs_error\":0,\"max_rel_error\":0,\"validation_seconds\":0.45340439999999993,\"abs_tol\":1.0e-12,\"rel_tol\":1.0e-12,\"checked_entries\":16777216,\"mismatch_count\":0,\"nonfinite_result_count\":0,\"nonfinite_reference_count\":0,\"nonfinite_error_count\":0,\"finite_elapsed\":true,\"finite_checksum\":true,\"finite_reference_checksum\":true,\"finite_error_summary\":true,\"validation\":true,\"fault_injection\":0}\n",
+      "reference_key": "ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513",
+      "reference_lookup_seconds": 0.20367355900089024,
+      "reference_sha256": "cc476da46f43613ef67dad7841b73d7f2d70b7f1d636a9f23d7d7124b8b499f5",
+      "resource_after": {
+        "captured_at": "2026-10-08T15:53:22.852231+00:00",
+        "cpus_allowed_list": "0-31",
+        "loadavg": "1.21 0.76 0.81 1/1285 19166",
+        "mem_available_bytes": 4175880192,
+        "mem_total_bytes": 7908261888,
+        "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+        "root_disk_free_bytes": 225517879296,
+        "swap_free_bytes": 2147483648,
+        "swap_total_bytes": 2147483648,
+        "vmstat": {
+          "pgmajfault": 19035,
+          "pswpin": 0,
+          "pswpout": 0
+        }
+      },
+      "resource_before": {
+        "captured_at": "2026-10-08T15:52:10.745166+00:00",
+        "cpus_allowed_list": "0-31",
+        "loadavg": "0.82 0.59 0.76 1/1270 19081",
+        "mem_available_bytes": 4178604032,
+        "mem_total_bytes": 7908261888,
+        "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+        "root_disk_free_bytes": 225517826048,
+        "swap_free_bytes": 2147483648,
+        "swap_total_bytes": 2147483648,
+        "vmstat": {
+          "pgmajfault": 18965,
+          "pswpin": 0,
+          "pswpout": 0
+        }
+      },
+      "resource_samples": [
+        {
+          "captured_at": "2026-10-08T15:52:10.749686+00:00",
+          "cpus_allowed_list": "0-31",
+          "host": {
+            "captured_at_local": "2026-10-08T23:52:14.8338121+08:00",
+            "formal_gate": "NOT_APPLICABLE",
+            "host_cpu_average_percent": 18,
+            "host_cpu_maximum_percent": 18,
+            "host_minimum_available_bytes": 3151314944,
+            "host_samples": [
+              {
+                "available_memory_bytes": 3151314944,
+                "commit_limit_bytes": 54425735168,
+                "committed_bytes": 29995257856,
+                "cpu_percent": 18,
+                "memory_temperature_or_throttling": "unknown",
+                "page_reads_per_second": 45,
+                "pages_per_second": 56,
+                "percent_committed_bytes_in_use": 55,
+                "timestamp": "2026-10-08T23:52:14.7990081+08:00"
+              }
+            ],
+            "host_total_visible_bytes": 16340406272,
+            "minimum_disk_bytes": 1073741824,
+            "minimum_memory_bytes": 2147483648,
+            "mode": "Snapshot",
+            "schema": "p2-resource-gate-v2"
+          },
+          "host_command_returncode": 0,
+          "loadavg": "0.82 0.59 0.76 1/1272 19083",
+          "mem_available_bytes": 4178604032,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517826048,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18965,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:52:18.915671+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "0.85 0.60 0.77 2/1273 19103",
+          "mem_available_bytes": 3767230464,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517826048,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18965,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:52:23.921020+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "0.86 0.61 0.77 2/1276 19105",
+          "mem_available_bytes": 3768000512,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517826048,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18965,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:52:28.924075+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "0.87 0.62 0.77 2/1272 19105",
+          "mem_available_bytes": 3770449920,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517830144,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18965,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:52:33.925135+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "0.88 0.62 0.77 2/1273 19108",
+          "mem_available_bytes": 3770200064,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517826048,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18965,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:52:37.128706+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "0.89 0.63 0.77 2/1273 19110",
+          "mem_available_bytes": 3770830848,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517842432,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18971,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:52:42.129699+00:00",
+          "cpus_allowed_list": "0-31",
+          "host": {
+            "captured_at_local": "2026-10-08T23:52:46.0620488+08:00",
+            "formal_gate": "NOT_APPLICABLE",
+            "host_cpu_average_percent": 27,
+            "host_cpu_maximum_percent": 27,
+            "host_minimum_available_bytes": 3157372928,
+            "host_samples": [
+              {
+                "available_memory_bytes": 3157372928,
+                "commit_limit_bytes": 54425735168,
+                "committed_bytes": 29912317952,
+                "cpu_percent": 27,
+                "memory_temperature_or_throttling": "unknown",
+                "page_reads_per_second": 30,
+                "pages_per_second": 371,
+                "percent_committed_bytes_in_use": 54,
+                "timestamp": "2026-10-08T23:52:46.0281227+08:00"
+              }
+            ],
+            "host_total_visible_bytes": 16340406272,
+            "minimum_disk_bytes": 1073741824,
+            "minimum_memory_bytes": 2147483648,
+            "mode": "Snapshot",
+            "schema": "p2-resource-gate-v2"
+          },
+          "host_command_returncode": 0,
+          "loadavg": "0.90 0.64 0.77 2/1271 19110",
+          "mem_available_bytes": 3773702144,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517842432,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18971,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:52:50.377395+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.14 0.70 0.79 2/1273 19133",
+          "mem_available_bytes": 3777163264,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517842432,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18971,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:52:55.382045+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.21 0.72 0.80 2/1277 19135",
+          "mem_available_bytes": 3779006464,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517842432,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18971,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:53:00.396615+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.19 0.72 0.80 2/1278 19138",
+          "mem_available_bytes": 3784728576,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517842432,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18971,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:53:03.559978+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.17 0.73 0.80 3/1274 19140",
+          "mem_available_bytes": 3784454144,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517879296,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18977,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:53:08.561765+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.16 0.73 0.80 2/1273 19140",
+          "mem_available_bytes": 3783933952,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517879296,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 18977,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:53:13.566151+00:00",
+          "cpus_allowed_list": "0-31",
+          "host": {
+            "captured_at_local": "2026-10-08T23:53:17.2785328+08:00",
+            "formal_gate": "NOT_APPLICABLE",
+            "host_cpu_average_percent": 20,
+            "host_cpu_maximum_percent": 20,
+            "host_minimum_available_bytes": 3270045696,
+            "host_samples": [
+              {
+                "available_memory_bytes": 3270045696,
+                "commit_limit_bytes": 54425735168,
+                "committed_bytes": 29802205184,
+                "cpu_percent": 20,
+                "memory_temperature_or_throttling": "unknown",
+                "page_reads_per_second": 189,
+                "pages_per_second": 256,
+                "percent_committed_bytes_in_use": 54,
+                "timestamp": "2026-10-08T23:53:17.2439973+08:00"
+              }
+            ],
+            "host_total_visible_bytes": 16340406272,
+            "minimum_disk_bytes": 1073741824,
+            "minimum_memory_bytes": 2147483648,
+            "mode": "Snapshot",
+            "schema": "p2-resource-gate-v2"
+          },
+          "host_command_returncode": 0,
+          "loadavg": "1.23 0.75 0.81 3/1293 19145",
+          "mem_available_bytes": 3752189952,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517879296,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19033,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:53:21.817244+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.21 0.76 0.81 2/1288 19166",
+          "mem_available_bytes": 3779694592,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517879296,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19035,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        }
+      ],
+      "returncode": 0,
+      "role": "measurement",
+      "run_directory": "/mnt/e/software_system/project01/evidence/p2/grid-session-0d3dd52/runs/grid_a8ccfab9c3cf494c87e14e7ddc12f2de_1_27d6b1e7d24c478da43356ef6f39eb19",
+      "run_id": "27d6b1e7d24c478da43356ef6f39eb19",
+      "sample_index": 1,
+      "schema": "matrix-autotuner-evaluation-v1",
+      "score_seconds": 74.798416502,
+      "signal": null,
+      "source": "fresh_measurement",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "dd4fbde1edd0daf291e4f1595c328d29e7a51dd212c8b1eed0fe6d5d952bda03",
+      "target_result": {
+        "abs_tol": 1e-12,
+        "block_size": 24,
+        "checked_entries": 16777216,
+        "checksum": 17181902562.027435,
+        "elapsed_seconds": 74.798416502,
+        "fault_injection": 0,
+        "finite_checksum": true,
+        "finite_elapsed": true,
+        "finite_error_summary": true,
+        "finite_reference_checksum": true,
+        "input": "random",
+        "input_generator": "splitmix64-interleaved-v1",
+        "max_abs_error": 0,
+        "max_rel_error": 0,
+        "mismatch_count": 0,
+        "n": 4096,
+        "nonfinite_error_count": 0,
+        "nonfinite_reference_count": 0,
+        "nonfinite_result_count": 0,
+        "reference_checksum": 17181902562.027435,
+        "rel_tol": 1e-12,
+        "schema": "matrix-multiplication-result-v1",
+        "seed": 20261008,
+        "status": "ok",
+        "validation": true,
+        "validation_seconds": 0.45340439999999993
+      },
+      "timed_command": [
+        "/usr/bin/time",
+        "-v",
+        "-o",
+        "/mnt/e/software_system/project01/evidence/p2/grid-session-0d3dd52/runs/grid_a8ccfab9c3cf494c87e14e7ddc12f2de_1_27d6b1e7d24c478da43356ef6f39eb19/resource.txt",
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/build/3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e/candidate",
+        "--block-size",
+        "24",
+        "--seed",
+        "20261008",
+        "--input",
+        "random",
+        "--reference",
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/reference/ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513/reference.bin"
+      ],
+      "timed_out": false
+    },
+    {
+      "attempt_id": "a8ccfab9c3cf494c87e14e7ddc12f2de",
+      "binary_sha256": "eaab26ff30e135cd0d29864646a38468ce9bf324a79c27512de1a80f1cc98f05",
+      "build_key": "3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e",
+      "build_lookup_seconds": 0.001431163000233937,
+      "classification": "success",
+      "classification_detail": "validated result",
+      "command": [
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/build/3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e/candidate",
+        "--block-size",
+        "24",
+        "--seed",
+        "20261008",
+        "--input",
+        "random",
+        "--reference",
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/reference/ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513/reference.bin"
+      ],
+      "config": {
+        "block_size": 24,
+        "optimization": "O3"
+      },
+      "context": {
+        "evidence_label": "grid_a8ccfab9c3cf494c87e14e7ddc12f2de_2",
+        "fault_injection": 0,
+        "force_remeasure": true,
+        "input_pattern": "random",
+        "matrix_n": 4096,
+        "min_wsl_available_bytes": 2147483648,
+        "protocol_hash": "2b1a75e9c5f88b80d83a47be4e34c2c5577d82d1468f37fd976e0d6d6ce5b828",
+        "seed": 20261008,
+        "timeout_seconds": 243
+      },
+      "created_at": "2026-10-08T15:54:30.358971+00:00",
+      "execution_total_seconds": 72.86288398199758,
+      "process_wall_seconds": 72.62002558300082,
+      "purpose": "grid",
+      "raw_resource": "\tCommand being timed: \"/var/tmp/matrix-autotuner-p2-10245102457/cache/build/3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e/candidate --block-size 24 --seed 20261008 --input random --reference /var/tmp/matrix-autotuner-p2-10245102457/cache/reference/ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513/reference.bin\"\n\tUser time (seconds): 67.47\n\tSystem time (seconds): 0.37\n\tPercent of CPU this job got: 101%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 1:06.64\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 394856\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 0\n\tMinor (reclaiming a frame) page faults: 98390\n\tVoluntary context switches: 0\n\tInvoluntary context switches: 1239\n\tSwaps: 0\n\tFile system inputs: 0\n\tFile system outputs: 0\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+      "raw_stderr": "",
+      "raw_stdout": "{\"schema\":\"matrix-multiplication-result-v1\",\"status\":\"ok\",\"n\":4096,\"block_size\":24,\"seed\":20261008,\"input\":\"random\",\"input_generator\":\"splitmix64-interleaved-v1\",\"elapsed_seconds\":71.6551935600000007298,\"checksum\":17181902562.027436398,\"reference_checksum\":17181902562.027436398,\"max_abs_error\":0,\"max_rel_error\":0,\"validation_seconds\":0.44399888600000004,\"abs_tol\":1.0e-12,\"rel_tol\":1.0e-12,\"checked_entries\":16777216,\"mismatch_count\":0,\"nonfinite_result_count\":0,\"nonfinite_reference_count\":0,\"nonfinite_error_count\":0,\"finite_elapsed\":true,\"finite_checksum\":true,\"finite_reference_checksum\":true,\"finite_error_summary\":true,\"validation\":true,\"fault_injection\":0}\n",
+      "reference_key": "ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513",
+      "reference_lookup_seconds": 0.21671498300202074,
+      "reference_sha256": "cc476da46f43613ef67dad7841b73d7f2d70b7f1d636a9f23d7d7124b8b499f5",
+      "resource_after": {
+        "captured_at": "2026-10-08T15:54:30.336219+00:00",
+        "cpus_allowed_list": "0-31",
+        "loadavg": "1.06 0.82 0.83 1/1289 19249",
+        "mem_available_bytes": 4170698752,
+        "mem_total_bytes": 7908261888,
+        "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+        "root_disk_free_bytes": 225522544640,
+        "swap_free_bytes": 2147483648,
+        "swap_total_bytes": 2147483648,
+        "vmstat": {
+          "pgmajfault": 19070,
+          "pswpin": 0,
+          "pswpout": 0
+        }
+      },
+      "resource_before": {
+        "captured_at": "2026-10-08T15:53:23.656631+00:00",
+        "cpus_allowed_list": "0-31",
+        "loadavg": "1.19 0.76 0.81 2/1281 19166",
+        "mem_available_bytes": 4163768320,
+        "mem_total_bytes": 7908261888,
+        "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+        "root_disk_free_bytes": 225517879296,
+        "swap_free_bytes": 2147483648,
+        "swap_total_bytes": 2147483648,
+        "vmstat": {
+          "pgmajfault": 19035,
+          "pswpin": 0,
+          "pswpout": 0
+        }
+      },
+      "resource_samples": [
+        {
+          "captured_at": "2026-10-08T15:53:23.659274+00:00",
+          "cpus_allowed_list": "0-31",
+          "host": {
+            "captured_at_local": "2026-10-08T23:53:26.7759098+08:00",
+            "formal_gate": "NOT_APPLICABLE",
+            "host_cpu_average_percent": 12,
+            "host_cpu_maximum_percent": 12,
+            "host_minimum_available_bytes": 3224887296,
+            "host_samples": [
+              {
+                "available_memory_bytes": 3224887296,
+                "commit_limit_bytes": 54425735168,
+                "committed_bytes": 29811462144,
+                "cpu_percent": 12,
+                "memory_temperature_or_throttling": "unknown",
+                "page_reads_per_second": 238,
+                "pages_per_second": 257,
+                "percent_committed_bytes_in_use": 54,
+                "timestamp": "2026-10-08T23:53:26.7437366+08:00"
+              }
+            ],
+            "host_total_visible_bytes": 16340406272,
+            "minimum_disk_bytes": 1073741824,
+            "minimum_memory_bytes": 2147483648,
+            "mode": "Snapshot",
+            "schema": "p2-resource-gate-v2"
+          },
+          "host_command_returncode": 0,
+          "loadavg": "1.19 0.76 0.81 2/1283 19168",
+          "mem_available_bytes": 4163768320,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517879296,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19035,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:53:31.966833+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.18 0.77 0.81 2/1284 19188",
+          "mem_available_bytes": 3760742400,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517879296,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19035,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:53:33.718336+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.16 0.77 0.82 4/1288 19192",
+          "mem_available_bytes": 3751223296,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517895680,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19041,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:53:38.719289+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.15 0.78 0.82 2/1283 19192",
+          "mem_available_bytes": 3754524672,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517895680,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19041,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:53:43.720412+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.14 0.78 0.82 2/1285 19195",
+          "mem_available_bytes": 3754991616,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517891584,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19042,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:53:48.721661+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.12 0.78 0.82 2/1285 19195",
+          "mem_available_bytes": 3756494848,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517891584,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19042,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:53:53.722965+00:00",
+          "cpus_allowed_list": "0-31",
+          "host": {
+            "captured_at_local": "2026-10-08T23:53:58.0489170+08:00",
+            "formal_gate": "NOT_APPLICABLE",
+            "host_cpu_average_percent": 17,
+            "host_cpu_maximum_percent": 17,
+            "host_minimum_available_bytes": 2756562944,
+            "host_samples": [
+              {
+                "available_memory_bytes": 2756562944,
+                "commit_limit_bytes": 54425735168,
+                "committed_bytes": 30035947520,
+                "cpu_percent": 17,
+                "memory_temperature_or_throttling": "unknown",
+                "page_reads_per_second": 300,
+                "pages_per_second": 316,
+                "percent_committed_bytes_in_use": 55,
+                "timestamp": "2026-10-08T23:53:58.0139488+08:00"
+              }
+            ],
+            "host_total_visible_bytes": 16340406272,
+            "minimum_disk_bytes": 1073741824,
+            "minimum_memory_bytes": 2147483648,
+            "mode": "Snapshot",
+            "schema": "p2-resource-gate-v2"
+          },
+          "host_command_returncode": 0,
+          "loadavg": "1.11 0.79 0.82 2/1284 19195",
+          "mem_available_bytes": 3759161344,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225517891584,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19042,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:54:01.517859+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.10 0.80 0.82 3/1286 19220",
+          "mem_available_bytes": 3763568640,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225522536448,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19064,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:54:06.523229+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.09 0.80 0.82 2/1289 19222",
+          "mem_available_bytes": 3763470336,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225522536448,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19064,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:54:11.529701+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.08 0.80 0.82 2/1289 19225",
+          "mem_available_bytes": 3760574464,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225522536448,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19064,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:54:16.535111+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.07 0.81 0.83 2/1285 19225",
+          "mem_available_bytes": 3760582656,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225522536448,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19064,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:54:21.538668+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.07 0.81 0.83 2/1284 19225",
+          "mem_available_bytes": 3760922624,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225522532352,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19064,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:54:26.555535+00:00",
+          "cpus_allowed_list": "0-31",
+          "host": {
+            "captured_at_local": "2026-10-08T23:54:28.8296872+08:00",
+            "formal_gate": "NOT_APPLICABLE",
+            "host_cpu_average_percent": 13,
+            "host_cpu_maximum_percent": 13,
+            "host_minimum_available_bytes": 2703937536,
+            "host_samples": [
+              {
+                "available_memory_bytes": 2703937536,
+                "commit_limit_bytes": 54425735168,
+                "committed_bytes": 29936627712,
+                "cpu_percent": 13,
+                "memory_temperature_or_throttling": "unknown",
+                "page_reads_per_second": 136,
+                "pages_per_second": 920,
+                "percent_committed_bytes_in_use": 55,
+                "timestamp": "2026-10-08T23:54:28.7951356+08:00"
+              }
+            ],
+            "host_total_visible_bytes": 16340406272,
+            "minimum_disk_bytes": 1073741824,
+            "minimum_memory_bytes": 2147483648,
+            "mode": "Snapshot",
+            "schema": "p2-resource-gate-v2"
+          },
+          "host_command_returncode": 0,
+          "loadavg": "1.06 0.81 0.83 2/1284 19225",
+          "mem_available_bytes": 3760939008,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225522532352,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19064,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        }
+      ],
+      "returncode": 0,
+      "role": "measurement",
+      "run_directory": "/mnt/e/software_system/project01/evidence/p2/grid-session-0d3dd52/runs/grid_a8ccfab9c3cf494c87e14e7ddc12f2de_2_f630e1a321ac462ba641acdfd4e2be27",
+      "run_id": "f630e1a321ac462ba641acdfd4e2be27",
+      "sample_index": 2,
+      "schema": "matrix-autotuner-evaluation-v1",
+      "score_seconds": 71.65519356,
+      "signal": null,
+      "source": "fresh_measurement",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "5f7821d2ae6c69a6e5a02a3fe79125d0d4bb306428ec673e61b6bbc505e877f4",
+      "target_result": {
+        "abs_tol": 1e-12,
+        "block_size": 24,
+        "checked_entries": 16777216,
+        "checksum": 17181902562.027435,
+        "elapsed_seconds": 71.65519356,
+        "fault_injection": 0,
+        "finite_checksum": true,
+        "finite_elapsed": true,
+        "finite_error_summary": true,
+        "finite_reference_checksum": true,
+        "input": "random",
+        "input_generator": "splitmix64-interleaved-v1",
+        "max_abs_error": 0,
+        "max_rel_error": 0,
+        "mismatch_count": 0,
+        "n": 4096,
+        "nonfinite_error_count": 0,
+        "nonfinite_reference_count": 0,
+        "nonfinite_result_count": 0,
+        "reference_checksum": 17181902562.027435,
+        "rel_tol": 1e-12,
+        "schema": "matrix-multiplication-result-v1",
+        "seed": 20261008,
+        "status": "ok",
+        "validation": true,
+        "validation_seconds": 0.44399888600000004
+      },
+      "timed_command": [
+        "/usr/bin/time",
+        "-v",
+        "-o",
+        "/mnt/e/software_system/project01/evidence/p2/grid-session-0d3dd52/runs/grid_a8ccfab9c3cf494c87e14e7ddc12f2de_2_f630e1a321ac462ba641acdfd4e2be27/resource.txt",
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/build/3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e/candidate",
+        "--block-size",
+        "24",
+        "--seed",
+        "20261008",
+        "--input",
+        "random",
+        "--reference",
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/reference/ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513/reference.bin"
+      ],
+      "timed_out": false
+    },
+    {
+      "attempt_id": "a8ccfab9c3cf494c87e14e7ddc12f2de",
+      "binary_sha256": "eaab26ff30e135cd0d29864646a38468ce9bf324a79c27512de1a80f1cc98f05",
+      "build_key": "3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e",
+      "build_lookup_seconds": 0.0008425329979218077,
+      "classification": "success",
+      "classification_detail": "validated result",
+      "command": [
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/build/3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e/candidate",
+        "--block-size",
+        "24",
+        "--seed",
+        "20261008",
+        "--input",
+        "random",
+        "--reference",
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/reference/ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513/reference.bin"
+      ],
+      "config": {
+        "block_size": 24,
+        "optimization": "O3"
+      },
+      "context": {
+        "evidence_label": "grid_a8ccfab9c3cf494c87e14e7ddc12f2de_3",
+        "fault_injection": 0,
+        "force_remeasure": true,
+        "input_pattern": "random",
+        "matrix_n": 4096,
+        "min_wsl_available_bytes": 2147483648,
+        "protocol_hash": "2b1a75e9c5f88b80d83a47be4e34c2c5577d82d1468f37fd976e0d6d6ce5b828",
+        "seed": 20261008,
+        "timeout_seconds": 243
+      },
+      "created_at": "2026-10-08T15:55:40.434566+00:00",
+      "execution_total_seconds": 73.56216239399873,
+      "process_wall_seconds": 73.30388309300179,
+      "purpose": "grid",
+      "raw_resource": "\tCommand being timed: \"/var/tmp/matrix-autotuner-p2-10245102457/cache/build/3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e/candidate --block-size 24 --seed 20261008 --input random --reference /var/tmp/matrix-autotuner-p2-10245102457/cache/reference/ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513/reference.bin\"\n\tUser time (seconds): 67.55\n\tSystem time (seconds): 0.41\n\tPercent of CPU this job got: 98%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 1:09.28\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 394852\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 0\n\tMinor (reclaiming a frame) page faults: 98389\n\tVoluntary context switches: 1\n\tInvoluntary context switches: 1239\n\tSwaps: 0\n\tFile system inputs: 0\n\tFile system outputs: 0\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+      "raw_stderr": "",
+      "raw_stdout": "{\"schema\":\"matrix-multiplication-result-v1\",\"status\":\"ok\",\"n\":4096,\"block_size\":24,\"seed\":20261008,\"input\":\"random\",\"input_generator\":\"splitmix64-interleaved-v1\",\"elapsed_seconds\":72.2356736039999987042,\"checksum\":17181902562.027436398,\"reference_checksum\":17181902562.027436398,\"max_abs_error\":0,\"max_rel_error\":0,\"validation_seconds\":0.52042219000000001,\"abs_tol\":1.0e-12,\"rel_tol\":1.0e-12,\"checked_entries\":16777216,\"mismatch_count\":0,\"nonfinite_result_count\":0,\"nonfinite_reference_count\":0,\"nonfinite_error_count\":0,\"finite_elapsed\":true,\"finite_checksum\":true,\"finite_reference_checksum\":true,\"finite_error_summary\":true,\"validation\":true,\"fault_injection\":0}\n",
+      "reference_key": "ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513",
+      "reference_lookup_seconds": 0.21269890399707947,
+      "reference_sha256": "cc476da46f43613ef67dad7841b73d7f2d70b7f1d636a9f23d7d7124b8b499f5",
+      "resource_after": {
+        "captured_at": "2026-10-08T15:55:40.394519+00:00",
+        "cpus_allowed_list": "0-31",
+        "loadavg": "1.12 0.89 0.85 2/1284 19334",
+        "mem_available_bytes": 4195278848,
+        "mem_total_bytes": 7908261888,
+        "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+        "root_disk_free_bytes": 225527619584,
+        "swap_free_bytes": 2147483648,
+        "swap_total_bytes": 2147483648,
+        "vmstat": {
+          "pgmajfault": 19110,
+          "pswpin": 0,
+          "pswpout": 0
+        }
+      },
+      "resource_before": {
+        "captured_at": "2026-10-08T15:54:31.087360+00:00",
+        "cpus_allowed_list": "0-31",
+        "loadavg": "1.06 0.82 0.83 1/1289 19249",
+        "mem_available_bytes": 4172881920,
+        "mem_total_bytes": 7908261888,
+        "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+        "root_disk_free_bytes": 225522544640,
+        "swap_free_bytes": 2147483648,
+        "swap_total_bytes": 2147483648,
+        "vmstat": {
+          "pgmajfault": 19070,
+          "pswpin": 0,
+          "pswpout": 0
+        }
+      },
+      "resource_samples": [
+        {
+          "captured_at": "2026-10-08T15:54:31.090651+00:00",
+          "cpus_allowed_list": "0-31",
+          "host": {
+            "captured_at_local": "2026-10-08T23:54:35.3604356+08:00",
+            "formal_gate": "NOT_APPLICABLE",
+            "host_cpu_average_percent": 25,
+            "host_cpu_maximum_percent": 25,
+            "host_minimum_available_bytes": 2715684864,
+            "host_samples": [
+              {
+                "available_memory_bytes": 2715684864,
+                "commit_limit_bytes": 54425735168,
+                "committed_bytes": 29950242816,
+                "cpu_percent": 25,
+                "memory_temperature_or_throttling": "unknown",
+                "page_reads_per_second": 94,
+                "pages_per_second": 1288,
+                "percent_committed_bytes_in_use": 55,
+                "timestamp": "2026-10-08T23:54:35.3284256+08:00"
+              }
+            ],
+            "host_total_visible_bytes": 16340406272,
+            "minimum_disk_bytes": 1073741824,
+            "minimum_memory_bytes": 2147483648,
+            "mode": "Snapshot",
+            "schema": "p2-resource-gate-v2"
+          },
+          "host_command_returncode": 0,
+          "loadavg": "1.06 0.82 0.83 1/1291 19251",
+          "mem_available_bytes": 4172881920,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225522544640,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19070,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:54:39.369964+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.05 0.82 0.83 3/1300 19274",
+          "mem_available_bytes": 3771699200,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225522544640,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19070,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:54:44.416596+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.04 0.83 0.83 2/1288 19276",
+          "mem_available_bytes": 3772981248,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225522540544,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19070,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:54:49.466421+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.04 0.83 0.83 2/1303 19279",
+          "mem_available_bytes": 3762683904,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225522540544,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19070,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:54:54.489065+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.04 0.83 0.83 2/1286 19279",
+          "mem_available_bytes": 3764887552,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225522540544,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19070,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:54:56.116527+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.03 0.83 0.83 2/1286 19281",
+          "mem_available_bytes": 3762307072,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225522987008,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19091,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:55:01.135820+00:00",
+          "cpus_allowed_list": "0-31",
+          "host": {
+            "captured_at_local": "2026-10-08T23:55:06.2888111+08:00",
+            "formal_gate": "NOT_APPLICABLE",
+            "host_cpu_average_percent": 13,
+            "host_cpu_maximum_percent": 13,
+            "host_minimum_available_bytes": 3046551552,
+            "host_samples": [
+              {
+                "available_memory_bytes": 3046551552,
+                "commit_limit_bytes": 54425735168,
+                "committed_bytes": 29827534848,
+                "cpu_percent": 13,
+                "memory_temperature_or_throttling": "unknown",
+                "page_reads_per_second": 7,
+                "pages_per_second": 59,
+                "percent_committed_bytes_in_use": 54,
+                "timestamp": "2026-10-08T23:55:06.2546448+08:00"
+              }
+            ],
+            "host_total_visible_bytes": 16340406272,
+            "minimum_disk_bytes": 1073741824,
+            "minimum_memory_bytes": 2147483648,
+            "mode": "Snapshot",
+            "schema": "p2-resource-gate-v2"
+          },
+          "host_command_returncode": 0,
+          "loadavg": "1.03 0.84 0.84 2/1286 19281",
+          "mem_available_bytes": 3764711424,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225522987008,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19091,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:55:09.105949+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.10 0.86 0.84 2/1287 19304",
+          "mem_available_bytes": 3761393664,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225522987008,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19104,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:55:14.144015+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.09 0.86 0.84 2/1289 19306",
+          "mem_available_bytes": 3761926144,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225522987008,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19104,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:55:19.176695+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.08 0.86 0.84 2/1291 19309",
+          "mem_available_bytes": 3758153728,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225522982912,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19104,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:55:23.603906+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.16 0.88 0.85 2/1287 19311",
+          "mem_available_bytes": 3772887040,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225527619584,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19110,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:55:28.614026+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.14 0.89 0.85 2/1286 19311",
+          "mem_available_bytes": 3781951488,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225527619584,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19110,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:55:33.620435+00:00",
+          "cpus_allowed_list": "0-31",
+          "host": {
+            "captured_at_local": "2026-10-08T23:55:37.1354804+08:00",
+            "formal_gate": "NOT_APPLICABLE",
+            "host_cpu_average_percent": 17,
+            "host_cpu_maximum_percent": 17,
+            "host_minimum_available_bytes": 2786488320,
+            "host_samples": [
+              {
+                "available_memory_bytes": 2786488320,
+                "commit_limit_bytes": 54425735168,
+                "committed_bytes": 30121103360,
+                "cpu_percent": 17,
+                "memory_temperature_or_throttling": "unknown",
+                "page_reads_per_second": 59,
+                "pages_per_second": 1657,
+                "percent_committed_bytes_in_use": 55,
+                "timestamp": "2026-10-08T23:55:37.0969495+08:00"
+              }
+            ],
+            "host_total_visible_bytes": 16340406272,
+            "minimum_disk_bytes": 1073741824,
+            "minimum_memory_bytes": 2147483648,
+            "mode": "Snapshot",
+            "schema": "p2-resource-gate-v2"
+          },
+          "host_command_returncode": 0,
+          "loadavg": "1.13 0.89 0.85 3/1286 19311",
+          "mem_available_bytes": 3784024064,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225527619584,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19110,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        }
+      ],
+      "returncode": 0,
+      "role": "measurement",
+      "run_directory": "/mnt/e/software_system/project01/evidence/p2/grid-session-0d3dd52/runs/grid_a8ccfab9c3cf494c87e14e7ddc12f2de_3_4bb8ea1652c44156b975c7078e1aeb65",
+      "run_id": "4bb8ea1652c44156b975c7078e1aeb65",
+      "sample_index": 3,
+      "schema": "matrix-autotuner-evaluation-v1",
+      "score_seconds": 72.235673604,
+      "signal": null,
+      "source": "fresh_measurement",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "ecdb068b6a89d5757387760ca6e917f8ccd1e44b98a2c3b27d264c5fb0b28c6d",
+      "target_result": {
+        "abs_tol": 1e-12,
+        "block_size": 24,
+        "checked_entries": 16777216,
+        "checksum": 17181902562.027435,
+        "elapsed_seconds": 72.235673604,
+        "fault_injection": 0,
+        "finite_checksum": true,
+        "finite_elapsed": true,
+        "finite_error_summary": true,
+        "finite_reference_checksum": true,
+        "input": "random",
+        "input_generator": "splitmix64-interleaved-v1",
+        "max_abs_error": 0,
+        "max_rel_error": 0,
+        "mismatch_count": 0,
+        "n": 4096,
+        "nonfinite_error_count": 0,
+        "nonfinite_reference_count": 0,
+        "nonfinite_result_count": 0,
+        "reference_checksum": 17181902562.027435,
+        "rel_tol": 1e-12,
+        "schema": "matrix-multiplication-result-v1",
+        "seed": 20261008,
+        "status": "ok",
+        "validation": true,
+        "validation_seconds": 0.52042219
+      },
+      "timed_command": [
+        "/usr/bin/time",
+        "-v",
+        "-o",
+        "/mnt/e/software_system/project01/evidence/p2/grid-session-0d3dd52/runs/grid_a8ccfab9c3cf494c87e14e7ddc12f2de_3_4bb8ea1652c44156b975c7078e1aeb65/resource.txt",
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/build/3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e/candidate",
+        "--block-size",
+        "24",
+        "--seed",
+        "20261008",
+        "--input",
+        "random",
+        "--reference",
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/reference/ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513/reference.bin"
+      ],
+      "timed_out": false
+    },
+    {
+      "attempt_id": "a8ccfab9c3cf494c87e14e7ddc12f2de",
+      "binary_sha256": "eaab26ff30e135cd0d29864646a38468ce9bf324a79c27512de1a80f1cc98f05",
+      "build_key": "3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e",
+      "build_lookup_seconds": 0.0010312049998901784,
+      "classification": "success",
+      "classification_detail": "validated result",
+      "command": [
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/build/3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e/candidate",
+        "--block-size",
+        "24",
+        "--seed",
+        "20261008",
+        "--input",
+        "random",
+        "--reference",
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/reference/ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513/reference.bin"
+      ],
+      "config": {
+        "block_size": 24,
+        "optimization": "O3"
+      },
+      "context": {
+        "evidence_label": "grid_a8ccfab9c3cf494c87e14e7ddc12f2de_4",
+        "fault_injection": 0,
+        "force_remeasure": true,
+        "input_pattern": "random",
+        "matrix_n": 4096,
+        "min_wsl_available_bytes": 2147483648,
+        "protocol_hash": "2b1a75e9c5f88b80d83a47be4e34c2c5577d82d1468f37fd976e0d6d6ce5b828",
+        "seed": 20261008,
+        "timeout_seconds": 243
+      },
+      "created_at": "2026-10-08T15:56:49.336527+00:00",
+      "execution_total_seconds": 71.54787020599906,
+      "process_wall_seconds": 71.30083815800026,
+      "purpose": "grid",
+      "raw_resource": "\tCommand being timed: \"/var/tmp/matrix-autotuner-p2-10245102457/cache/build/3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e/candidate --block-size 24 --seed 20261008 --input random --reference /var/tmp/matrix-autotuner-p2-10245102457/cache/reference/ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513/reference.bin\"\n\tUser time (seconds): 67.63\n\tSystem time (seconds): 0.38\n\tPercent of CPU this job got: 99%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 1:08.04\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 394856\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 0\n\tMinor (reclaiming a frame) page faults: 98390\n\tVoluntary context switches: 0\n\tInvoluntary context switches: 1101\n\tSwaps: 0\n\tFile system inputs: 0\n\tFile system outputs: 0\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+      "raw_stderr": "",
+      "raw_stdout": "{\"schema\":\"matrix-multiplication-result-v1\",\"status\":\"ok\",\"n\":4096,\"block_size\":24,\"seed\":20261008,\"input\":\"random\",\"input_generator\":\"splitmix64-interleaved-v1\",\"elapsed_seconds\":70.3119282220000059169,\"checksum\":17181902562.027436398,\"reference_checksum\":17181902562.027436398,\"max_abs_error\":0,\"max_rel_error\":0,\"validation_seconds\":0.45846213700000005,\"abs_tol\":1.0e-12,\"rel_tol\":1.0e-12,\"checked_entries\":16777216,\"mismatch_count\":0,\"nonfinite_result_count\":0,\"nonfinite_reference_count\":0,\"nonfinite_error_count\":0,\"finite_elapsed\":true,\"finite_checksum\":true,\"finite_reference_checksum\":true,\"finite_error_summary\":true,\"validation\":true,\"fault_injection\":0}\n",
+      "reference_key": "ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513",
+      "reference_lookup_seconds": 0.22287642599985702,
+      "reference_sha256": "cc476da46f43613ef67dad7841b73d7f2d70b7f1d636a9f23d7d7124b8b499f5",
+      "resource_after": {
+        "captured_at": "2026-10-08T15:56:49.317977+00:00",
+        "cpus_allowed_list": "0-31",
+        "loadavg": "1.04 0.92 0.87 1/1300 19419",
+        "mem_available_bytes": 4181549056,
+        "mem_total_bytes": 7908261888,
+        "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+        "root_disk_free_bytes": 225536860160,
+        "swap_free_bytes": 2147483648,
+        "swap_total_bytes": 2147483648,
+        "vmstat": {
+          "pgmajfault": 19122,
+          "pswpin": 0,
+          "pswpout": 0
+        }
+      },
+      "resource_before": {
+        "captured_at": "2026-10-08T15:55:41.248294+00:00",
+        "cpus_allowed_list": "0-31",
+        "loadavg": "1.12 0.89 0.85 1/1284 19334",
+        "mem_available_bytes": 4195303424,
+        "mem_total_bytes": 7908261888,
+        "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+        "root_disk_free_bytes": 225527619584,
+        "swap_free_bytes": 2147483648,
+        "swap_total_bytes": 2147483648,
+        "vmstat": {
+          "pgmajfault": 19110,
+          "pswpin": 0,
+          "pswpout": 0
+        }
+      },
+      "resource_samples": [
+        {
+          "captured_at": "2026-10-08T15:55:41.255940+00:00",
+          "cpus_allowed_list": "0-31",
+          "host": {
+            "captured_at_local": "2026-10-08T23:55:44.1088395+08:00",
+            "formal_gate": "NOT_APPLICABLE",
+            "host_cpu_average_percent": 16,
+            "host_cpu_maximum_percent": 16,
+            "host_minimum_available_bytes": 2882383872,
+            "host_samples": [
+              {
+                "available_memory_bytes": 2882383872,
+                "commit_limit_bytes": 54425735168,
+                "committed_bytes": 29733535744,
+                "cpu_percent": 16,
+                "memory_temperature_or_throttling": "unknown",
+                "page_reads_per_second": 0,
+                "pages_per_second": 0,
+                "percent_committed_bytes_in_use": 54,
+                "timestamp": "2026-10-08T23:55:44.0752271+08:00"
+              }
+            ],
+            "host_total_visible_bytes": 16340406272,
+            "minimum_disk_bytes": 1073741824,
+            "minimum_memory_bytes": 2147483648,
+            "mode": "Snapshot",
+            "schema": "p2-resource-gate-v2"
+          },
+          "host_command_returncode": 0,
+          "loadavg": "1.12 0.89 0.85 2/1286 19336",
+          "mem_available_bytes": 4195303424,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225527619584,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19110,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:55:49.467834+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.10 0.89 0.86 2/1288 19359",
+          "mem_available_bytes": 3790622720,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225527619584,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19110,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:55:52.196609+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.09 0.90 0.86 2/1291 19363",
+          "mem_available_bytes": 3786862592,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225532260352,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19116,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:55:57.197578+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.09 0.90 0.86 2/1294 19366",
+          "mem_available_bytes": 3790561280,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225532260352,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19116,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:56:02.708822+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.08 0.90 0.86 2/1290 19366",
+          "mem_available_bytes": 3793768448,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225532260352,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19116,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:56:07.725267+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.07 0.90 0.86 2/1290 19366",
+          "mem_available_bytes": 3795939328,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225532248064,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19116,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:56:12.740733+00:00",
+          "cpus_allowed_list": "0-31",
+          "host": {
+            "captured_at_local": "2026-10-08T23:56:16.1213783+08:00",
+            "formal_gate": "NOT_APPLICABLE",
+            "host_cpu_average_percent": 13,
+            "host_cpu_maximum_percent": 13,
+            "host_minimum_available_bytes": 2919952384,
+            "host_samples": [
+              {
+                "available_memory_bytes": 2919952384,
+                "commit_limit_bytes": 54425735168,
+                "committed_bytes": 29671759872,
+                "cpu_percent": 13,
+                "memory_temperature_or_throttling": "unknown",
+                "page_reads_per_second": 66,
+                "pages_per_second": 357,
+                "percent_committed_bytes_in_use": 54,
+                "timestamp": "2026-10-08T23:56:16.0888176+08:00"
+              }
+            ],
+            "host_total_visible_bytes": 16340406272,
+            "minimum_disk_bytes": 1073741824,
+            "minimum_memory_bytes": 2147483648,
+            "mode": "Snapshot",
+            "schema": "p2-resource-gate-v2"
+          },
+          "host_command_returncode": 0,
+          "loadavg": "1.07 0.90 0.86 2/1290 19368",
+          "mem_available_bytes": 3796004864,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225532219392,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19116,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:56:20.850841+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.06 0.91 0.86 3/1292 19391",
+          "mem_available_bytes": 3784003584,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225532223488,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19116,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:56:24.428985+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.06 0.91 0.86 2/1295 19395",
+          "mem_available_bytes": 3780575232,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225536860160,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19122,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:56:29.464561+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.05 0.91 0.86 2/1297 19399",
+          "mem_available_bytes": 3781152768,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225536860160,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19122,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:56:34.532403+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.05 0.91 0.86 2/1293 19399",
+          "mem_available_bytes": 3778613248,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225536860160,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19122,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:56:39.589215+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.04 0.91 0.87 2/1292 19399",
+          "mem_available_bytes": 3778625536,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225536860160,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19122,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:56:44.647534+00:00",
+          "cpus_allowed_list": "0-31",
+          "host": {
+            "captured_at_local": "2026-10-08T23:56:47.5490737+08:00",
+            "formal_gate": "NOT_APPLICABLE",
+            "host_cpu_average_percent": 8,
+            "host_cpu_maximum_percent": 8,
+            "host_minimum_available_bytes": 2946560000,
+            "host_samples": [
+              {
+                "available_memory_bytes": 2946560000,
+                "commit_limit_bytes": 54425735168,
+                "committed_bytes": 29634539520,
+                "cpu_percent": 8,
+                "memory_temperature_or_throttling": "unknown",
+                "page_reads_per_second": 3,
+                "pages_per_second": 11,
+                "percent_committed_bytes_in_use": 54,
+                "timestamp": "2026-10-08T23:56:47.5155637+08:00"
+              }
+            ],
+            "host_total_visible_bytes": 16340406272,
+            "minimum_disk_bytes": 1073741824,
+            "minimum_memory_bytes": 2147483648,
+            "mode": "Snapshot",
+            "schema": "p2-resource-gate-v2"
+          },
+          "host_command_returncode": 0,
+          "loadavg": "1.04 0.91 0.87 2/1292 19399",
+          "mem_available_bytes": 3774791680,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225536860160,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19122,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        }
+      ],
+      "returncode": 0,
+      "role": "measurement",
+      "run_directory": "/mnt/e/software_system/project01/evidence/p2/grid-session-0d3dd52/runs/grid_a8ccfab9c3cf494c87e14e7ddc12f2de_4_b48ffb4cf0d449c5b06ba142b69714ec",
+      "run_id": "b48ffb4cf0d449c5b06ba142b69714ec",
+      "sample_index": 4,
+      "schema": "matrix-autotuner-evaluation-v1",
+      "score_seconds": 70.311928222,
+      "signal": null,
+      "source": "fresh_measurement",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "2edc3eb3d293f1ff3c0f1f9853412d25aa57e87b5fdad93e7f281be32fc1d5e4",
+      "target_result": {
+        "abs_tol": 1e-12,
+        "block_size": 24,
+        "checked_entries": 16777216,
+        "checksum": 17181902562.027435,
+        "elapsed_seconds": 70.311928222,
+        "fault_injection": 0,
+        "finite_checksum": true,
+        "finite_elapsed": true,
+        "finite_error_summary": true,
+        "finite_reference_checksum": true,
+        "input": "random",
+        "input_generator": "splitmix64-interleaved-v1",
+        "max_abs_error": 0,
+        "max_rel_error": 0,
+        "mismatch_count": 0,
+        "n": 4096,
+        "nonfinite_error_count": 0,
+        "nonfinite_reference_count": 0,
+        "nonfinite_result_count": 0,
+        "reference_checksum": 17181902562.027435,
+        "rel_tol": 1e-12,
+        "schema": "matrix-multiplication-result-v1",
+        "seed": 20261008,
+        "status": "ok",
+        "validation": true,
+        "validation_seconds": 0.45846213700000005
+      },
+      "timed_command": [
+        "/usr/bin/time",
+        "-v",
+        "-o",
+        "/mnt/e/software_system/project01/evidence/p2/grid-session-0d3dd52/runs/grid_a8ccfab9c3cf494c87e14e7ddc12f2de_4_b48ffb4cf0d449c5b06ba142b69714ec/resource.txt",
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/build/3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e/candidate",
+        "--block-size",
+        "24",
+        "--seed",
+        "20261008",
+        "--input",
+        "random",
+        "--reference",
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/reference/ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513/reference.bin"
+      ],
+      "timed_out": false
+    },
+    {
+      "attempt_id": "a8ccfab9c3cf494c87e14e7ddc12f2de",
+      "binary_sha256": "eaab26ff30e135cd0d29864646a38468ce9bf324a79c27512de1a80f1cc98f05",
+      "build_key": "3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e",
+      "build_lookup_seconds": 0.0006313949998002499,
+      "classification": "success",
+      "classification_detail": "validated result",
+      "command": [
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/build/3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e/candidate",
+        "--block-size",
+        "24",
+        "--seed",
+        "20261008",
+        "--input",
+        "random",
+        "--reference",
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/reference/ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513/reference.bin"
+      ],
+      "config": {
+        "block_size": 24,
+        "optimization": "O3"
+      },
+      "context": {
+        "evidence_label": "grid_a8ccfab9c3cf494c87e14e7ddc12f2de_5",
+        "fault_injection": 0,
+        "force_remeasure": true,
+        "input_pattern": "random",
+        "matrix_n": 4096,
+        "min_wsl_available_bytes": 2147483648,
+        "protocol_hash": "2b1a75e9c5f88b80d83a47be4e34c2c5577d82d1468f37fd976e0d6d6ce5b828",
+        "seed": 20261008,
+        "timeout_seconds": 243
+      },
+      "created_at": "2026-10-08T15:57:56.485550+00:00",
+      "execution_total_seconds": 71.00770602400007,
+      "process_wall_seconds": 70.78701253899999,
+      "purpose": "grid",
+      "raw_resource": "\tCommand being timed: \"/var/tmp/matrix-autotuner-p2-10245102457/cache/build/3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e/candidate --block-size 24 --seed 20261008 --input random --reference /var/tmp/matrix-autotuner-p2-10245102457/cache/reference/ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513/reference.bin\"\n\tUser time (seconds): 67.00\n\tSystem time (seconds): 0.39\n\tPercent of CPU this job got: 101%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 1:06.44\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 394856\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 0\n\tMinor (reclaiming a frame) page faults: 98391\n\tVoluntary context switches: 0\n\tInvoluntary context switches: 1073\n\tSwaps: 0\n\tFile system inputs: 0\n\tFile system outputs: 0\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+      "raw_stderr": "",
+      "raw_stdout": "{\"schema\":\"matrix-multiplication-result-v1\",\"status\":\"ok\",\"n\":4096,\"block_size\":24,\"seed\":20261008,\"input\":\"random\",\"input_generator\":\"splitmix64-interleaved-v1\",\"elapsed_seconds\":69.8256981549999977688,\"checksum\":17181902562.027436398,\"reference_checksum\":17181902562.027436398,\"max_abs_error\":0,\"max_rel_error\":0,\"validation_seconds\":0.45285372699999993,\"abs_tol\":1.0e-12,\"rel_tol\":1.0e-12,\"checked_entries\":16777216,\"mismatch_count\":0,\"nonfinite_result_count\":0,\"nonfinite_reference_count\":0,\"nonfinite_error_count\":0,\"finite_elapsed\":true,\"finite_checksum\":true,\"finite_reference_checksum\":true,\"finite_error_summary\":true,\"validation\":true,\"fault_injection\":0}\n",
+      "reference_key": "ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513",
+      "reference_lookup_seconds": 0.19956487299714354,
+      "reference_sha256": "cc476da46f43613ef67dad7841b73d7f2d70b7f1d636a9f23d7d7124b8b499f5",
+      "resource_after": {
+        "captured_at": "2026-10-08T15:57:56.466868+00:00",
+        "cpus_allowed_list": "0-31",
+        "loadavg": "1.01 0.94 0.88 1/1296 19491",
+        "mem_available_bytes": 4173602816,
+        "mem_total_bytes": 7908261888,
+        "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+        "root_disk_free_bytes": 225550790656,
+        "swap_free_bytes": 2147483648,
+        "swap_total_bytes": 2147483648,
+        "vmstat": {
+          "pgmajfault": 19140,
+          "pswpin": 0,
+          "pswpout": 0
+        }
+      },
+      "resource_before": {
+        "captured_at": "2026-10-08T15:56:50.008896+00:00",
+        "cpus_allowed_list": "0-31",
+        "loadavg": "1.04 0.92 0.87 1/1300 19419",
+        "mem_available_bytes": 4185128960,
+        "mem_total_bytes": 7908261888,
+        "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+        "root_disk_free_bytes": 225536860160,
+        "swap_free_bytes": 2147483648,
+        "swap_total_bytes": 2147483648,
+        "vmstat": {
+          "pgmajfault": 19122,
+          "pswpin": 0,
+          "pswpout": 0
+        }
+      },
+      "resource_samples": [
+        {
+          "captured_at": "2026-10-08T15:56:50.011085+00:00",
+          "cpus_allowed_list": "0-31",
+          "host": {
+            "captured_at_local": "2026-10-08T23:56:52.7015928+08:00",
+            "formal_gate": "NOT_APPLICABLE",
+            "host_cpu_average_percent": 11,
+            "host_cpu_maximum_percent": 11,
+            "host_minimum_available_bytes": 2906619904,
+            "host_samples": [
+              {
+                "available_memory_bytes": 2906619904,
+                "commit_limit_bytes": 54425735168,
+                "committed_bytes": 29672284160,
+                "cpu_percent": 11,
+                "memory_temperature_or_throttling": "unknown",
+                "page_reads_per_second": 3,
+                "pages_per_second": 31,
+                "percent_committed_bytes_in_use": 54,
+                "timestamp": "2026-10-08T23:56:52.6680404+08:00"
+              }
+            ],
+            "host_total_visible_bytes": 16340406272,
+            "minimum_disk_bytes": 1073741824,
+            "minimum_memory_bytes": 2147483648,
+            "mode": "Snapshot",
+            "schema": "p2-resource-gate-v2"
+          },
+          "host_command_returncode": 0,
+          "loadavg": "1.04 0.92 0.87 2/1302 19421",
+          "mem_available_bytes": 4185128960,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225536860160,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19122,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:56:56.491708+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.03 0.92 0.87 2/1304 19438",
+          "mem_available_bytes": 3782500352,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225541505024,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19128,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:57:01.523586+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.03 0.92 0.87 2/1295 19440",
+          "mem_available_bytes": 3784327168,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225541505024,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19128,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:57:06.528374+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.02 0.92 0.87 2/1296 19443",
+          "mem_available_bytes": 3775598592,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225541505024,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19128,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:57:11.529947+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.02 0.92 0.87 2/1292 19443",
+          "mem_available_bytes": 3775344640,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225541505024,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19128,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:57:16.531312+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.02 0.92 0.87 2/1292 19443",
+          "mem_available_bytes": 3774803968,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225541505024,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19128,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:57:18.662461+00:00",
+          "cpus_allowed_list": "0-31",
+          "host": {
+            "captured_at_local": "2026-10-08T23:57:24.1203901+08:00",
+            "formal_gate": "NOT_APPLICABLE",
+            "host_cpu_average_percent": 6,
+            "host_cpu_maximum_percent": 6,
+            "host_minimum_available_bytes": 4203057152,
+            "host_samples": [
+              {
+                "available_memory_bytes": 4203057152,
+                "commit_limit_bytes": 54425735168,
+                "committed_bytes": 28003377152,
+                "cpu_percent": 6,
+                "memory_temperature_or_throttling": "unknown",
+                "page_reads_per_second": 7,
+                "pages_per_second": 7,
+                "percent_committed_bytes_in_use": 51,
+                "timestamp": "2026-10-08T23:57:24.0854023+08:00"
+              }
+            ],
+            "host_total_visible_bytes": 16340406272,
+            "minimum_disk_bytes": 1073741824,
+            "minimum_memory_bytes": 2147483648,
+            "mode": "Snapshot",
+            "schema": "p2-resource-gate-v2"
+          },
+          "host_command_returncode": 0,
+          "loadavg": "1.02 0.93 0.87 2/1292 19445",
+          "mem_available_bytes": 3776348160,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225546149888,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19134,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:57:26.606046+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.02 0.93 0.88 2/1292 19465",
+          "mem_available_bytes": 3785818112,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225546149888,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19134,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:57:31.607338+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.01 0.93 0.88 2/1295 19467",
+          "mem_available_bytes": 3783311360,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225546149888,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19134,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:57:36.614366+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.01 0.93 0.88 2/1296 19470",
+          "mem_available_bytes": 3783323648,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225546145792,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19134,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:57:41.616768+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.01 0.93 0.88 2/1292 19470",
+          "mem_available_bytes": 3774844928,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225546145792,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19134,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:57:46.622720+00:00",
+          "cpus_allowed_list": "0-31",
+          "loadavg": "1.01 0.93 0.88 2/1291 19472",
+          "mem_available_bytes": 3766689792,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225550790656,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19140,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        },
+        {
+          "captured_at": "2026-10-08T15:57:51.625946+00:00",
+          "cpus_allowed_list": "0-31",
+          "host": {
+            "captured_at_local": "2026-10-08T23:57:55.6133974+08:00",
+            "formal_gate": "NOT_APPLICABLE",
+            "host_cpu_average_percent": 14,
+            "host_cpu_maximum_percent": 14,
+            "host_minimum_available_bytes": 3816493056,
+            "host_samples": [
+              {
+                "available_memory_bytes": 3816493056,
+                "commit_limit_bytes": 54425735168,
+                "committed_bytes": 28481073152,
+                "cpu_percent": 14,
+                "memory_temperature_or_throttling": "unknown",
+                "page_reads_per_second": 438,
+                "pages_per_second": 2907,
+                "percent_committed_bytes_in_use": 52,
+                "timestamp": "2026-10-08T23:57:55.5803776+08:00"
+              }
+            ],
+            "host_total_visible_bytes": 16340406272,
+            "minimum_disk_bytes": 1073741824,
+            "minimum_memory_bytes": 2147483648,
+            "mode": "Snapshot",
+            "schema": "p2-resource-gate-v2"
+          },
+          "host_command_returncode": 0,
+          "loadavg": "1.01 0.94 0.88 2/1290 19472",
+          "mem_available_bytes": 3774586880,
+          "mem_total_bytes": 7908261888,
+          "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+          "root_disk_free_bytes": 225550790656,
+          "swap_free_bytes": 2147483648,
+          "swap_total_bytes": 2147483648,
+          "vmstat": {
+            "pgmajfault": 19140,
+            "pswpin": 0,
+            "pswpout": 0
+          }
+        }
+      ],
+      "returncode": 0,
+      "role": "measurement",
+      "run_directory": "/mnt/e/software_system/project01/evidence/p2/grid-session-0d3dd52/runs/grid_a8ccfab9c3cf494c87e14e7ddc12f2de_5_c3d42a98ed3f46f79a311530d5db60e5",
+      "run_id": "c3d42a98ed3f46f79a311530d5db60e5",
+      "sample_index": 5,
+      "schema": "matrix-autotuner-evaluation-v1",
+      "score_seconds": 69.825698155,
+      "signal": null,
+      "source": "fresh_measurement",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "42034444fd1561a7cd46444bf61a8925e0e7c001abf31d3822636cf60a05ed01",
+      "target_result": {
+        "abs_tol": 1e-12,
+        "block_size": 24,
+        "checked_entries": 16777216,
+        "checksum": 17181902562.027435,
+        "elapsed_seconds": 69.825698155,
+        "fault_injection": 0,
+        "finite_checksum": true,
+        "finite_elapsed": true,
+        "finite_error_summary": true,
+        "finite_reference_checksum": true,
+        "input": "random",
+        "input_generator": "splitmix64-interleaved-v1",
+        "max_abs_error": 0,
+        "max_rel_error": 0,
+        "mismatch_count": 0,
+        "n": 4096,
+        "nonfinite_error_count": 0,
+        "nonfinite_reference_count": 0,
+        "nonfinite_result_count": 0,
+        "reference_checksum": 17181902562.027435,
+        "rel_tol": 1e-12,
+        "schema": "matrix-multiplication-result-v1",
+        "seed": 20261008,
+        "status": "ok",
+        "validation": true,
+        "validation_seconds": 0.45285372699999993
+      },
+      "timed_command": [
+        "/usr/bin/time",
+        "-v",
+        "-o",
+        "/mnt/e/software_system/project01/evidence/p2/grid-session-0d3dd52/runs/grid_a8ccfab9c3cf494c87e14e7ddc12f2de_5_c3d42a98ed3f46f79a311530d5db60e5/resource.txt",
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/build/3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e/candidate",
+        "--block-size",
+        "24",
+        "--seed",
+        "20261008",
+        "--input",
+        "random",
+        "--reference",
+        "/var/tmp/matrix-autotuner-p2-10245102457/cache/reference/ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513/reference.bin"
+      ],
+      "timed_out": false
+    }
+  ],
+  "schema": "configuration-evaluation-v1",
+  "score_seconds": 71.65519356,
+  "statistics": {
+    "coefficient_of_variation": 0.027258838976122995,
+    "maximum_seconds": 74.798416502,
+    "mean_seconds": 71.7653820086,
+    "median_absolute_deviation_seconds": 1.3432653379999948,
+    "median_seconds": 71.65519356,
+    "minimum_seconds": 69.825698155,
+    "relative_mad": 0.018746238357101368,
+    "sample_stdev_seconds": 1.9562409922323816
+  },
+  "validation_total_seconds": 2.794859484
+}

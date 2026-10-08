@@ -1,0 +1,26 @@
+{
+  "schema": "p2-auxiliary-collector-failure-v1",
+  "recorded_at_utc": "2026-10-08 15:37:27 UTC",
+  "command": [
+    "wsl.exe",
+    "-d",
+    "Ubuntu-24.04",
+    "--cd",
+    "/mnt/e/software_system/project01",
+    "--",
+    "env",
+    "-u",
+    "PYTHONPATH",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "python3",
+    "scripts/inspect_p2.py",
+    "--compiler-optimizers",
+    "--output",
+    "evidence/p2/environment/memory_pause_tools_20261008.json"
+  ],
+  "source_sha256": "e2313b6f5f0da3fdea9d937007bd148853461ec9c1c65fb44c4b93768e794ea1",
+  "stdout": "",
+  "stderr": "  File \"/mnt/e/software_system/project01/scripts/inspect_p2.py\", line 36\n    commands.extend([[\"/usr/bin/gcc\", \"-Q\", f\"-O{level}\", \"--help=optimizers\"] for level in range(4))\n                                                                                                    ^\nSyntaxError: closing parenthesis ')' does not match opening parenthesis '['\n",
+  "returncode": 1,
+  "scope": "auxiliary diagnostic only; parse failed before any collector commands executed; formal archive and protocol unchanged"
+}

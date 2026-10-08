@@ -1,0 +1,102 @@
+{
+  "artifact_hashes": {
+    "assets/p2_heatmap.png": "e6e7d2fef34e23693deda3a9b0a356e4458eb0f5198600cae23a5711db5395ec",
+    "assets/p2_variation.png": "3f36ffd5579b316dfdde52b7a0ae27cb7a4d5d5f8e372927b90d8c5dcb2bd1ec",
+    "evidence/p2/grid-session-0d3dd52/evidence_audit.json": "d6c04b892b00e85d42388300765bd70444340569839a9efb9416e003ba11cf92",
+    "evidence/p2/grid-session-0d3dd52/grid_summary.csv": "d2b36a23ccf179e85eba194ede35408144da6298a3c8a695412d8629d2ae6158",
+    "evidence/p2/grid-session-0d3dd52/independent_retest.json": "f2ab8de9eadd9e55ef4717b82155964487e4203dd61204c6899361b73191aaee",
+    "evidence/p2/grid-session-0d3dd52/summary.json": "6a2a6515d6d2d54dac0ff89de28310652ec0cebaafeac6cd7c5e64704c3b6478"
+  },
+  "canonical_grid_prefixes": [
+    {
+      "budget": 4,
+      "config": {
+        "block_size": 8,
+        "optimization": "O0"
+      },
+      "median_seconds": 405.629870345,
+      "order_dependent": true,
+      "regret_percent": 658.9722060868928
+    },
+    {
+      "budget": 8,
+      "config": {
+        "block_size": 24,
+        "optimization": "O1"
+      },
+      "median_seconds": 65.389032579,
+      "order_dependent": true,
+      "regret_percent": 22.349121548077555
+    },
+    {
+      "budget": 12,
+      "config": {
+        "block_size": 128,
+        "optimization": "O1"
+      },
+      "median_seconds": 53.44462776,
+      "order_dependent": true,
+      "regret_percent": 0.0
+    }
+  ],
+  "captured_at": "2026-10-08T16:23:45.386359+00:00",
+  "command_argv": [
+    "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "scripts/finalize_p2_evidence.py",
+    "--session",
+    "evidence/p2/grid-session-0d3dd52",
+    "--output",
+    "evidence/p2/postprocessing"
+  ],
+  "formal_content_commit": "0d3dd5242c728d8001dd02a4e332185459d04721",
+  "future_cost_caveat": "Conditional empirical average, not a guarantee; excludes new setup, resource waiting, failed/interrupted work and candidate retests. No formal random/greedy run is performed here.",
+  "future_cost_estimate_seconds_per_algorithm_60_unique": 60264.52439438099,
+  "grid_complete_configuration_evaluation_seconds": 20088.174798127,
+  "grid_complete_configuration_process_seconds": 19997.806244840023,
+  "helper_scope": "post-experiment only; does not alter formal code/protocol or samples",
+  "postrun_executed_file_hashes": {
+    "/usr/bin/x86_64-linux-gnu-gcc-13": "1b99826121ae6682a634e5efe09bd3e3df58ce58e0b28f849114ab5b89139c26",
+    "/var/tmp/matrix-autotuner-p2-10245102457/cache/build/2028e5186279dfeffeca4653f90e097b13d8bb07528753d9a1a08f3a89c3e9f9/reference_generator": "dcb71d7650f866f663fcdee8570008d14105f5d9e6d5677341e47935265a22e0",
+    "/var/tmp/matrix-autotuner-p2-10245102457/cache/build/3fbeb09038b39913d4f22ba562b0066d07deca07c0017a9a0704c90062bf702e/candidate": "eaab26ff30e135cd0d29864646a38468ce9bf324a79c27512de1a80f1cc98f05",
+    "/var/tmp/matrix-autotuner-p2-10245102457/cache/build/a16b4ad49b63158667e5a98da4e18509a4e00e8ff65e36a1ad052575e4bc324b/candidate": "ce434ddba5164712483f64e0522c0d14a6e9a4f0ccacc98d060ca8fb6ceefe02",
+    "/var/tmp/matrix-autotuner-p2-10245102457/cache/build/b3dab30df53c16de7d7c5c2b3c835f4699a12b0b6fe15686296f20ed0b9caaf0/candidate": "8e26818aa269b5f835f0ee7ff71ff5dae3cbfc1ce0d9afa9552c096f94727528",
+    "/var/tmp/matrix-autotuner-p2-10245102457/cache/build/ea457f4b84bcae4972b648cf8fc35f52e82c193d553b7c6073333cc87be0bca2/candidate": "8b5c96eebee5f82848ebc339e579f6da00d74f76b294cb1d57b328e86dc87aa4",
+    "/var/tmp/matrix-autotuner-p2-10245102457/cache/reference/ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513/reference.bin": "cc476da46f43613ef67dad7841b73d7f2d70b7f1d636a9f23d7d7124b8b499f5",
+    "/var/tmp/matrix-autotuner-p2-content-0d3dd5242c728d8001dd02a4e332185459d04721/code/working/matrix_input.h": "6ad1cfc920e5d1920c955a116b5e82ebb3cb9bc2d7b88f4fb5fa217610a44379",
+    "/var/tmp/matrix-autotuner-p2-content-0d3dd5242c728d8001dd02a4e332185459d04721/code/working/matrix_multiplication.c": "d92870e97464b83935d77d5e087fcbd822c6abc0af244d806d024310720647ba",
+    "/var/tmp/matrix-autotuner-p2-content-0d3dd5242c728d8001dd02a4e332185459d04721/code/working/reference_generator.c": "e8014c3d91ca1fe40f5ef962e0c401e28e8719b19a3664c8322ce14716d4cfb5"
+  },
+  "python_ast_checked": [
+    "autotuner/__init__.py",
+    "autotuner/__main__.py",
+    "autotuner/cli.py",
+    "autotuner/core.py",
+    "autotuner/measurement.py",
+    "autotuner/search.py",
+    "autotuner/session.py",
+    "scripts/audit_p2_evidence.py",
+    "scripts/check_p2_clocks.py",
+    "scripts/finalize_p2_evidence.py",
+    "scripts/inspect_p2.py",
+    "scripts/plot_p2_results.py",
+    "scripts/run_p1_correctness.py",
+    "scripts/run_p1_pilots.py",
+    "scripts/run_p1_revision1_clean_checks.py",
+    "scripts/run_p1_revision1_regressions.py",
+    "scripts/run_p2_clean_validation.py",
+    "scripts/verify_p1.py",
+    "tests/test_runner.py",
+    "tests/test_search_measurement.py"
+  ],
+  "retest_change_percent": 2.4975730675759866,
+  "schema": "p2-postprocessing-v1",
+  "source_hashes": {
+    "scripts/audit_p2_evidence.py": "bfdc68e382d791ba3bf886ec1b81da8fbdb5035985d4ed005fdb66b5e35872d4",
+    "scripts/finalize_p2_evidence.py": "aee46b3371da9e4584d3a1e0e50e72263d76e23ed7cabf8799ea5d5bfa3c7d1b",
+    "scripts/inspect_p2.py": "98be1676cb61af7550db2e39a77345e3571e89f67dac683f6445ae2dcf5bf6ee",
+    "scripts/plot_p2_results.py": "bfadd5b6050cb510c2ccc61081688b86b947279e3080842b9ef24fa5ad3cf7d2"
+  },
+  "status": "PASS",
+  "utc_span_caveat": "UTC was adjusted; distinct from monotonic costs, not calibrated physical time",
+  "utc_span_seconds_including_shutdown_pause": 31719.227367
+}

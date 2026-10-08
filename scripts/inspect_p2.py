@@ -24,6 +24,8 @@ def main() -> None:
            "[pscustomobject]@{Timestamp=[DateTimeOffset]::Now.ToString('o'); " \
            "TotalBytes=[int64]$os.TotalVisibleMemorySize*1KB; FreeBytes=[int64]$os.FreePhysicalMemory*1KB; " \
            "WslWorkingSetBytes=$vm.WorkingSet64; WslPrivateBytes=$vm.PrivateMemorySize64; " \
+           "TopWorkingSets=@(Get-Process | Sort-Object WorkingSet64 -Descending | " \
+           "Select-Object -First 8 Id,ProcessName,WorkingSet64,PrivateMemorySize64); " \
            "PowerShellVersion=$PSVersionTable.PSVersion.ToString(); " \
            "PowerLineStatus=$power.PowerLineStatus.ToString(); " \
            "BatteryChargeStatus=$power.BatteryChargeStatus.ToString(); " \
@@ -33,7 +35,7 @@ def main() -> None:
                 ["ps", "-eo", "pid,etimes,rss,comm", "--sort=-rss"],
                 [powershell, "-NoProfile", "-Command", host]]
     if args.compiler_optimizers:
-        commands.extend([["/usr/bin/gcc", "-Q", f"-O{level}", "--help=optimizers"] for level in range(4))
+        commands.extend([["/usr/bin/gcc", "-Q", f"-O{level}", "--help=optimizers"] for level in range(4)])
     records = []
     for command in commands:
         captured = utc_now()

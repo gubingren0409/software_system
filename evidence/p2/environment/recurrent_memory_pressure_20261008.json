@@ -1,0 +1,115 @@
+{
+  "captured_at": "2026-10-08T15:49:12.357469+00:00",
+  "collector_sha256": "98be1676cb61af7550db2e39a77345e3571e89f67dac683f6445ae2dcf5bf6ee",
+  "command_argv": [
+    "/usr/bin/python3",
+    "scripts/inspect_p2.py",
+    "--output",
+    "evidence/p2/environment/recurrent_memory_pressure_20261008.json"
+  ],
+  "commands": [
+    {
+      "captured_at": "2026-10-08T15:49:08.946320+00:00",
+      "command": [
+        "/usr/bin/python3",
+        "--version"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "Python 3.12.3\n"
+    },
+    {
+      "captured_at": "2026-10-08T15:49:08.951349+00:00",
+      "command": [
+        "/usr/bin/gcc",
+        "--version"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n"
+    },
+    {
+      "captured_at": "2026-10-08T15:49:08.971879+00:00",
+      "command": [
+        "git",
+        "--version"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "git version 2.43.0\n"
+    },
+    {
+      "captured_at": "2026-10-08T15:49:09.007588+00:00",
+      "command": [
+        "uname",
+        "-a"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "Linux localhost 6.18.40.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Fri Jul 31 22:12:15 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux\n"
+    },
+    {
+      "captured_at": "2026-10-08T15:49:09.011014+00:00",
+      "command": [
+        "cat",
+        "/etc/os-release"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "PRETTY_NAME=\"Ubuntu 24.04 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n"
+    },
+    {
+      "captured_at": "2026-10-08T15:49:09.020244+00:00",
+      "command": [
+        "cat",
+        "/proc/meminfo"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "MemTotal:        7722912 kB\nMemFree:         3313172 kB\nMemAvailable:    4056312 kB\nBuffers:           14656 kB\nCached:           982664 kB\nSwapCached:            0 kB\nActive:           244576 kB\nInactive:        1864568 kB\nActive(anon):       6816 kB\nInactive(anon):  1248848 kB\nActive(file):     237760 kB\nInactive(file):   615720 kB\nUnevictable:     1115308 kB\nMlocked:         1115308 kB\nSwapTotal:       2097152 kB\nSwapFree:        2097152 kB\nDirty:             14736 kB\nWriteback:             0 kB\nAnonPages:       2227952 kB\nMapped:           821324 kB\nShmem:             19872 kB\nKReclaimable:      56452 kB\nSlab:             314000 kB\nSReclaimable:      56452 kB\nSUnreclaim:       257548 kB\nKernelStack:       21052 kB\nPageTables:        26108 kB\nSecPageTables:         0 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:     5958608 kB\nCommitted_AS:    8441844 kB\nVmallocTotal:   34359738367 kB\nVmallocUsed:      252128 kB\nVmallocChunk:          0 kB\nPercpu:            24064 kB\nHardwareCorrupted:     0 kB\nAnonHugePages:         0 kB\nShmemHugePages:        0 kB\nShmemPmdMapped:        0 kB\nFileHugePages:     16384 kB\nFilePmdMapped:         0 kB\nBalloon:               0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\nDirectMap4k:      148480 kB\nDirectMap2M:     6778880 kB\nDirectMap1G:     9437184 kB\n"
+    },
+    {
+      "captured_at": "2026-10-08T15:49:09.023875+00:00",
+      "command": [
+        "ps",
+        "-eo",
+        "pid,etimes,rss,comm",
+        "--sort=-rss"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "    PID ELAPSED   RSS COMMAND\n   1817   17563 1372720 java\n   1302   17567 197628 mongod\n   1700   17565 122240 python3\n   1522   17566 111500 java\n    362   17574 87452 dockerd\n   2337   17531 71908 python3\n    294   17575 54576 containerd\n    745   17568 31628 python3\n  17171    1592 28128 docker-desktop-\n    306   17574 23176 unattended-upgr\n   1295   17567 21784 redis-server\n  18864       0 21296 python3\n     58   17578 16156 systemd-journal\n    280   17575 15080 wsl-pro-service\n      1   17580 13564 systemd\n    244   17575 13044 systemd-resolve\n  16983    1607 11776 systemd\n    790   17568 11624 systemd\n   1222   17567 11024 containerd-shim\n   1143   17567 10984 containerd-shim\n   1193   17567 10980 containerd-shim\n   1093   17567 10956 containerd-shim\n   2210   17532 10904 containerd-shim\n   1178   17567 10900 containerd-shim\n    824   17567  9024 bash\n    276   17575  8968 systemd-logind\n   1877   17561  8936 controller\n    245   17575  8120 systemd-timesyn\n   1655   17566  7280 nginx\n    104   17577  6644 systemd-udevd\n    293   17575  5840 rsyslogd\n    265   17575  5672 dbus-daemon\n  17037    1606  5292 bash\n   1452   17566  5076 docker-proxy\n   1552   17566  5004 docker-proxy\n   2318   17532  4988 docker-proxy\n    746   17568  4792 login\n  16867    1607  4700 login\n  18871       0  4204 ps\n  18858       2  4172 (udev-worker)\n  18859       2  4172 (udev-worker)\n  18860       2  3816 (udev-worker)\n  18861       2  3688 (udev-worker)\n    793   17568  3636 (sd-pam)\n  16985    1607  3584 (sd-pam)\n   1264   17567  3292 bash\n   1254   17567  3280 bash\n   2233   17532  3212 bash\n    264   17575  2876 cron\n   1657   17566  2868 nginx\n   1658   17566  2868 nginx\n   1659   17566  2868 nginx\n   1660   17566  2868 nginx\n   1661   17566  2868 nginx\n   1662   17566  2868 nginx\n   1663   17566  2868 nginx\n   1664   17566  2868 nginx\n   1665   17566  2868 nginx\n   1666   17566  2868 nginx\n   1667   17566  2868 nginx\n   1668   17566  2868 nginx\n   1669   17566  2868 nginx\n   1670   17566  2868 nginx\n   1671   17566  2868 nginx\n   1672   17566  2868 nginx\n   1673   17566  2868 nginx\n   1674   17566  2868 nginx\n   1675   17566  2868 nginx\n   1676   17566  2868 nginx\n   1677   17566  2868 nginx\n   1678   17566  2868 nginx\n   1679   17566  2868 nginx\n   1680   17566  2868 nginx\n   1681   17566  2868 nginx\n   1682   17566  2868 nginx\n   1683   17566  2868 nginx\n   1684   17566  2868 nginx\n   1685   17566  2868 nginx\n   1686   17566  2868 nginx\n   1687   17566  2868 nginx\n   1688   17566  2868 nginx\n      9   17578  2708 init\n      2   17580  2336 init-systemd(Ub\n      3   17580  2100 init-watcher\n  16860    1608  1980 sh\n  17170    1592  1584 Relay(17171)\n    744   17568  1508 Relay(745)\n   1287   17567  1436 tini\n  16859    1608  1372 Relay(16860)\n  18863       0  1372 Relay(18864)\n  16858    1608  1324 SessionLeader\n  18862       0  1320 SessionLeader\n    741   17568  1312 SessionLeader\n"
+    },
+    {
+      "captured_at": "2026-10-08T15:49:09.295393+00:00",
+      "command": [
+        "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+        "-NoProfile",
+        "-Command",
+        "Add-Type -AssemblyName System.Windows.Forms; $power=[System.Windows.Forms.SystemInformation]::PowerStatus; $os=Get-CimInstance Win32_OperatingSystem; $vm=Get-Process VmmemWSL -ErrorAction SilentlyContinue; [pscustomobject]@{Timestamp=[DateTimeOffset]::Now.ToString('o'); TotalBytes=[int64]$os.TotalVisibleMemorySize*1KB; FreeBytes=[int64]$os.FreePhysicalMemory*1KB; WslWorkingSetBytes=$vm.WorkingSet64; WslPrivateBytes=$vm.PrivateMemorySize64; TopWorkingSets=@(Get-Process | Sort-Object WorkingSet64 -Descending | Select-Object -First 8 Id,ProcessName,WorkingSet64,PrivateMemorySize64); PowerShellVersion=$PSVersionTable.PSVersion.ToString(); PowerLineStatus=$power.PowerLineStatus.ToString(); BatteryChargeStatus=$power.BatteryChargeStatus.ToString(); BatteryLifePercent=$power.BatteryLifePercent} | ConvertTo-Json -Compress"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\"Timestamp\":\"2026-10-08T23:49:12.3899853+08:00\",\"TotalBytes\":16340406272,\"FreeBytes\":370417664,\"WslWorkingSetBytes\":1341972480,\"WslPrivateBytes\":5081202688,\"TopWorkingSets\":[{\"Id\":71932,\"ProcessName\":\"VALORANT-Win64-Shipping\",\"WorkingSet64\":2966544384,\"PrivateMemorySize64\":6319333376},{\"Id\":33988,\"ProcessName\":\"vmmemWSL\",\"WorkingSet64\":1341972480,\"PrivateMemorySize64\":5081202688},{\"Id\":13060,\"ProcessName\":\"ChatGPT\",\"WorkingSet64\":547979264,\"PrivateMemorySize64\":665657344},{\"Id\":42388,\"ProcessName\":\"chrome\",\"WorkingSet64\":429305856,\"PrivateMemorySize64\":651173888},{\"Id\":65364,\"ProcessName\":\"recorder\",\"WorkingSet64\":322322432,\"PrivateMemorySize64\":624578560},{\"Id\":25076,\"ProcessName\":\"ChatGPT\",\"WorkingSet64\":294559744,\"PrivateMemorySize64\":411811840},{\"Id\":54912,\"ProcessName\":\"audiodg\",\"WorkingSet64\":266080256,\"PrivateMemorySize64\":311672832},{\"Id\":22120,\"ProcessName\":\"codex\",\"WorkingSet64\":229965824,\"PrivateMemorySize64\":254136320}],\"PowerShellVersion\":\"5.1.26100.9444\",\"PowerLineStatus\":\"Online\",\"BatteryChargeStatus\":\"High\",\"BatteryLifePercent\":1}\n"
+    }
+  ],
+  "compiler_sha256": "1b99826121ae6682a634e5efe09bd3e3df58ce58e0b28f849114ab5b89139c26",
+  "other_applications_terminated": false,
+  "system_settings_modified": false,
+  "wsl_resource_snapshot": {
+    "captured_at": "2026-10-08T15:49:12.370019+00:00",
+    "cpus_allowed_list": "0-31",
+    "loadavg": "0.27 0.62 0.83 1/1283 18874",
+    "mem_available_bytes": 4152639488,
+    "mem_total_bytes": 7908261888,
+    "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+    "root_disk_free_bytes": 225517703168,
+    "swap_free_bytes": 2147483648,
+    "swap_total_bytes": 2147483648,
+    "vmstat": {
+      "pgmajfault": 18921,
+      "pswpin": 0,
+      "pswpout": 0
+    }
+  }
+}

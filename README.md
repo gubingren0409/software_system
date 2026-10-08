@@ -1,9 +1,11 @@
 # Matrix Multiplication Autotuner (P1)
 
-《软件系统优化》实践项目 P1。当前进行 **P2：运行契约修复与正式完整 Grid**。
-实现与干净归档回归已完成；正式实验的实时状态见
-[`evidence/p2/grid-session-0d3dd52/checkpoint.json`](evidence/p2/grid-session-0d3dd52/checkpoint.json)。
-完整 20 配置尚未完成，不能据当前前缀宣称最优配置。随机与贪心只做了诊断验证。
+《软件系统优化》实践项目 P1。**P2：运行契约修复与正式完整 Grid 已完成，等待外部审计。**
+20/20 配置有效，120 次正式执行与 6 次独立复测均通过全矩阵检查。
+本会话测得最低中位数为 **O1/s=128：53.444627760 s**；独立复测为
+**54.779446389 s**（+2.50%）。随机与贪心只做了诊断验证，尚未进行 P3 正式比较。
+时钟未独立校准及运行中背景资源扰动限制见
+[`docs/P2_TIMING_NOTE.md`](docs/P2_TIMING_NOTE.md) 和 [`report.md`](report.md)。
 
 ## 当前状态
 
@@ -70,7 +72,19 @@ wsl.exe -d Ubuntu-24.04 -- bash -lc `
 - [`report.md`](report.md)：仅纳入已有证据的课程报告正文。
 - [`docs/P0_DISCOVERY.md`](docs/P0_DISCOVERY.md)：保留并纠正后的 P0 基线。
 
-## P2 正式执行与续跑
+## P2 正式证据与复现
+
+正式内容提交固定为 `0d3dd5242c728d8001dd02a4e332185459d04721`，后续提交仅整合
+证据、辅助复核与文档，不替换实验身份。原始样本、20 行统计、独立复测和完整性审计：
+
+- [`evidence/p2/grid-session-0d3dd52/summary.json`](evidence/p2/grid-session-0d3dd52/summary.json)
+- [`evidence/p2/grid-session-0d3dd52/grid_summary.csv`](evidence/p2/grid-session-0d3dd52/grid_summary.csv)
+- [`evidence/p2/grid-session-0d3dd52/independent_retest.json`](evidence/p2/grid-session-0d3dd52/independent_retest.json)
+- [`evidence/p2/grid-session-0d3dd52/evidence_audit.json`](evidence/p2/grid-session-0d3dd52/evidence_audit.json)
+- [`evidence/p2/postprocessing/`](evidence/p2/postprocessing/)：绘图命令、版本、哈希和成本核算。
+
+记录的活动会话耗时 6 h 38 min 28 s，其中资源门禁/等待约 35 min 54 s；关机前未完成
+执行只有 325 s 最后观测下界，精确成本未知。该耗时来自单调时钟，不等于已校准物理时间。
 
 正式协议为 n=4096、random、seed=20261008；宿主与 WSL 都至少 2 GiB 可用，
 根目录至少 1 GiB，宿主 CPU 五次采样平均不超过 10%、单次不超过 20%。
@@ -83,7 +97,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/prepare_p2_content.p
   -ContentSha 0d3dd5242c728d8001dd02a4e332185459d04721
 ```
 
-然后在 WSL 使用原 session 续跑。必须保留 WSL 本地 cache，并由运行器核对内容、
+以下是已经实际使用的暂停续跑入口；当前 session 完整，不需要新增正式运行。
+若复核续跑，必须保留 WSL 本地 cache，并由运行器核对内容、
 编译器、二进制、输入、reference 及协议身份；已完成配置只从该 session 的全部
 原始样本恢复。中断配置重新预热和五次测量，不使用性能缓存凑样本。
 
@@ -96,10 +111,30 @@ PYTHONDONTWRITEBYTECODE=1 env -u PYTHONPATH python3 -m autotuner grid \
   --resume
 ```
 
-只读复核（完整验收时另加 `--require-complete`）：
+完整性复核（不启动目标性能实验；省略 `--output` 不写审计结果文件）：
 
 ```bash
 cd /mnt/e/software_system/project01
 PYTHONDONTWRITEBYTECODE=1 env -u PYTHONPATH python3 scripts/audit_p2_evidence.py \
-  --session evidence/p2/grid-session-0d3dd52
+  --session evidence/p2/grid-session-0d3dd52 --require-complete
 ```
+
+使用上述内容归档重新进行小规模干净检查时，须另用空证据目录；脚本自行建立临时空缓存：
+
+```bash
+cd /var/tmp/matrix-autotuner-p2-content-0d3dd5242c728d8001dd02a4e332185459d04721
+PYTHONDONTWRITEBYTECODE=1 env -u PYTHONPATH python3 scripts/run_p2_clean_validation.py \
+  --content-sha 0d3dd5242c728d8001dd02a4e332185459d04721 \
+  --git-identity /mnt/e/software_system/project01/build/p2/git_identity.json \
+  --output /var/tmp/matrix-p2-clean-check-new
+```
+
+图表可在 Windows 已安装的 Python 3.12.6、matplotlib 3.10.6、numpy 2.3.3 下重建：
+
+```powershell
+python scripts/plot_p2_results.py --session-directory evidence/p2/grid-session-0d3dd52 --output-directory assets
+```
+
+CPU 平均≤10%/单次≤20%是**配置开始前的后台负载门槛**，不是限制矩阵程序使用 CPU。
+它减少调度、缓存、带宽和频率/温度变化的干扰；不是老师要求或通用标准，运行中快照也
+不保证资源一直稳定。本轮不因结果改变冻结门槛或事后筛除样本。
