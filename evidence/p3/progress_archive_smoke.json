@@ -1,0 +1,49 @@
+{
+  "scope": "Progress snapshot acceptance: no new target execution while formal runner remains serial",
+  "content_sha": "ec68c6cf78807c023d3ed864d16b9bb45c4ed563",
+  "formal_experiment_content_sha": "e308bfb873e6811c50ad685a979af345302fda8d",
+  "status": "PASS",
+  "regression_reuse": "formal target/evaluator/measurement/search/CLI/config sources unchanged relative to e308bfb; reuse its 40-test, empty-cache n17 and n130 actual validation",
+  "commands": [
+    {
+      "name": "archive_import_ast",
+      "command": "wsl.exe -d Ubuntu-24.04 --cd /var/tmp/matrix-autotuner-p2-content-ec68c6cf78807c023d3ed864d16b9bb45c4ed563 -- env -u PYTHONPATH PYTHONDONTWRITEBYTECODE=1 python3 -c 'import ast,pathlib;import autotuner.core,autotuner.campaign;paths=list(pathlib.Path(\"autotuner\").glob(\"*.py\"))+list(pathlib.Path(\"scripts\").glob(\"*.py\"))+list(pathlib.Path(\"tests\").glob(\"*.py\"));[ast.parse(p.read_text(),filename=str(p)) for p in paths];print(\"AST/import PASS\",len(paths));print(\"initial_pycache\",len(list(pathlib.Path(\".\").rglob(\"__pycache__\"))))'",
+      "captured_at": "2026-10-08 18:01:38 UTC",
+      "chunk_id": "3b10ae",
+      "wall_time_seconds": 1.7086538999999998,
+      "exit_code": 0,
+      "original_token_count": 10,
+      "output": "AST/import PASS 26\ninitial_pycache 0\n"
+    },
+    {
+      "name": "archive_help",
+      "command": "wsl.exe -d Ubuntu-24.04 --cd /var/tmp/matrix-autotuner-p2-content-ec68c6cf78807c023d3ed864d16b9bb45c4ed563 -- env -u PYTHONPATH PYTHONDONTWRITEBYTECODE=1 python3 -m autotuner --help",
+      "captured_at": "2026-10-08 18:01:39 UTC",
+      "chunk_id": "32aa29",
+      "wall_time_seconds": 1.4388841,
+      "exit_code": 0,
+      "original_token_count": 146,
+      "output": "usage: __main__.py [-h] [--target TARGET] [--space SPACE]\n                   [--evidence-root EVIDENCE_ROOT]\n                   {list-configs,build,reference,evaluate,grid,campaign} ...\n\nMatrix multiplication P1 runner\n\npositional arguments:\n  {list-configs,build,reference,evaluate,grid,campaign}\n    grid                Run or resume the formal 20-configuration Grid session\n    campaign            Run or resume the private P3 search trajectories\n\noptions:\n  -h, --help            show this help message and exit\n  --target TARGET\n  --space SPACE\n  --evidence-root EVIDENCE_ROOT\n"
+    },
+    {
+      "name": "archive_list",
+      "command": "wsl.exe -d Ubuntu-24.04 --cd /var/tmp/matrix-autotuner-p2-content-ec68c6cf78807c023d3ed864d16b9bb45c4ed563 -- env -u PYTHONPATH PYTHONDONTWRITEBYTECODE=1 python3 -m autotuner list-configs",
+      "captured_at": "2026-10-08 18:01:41 UTC",
+      "chunk_id": "4fe61b",
+      "wall_time_seconds": 1.4187488,
+      "exit_code": 0,
+      "original_token_count": 281,
+      "output": "[\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 8\n  },\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 16\n  },\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 24\n  },\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 64\n  },\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 128\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 8\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 16\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 24\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 64\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 128\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 8\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 16\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 24\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 64\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 128\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 8\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 16\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 24\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 64\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 128\n  }\n]\n"
+    },
+    {
+      "name": "archive_evidence_audit",
+      "command": "wsl.exe -d Ubuntu-24.04 --cd /var/tmp/matrix-autotuner-p2-content-ec68c6cf78807c023d3ed864d16b9bb45c4ed563 -- env -u PYTHONPATH PYTHONDONTWRITEBYTECODE=1 python3 scripts/audit_p3_evidence.py --campaign evidence/p3/campaign-e308bfb --grid evidence/p2/grid-session-0d3dd52 --output /mnt/e/software_system/project01/evidence/p3/progress-archive-audit",
+      "captured_at": "2026-10-08 18:01:43 UTC",
+      "chunk_id": "9dbff1",
+      "wall_time_seconds": 1.8106318,
+      "exit_code": 0,
+      "original_token_count": 36,
+      "output": "{\"status\": \"PASS\", \"campaign_status\": \"running\", \"completed_trajectory_count\": 0, \"unique_configuration_count\": 1, \"raw_execution_count\": 8}\n"
+    }
+  ]
+}

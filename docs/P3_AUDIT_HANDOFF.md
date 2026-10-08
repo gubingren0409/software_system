@@ -34,8 +34,11 @@ campaign schema 1 规范化哈希：
 首批冻结为 seed=20261008 的随机/贪心各12配置（4/8前缀），各预算不同候选独立
 复测。完整阶段仍是10条轨迹；本入口未宣称五种子稳定性完成。
 
-- [固定Git身份](../evidence/p3/content-e308bfb/git_identity.json)，SHA-256
-  `30ced7f0323364c604ebcc0983bb8ede0a2bc03a04521efa40f67ebe60d4ec67`。
+- [固定Git身份](../evidence/p3/content-e308bfb/git_identity.json)，本地实际使用的CRLF字节
+  SHA-256为`30ced7f0323364c604ebcc0983bb8ede0a2bc03a04521efa40f67ebe60d4ec67`；
+  Git规范化LF内容SHA-256为`3fe4e5ef2d1bf2e62f1981a3469e7b764069605ba654ae05f4afe44176c5c10f`。
+  两者解析内容相同。28行CRLF、Git blob为`398064667de4b8b0870824a61cb995dc421645d3`；
+  [字节身份记录](../evidence/p3/content-e308bfb/identity_bytes.json)。
   不能把通用build/p2身份文件覆盖后直接用于旧实验续跑。
 - [正式session与身份](../evidence/p3/campaign-e308bfb/session.json)、
   [检查点](../evidence/p3/campaign-e308bfb/checkpoint.json)、
@@ -81,3 +84,12 @@ P3 跨 session 时间差是否明确区分；未校准时钟/环境压力是否�
 
 本入口为阶段状态，不替代 P2 完整性证据或外部审计意见。最终提交 SHA 只在提交和
 推送后终端交接提供，不为把文档写进自身 SHA 而循环提交。
+
+进度快照内容提交`ec68c6cf78807c023d3ed864d16b9bb45c4ed563`另从无.git/初始pycache
+的归档复核：26个Python AST及核心模块导入、CLI帮助、20唯一配置、归档中正式
+记录审计均PASS。[归档复核日志](../evidence/p3/progress_archive_smoke.json)、
+[快照审计](../evidence/p3/progress-archive-audit/audit.json)。该固定快照含1个完整
+配置与8条完整目标执行；后续实时进度写在原campaign目录，不能把快照当最终P3。
+正式target/CLI/测量/搜索/配置对e308bfb无改动，复用其40项单测和空缓存实际小规模
+验收；没有在正式目标运行期间再开诊断目标。辅助绘图仅AST检查，尚无足够正式
+预算前缀数据生成图或完整算法比较。
