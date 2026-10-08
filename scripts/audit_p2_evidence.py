@@ -25,6 +25,7 @@ def audit(session: Path) -> dict:
     by_id = {record["run_id"]: record for record in records}
     assert len(by_id) == len(records), "duplicate execution ID"
     peak_rss_kib = 0
+    process_major_faults = []
     resources = []
     for record in records:
         assert record["context"]["force_remeasure"] is True
@@ -43,6 +44,9 @@ def audit(session: Path) -> dict:
         match = re.search(r"Maximum resident set size \(kbytes\):\s*(\d+)", record["raw_resource"])
         if match:
             peak_rss_kib = max(peak_rss_kib, int(match[1]))
+        match = re.search(r"Major \(requiring I/O\) page faults:\s*(\d+)", record["raw_resource"])
+        if match:
+            process_major_faults.append(int(match[1]))
         resources.extend(record.get("resource_samples", []))
     completed = checkpoint["completed"]
     canonical = ConfigSpace.load(ROOT / "configs/config_space.json").all()
@@ -124,6 +128,8 @@ def audit(session: Path) -> dict:
         "abandoned_attempts": checkpoint["abandoned_attempts"],
         "all_samples_are_fresh": all(record.get("source") == "fresh_measurement" for record in records),
         "process_peak_rss_kib": peak_rss_kib,
+        "process_major_fault_record_count": len(process_major_faults),
+        "process_major_fault_total": sum(process_major_faults),
         "runtime_host_minimum_available_bytes": minimum_host,
         "runtime_wsl_minimum_available_bytes": minimum_wsl,
         "wsl_swap_peak_used_bytes": max((sample["swap_total_bytes"] - sample["swap_free_bytes"]
@@ -134,6 +140,9 @@ def audit(session: Path) -> dict:
         "vmstat_scope": "system-wide deltas summed only within complete executions; excludes gaps and interrupted execution",
         "runtime_host_samples_below_start_memory_gate": sum(sample["available_memory_bytes"] <
             protocol["resource_gate"]["formal_host_minimum_available_bytes"] for sample in host_samples),
+        "runtime_host_maximum_cpu_percent": max((sample["cpu_percent"] for sample in host_samples), default=None),
+        "runtime_host_samples_above_start_cpu_gate": sum(sample["cpu_percent"] >
+            protocol["resource_gate"]["formal_host_cpu_single_sample_maximum_percent"] for sample in host_samples),
         "runtime_host_maximum_commit_percent": max((sample["percent_committed_bytes_in_use"]
                                                     for sample in host_samples), default=None),
         "runtime_host_maximum_pages_per_second": max((sample["pages_per_second"]

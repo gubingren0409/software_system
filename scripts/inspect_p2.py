@@ -15,6 +15,7 @@ from autotuner.core import atomic_write_json, resource_snapshot, sha256_file, ut
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--compiler-optimizers", action="store_true")
     args = parser.parse_args()
     powershell = "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
     host = "Add-Type -AssemblyName System.Windows.Forms; " \
@@ -31,6 +32,8 @@ def main() -> None:
                 ["uname", "-a"], ["cat", "/etc/os-release"], ["cat", "/proc/meminfo"],
                 ["ps", "-eo", "pid,etimes,rss,comm", "--sort=-rss"],
                 [powershell, "-NoProfile", "-Command", host]]
+    if args.compiler_optimizers:
+        commands.extend([["/usr/bin/gcc", "-Q", f"-O{level}", "--help=optimizers"] for level in range(4))
     records = []
     for command in commands:
         captured = utc_now()
@@ -38,6 +41,7 @@ def main() -> None:
         records.append({"captured_at": captured, "command": command, "stdout": result.stdout,
                         "stderr": result.stderr, "returncode": result.returncode})
     record = {"captured_at": utc_now(), "collector_sha256": sha256_file(Path(__file__)),
+              "command_argv": [sys.executable, *sys.argv], "compiler_sha256": sha256_file(Path("/usr/bin/gcc")),
               "commands": records, "wsl_resource_snapshot": resource_snapshot(),
               "system_settings_modified": False, "other_applications_terminated": False}
     atomic_write_json(args.output, record)
