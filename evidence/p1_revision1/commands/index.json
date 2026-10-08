@@ -1,0 +1,187 @@
+[
+  {
+    "command": [
+      "/usr/bin/python3",
+      "--version"
+    ],
+    "cwd": "/var/tmp/matrix-p1-r1-clean-bab0a4b6e9934c6fb9f5d1bda6cdcbb1",
+    "name": "python_version",
+    "process_wall_seconds": 0.0025106310000069243,
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "Python 3.12.3\n"
+  },
+  {
+    "command": [
+      "/usr/bin/gcc",
+      "--version"
+    ],
+    "cwd": "/var/tmp/matrix-p1-r1-clean-bab0a4b6e9934c6fb9f5d1bda6cdcbb1",
+    "name": "gcc_version",
+    "process_wall_seconds": 0.007871605000005388,
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n"
+  },
+  {
+    "command": [
+      "git",
+      "--version"
+    ],
+    "cwd": "/var/tmp/matrix-p1-r1-clean-bab0a4b6e9934c6fb9f5d1bda6cdcbb1",
+    "name": "git_version",
+    "process_wall_seconds": 0.013984462999999892,
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "git version 2.43.0\n"
+  },
+  {
+    "command": [
+      "uname",
+      "-a"
+    ],
+    "cwd": "/var/tmp/matrix-p1-r1-clean-bab0a4b6e9934c6fb9f5d1bda6cdcbb1",
+    "name": "uname",
+    "process_wall_seconds": 0.0025979879999908917,
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "Linux localhost 6.18.40.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Fri Jul 31 22:12:15 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux\n"
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "-m",
+      "autotuner",
+      "--help"
+    ],
+    "cwd": "/var/tmp/matrix-p1-r1-clean-bab0a4b6e9934c6fb9f5d1bda6cdcbb1",
+    "name": "cli_help",
+    "process_wall_seconds": 0.13458055799999613,
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "usage: __main__.py [-h] [--target TARGET] [--space SPACE]\n                   [--evidence-root EVIDENCE_ROOT]\n                   {list-configs,build,reference,evaluate} ...\n\nMatrix multiplication P1 runner\n\npositional arguments:\n  {list-configs,build,reference,evaluate}\n\noptions:\n  -h, --help            show this help message and exit\n  --target TARGET\n  --space SPACE\n  --evidence-root EVIDENCE_ROOT\n"
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "-m",
+      "autotuner",
+      "list-configs"
+    ],
+    "cwd": "/var/tmp/matrix-p1-r1-clean-bab0a4b6e9934c6fb9f5d1bda6cdcbb1",
+    "name": "list_configs",
+    "process_wall_seconds": 0.13157077900000047,
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "[\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 8\n  },\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 16\n  },\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 24\n  },\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 64\n  },\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 128\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 8\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 16\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 24\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 64\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 128\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 8\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 16\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 24\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 64\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 128\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 8\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 16\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 24\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 64\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 128\n  }\n]\n"
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v"
+    ],
+    "cwd": "/var/tmp/matrix-p1-r1-clean-bab0a4b6e9934c6fb9f5d1bda6cdcbb1",
+    "name": "unit_tests",
+    "process_wall_seconds": 5.411840366999996,
+    "returncode": 0,
+    "stderr": "test_actual_gcc_failure_is_classified_without_score (test_runner.BuildCacheTests.test_actual_gcc_failure_is_classified_without_score) ... ok\ntest_build_key_covers_size_optimization_and_fault_mode (test_runner.BuildCacheTests.test_build_key_covers_size_optimization_and_fault_mode) ... ok\ntest_performance_cache_requires_explicit_reuse (test_runner.BuildCacheTests.test_performance_cache_requires_explicit_reuse) ... ok\ntest_reference_request_rejects_seed_above_uint64 (test_runner.BuildCacheTests.test_reference_request_rejects_seed_above_uint64) ... ok\ntest_crash_timeout_and_parse_failure_are_distinct (test_runner.ClassificationTests.test_crash_timeout_and_parse_failure_are_distinct) ... ok\ntest_nonfinite_success_cannot_score (test_runner.ClassificationTests.test_nonfinite_success_cannot_score) ... ok\ntest_parameter_rejection_requires_contract (test_runner.ClassificationTests.test_parameter_rejection_requires_contract) ... ok\ntest_success (test_runner.ClassificationTests.test_success) ... ok\ntest_validation_failure (test_runner.ClassificationTests.test_validation_failure) ... ok\ntest_external_space_has_twenty_unique_configs_in_canonical_order (test_runner.ConfigSpaceTests.test_external_space_has_twenty_unique_configs_in_canonical_order) ... ok\ntest_search_protocol_is_frozen_with_requested_budgets_and_seeds (test_runner.ConfigSpaceTests.test_search_protocol_is_frozen_with_requested_budgets_and_seeds) ... ok\ntest_actual_crash_has_no_score (test_runner.EvaluatorFailurePathTests.test_actual_crash_has_no_score) ... ok\ntest_actual_output_parse_failure_has_no_score (test_runner.EvaluatorFailurePathTests.test_actual_output_parse_failure_has_no_score) ... ok\ntest_actual_timeout_has_no_score (test_runner.EvaluatorFailurePathTests.test_actual_timeout_has_no_score) ... ok\ntest_compile_failure_has_no_score (test_runner.EvaluatorFailurePathTests.test_compile_failure_has_no_score) ... ok\ntest_rejects_duplicate_key (test_runner.StrictJsonTests.test_rejects_duplicate_key) ... ok\ntest_rejects_multiple_lines (test_runner.StrictJsonTests.test_rejects_multiple_lines) ... ok\ntest_rejects_nan_constant (test_runner.StrictJsonTests.test_rejects_nan_constant) ... ok\n\n----------------------------------------------------------------------\nRan 18 tests in 5.277s\n\nOK\n",
+    "stdout": ""
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "scripts/verify_p1.py"
+    ],
+    "cwd": "/var/tmp/matrix-p1-r1-clean-bab0a4b6e9934c6fb9f5d1bda6cdcbb1",
+    "name": "verify_p1",
+    "process_wall_seconds": 0.3176484079999966,
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "p1_verification=PASS\noriginal_sha256=188d011109c4470e1f41829216e8677a5c2d8f2b7c8a44215652320dbdf6de15\ncore_sha256=4e5a7a884a0a5b1c09055f4499b53e8aeb67d4c3ec4bbbf2f211f6c1aa760f12\ncore_import=PASS cli_start=PASS unique_configs=20/20\nsmall_cases=160/160 faults=7/7 strict_cli=6/6\nmedium_optimization_levels=4/4 default_optimization_levels=4/4 repeats=5/5\n"
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "scripts/verify_p1.py"
+    ],
+    "cwd": "/tmp/matrix-p1-r1-clean-d2vy7lxk/missing-core-tree",
+    "name": "verify_missing_core_expected_failure",
+    "process_wall_seconds": 0.20110565600000996,
+    "returncode": 1,
+    "stderr": "Traceback (most recent call last):\n  File \"/tmp/matrix-p1-r1-clean-d2vy7lxk/missing-core-tree/scripts/verify_p1.py\", line 115, in <module>\n    main()\n  File \"/tmp/matrix-p1-r1-clean-d2vy7lxk/missing-core-tree/scripts/verify_p1.py\", line 32, in main\n    require(core.is_file(), \"required core module is missing\")\n  File \"/tmp/matrix-p1-r1-clean-d2vy7lxk/missing-core-tree/scripts/verify_p1.py\", line 24, in require\n    raise AssertionError(message)\nAssertionError: required core module is missing\n",
+    "stdout": ""
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "-m",
+      "autotuner",
+      "--target",
+      "/tmp/matrix-p1-r1-clean-d2vy7lxk/target-evaluate.json",
+      "--space",
+      "/var/tmp/matrix-p1-r1-clean-bab0a4b6e9934c6fb9f5d1bda6cdcbb1/configs/config_space.json",
+      "--evidence-root",
+      "/tmp/matrix-p1-r1-clean-d2vy7lxk/evaluate-evidence",
+      "evaluate",
+      "--size",
+      "17",
+      "--optimization",
+      "O2",
+      "--block-size",
+      "8",
+      "--seed",
+      "20261008",
+      "--input",
+      "random",
+      "--timeout",
+      "30",
+      "--label",
+      "clean_n17_o2_s8"
+    ],
+    "cwd": "/var/tmp/matrix-p1-r1-clean-bab0a4b6e9934c6fb9f5d1bda6cdcbb1",
+    "name": "evaluate_n17_o2_s8",
+    "process_wall_seconds": 2.055715896999999,
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "{\"binary_sha256\": \"869e72586d804ac3afa9f0ca05ef9d44e0cbe5c191a4aba2b5dc4809480c246a\", \"build_key\": \"4a78f69c125aaea807a3a7d9d2ddccdae2d0964b6d4b788647d0f39f5c7e3c17\", \"classification\": \"success\", \"classification_detail\": \"validated result\", \"command\": [\"/tmp/matrix-p1-r1-clean-d2vy7lxk/evaluate-cache/build/4a78f69c125aaea807a3a7d9d2ddccdae2d0964b6d4b788647d0f39f5c7e3c17/candidate\", \"--block-size\", \"8\", \"--seed\", \"20261008\", \"--input\", \"random\", \"--reference\", \"/tmp/matrix-p1-r1-clean-d2vy7lxk/evaluate-cache/reference/4d2a4301ccf265d5245d338619d6888b2ddf217949bce82719cbea3404991217/reference.bin\"], \"config\": {\"block_size\": 8, \"optimization\": \"O2\"}, \"context\": {\"evidence_label\": \"clean_n17_o2_s8\", \"fault_injection\": 0, \"force_remeasure\": true, \"input_pattern\": \"random\", \"matrix_n\": 17, \"min_wsl_available_bytes\": 0, \"protocol_hash\": \"p1-diagnostic-v1\", \"seed\": 20261008, \"timeout_seconds\": 30.0}, \"created_at\": \"2026-10-08T06:03:37.501127+00:00\", \"process_wall_seconds\": 0.003273499000002289, \"reference_key\": \"4d2a4301ccf265d5245d338619d6888b2ddf217949bce82719cbea3404991217\", \"reference_sha256\": \"bef224d918b15d68313019db1a0b77b1838ceefb60ed56f9a6e55565d5d01ac4\", \"resource_after\": {\"captured_at\": \"2026-10-08T06:03:37.500982+00:00\", \"cpus_allowed_list\": \"0-31\", \"loadavg\": \"2.55 0.93 0.34 2/792 2246\", \"mem_available_bytes\": 4874129408, \"mem_total_bytes\": 7908261888, \"root_disk_free_bytes\": 225562431488}, \"resource_before\": {\"captured_at\": \"2026-10-08T06:03:37.497360+00:00\", \"cpus_allowed_list\": \"0-31\", \"loadavg\": \"2.55 0.93 0.34 2/792 2244\", \"mem_available_bytes\": 4874211328, \"mem_total_bytes\": 7908261888, \"root_disk_free_bytes\": 225562435584}, \"returncode\": 0, \"schema\": \"matrix-autotuner-evaluation-v1\", \"score_seconds\": 7.835e-06, \"signal\": null, \"source\": \"fresh_measurement\", \"stderr_sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\", \"stdout_sha256\": \"577646eaab66edb192d43f2201509bcf221f84a366f134be39bb53cd85bc8960\", \"target_result\": {\"abs_tol\": 1e-12, \"block_size\": 8, \"checked_entries\": 289, \"checksum\": 1172.326956438995, \"elapsed_seconds\": 7.835e-06, \"fault_injection\": 0, \"finite_checksum\": true, \"finite_elapsed\": true, \"finite_error_summary\": true, \"finite_reference_checksum\": true, \"input\": \"random\", \"input_generator\": \"splitmix64-interleaved-v1\", \"max_abs_error\": 1.7763568394002505e-15, \"max_rel_error\": 4.252477092242186e-16, \"mismatch_count\": 0, \"n\": 17, \"nonfinite_error_count\": 0, \"nonfinite_reference_count\": 0, \"nonfinite_result_count\": 0, \"reference_checksum\": 1172.326956438995, \"rel_tol\": 1e-12, \"schema\": \"matrix-multiplication-result-v1\", \"seed\": 20261008, \"status\": \"ok\", \"validation\": true}, \"timed_command\": [\"/usr/bin/time\", \"-v\", \"-o\", \"/tmp/matrix-p1-r1-clean-d2vy7lxk/evaluate-evidence/runs/clean_n17_o2_s8/resource.txt\", \"/tmp/matrix-p1-r1-clean-d2vy7lxk/evaluate-cache/build/4a78f69c125aaea807a3a7d9d2ddccdae2d0964b6d4b788647d0f39f5c7e3c17/candidate\", \"--block-size\", \"8\", \"--seed\", \"20261008\", \"--input\", \"random\", \"--reference\", \"/tmp/matrix-p1-r1-clean-d2vy7lxk/evaluate-cache/reference/4d2a4301ccf265d5245d338619d6888b2ddf217949bce82719cbea3404991217/reference.bin\"], \"timed_out\": false}\n"
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "scripts/run_p1_revision1_regressions.py",
+      "--output",
+      "/mnt/e/software_system/project01/evidence/p1_revision1/boundary_regressions.json"
+    ],
+    "cwd": "/var/tmp/matrix-p1-r1-clean-bab0a4b6e9934c6fb9f5d1bda6cdcbb1",
+    "name": "boundary_regressions",
+    "process_wall_seconds": 6.241068827999996,
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "{\"invalid_seeds\": [\"-1\", \" -1\", \"\", \"18446744073709551616\", \"+1\", \"1 \", \"1x\"], \"normal_size_sample_count\": 16, \"reference_sanitized_sizes\": [1, 2], \"status\": \"PASS\", \"valid_seeds\": [\"0\", \"18446744073709551615\"]}\n"
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "scripts/run_p1_correctness.py",
+      "--target",
+      "/tmp/matrix-p1-r1-clean-d2vy7lxk/target-correctness.json",
+      "--space",
+      "/var/tmp/matrix-p1-r1-clean-bab0a4b6e9934c6fb9f5d1bda6cdcbb1/configs/config_space.json",
+      "--output-directory",
+      "/mnt/e/software_system/project01/evidence/p1_revision1/correctness",
+      "--runtime-evidence-root",
+      "/tmp/matrix-p1-r1-clean-d2vy7lxk/correctness-runtime"
+    ],
+    "cwd": "/var/tmp/matrix-p1-r1-clean-bab0a4b6e9934c6fb9f5d1bda6cdcbb1",
+    "name": "small_correctness_and_faults",
+    "process_wall_seconds": 17.204344433999992,
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "{\"abs_tolerance\": 1e-12, \"config_count\": 20, \"fault_case_count\": 7, \"fault_rejection_count\": 7, \"group_count\": 8, \"input_patterns\": [\"random\", \"zero\", \"identity\"], \"matrix_sizes\": [129, 130], \"random_seeds\": [20261008, 20261009], \"rel_tolerance\": 1e-12, \"schema\": \"p1-correctness-summary-v1\", \"small_case_count\": 160, \"small_success_count\": 160, \"status\": \"PASS\", \"strict_cli_case_count\": 6, \"strict_cli_rejection_count\": 6}\n"
+  }
+]

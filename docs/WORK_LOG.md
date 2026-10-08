@@ -101,3 +101,27 @@
   显式 fetch 后本地 HEAD 与 `github/project01` 一致。一次组合复核命令因第二个
   WSL Git 子命令未继承显式 `GIT_DIR/GIT_WORK_TREE` 而报 worktree 路径错误；该错误
   不影响已成功的 fetch，最终远端 SHA 另以独立命令复核。
+
+## P1-R1：干净提交修订
+
+- 以 `bd57fd5cae021b6f503b96646488e0ce88ad7792` 为基线确认本地与远端一致、工作区
+  干净。`git check-ignore -v` 复现 `.gitignore` 的 `core.*` 命中
+  `autotuner/core.py`；该文件存在于本地但不在 `git ls-files`。修订前本地 SHA-256
+  为 `1675f682e45103b5fb4d1be2bb8fe08fb6c8f8ba7f206c02a04f4c3549c84ccd`。
+- 将忽略规则收窄为 `core.[0-9]*` 与 `*.core`，恢复并提交核心模块；同时检查其他
+  ignored 项，只有构建目录和 Python 字节码缓存，没有发现其他运行必需源码遗漏。
+- reference 采样加入 `[0,n)` 过滤；两处 C 种子解析统一为逐字符 ASCII 十进制检查，
+  再由 `strtoumax` 执行范围检查。矩阵核心循环、输入生成、计时区和容差未改。
+- 搜索协议升为 schema version 2：贪心邻域改为单参数到任意其他合法值、每点 7 个；
+  完整 Grid 最优值作为后续参照，并明确固定 Grid 前缀有顺序偏置。本轮未运行搜索。
+- 内容提交为 `bd9b7d264c42f7c65cd22b16a64a4a0f9c119c5f`；提交前
+  `git ls-files`、提交后 `git ls-tree` 均确认包含 `autotuner/core.py`。
+- 第一次启动干净验收时，PowerShell 到 WSL 的命令替换丢失临时路径，安全检查在
+  解压前退出。改为 PowerShell 生成唯一绝对路径并显式传入 WSL 后成功；遗留的两个
+  本阶段临时目录及归档文件均在验证后按精确路径删除。
+- 内容提交通过 `git archive` 导出。归档无 `.git`、无 `__pycache__`，清除
+  `PYTHONPATH`；帮助、20 配置 CLI、18 项单元测试和增强验证入口均通过。删除
+  `core.py` 的临时副本按预期验证失败。
+- 独立空缓存完成 n=17/O2/s=8 fresh evaluation；n=1/2 reference 的
+  ASan+UBSan、0/UINT64_MAX 和非法种子回归通过；另一套空缓存完成 160/160 小规模
+  正确性和 7/7 故障拒绝。R1 未运行 n=4096，历史 pilot 保持不变。

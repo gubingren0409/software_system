@@ -156,3 +156,19 @@ P2 应实现三个 `SearchStrategy`，先只运行完整 Grid，并依据正式�
 结果。待审计者裁决：当前 4 GiB 宿主门槛是否合理；超时是否按优化级别即可，还是
 应在首次 Grid 后再按块大小细分；约 6 小时 Grid 和每随机算法约 15.9 小时预算是否
 适合作业机器。当前 `perf` 与温度仍不可用，不能声称有硬件计数器机制证据。
+
+## 8. P1-R1 干净提交验证
+
+R1 内容提交 `bd9b7d264c42f7c65cd22b16a64a4a0f9c119c5f` 经 `git archive` 导出，
+归档中无 `.git`、无 `__pycache__`，运行时清除 `PYTHONPATH` 并禁止写入字节码。
+`python3 -m autotuner --help`、`list-configs`、18 项单元测试和 `verify_p1.py` 均退出 0；
+临时副本删除 `autotuner/core.py` 后，验证入口按预期退出 1。
+
+独立空缓存的 `n=17/O2/s=8` 实际评估为 `fresh_measurement` 且校验通过。另以
+ASan+UBSan 运行 n=1/2 reference，采样点分别为 1/4 且全部在范围内；静态 harness
+确认 n=4096 仍为 16 点。候选与 reference 对种子 0、`UINT64_MAX` 接受，对负号、
+前导空白、空串、溢出、加号、尾随空白和尾随字符均拒绝。最后从另一套空缓存重跑
+160 次小规模验证与 7 类故障注入，结果为 160/160 与 7/7。
+
+完整证据位于 `evidence/p1_revision1/`。历史 `evidence/p1/pilots/` 未修改，仍明确
+对应 R1 前本地实现和未满足正式稳定性门槛的有限 pilot。

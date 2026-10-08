@@ -1,7 +1,7 @@
 # Matrix Multiplication Autotuner (P1)
 
-《软件系统优化》实践项目 P1。当前完成 **P1：正确性与统一测量基础**；完整 20 配置
-Grid 和两种随机搜索尚未运行，有限试跑不代表最终最优配置。
+《软件系统优化》实践项目 P1。当前完成 **P1-R1：可从干净提交复现的正确性与统一
+测量基础**；完整 20 配置 Grid 和两种随机搜索尚未运行，有限试跑不代表最终最优配置。
 
 ## 当前状态
 
@@ -10,10 +10,14 @@ Grid 和两种随机搜索尚未运行，有限试跑不代表最终最优配置
 - 正式工作副本默认 `n=4096`，固定输入规则和种子，单调时钟只计核心计算，计时区外
   逐元素验证并输出严格 JSON。
 - `ConfigSpace`、`TargetAdapter`、`Evaluator` 已实现；构建、reference 和性能缓存分离。
+- P1 初次提交的 `.gitignore` 中 `core.*` 误忽略了本地实际使用的
+  `autotuner/core.py`。R1 已恢复该文件、收窄规则，并从内容提交
+  `bd9b7d264c42f7c65cd22b16a64a4a0f9c119c5f` 的无 `.git` 归档完整验证。
 - `n=129/130` 的 160 个配置/输入案例全部通过；7 类故障注入和 6 类非法参数全部
   被正确拒绝。
 - 默认规模四级代表配置成功；O3 代表配置五次核心时间中位数 `78.789159 s`，CV
-  `1.10%`。这些是资源条件受限的 P1 pilot，不是正式 Grid 数据。
+  `1.10%`。这些 pilot 对应 R1 前本地实现且资源受限，仅保留为历史诊断数据，不是
+  正式 Grid 数据；R1 没有重跑 `n=4096`。
 
 ## 复现与检查
 
@@ -25,6 +29,11 @@ python3 -m unittest discover -s tests -v
 python3 scripts/verify_p1.py
 python3 -m autotuner list-configs
 ```
+
+R1 的干净归档验收结果、逐命令 stdout/stderr/退出码和源码哈希位于
+[`evidence/p1_revision1/`](evidence/p1_revision1/)。其中还实际确认移除 `core.py` 后
+`verify_p1.py` 非零退出、`n=17/O2/s=8` 为 `fresh_measurement`，以及 `n=1/2`
+reference 的 ASan+UBSan 边界检查。
 
 完整小规模正确性会运行 160 个案例：
 

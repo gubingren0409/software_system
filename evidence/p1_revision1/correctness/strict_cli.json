@@ -1,0 +1,152 @@
+[
+  {
+    "classification": "parameter_rejected",
+    "classification_detail": "target reported invalid arguments",
+    "command": [
+      "/tmp/matrix-p1-r1-clean-d2vy7lxk/correctness-cache/build/16b99c64b85395ad61bd47093f1ea5325b85421e497f9e2afa0ac2cfac0cb15f/candidate",
+      "--block-size",
+      "0",
+      "--seed",
+      "20261008",
+      "--input",
+      "random",
+      "--reference",
+      "/tmp/matrix-p1-r1-clean-d2vy7lxk/correctness-cache/reference/f274331e71e8923f95a0b0f9da8c001a007d8d1948a1a1a5275225c73bded21f/reference.bin"
+    ],
+    "name": "block_zero",
+    "parsed": {
+      "error": "INVALID_ARGUMENT",
+      "schema": "matrix-multiplication-result-v1",
+      "status": "parameter_error"
+    },
+    "returncode": 64,
+    "score_seconds": null,
+    "stderr": "",
+    "stdout": "{\"schema\":\"matrix-multiplication-result-v1\",\"status\":\"parameter_error\",\"error\":\"INVALID_ARGUMENT\"}\n"
+  },
+  {
+    "classification": "parameter_rejected",
+    "classification_detail": "target reported invalid arguments",
+    "command": [
+      "/tmp/matrix-p1-r1-clean-d2vy7lxk/correctness-cache/build/16b99c64b85395ad61bd47093f1ea5325b85421e497f9e2afa0ac2cfac0cb15f/candidate",
+      "--block-size",
+      "130",
+      "--seed",
+      "20261008",
+      "--input",
+      "random",
+      "--reference",
+      "/tmp/matrix-p1-r1-clean-d2vy7lxk/correctness-cache/reference/f274331e71e8923f95a0b0f9da8c001a007d8d1948a1a1a5275225c73bded21f/reference.bin"
+    ],
+    "name": "block_above_n",
+    "parsed": {
+      "error": "INVALID_ARGUMENT",
+      "schema": "matrix-multiplication-result-v1",
+      "status": "parameter_error"
+    },
+    "returncode": 64,
+    "score_seconds": null,
+    "stderr": "",
+    "stdout": "{\"schema\":\"matrix-multiplication-result-v1\",\"status\":\"parameter_error\",\"error\":\"INVALID_ARGUMENT\"}\n"
+  },
+  {
+    "classification": "parameter_rejected",
+    "classification_detail": "target reported invalid arguments",
+    "command": [
+      "/tmp/matrix-p1-r1-clean-d2vy7lxk/correctness-cache/build/16b99c64b85395ad61bd47093f1ea5325b85421e497f9e2afa0ac2cfac0cb15f/candidate",
+      "--block-size",
+      "24junk",
+      "--seed",
+      "20261008",
+      "--input",
+      "random",
+      "--reference",
+      "/tmp/matrix-p1-r1-clean-d2vy7lxk/correctness-cache/reference/f274331e71e8923f95a0b0f9da8c001a007d8d1948a1a1a5275225c73bded21f/reference.bin"
+    ],
+    "name": "block_trailing_text",
+    "parsed": {
+      "error": "INVALID_ARGUMENT",
+      "schema": "matrix-multiplication-result-v1",
+      "status": "parameter_error"
+    },
+    "returncode": 64,
+    "score_seconds": null,
+    "stderr": "",
+    "stdout": "{\"schema\":\"matrix-multiplication-result-v1\",\"status\":\"parameter_error\",\"error\":\"INVALID_ARGUMENT\"}\n"
+  },
+  {
+    "classification": "parameter_rejected",
+    "classification_detail": "target reported invalid arguments",
+    "command": [
+      "/tmp/matrix-p1-r1-clean-d2vy7lxk/correctness-cache/build/16b99c64b85395ad61bd47093f1ea5325b85421e497f9e2afa0ac2cfac0cb15f/candidate",
+      "--block-size",
+      "24",
+      "--seed",
+      "-1",
+      "--input",
+      "random",
+      "--reference",
+      "/tmp/matrix-p1-r1-clean-d2vy7lxk/correctness-cache/reference/f274331e71e8923f95a0b0f9da8c001a007d8d1948a1a1a5275225c73bded21f/reference.bin"
+    ],
+    "name": "negative_seed",
+    "parsed": {
+      "error": "INVALID_ARGUMENT",
+      "schema": "matrix-multiplication-result-v1",
+      "status": "parameter_error"
+    },
+    "returncode": 64,
+    "score_seconds": null,
+    "stderr": "",
+    "stdout": "{\"schema\":\"matrix-multiplication-result-v1\",\"status\":\"parameter_error\",\"error\":\"INVALID_ARGUMENT\"}\n"
+  },
+  {
+    "classification": "parameter_rejected",
+    "classification_detail": "target reported invalid arguments",
+    "command": [
+      "/tmp/matrix-p1-r1-clean-d2vy7lxk/correctness-cache/build/16b99c64b85395ad61bd47093f1ea5325b85421e497f9e2afa0ac2cfac0cb15f/candidate",
+      "--block-size",
+      "24",
+      "--seed",
+      "20261008",
+      "--input",
+      "random"
+    ],
+    "name": "missing_argument",
+    "parsed": {
+      "error": "INVALID_ARGUMENT",
+      "schema": "matrix-multiplication-result-v1",
+      "status": "parameter_error"
+    },
+    "returncode": 64,
+    "score_seconds": null,
+    "stderr": "",
+    "stdout": "{\"schema\":\"matrix-multiplication-result-v1\",\"status\":\"parameter_error\",\"error\":\"INVALID_ARGUMENT\"}\n"
+  },
+  {
+    "classification": "parameter_rejected",
+    "classification_detail": "target reported invalid arguments",
+    "command": [
+      "/tmp/matrix-p1-r1-clean-d2vy7lxk/correctness-cache/build/16b99c64b85395ad61bd47093f1ea5325b85421e497f9e2afa0ac2cfac0cb15f/candidate",
+      "--block-size",
+      "24",
+      "--seed",
+      "20261008",
+      "--input",
+      "random",
+      "--reference",
+      "/tmp/matrix-p1-r1-clean-d2vy7lxk/correctness-cache/reference/f274331e71e8923f95a0b0f9da8c001a007d8d1948a1a1a5275225c73bded21f/reference.bin",
+      "--unknown",
+      "value"
+    ],
+    "name": "extra_argument",
+    "parsed": {
+      "error": "INVALID_ARGUMENT",
+      "schema": "matrix-multiplication-result-v1",
+      "status": "parameter_error"
+    },
+    "returncode": 64,
+    "score_seconds": null,
+    "stderr": "",
+    "stdout": "{\"schema\":\"matrix-multiplication-result-v1\",\"status\":\"parameter_error\",\"error\":\"INVALID_ARGUMENT\"}\n"
+  }
+]
