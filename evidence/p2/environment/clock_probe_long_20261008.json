@@ -1,0 +1,252 @@
+{
+  "captured_at": "2026-10-08T12:45:58.458891+00:00",
+  "clock_info": {
+    "monotonic": "namespace(implementation='clock_gettime(CLOCK_MONOTONIC)', monotonic=True, adjustable=False, resolution=1e-09)",
+    "time": "namespace(implementation='clock_gettime(CLOCK_REALTIME)', monotonic=False, adjustable=True, resolution=1e-09)"
+  },
+  "command": [
+    "/usr/bin/python3",
+    "scripts/check_p2_clocks.py",
+    "--intervals",
+    "10",
+    "--seconds",
+    "3",
+    "--skip-host",
+    "--output",
+    "evidence/p2/environment/clock_probe_long_20261008.json"
+  ],
+  "commands": [
+    {
+      "captured_at": "2026-10-08T12:45:58.282468+00:00",
+      "command": [
+        "cat",
+        "/sys/devices/system/clocksource/clocksource0/current_clocksource",
+        "/sys/devices/system/clocksource/clocksource0/available_clocksource"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "tsc\ntsc hyperv_clocksource_tsc_page hyperv_clocksource_msr acpi_pm \n"
+    },
+    {
+      "captured_at": "2026-10-08T12:45:58.458845+00:00",
+      "command": [
+        "timedatectl",
+        "show",
+        "-p",
+        "NTPSynchronized",
+        "-p",
+        "CanNTP",
+        "-p",
+        "NTP"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "CanNTP=yes\nNTP=yes\nNTPSynchronized=yes\n"
+    }
+  ],
+  "schema": "p2-clock-probe-v1",
+  "script_sha256": "1cf4217497f674520ce22f015c61067287051d5644af66f4b27d2df2720706aa",
+  "system_settings_modified": false,
+  "wsl_intervals": [
+    {
+      "after": {
+        "boottime_ns": 6111177728193,
+        "monotonic_ns": 6111177723423,
+        "raw_ns": 5834181133715,
+        "realtime_ns": 1791463532461431905
+      },
+      "before": {
+        "boottime_ns": 6108164340675,
+        "monotonic_ns": 6108164334718,
+        "raw_ns": 5831256943593,
+        "realtime_ns": 1791463529448043324
+      },
+      "delta": {
+        "boottime_seconds": 3.013387518,
+        "monotonic_seconds": 3.013388705,
+        "raw_seconds": 2.924190122,
+        "realtime_seconds": 3.013388581
+      }
+    },
+    {
+      "after": {
+        "boottime_ns": 6114199716186,
+        "monotonic_ns": 6114199712159,
+        "raw_ns": 5837113670404,
+        "realtime_ns": 1791463535483421735
+      },
+      "before": {
+        "boottime_ns": 6111177759146,
+        "monotonic_ns": 6111177758506,
+        "raw_ns": 5834181165475,
+        "realtime_ns": 1791463532461470292
+      },
+      "delta": {
+        "boottime_seconds": 3.02195704,
+        "monotonic_seconds": 3.021953653,
+        "raw_seconds": 2.932504929,
+        "realtime_seconds": 3.021951443
+      }
+    },
+    {
+      "after": {
+        "boottime_ns": 6117206149077,
+        "monotonic_ns": 6117206144563,
+        "raw_ns": 5840034525802,
+        "realtime_ns": 1791463538489854195
+      },
+      "before": {
+        "boottime_ns": 6114199738167,
+        "monotonic_ns": 6114199737547,
+        "raw_ns": 5837113692877,
+        "realtime_ns": 1791463535483449302
+      },
+      "delta": {
+        "boottime_seconds": 3.00641091,
+        "monotonic_seconds": 3.006407016,
+        "raw_seconds": 2.920832925,
+        "realtime_seconds": 3.006404893
+      }
+    },
+    {
+      "after": {
+        "boottime_ns": 6120216421985,
+        "monotonic_ns": 6120216417214,
+        "raw_ns": 5842961305316,
+        "realtime_ns": 1791463540252452878
+      },
+      "before": {
+        "boottime_ns": 6117206169542,
+        "monotonic_ns": 6117206168975,
+        "raw_ns": 5840034546962,
+        "realtime_ns": 1791463538489880741
+      },
+      "delta": {
+        "boottime_seconds": 3.010252443,
+        "monotonic_seconds": 3.010248239,
+        "raw_seconds": 2.926758354,
+        "realtime_seconds": 1.762572137
+      }
+    },
+    {
+      "after": {
+        "boottime_ns": 6123220907175,
+        "monotonic_ns": 6123220875488,
+        "raw_ns": 5845882457721,
+        "realtime_ns": 1791463543256910760
+      },
+      "before": {
+        "boottime_ns": 6120216442079,
+        "monotonic_ns": 6120216441471,
+        "raw_ns": 5842961326316,
+        "realtime_ns": 1791463540252479021
+      },
+      "delta": {
+        "boottime_seconds": 3.004465096,
+        "monotonic_seconds": 3.004434017,
+        "raw_seconds": 2.921131405,
+        "realtime_seconds": 3.004431739
+      }
+    },
+    {
+      "after": {
+        "boottime_ns": 6126227187380,
+        "monotonic_ns": 6126227182349,
+        "raw_ns": 5848801881368,
+        "realtime_ns": 1791463546263217409
+      },
+      "before": {
+        "boottime_ns": 6123220927836,
+        "monotonic_ns": 6123220927311,
+        "raw_ns": 5845882479522,
+        "realtime_ns": 1791463543256964809
+      },
+      "delta": {
+        "boottime_seconds": 3.006259544,
+        "monotonic_seconds": 3.006255038,
+        "raw_seconds": 2.919401846,
+        "realtime_seconds": 3.0062526
+      }
+    },
+    {
+      "after": {
+        "boottime_ns": 6129232216777,
+        "monotonic_ns": 6129232207904,
+        "raw_ns": 5851716465953,
+        "realtime_ns": 1791463549268241156
+      },
+      "before": {
+        "boottime_ns": 6126227208742,
+        "monotonic_ns": 6126227208143,
+        "raw_ns": 5848801903370,
+        "realtime_ns": 1791463546263245671
+      },
+      "delta": {
+        "boottime_seconds": 3.005008035,
+        "monotonic_seconds": 3.004999761,
+        "raw_seconds": 2.914562583,
+        "realtime_seconds": 3.004995485
+      }
+    },
+    {
+      "after": {
+        "boottime_ns": 6132233499840,
+        "monotonic_ns": 6132233495346,
+        "raw_ns": 5854627419643,
+        "realtime_ns": 1791463552269531005
+      },
+      "before": {
+        "boottime_ns": 6129232238842,
+        "monotonic_ns": 6129232238263,
+        "raw_ns": 5851716490009,
+        "realtime_ns": 1791463549268275812
+      },
+      "delta": {
+        "boottime_seconds": 3.001260998,
+        "monotonic_seconds": 3.001257083,
+        "raw_seconds": 2.910929634,
+        "realtime_seconds": 3.001255193
+      }
+    },
+    {
+      "after": {
+        "boottime_ns": 6135235649614,
+        "monotonic_ns": 6135235644678,
+        "raw_ns": 5857438357122,
+        "realtime_ns": 1791463555271679658
+      },
+      "before": {
+        "boottime_ns": 6132233520014,
+        "monotonic_ns": 6132233519436,
+        "raw_ns": 5854627440573,
+        "realtime_ns": 1791463552269556985
+      },
+      "delta": {
+        "boottime_seconds": 3.0021296,
+        "monotonic_seconds": 3.002125242,
+        "raw_seconds": 2.810916549,
+        "realtime_seconds": 3.002122673
+      }
+    },
+    {
+      "after": {
+        "boottime_ns": 6138242693472,
+        "monotonic_ns": 6138242685619,
+        "raw_ns": 5860227741750,
+        "realtime_ns": 1791463558278717877
+      },
+      "before": {
+        "boottime_ns": 6135235676238,
+        "monotonic_ns": 6135235675460,
+        "raw_ns": 5857438383071,
+        "realtime_ns": 1791463555271712956
+      },
+      "delta": {
+        "boottime_seconds": 3.007017234,
+        "monotonic_seconds": 3.007010159,
+        "raw_seconds": 2.789358679,
+        "realtime_seconds": 3.007004921
+      }
+    }
+  ]
+}

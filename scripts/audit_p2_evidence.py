@@ -11,7 +11,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from autotuner.core import ConfigSpace, atomic_write_json, sha256_file, sha256_json, sha256_text, utc_now
+from autotuner.core import Config, ConfigSpace, atomic_write_json, sha256_file, sha256_json, sha256_text, utc_now
+from autotuner.measurement import summarize_group
 from autotuner.session import restore_complete_group, valid_formal_gate
 
 
@@ -32,6 +33,8 @@ def audit(session: Path) -> dict:
         assert record["reference_sha256"] == fingerprint["reference_sha256"]
         run = session / "runs" / Path(record["run_directory"]).name
         assert run.is_dir(), f"missing run evidence: {run}"
+        saved = json.loads((run / "result.json").read_text())
+        assert all(record.get(key) == value for key, value in saved.items()), "run result/sample mismatch"
         for field, filename in (("raw_stdout", "stdout.txt"), ("raw_stderr", "stderr.txt"),
                                 ("raw_resource", "resource.txt")):
             assert (run / filename).read_text() == record[field], f"raw evidence mismatch: {run}/{filename}"
@@ -45,6 +48,11 @@ def audit(session: Path) -> dict:
     canonical = ConfigSpace.load(ROOT / "configs/config_space.json").all()
     for index, group in enumerate(completed):
         restore_complete_group(group, protocol)
+        aggregate = summarize_group(Config(**group["config"]), group["attempt_id"], group["samples"],
+                                    protocol["measurement"]["measured_runs"], group["evaluation_wall_seconds"])
+        for field in ("statistics", "measured_compute_seconds", "process_wall_seconds",
+                      "compute_total_seconds", "validation_total_seconds"):
+            assert group[field] == aggregate[field], f"aggregate mismatch: {field}"
         assert group["config"] == {"optimization": canonical[index].optimization,
                                   "block_size": canonical[index].block_size}
         for sample in group["samples"]:
@@ -52,6 +60,9 @@ def audit(session: Path) -> dict:
     retest = checkpoint.get("independent_retest")
     if retest:
         restore_complete_group(retest, protocol)
+        aggregate = summarize_group(Config(**retest["config"]), retest["attempt_id"], retest["samples"],
+                                    protocol["measurement"]["measured_runs"], retest["evaluation_wall_seconds"])
+        assert retest["statistics"] == aggregate["statistics"], "retest statistics mismatch"
         for sample in retest["samples"]:
             assert sample == by_id[sample["run_id"]]
         assert retest["config"] == min(completed, key=lambda group: group["score_seconds"])["config"]
@@ -65,6 +76,9 @@ def audit(session: Path) -> dict:
             assert row["optimization"] == group["config"]["optimization"]
             assert int(row["block_size"]) == group["config"]["block_size"]
             assert float(row["median_seconds"]) == group["score_seconds"]
+            for field, value in group["statistics"].items():
+                assert float(row[field]) == value, f"CSV statistic mismatch: {field}"
+            assert float(row["process_wall_seconds"]) == group["process_wall_seconds"]
             assert row["valid"] == "True"
     gates = [json.loads(path.read_text()) for path in (session / "gates").glob("*.json")]
     grid_gates = [item for item in gates if item["purpose"] == "grid" and
@@ -93,6 +107,8 @@ def audit(session: Path) -> dict:
         "schema": "p2-evidence-audit-v2", "captured_at": utc_now(),
         "auditor_sha256": sha256_file(Path(__file__)),
         "command_argv": [sys.executable, *sys.argv],
+        "audit_scope": "raw consistency, scoring contract, sample completeness; "
+                       "not independent clock calibration or stationary-resource assurance",
         "evidence_audit": "PASS", "grid_complete": complete,
         "content_commit": fingerprint["content_commit"], "protocol_hash": fingerprint["protocol_hash"],
         "checkpoint_status": checkpoint["status"], "completed_count": len(completed),
@@ -143,7 +159,9 @@ def audit(session: Path) -> dict:
             "per_run_reference_lookup": sum(record.get("reference_lookup_seconds", 0) for record in records),
         },
         "cost_caveat": "checkpoint active wall excludes uncheckpointed time before shutdown; "
-                       "an interrupted execution has only an observed lower bound, not exact final cost",
+                       "an interrupted execution has only an observed lower bound, not exact final cost; "
+                       "target/process/active timings use CLOCK_MONOTONIC, UTC/time-v use a distinct clock domain",
+        "clock_precision_note": "docs/P2_TIMING_NOTE.md",
         "unknown_metrics": ["CPU temperature", "reliable boost/throttling", "hardware performance counters"],
     }
 

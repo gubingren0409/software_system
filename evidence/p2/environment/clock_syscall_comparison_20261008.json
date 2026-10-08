@@ -1,0 +1,10 @@
+{
+  "schema": "p2-read-only-clock-syscall-check-v1",
+  "observed_realtime_ns": 1791463721867095080,
+  "command": ["python3", "-c", "import ctypes,time,platform; assert platform.machine()==\"x86_64\"; Ts=type(\"Ts\",(ctypes.Structure,),{\"_fields_\":[(\"sec\",ctypes.c_long),(\"ns\",ctypes.c_long)]}); lib=ctypes.CDLL(None); ts=Ts(); readings=[]; [ (lib.syscall(228,k,ctypes.byref(ts)), readings.append({\"clock_id\":k,\"direct_syscall_ns\":ts.sec*10**9+ts.ns,\"glibc_ns\":time.clock_gettime_ns(k)})) for k in (0,1,4,7) ]; print(readings)"],
+  "cwd": "/tmp",
+  "returncode": 0,
+  "stdout": "[{'clock_id': 0, 'direct_syscall_ns': 1791463721867095080, 'glibc_ns': 1791463721867100049}, {'clock_id': 1, 'direct_syscall_ns': 6309061568617, 'glibc_ns': 6309061571342}, {'clock_id': 4, 'direct_syscall_ns': 6023212651105, 'glibc_ns': 6023212652608}, {'clock_id': 7, 'direct_syscall_ns': 6309061576943, 'glibc_ns': 6309061578125}]\n",
+  "stderr": "",
+  "system_settings_modified": false
+}
