@@ -1,0 +1,30 @@
+{
+  "schema": "p2-delivery-checks-v1",
+  "tested_content_commit": "c2a964162915b8cf0019df4e73bcd7cd634d1902",
+  "formal_content_commit": "0d3dd5242c728d8001dd02a4e332185459d04721",
+  "checks": [
+    {
+      "name": "diff",
+      "captured_at": "2026-10-08 16:33:35 UTC",
+      "command_shell": "git -c core.safecrlf=false diff --check; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; git diff c2a964162915b8cf0019df4e73bcd7cd634d1902 -- autotuner code configs scripts",
+      "exit_code": 0,
+      "combined_output": ""
+    },
+    {
+      "name": "required_files",
+      "captured_at": "2026-10-08 16:33:37 UTC",
+      "command_shell": "git ls-tree -r c2a964162915b8cf0019df4e73bcd7cd634d1902 -- autotuner code/working configs scripts; git check-ignore autotuner/core.py; if ($LASTEXITCODE -eq 0) { exit 1 }; (Get-FileHash code/original/matrix_multiplication.c -Algorithm SHA256).Hash; git status --short",
+      "exit_code": 0,
+      "combined_output": "100644 blob 253880bbc0a43275434ec7c147a1d687b096e5f7\tautotuner/__init__.py\n100644 blob eb53e2f31b2f703ad32ef64b8a41faa3e7d18e08\tautotuner/__main__.py\n100644 blob cae2db9a64ed7ceac8a1533d3ada41ee9137b473\tautotuner/cli.py\n100644 blob dfab2b590e3f0063b84eaad0e1e3ff5801e50273\tautotuner/core.py\n100644 blob 3d69301d8b8e35d1b1c9fb4f9cb4f27c1d98a486\tautotuner/measurement.py\n100644 blob cc76a6de5506c0767cea80be1d6c17ff33d41009\tautotuner/search.py\n100644 blob 8a577c5c863128b8d14be9c1d55d6c8fdfaf5516\tautotuner/session.py\n100644 blob 2357c0e40883e2d87f8664aec123feb470e06a52\tcode/working/matrix_input.h\n100644 blob 746e4158b5089881e42feebdaf14e3b6e62d6402\tcode/working/matrix_multiplication.c\n100644 blob c3684bcedb4a5c7a85da01927de57da3a7babdf5\tcode/working/reference_generator.c\n100644 blob cda32f8eee9cd8a3622c329658f18fae89cb7034\tconfigs/config_space.json\n100644 blob 49586a5af5242f02654606997ffc69a7ad4c3270\tconfigs/measurement_protocol.json\n100644 blob 49e354b2bcc64cf9f53ede3a574c51bc05cfeb68\tconfigs/search_protocol.json\n100644 blob 11a23c200230fc1e0ccb56b2d81def58aa8d1f03\tconfigs/target.json\n100644 blob c31bedef0b1e417ca36d0aff48218f609d548047\tscripts/audit_p2_evidence.py\n100644 blob f5e7785626940e3f59253df4df337fa3b781e828\tscripts/check_p1_resources.ps1\n100644 blob 99a0490df31b36877ec832e7bb4cb295bf3b9e42\tscripts/check_p2_clocks.py\n100644 blob 86b8fff739aa2568f11da80deb479b58a6687957\tscripts/check_p2_host_clock.ps1\n100644 blob a5d5c6b062bbe1abcf29e4f2a4958d7ea0a8608b\tscripts/check_p2_resources.ps1\n100644 blob 1ff49267c8b463cbfac98001e8802e4ace3a7f7b\tscripts/collect_p0_environment.sh\n100644 blob ed15ee364db3d826705830e5a6ee006262ddc841\tscripts/collect_p0_host.ps1\n100644 blob f4923081b901ff30affa5e8b98e403ba6cfc0eb3\tscripts/finalize_p2_evidence.py\n100644 blob d3fbd06f626ef1bc46cb3b546146076ed61cb374\tscripts/inspect_p2.py\n100644 blob 902779149f5f4331a0e9ce31e4d1e6147d44e1d2\tscripts/plot_p2_results.py\n100644 blob 4312d28b6d6f64d8542a46819f03911c08182cd3\tscripts/prepare_p2_content.ps1\n100644 blob 65a56b20082cdf59228c7fd59e6fecf53b99a4f4\tscripts/run_p0_preexperiment.sh\n100644 blob 206cca64daf462a7a79056e9d4c6852aa033ad13\tscripts/run_p1_correctness.py\n100644 blob c8832067044206050e0d03dabd7e0c2aad1a0f1d\tscripts/run_p1_pilots.py\n100644 blob 887b0e09a887d53b0e4d4dad0db43a39a314829b\tscripts/run_p1_revision1_clean_checks.py\n100644 blob 8cb0e1c17bafe87fac4b6010abe0687498e86401\tscripts/run_p1_revision1_regressions.py\n100644 blob 2788777ed3f806a64dddfce677b2cdd032065120\tscripts/run_p2_clean_validation.py\n100644 blob 67e4042fa7b9de875f9ee3e5edce8aad7351bee6\tscripts/verify_p0.ps1\n100644 blob 0ef8276e2b9e9967bdc8242cab2edcb80d24f549\tscripts/verify_p1.py\n188D011109C4470E1F41829216E8677A5C2D8F2B7C8A44215652320DBDF6DE15\r\n M README.md\n M docs/P2_AUDIT_HANDOFF.md\n M docs/WORK_LOG.md\n M report.md\n?? evidence/p2/validation-delivery/\n"
+    },
+    {
+      "name": "credential_scan",
+      "captured_at": "2026-10-08 16:33:39 UTC",
+      "command_shell": "rg -l --glob '!*.png' '(ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,}|-----BEGIN [A-Z ]*PRIVATE KEY-----)' autotuner code configs scripts tests docs evidence README.md report.md; if ($LASTEXITCODE -eq 0) { exit 1 }; if ($LASTEXITCODE -ne 1) { exit $LASTEXITCODE }; Write-Output 'No matching credential/private-key patterns found'; exit 0",
+      "exit_code": 0,
+      "combined_output": "No matching credential/private-key patterns found\r\n"
+    }
+  ],
+  "credential_scan_scope": "specific token/private key patterns, not a proof of absence of all conceivable secrets",
+  "code_unchanged_after_clean_validation": true
+}

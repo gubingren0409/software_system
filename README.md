@@ -22,6 +22,10 @@
   字节码缓存归档完成 31 项单元测试、160 个小规模正确性案例、7 类故障、6 类非法
   输入及 n=130 三策略实际链路（20/8/8 个配置）。证据见
   [`evidence/p2/validation-final/`](evidence/p2/validation-final/)。
+- 最终交付内容提交`c2a964162915b8cf0019df4e73bcd7cd634d1902`另从干净归档复验，
+  独立空缓存完成同样的全部检查，n=17为fresh且正确性通过、n=130三策略20/8/8通过；
+  全部Python源码AST及归档内完整Grid证据审计通过。见
+  [`evidence/p2/validation-delivery/summary.json`](evidence/p2/validation-delivery/summary.json)。
 - P1 初次提交的 `.gitignore` 中 `core.*` 误忽略了本地实际使用的
   `autotuner/core.py`。R1 已恢复该文件、收窄规则，并从内容提交
   `bd9b7d264c42f7c65cd22b16a64a4a0f9c119c5f` 的无 `.git` 归档完整验证。

@@ -1,0 +1,30 @@
+{
+  "schema": "p2-delivery-startup-diagnostic-v1",
+  "recorded_at": "2026-10-08 16:29:36 UTC",
+  "content_commit": "c2a964162915b8cf0019df4e73bcd7cd634d1902",
+  "command": [
+    "wsl.exe",
+    "-d",
+    "Ubuntu-24.04",
+    "--cd",
+    "/var/tmp/matrix-autotuner-p2-content-c2a964162915b8cf0019df4e73bcd7cd634d1902",
+    "--",
+    "env",
+    "-u",
+    "PYTHONPATH",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "python3",
+    "scripts/run_p2_clean_validation.py",
+    "--content-sha",
+    "c2a964162915b8cf0019df4e73bcd7cd634d1902",
+    "--git-identity",
+    "/mnt/e/software_system/project01/build/p2/git_identity.json",
+    "--output",
+    "/mnt/e/software_system/project01/evidence/p2/validation-delivery"
+  ],
+  "returncode": 1,
+  "combined_output": "<3>WSL (20907 - Relay) ERROR: CreateProcessCommon:809: chdir(/var/tmp/matrix-autotuner-p2-content-c2a964162915b8cf0019df4e73bcd7cd634d1902) failed 2\npython3: can't open file '//scripts/run_p2_clean_validation.py': [Errno 2] No such file or directory\n",
+  "cause": "Started validator before asynchronous git archive preparation finished; no validation or target execution started.",
+  "repair": "Waited for prepare_p2_content.ps1 to finish with exit 0 and expected archive root, then restarted the same validation command.",
+  "formal_session_changed": false
+}

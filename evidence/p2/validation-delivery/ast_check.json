@@ -1,0 +1,11 @@
+{
+  "captured_at": "2026-10-08 16:30:11 UTC",
+  "command_shell": "wsl.exe -d Ubuntu-24.04 --cd /var/tmp/matrix-autotuner-p2-content-c2a964162915b8cf0019df4e73bcd7cd634d1902 -- env -u PYTHONPATH PYTHONDONTWRITEBYTECODE=1 python3 -c 'import ast,json,pathlib; root=pathlib.Path.cwd(); paths=sorted(p for d in (\"autotuner\",\"scripts\",\"tests\") for p in (root/d).glob(\"*.py\")); [ast.parse(p.read_text(encoding=\"utf-8\"),filename=str(p)) for p in paths]; print(json.dumps({\"status\":\"PASS\",\"cwd\":str(root),\"python_ast_checked\":[str(p.relative_to(root)) for p in paths],\"git_present\":(root/\".git\").exists(),\"pycache_count\":len(list(root.rglob(\"__pycache__\")))}))'",
+  "tool_result": {
+    "wall_time_seconds": 1.5079715,
+    "exit_code": 0,
+    "output": "{\"status\": \"PASS\", \"cwd\": \"/var/tmp/matrix-autotuner-p2-content-c2a964162915b8cf0019df4e73bcd7cd634d1902\", \"python_ast_checked\": [\"autotuner/__init__.py\", \"autotuner/__main__.py\", \"autotuner/cli.py\", \"autotuner/core.py\", \"autotuner/measurement.py\", \"autotuner/search.py\", \"autotuner/session.py\", \"scripts/audit_p2_evidence.py\", \"scripts/check_p2_clocks.py\", \"scripts/finalize_p2_evidence.py\", \"scripts/inspect_p2.py\", \"scripts/plot_p2_results.py\", \"scripts/run_p1_correctness.py\", \"scripts/run_p1_pilots.py\", \"scripts/run_p1_revision1_clean_checks.py\", \"scripts/run_p1_revision1_regressions.py\", \"scripts/run_p2_clean_validation.py\", \"scripts/verify_p1.py\", \"tests/test_runner.py\", \"tests/test_search_measurement.py\"], \"git_present\": false, \"pycache_count\": 0}\n"
+  },
+  "content_commit": "c2a964162915b8cf0019df4e73bcd7cd634d1902",
+  "scope": "clean archive AST only; no target execution"
+}

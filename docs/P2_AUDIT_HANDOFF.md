@@ -33,8 +33,13 @@
   fresh evaluation 和全部小规模正确性，逐命令 stdout/stderr/退出码。
 - [`../evidence/p2/validation-final/diagnostic_trajectories.json`](../evidence/p2/validation-final/diagnostic_trajectories.json)：
   n=130 实际 Grid20、随机8、贪心8，均通过统一接口的每配置六次执行；仅为诊断。
-- `validation-delivery/`：最终交付内容归档的重复检查，独立空缓存，不依赖工作目录
-  未跟踪文件或PYTHONPATH。辅助脚本也做AST检查；不重跑n=4096。
+- [`validation-delivery/summary.json`](../evidence/p2/validation-delivery/summary.json)：内容提交
+  `c2a964162915b8cf0019df4e73bcd7cd634d1902`从独立归档复验PASS：6个CLI/测试命令
+  退出0，31项单测、160正确性、7故障、6参数拒绝、n17 fresh及n130三策略20/8/8
+  均通过。独立空缓存，不依赖原工作目录未跟踪文件、旧pycache或PYTHONPATH。
+  20个Python源码AST通过，归档内已提交的完整正式证据审计也通过；不重跑n4096。
+  初次验证因归档导出尚未结束而找不到目录，未启动任何目标；等待导出退出0后重新
+  执行通过。原失败保留startup_diagnostic.json，不伪造整体第一次即PASS。
 
 ## 正式实验状态与原始证据
 
