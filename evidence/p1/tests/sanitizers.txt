@@ -1,0 +1,7 @@
+command=gcc reference n130 O1 ASan+UBSan
+command=reference --seed 20261008 --input random --accumulator long-double
+{"schema":"matrix-reference-v1","status":"ok","n":130,"seed":20261008,"input":"random","input_generator":"splitmix64-interleaved-v1","accumulator":"long-double","element_type":"float64-native-le","element_count":16900,"byte_count":135200,"generation_seconds":0.036904843,"checksum":550222.039205741648914,"nonfinite_count":0,"analytic_mismatch_count":0,"sample_rule":"fixed-coordinates-v1","sample_count":16,"sample_mismatch_count":0,"sample_max_abs_error":3.53536644404073285841e-15,"sample_max_rel_error":9.84203394296034597233e-17}
+command=gcc candidate n130 O1 ASan+UBSan
+command=candidate --block-size 128 --seed 20261008 --input random
+{"schema":"matrix-multiplication-result-v1","status":"ok","n":130,"block_size":128,"seed":20261008,"input":"random","input_generator":"splitmix64-interleaved-v1","elapsed_seconds":0.024417312000000000044,"checksum":550222.039205741650392,"reference_checksum":550222.039205741648914,"max_abs_error":4.26325641456060111523e-14,"max_rel_error":1.41951640052872136646e-15,"abs_tol":1.0e-12,"rel_tol":1.0e-12,"checked_entries":16900,"mismatch_count":0,"nonfinite_result_count":0,"nonfinite_reference_count":0,"nonfinite_error_count":0,"finite_elapsed":true,"finite_checksum":true,"finite_reference_checksum":true,"finite_error_summary":true,"validation":true,"fault_injection":0}
+exit_code=0

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "name": "teacher-matrix-multiplication",
+  "candidate_source": "../code/working/matrix_multiplication.c",
+  "reference_source": "../code/working/reference_generator.c",
+  "shared_sources": ["../code/working/matrix_input.h"],
+  "compiler": "/usr/bin/gcc",
+  "language_standard": "-std=c11",
+  "warning_flags": ["-Wall", "-Wextra", "-Wpedantic", "-Wconversion"],
+  "fixed_flags": [],
+  "link_flags": ["-lm"],
+  "matrix_size_macro": "MATRIX_N",
+  "default_matrix_size": 4096,
+  "default_seed": 20261008,
+  "default_input": "random",
+  "result_schema": "matrix-multiplication-result-v1",
+  "cache_root": "/var/tmp/matrix-autotuner-p1-10245102457",
+  "small_reference_max_n": 256,
+  "abs_tolerance": 1e-12,
+  "rel_tolerance": 1e-12
+}

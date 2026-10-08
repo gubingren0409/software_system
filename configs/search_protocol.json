@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "status": "frozen-before-formal-grid",
+  "canonical_order": {
+    "outer_dimension": "optimization_levels in configs/config_space.json order",
+    "inner_dimension": "block_sizes in configs/config_space.json order"
+  },
+  "budgets": [4, 8, 12],
+  "search_seeds": [20261008, 20261009, 20261010, 20261011, 20261012],
+  "budget_unit": "unique configuration evaluations",
+  "prefix_rule": "For each seed, run one 12-evaluation trajectory; budgets 4 and 8 are prefixes of that same trajectory.",
+  "grid": {
+    "rule": "Evaluate all 20 canonical configurations exactly once at the configuration level.",
+    "early_stop": false,
+    "limited_budget_comparison": "Use the incumbent after canonical prefixes 4, 8 and 12."
+  },
+  "random_without_replacement": {
+    "rule": "Apply a seeded Fisher-Yates shuffle to the 20 canonical configurations and evaluate in that order.",
+    "replacement": false,
+    "information_constraint": "The strategy may use only measurements from its own evaluated prefix."
+  },
+  "random_restart_greedy": {
+    "grid": "The two axes are the listed optimization levels and block sizes.",
+    "neighbors": "Manhattan distance one: one adjacent optimization level or one adjacent block-size entry.",
+    "start": "Choose uniformly from all unevaluated configurations using the search seed.",
+    "neighbor_order": "Shuffle the current point's unevaluated neighbors using the same seeded RNG, then evaluate them in that order.",
+    "accept": "After the available neighborhood is evaluated, move to the strictly lower-score best neighbor; break equal scores by canonical order.",
+    "restart": "If no strict improvement exists, restart uniformly from all unevaluated configurations.",
+    "stop": "Stop when the unique-evaluation budget is exhausted or no unevaluated configuration remains.",
+    "information_constraint": "It may reuse its own prior observations but may not read Grid, another algorithm, or another seed's results."
+  },
+  "fairness": {
+    "same_target_input_and_measurement_protocol": true,
+    "failed_evaluation_has_score": false,
+    "final_candidate_retest_counts_against_budget": false,
+    "search_trajectory_is_not_changed_by_final_retest": true
+  }
+}

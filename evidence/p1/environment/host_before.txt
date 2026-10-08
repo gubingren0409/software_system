@@ -1,0 +1,182 @@
+collected_at_local=2026-10-08T12:46:13.0560560+08:00
+timezone=China Standard Time
+
+$ Windows version registry fields
+
+DisplayVersion : 25H2
+CurrentBuild   : 26200
+UBR            : 9457
+
+
+
+$ Get-CimInstance Win32_OperatingSystem
+
+Caption        : Microsoft Windows 11 家庭版 中文版
+Version        : 10.0.26200
+BuildNumber    : 26200
+OSArchitecture : 64 位
+LastBootUpTime : 2026/10/7 21:06:13
+
+
+
+$ Get-CimInstance Win32_ComputerSystem
+
+Manufacturer             : ASUSTeK COMPUTER INC.
+Model                    : ASUS TUF Gaming A16 FA607PV_FA607PV
+SystemType               : x64-based PC
+HypervisorPresent        : True
+TotalPhysicalMemoryBytes : 16340406272
+
+
+
+$ Get-CimInstance Win32_Processor
+
+Name                          : AMD Ryzen 9 7940HX with Radeon Graphics
+Manufacturer                  : AuthenticAMD
+NumberOfCores                 : 16
+NumberOfLogicalProcessors     : 32
+MaxClockSpeed                 : 2401
+CurrentClockSpeed             : 1984
+L2CacheSize                   : 16384
+L3CacheSize                   : 65536
+VirtualizationFirmwareEnabled : True
+
+
+
+$ Get-CimInstance Win32_CacheMemory
+
+Level          : 3
+InstalledSize  : 1024
+MaxCacheSize   : 1024
+NumberOfBlocks : 1024
+
+Level          : 4
+InstalledSize  : 16384
+MaxCacheSize   : 16384
+NumberOfBlocks : 16384
+
+Level          : 5
+InstalledSize  : 65536
+MaxCacheSize   : 65536
+NumberOfBlocks : 1024
+
+
+
+$ Get-CimInstance Win32_OperatingSystem memory fields
+
+TotalVisibleMemorySize : 15957428
+FreePhysicalMemory     : 4219380
+TotalVirtualMemorySize : 53150132
+FreeVirtualMemory      : 30402864
+
+
+
+$ five one-second CPU and available-memory samples
+
+Timestamp                         CpuPercent AvailableMemoryMiB
+---------                         ---------- ------------------
+2026-10-08T12:46:22.0424899+08:00          0            3067.50
+2026-10-08T12:46:23.6740385+08:00         27            2679.70
+2026-10-08T12:46:25.3075247+08:00         22            2375.90
+2026-10-08T12:46:26.9313217+08:00         17            2281.20
+2026-10-08T12:46:28.5833300+08:00         18            2254.20
+
+
+
+$ current process affinity
+
+ProcessorCount        : 32
+ProcessorAffinityMask : 0xFFFFFFFF
+
+
+
+$ Get-PSDrive E
+
+Name : E
+Used : 99565948928
+Free : 8491302912
+Root : E:\
+
+
+
+$ powercfg /getactivescheme
+电源方案 GUID: 6fecc5ae-f350-48a5-b669-b472cb895ccf  (Turbo)
+[exit_code=0]
+
+$ powercfg /query SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN
+电源方案 GUID: 6fecc5ae-f350-48a5-b669-b472cb895ccf  (Turbo)
+  子组 GUID: 54533251-82be-4824-96c1-47b60b740d00  (处理器电源管理)
+    GUID 别名: SUB_PROCESSOR
+    电源设置 GUID: 893dee8e-2bef-41e0-89c6-b55d0929964c  (最小处理器状态)
+      GUID 别名: PROCTHROTTLEMIN
+      最小可能的设置: 0x00000000
+      最大可能的设置: 0x00000064
+      可能的设置增量: 0x00000001
+      可能的设置单位: %
+    当前交流电源设置索引: 0x00000064
+    当前直流电源设置索引: 0x00000005
+
+[exit_code=0]
+
+$ powercfg /query SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX
+电源方案 GUID: 6fecc5ae-f350-48a5-b669-b472cb895ccf  (Turbo)
+  子组 GUID: 54533251-82be-4824-96c1-47b60b740d00  (处理器电源管理)
+    GUID 别名: SUB_PROCESSOR
+    电源设置 GUID: bc5038f7-23e0-4960-96da-33abaf5935ec  (最大处理器状态)
+      GUID 别名: PROCTHROTTLEMAX
+      最小可能的设置: 0x00000000
+      最大可能的设置: 0x00000064
+      可能的设置增量: 0x00000001
+      可能的设置单位: %
+    当前交流电源设置索引: 0x00000064
+    当前直流电源设置索引: 0x00000064
+
+[exit_code=0]
+
+$ Get-CimInstance Win32_Battery
+
+BatteryStatus            : 2
+EstimatedChargeRemaining : 100
+
+
+
+$ wsl.exe -d Ubuntu-24.04 -- bash -lc "printf distro/version and uname"
+WSL_DISTRO_NAME=Ubuntu-24.04
+Linux 6.18.40.1-microsoft-standard-WSL2 x86_64 GNU/Linux
+[exit_code=0]
+
+## gcc
+path=<not found>
+
+## clang
+path=<not found>
+
+## python
+path=C:\Users\28489\AppData\Local\Programs\Python\Python312\python.exe
+
+## git
+path=C:\Program Files\Git\cmd\git.exe
+
+## gh
+path=<not found>
+
+## make
+path=<not found>
+
+## cmake
+path=<not found>
+
+## wsl
+path=C:\WINDOWS\system32\wsl.exe
+
+$ python --version
+Python 3.12.6
+[exit_code=0]
+
+$ git --version
+git version 2.50.1.windows.1
+[exit_code=0]
+
+$ cmake --version
+cmake=<not found>
+[exit_code=127]

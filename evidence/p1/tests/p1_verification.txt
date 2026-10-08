@@ -1,0 +1,14 @@
+command=python3 scripts/verify_p1.py
+p1_verification=PASS
+original_sha256=188d011109c4470e1f41829216e8677a5c2d8f2b7c8a44215652320dbdf6de15
+small_cases=160/160 faults=7/7 strict_cli=6/6
+medium_optimization_levels=4/4 default_optimization_levels=4/4 repeats=5/5
+exit_code=0
+
+command=python3 -m compileall -q autotuner scripts tests
+exit_code=0
+
+command=python3 -m autotuner list-configs
+config_count=20
+canonical_order=optimization_outer_block_size_inner
+exit_code=0

@@ -1,43 +1,50 @@
 # Matrix Multiplication Autotuner (P1)
 
-本仓库用于《软件系统优化》实践项目 P1。当前完成的是 **P0：环境与源码
-核查、GitHub 准备和有限预实验**；P0 数据只用于建立可审计基线，不代表正式
-调优结果或最优配置。
+《软件系统优化》实践项目 P1。当前完成 **P1：正确性与统一测量基础**；完整 20 配置
+Grid 和两种随机搜索尚未运行，有限试跑不代表最终最优配置。
 
-## 当前结论
+## 当前状态
 
-- 老师源码已按字节保存在 [`code/original/`](code/original/)，SHA-256 为
+- 老师原件保持不变：SHA-256
   `188d011109c4470e1f41829216e8677a5c2d8f2b7c8a44215652320dbdf6de15`。
-- 实际预实验环境为 WSL2 Ubuntu 24.04、GCC 13.3.0。
-- O0/O1/O2/O3 编译成功；`n=65` 的 6 个有效诊断案例均通过独立 `long double`
-  逐元素参考验证；大于矩阵尺寸的块按原接口被拒绝。
-- 默认 `n=4096` 需要 384 MiB 三矩阵存储并执行约 687 亿次乘加，P0 未启动
-  默认规模长测。
+- 正式工作副本默认 `n=4096`，固定输入规则和种子，单调时钟只计核心计算，计时区外
+  逐元素验证并输出严格 JSON。
+- `ConfigSpace`、`TargetAdapter`、`Evaluator` 已实现；构建、reference 和性能缓存分离。
+- `n=129/130` 的 160 个配置/输入案例全部通过；7 类故障注入和 6 类非法参数全部
+  被正确拒绝。
+- 默认规模四级代表配置成功；O3 代表配置五次核心时间中位数 `78.789159 s`，CV
+  `1.10%`。这些是资源条件受限的 P1 pilot，不是正式 Grid 数据。
 
-## 复现 P0
+## 复现与检查
 
-在 PowerShell 中运行：
+主要命令在 WSL Ubuntu-24.04、GCC 13.3.0 下运行：
 
-```powershell
-wsl.exe -d Ubuntu-24.04 -- bash -lc `
-  'cd /mnt/e/software_system/project01 && bash scripts/run_p0_preexperiment.sh'
-
-powershell -ExecutionPolicy Bypass -File scripts/verify_p0.ps1
+```bash
+cd /mnt/e/software_system/project01
+python3 -m unittest discover -s tests -v
+python3 scripts/verify_p1.py
+python3 -m autotuner list-configs
 ```
 
-环境重新采集入口：
+完整小规模正确性会运行 160 个案例：
 
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/collect_p0_host.ps1
-wsl.exe -d Ubuntu-24.04 -- bash -lc `
-  'cd /mnt/e/software_system/project01 && bash scripts/collect_p0_environment.sh'
+```bash
+python3 scripts/run_p1_correctness.py
 ```
 
-环境脚本只向标准输出写结果；如需更新证据文件，应显式重定向并保留采集时间。
+默认规模 pilot 很慢，且脚本会先检查资源；仅在需要复现实验、确认时间预算后运行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/check_p1_resources.ps1 `
+  -OutputPath evidence/p1/environment/pre_default_gate_new.json
+wsl.exe -d Ubuntu-24.04 -- bash -lc `
+  'cd /mnt/e/software_system/project01 && python3 scripts/run_p1_pilots.py --resource-gate evidence/p1/environment/pre_default_gate_new.json'
+```
 
 ## 文档入口
 
-- [`docs/P0_DISCOVERY.md`](docs/P0_DISCOVERY.md)：要求、环境、源码分析、预实验和 P1-P5 计划。
-- [`docs/WORK_LOG.md`](docs/WORK_LOG.md)：命令、失败、定位与修复记录。
-- [`docs/AUDIT_HANDOFF.md`](docs/AUDIT_HANDOFF.md)：P0 交接与证据索引。
-- [`report.md`](report.md)：老师指定的唯一正式报告文件，目前为有证据的 P0 骨架。
+- [`docs/P1_FOUNDATION.md`](docs/P1_FOUNDATION.md)：设计、验证、试跑、协议和成本。
+- [`docs/P1_AUDIT_HANDOFF.md`](docs/P1_AUDIT_HANDOFF.md)：审计索引与待裁决事项。
+- [`docs/WORK_LOG.md`](docs/WORK_LOG.md)：实际操作、失败和修复。
+- [`report.md`](report.md)：仅纳入已有证据的课程报告正文。
+- [`docs/P0_DISCOVERY.md`](docs/P0_DISCOVERY.md)：保留并纠正后的 P0 基线。
