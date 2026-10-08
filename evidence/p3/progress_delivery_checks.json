@@ -1,0 +1,35 @@
+{
+  "scope": "P3 progress delivery: no further target execution in these checks",
+  "checks": [
+    {
+      "captured_at": "2026-10-08 17:47:31 UTC",
+      "command": "rg -n --hidden '(ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|BEGIN (RSA |OPENSSH |EC )?PRIVATE KEY|Bearer [A-Za-z0-9_.-]{20,})' autotuner configs scripts tests evidence/p3 docs/P3_PROTOCOL.md docs/P3_AUDIT_HANDOFF.md README.md report.md",
+      "expected_returncode": 1,
+      "chunk_id": "7ecfb9",
+      "wall_time_seconds": 2.3634919,
+      "exit_code": 1,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "captured_at": "2026-10-08 17:47:34 UTC",
+      "command": "git diff --check; git diff e308bfb -- autotuner code configs/target.json configs/config_space.json configs/measurement_protocol.json configs/search_protocol.json configs/p3_campaign_protocol.json; git ls-files autotuner/core.py",
+      "expected_returncode": 0,
+      "chunk_id": "97593b",
+      "wall_time_seconds": 1.7145351,
+      "exit_code": 0,
+      "original_token_count": 112,
+      "output": "warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/P3_AUDIT_HANDOFF.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/WORK_LOG.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'report.md', LF will be replaced by CRLF the next time Git touches it\nautotuner/core.py\n"
+    },
+    {
+      "captured_at": "2026-10-08 17:47:36 UTC",
+      "command": "Get-CimInstance -Namespace root/wmi -Class BatteryStatus -ErrorAction Stop | Select-Object PowerOnline,Charging,Discharging | ConvertTo-Json; Get-CimInstance Win32_Battery -ErrorAction Stop | Select-Object BatteryStatus,EstimatedChargeRemaining | ConvertTo-Json",
+      "expected_returncode": 0,
+      "chunk_id": "6fd7fb",
+      "wall_time_seconds": 1.600519,
+      "exit_code": 0,
+      "original_token_count": 35,
+      "output": "{\r\n  \"PowerOnline\": true,\r\n  \"Charging\": false,\r\n  \"Discharging\": false\r\n}\r\n{\r\n  \"BatteryStatus\": 2,\r\n  \"EstimatedChargeRemaining\": 100\r\n}\r\n"
+    }
+  ]
+}

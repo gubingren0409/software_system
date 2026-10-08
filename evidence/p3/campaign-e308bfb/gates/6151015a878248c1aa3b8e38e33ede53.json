@@ -1,0 +1,95 @@
+{
+  "captured_at": "2026-10-08T17:21:23.348006+00:00",
+  "command": [
+    "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "\\\\wsl.localhost\\Ubuntu-24.04\\var\\tmp\\matrix-autotuner-p2-content-e308bfb873e6811c50ad685a979af345302fda8d\\scripts\\check_p2_resources.ps1",
+    "-Mode",
+    "Formal"
+  ],
+  "config": {
+    "block_size": 64,
+    "optimization": "O1"
+  },
+  "parsed": {
+    "captured_at_local": "2026-10-09T01:21:23.1344024+08:00",
+    "formal_gate": "REJECT",
+    "host_cpu_average_percent": 4.8,
+    "host_cpu_maximum_percent": 9,
+    "host_minimum_available_bytes": 2058149888,
+    "host_samples": [
+      {
+        "available_memory_bytes": 2058149888,
+        "commit_limit_bytes": 54425735168,
+        "committed_bytes": 28452286464,
+        "cpu_percent": 9,
+        "memory_temperature_or_throttling": "unknown",
+        "page_reads_per_second": 679,
+        "pages_per_second": 2568,
+        "percent_committed_bytes_in_use": 52,
+        "timestamp": "2026-10-09T01:21:16.6499579+08:00"
+      },
+      {
+        "available_memory_bytes": 2073993216,
+        "commit_limit_bytes": 54425735168,
+        "committed_bytes": 28381003776,
+        "cpu_percent": 2,
+        "memory_temperature_or_throttling": "unknown",
+        "page_reads_per_second": 7,
+        "pages_per_second": 41,
+        "percent_committed_bytes_in_use": 52,
+        "timestamp": "2026-10-09T01:21:18.2777753+08:00"
+      },
+      {
+        "available_memory_bytes": 2071822336,
+        "commit_limit_bytes": 54425735168,
+        "committed_bytes": 28383633408,
+        "cpu_percent": 0,
+        "memory_temperature_or_throttling": "unknown",
+        "page_reads_per_second": 22,
+        "pages_per_second": 37,
+        "percent_committed_bytes_in_use": 52,
+        "timestamp": "2026-10-09T01:21:19.9022118+08:00"
+      },
+      {
+        "available_memory_bytes": 2064654336,
+        "commit_limit_bytes": 54425735168,
+        "committed_bytes": 28393435136,
+        "cpu_percent": 5,
+        "memory_temperature_or_throttling": "unknown",
+        "page_reads_per_second": 43,
+        "pages_per_second": 54,
+        "percent_committed_bytes_in_use": 52,
+        "timestamp": "2026-10-09T01:21:21.4966309+08:00"
+      },
+      {
+        "available_memory_bytes": 2085539840,
+        "commit_limit_bytes": 54425735168,
+        "committed_bytes": 28369399808,
+        "cpu_percent": 8,
+        "memory_temperature_or_throttling": "unknown",
+        "page_reads_per_second": 27,
+        "pages_per_second": 118,
+        "percent_committed_bytes_in_use": 52,
+        "timestamp": "2026-10-09T01:21:23.1344024+08:00"
+      }
+    ],
+    "host_total_visible_bytes": 16340406272,
+    "minimum_disk_bytes": 1073741824,
+    "minimum_memory_bytes": 2147483648,
+    "mode": "Formal",
+    "schema": "p2-resource-gate-v2",
+    "wsl_available_bytes": 4146950144,
+    "wsl_root_free_bytes": 225327411200,
+    "wsl_swap_free_bytes": 2147483648,
+    "wsl_swap_total_bytes": 2147483648,
+    "wsl_total_bytes": 7908261888
+  },
+  "purpose": "00_random_20261008/search",
+  "returncode": 2,
+  "stderr": "",
+  "stdout": "{\"schema\":\"p2-resource-gate-v2\",\"captured_at_local\":\"2026-10-09T01:21:23.1344024+08:00\",\"mode\":\"Formal\",\"host_total_visible_bytes\":16340406272,\"host_samples\":[{\"timestamp\":\"2026-10-09T01:21:16.6499579+08:00\",\"cpu_percent\":9,\"available_memory_bytes\":2058149888,\"committed_bytes\":28452286464,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":52,\"pages_per_second\":2568,\"page_reads_per_second\":679,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T01:21:18.2777753+08:00\",\"cpu_percent\":2,\"available_memory_bytes\":2073993216,\"committed_bytes\":28381003776,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":52,\"pages_per_second\":41,\"page_reads_per_second\":7,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T01:21:19.9022118+08:00\",\"cpu_percent\":0,\"available_memory_bytes\":2071822336,\"committed_bytes\":28383633408,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":52,\"pages_per_second\":37,\"page_reads_per_second\":22,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T01:21:21.4966309+08:00\",\"cpu_percent\":5,\"available_memory_bytes\":2064654336,\"committed_bytes\":28393435136,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":52,\"pages_per_second\":54,\"page_reads_per_second\":43,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T01:21:23.1344024+08:00\",\"cpu_percent\":8,\"available_memory_bytes\":2085539840,\"committed_bytes\":28369399808,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":52,\"pages_per_second\":118,\"page_reads_per_second\":27,\"memory_temperature_or_throttling\":\"unknown\"}],\"host_minimum_available_bytes\":2058149888,\"host_cpu_average_percent\":4.8,\"host_cpu_maximum_percent\":9,\"minimum_memory_bytes\":2147483648,\"minimum_disk_bytes\":1073741824,\"wsl_available_bytes\":4146950144,\"wsl_total_bytes\":7908261888,\"wsl_swap_total_bytes\":2147483648,\"wsl_swap_free_bytes\":2147483648,\"wsl_root_free_bytes\":225327411200,\"formal_gate\":\"REJECT\"}\n"
+}

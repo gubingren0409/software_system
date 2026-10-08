@@ -1,0 +1,58 @@
+{
+  "abs_tolerance": 1e-12,
+  "cache_policy": {
+    "build_reference_and_performance_caches_are_separate": true,
+    "formal_measurement_default": "fresh execution",
+    "performance_cache_use": "Forbidden for formal samples. Resume only complete configuration groups from this session's original raw samples."
+  },
+  "correctness_rule": "Every element must be finite and satisfy abs_error <= abs_tol + rel_tol * abs(reference); time, checksums and error summaries must also be finite.",
+  "formal_timeout_seconds": {
+    "O0": 1271,
+    "O1": 244,
+    "O2": 151,
+    "O3": 243
+  },
+  "input_generator": "splitmix64-interleaved-v1",
+  "input_pattern": "random",
+  "matrix_input_seed": 20261008,
+  "measurement": {
+    "also_report": [
+      "minimum",
+      "maximum",
+      "mean",
+      "sample_stdev",
+      "coefficient_of_variation",
+      "median_absolute_deviation",
+      "relative_mad"
+    ],
+    "cost_accounting": "Record core compute time separately from build, reference generation, validation and total process wall time.",
+    "failure_policy": "Any failed measured run makes the configuration evaluation invalid; do not score a successful subset.",
+    "measured_runs": 5,
+    "repeat_escalation_rule": "Frozen at five measured runs from P1 pilot CV 0.011 and relative MAD 0.009; post-hoc escalation is not used in this session.",
+    "score_statistic": "median compute_seconds",
+    "serial_execution": true,
+    "timeout_rule_after_p1": "For each optimization level use max(60 seconds, ceil(3 * the largest measured default-size P1 pilot process wall time for that level)); O3 includes its repeatability runs.",
+    "warmup_runs": 1
+  },
+  "reference": {
+    "algorithm": "independent non-blocked i-k-j double accumulation",
+    "cache_element_type": "float64-native-le",
+    "generation_and_validation_inside_candidate_timer": false,
+    "sample_check": "fixed-coordinates-v1 with 16 long-double dot products"
+  },
+  "rel_tolerance": 1e-12,
+  "resource_gate": {
+    "formal_host_cpu_average_maximum_percent": 10,
+    "formal_host_cpu_single_sample_maximum_percent": 20,
+    "formal_host_minimum_available_bytes": 2147483648,
+    "formal_wsl_minimum_available_bytes": 2147483648,
+    "formal_wsl_root_minimum_free_bytes": 1073741824,
+    "functional_host_minimum_available_bytes": 2147483648,
+    "functional_wsl_minimum_available_bytes": 2147483648,
+    "functional_wsl_root_minimum_free_bytes": 1073741824
+  },
+  "revision_reason": "P2 uses 2 GiB available on both host and WSL; the measured candidate peak RSS was about 386 MiB and reference generation needs about 384 MiB. This retains roughly fourfold memory headroom while preserving the host CPU gate.",
+  "schema_version": 2,
+  "status": "frozen-before-p2-grid",
+  "target_matrix_n": 4096
+}
