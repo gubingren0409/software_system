@@ -1,4 +1,9 @@
-# P0 交接
+# 审计交接入口
+
+当前阶段入口：[`P2_AUDIT_HANDOFF.md`](P2_AUDIT_HANDOFF.md)。P1 与 P1-R1 入口保留在
+[`P1_AUDIT_HANDOFF.md`](P1_AUDIT_HANDOFF.md)。以下是原 P0 历史交接，未改标为 P2。
+
+## P0 交接（历史）
 
 ## 阶段判定
 

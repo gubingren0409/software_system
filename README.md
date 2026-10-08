@@ -1,7 +1,9 @@
 # Matrix Multiplication Autotuner (P1)
 
-《软件系统优化》实践项目 P1。当前完成 **P1-R1：可从干净提交复现的正确性与统一
-测量基础**；完整 20 配置 Grid 和两种随机搜索尚未运行，有限试跑不代表最终最优配置。
+《软件系统优化》实践项目 P1。当前进行 **P2：运行契约修复与正式完整 Grid**。
+实现与干净归档回归已完成；正式实验的实时状态见
+[`evidence/p2/grid-session-0d3dd52/checkpoint.json`](evidence/p2/grid-session-0d3dd52/checkpoint.json)。
+完整 20 配置尚未完成，不能据当前前缀宣称最优配置。随机与贪心只做了诊断验证。
 
 ## 当前状态
 
@@ -10,6 +12,14 @@
 - 正式工作副本默认 `n=4096`，固定输入规则和种子，单调时钟只计核心计算，计时区外
   逐元素验证并输出严格 JSON。
 - `ConfigSpace`、`TargetAdapter`、`Evaluator` 已实现；构建、reference 和性能缓存分离。
+- `ConfigurationEvaluator` 是三种搜索的统一配置测量接口：一次成功预热和五次
+  强制新执行，取核心时间中位数；任意失败不计分。Grid、无放回随机、随机重启贪心
+  均已实现，贪心每点七个单参数邻居，预算单位是唯一配置。
+- P2 修复了非零退出搭配成功 JSON 仍可能计分的问题，并核对请求身份、n² 全量检查
+  和冻结容差。从内容提交 `0d3dd5242c728d8001dd02a4e332185459d04721` 的无 Git/
+  字节码缓存归档完成 31 项单元测试、160 个小规模正确性案例、7 类故障、6 类非法
+  输入及 n=130 三策略实际链路（20/8/8 个配置）。证据见
+  [`evidence/p2/validation-final/`](evidence/p2/validation-final/)。
 - P1 初次提交的 `.gitignore` 中 `core.*` 误忽略了本地实际使用的
   `autotuner/core.py`。R1 已恢复该文件、收窄规则，并从内容提交
   `bd9b7d264c42f7c65cd22b16a64a4a0f9c119c5f` 的无 `.git` 归档完整验证。
@@ -52,8 +62,44 @@ wsl.exe -d Ubuntu-24.04 -- bash -lc `
 
 ## 文档入口
 
+- [`docs/P2_PROTOCOL.md`](docs/P2_PROTOCOL.md)：P2 冻结协议、资源条件与续跑规则。
+- [`docs/P2_AUDIT_HANDOFF.md`](docs/P2_AUDIT_HANDOFF.md)：本轮审计及正式证据入口。
 - [`docs/P1_FOUNDATION.md`](docs/P1_FOUNDATION.md)：设计、验证、试跑、协议和成本。
 - [`docs/P1_AUDIT_HANDOFF.md`](docs/P1_AUDIT_HANDOFF.md)：审计索引与待裁决事项。
 - [`docs/WORK_LOG.md`](docs/WORK_LOG.md)：实际操作、失败和修复。
 - [`report.md`](report.md)：仅纳入已有证据的课程报告正文。
 - [`docs/P0_DISCOVERY.md`](docs/P0_DISCOVERY.md)：保留并纠正后的 P0 基线。
+
+## P2 正式执行与续跑
+
+正式协议为 n=4096、random、seed=20261008；宿主与 WSL 都至少 2 GiB 可用，
+根目录至少 1 GiB，宿主 CPU 五次采样平均不超过 10%、单次不超过 20%。
+资源不满足时不启动下一个配置；不修改系统设置或终止其他应用。
+
+先在 PowerShell 导出指定内容提交（不要用最终证据提交代替内容提交）：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/prepare_p2_content.ps1 `
+  -ContentSha 0d3dd5242c728d8001dd02a4e332185459d04721
+```
+
+然后在 WSL 使用原 session 续跑。必须保留 WSL 本地 cache，并由运行器核对内容、
+编译器、二进制、输入、reference 及协议身份；已完成配置只从该 session 的全部
+原始样本恢复。中断配置重新预热和五次测量，不使用性能缓存凑样本。
+
+```bash
+cd /var/tmp/matrix-autotuner-p2-content-0d3dd5242c728d8001dd02a4e332185459d04721
+PYTHONDONTWRITEBYTECODE=1 env -u PYTHONPATH python3 -m autotuner grid \
+  --content-sha 0d3dd5242c728d8001dd02a4e332185459d04721 \
+  --git-identity /mnt/e/software_system/project01/build/p2/git_identity.json \
+  --session-directory /mnt/e/software_system/project01/evidence/p2/grid-session-0d3dd52 \
+  --resume
+```
+
+只读复核（完整验收时另加 `--require-complete`）：
+
+```bash
+cd /mnt/e/software_system/project01
+PYTHONDONTWRITEBYTECODE=1 env -u PYTHONPATH python3 scripts/audit_p2_evidence.py \
+  --session evidence/p2/grid-session-0d3dd52
+```

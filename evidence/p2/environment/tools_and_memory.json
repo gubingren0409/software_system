@@ -1,0 +1,108 @@
+{
+  "captured_at": "2026-10-08T08:27:05.131483+00:00",
+  "collector_sha256": "56032263d4b20fba1af9e9a2c13f3d5f8198aa1b1b77fc21b687c6486b03a8d9",
+  "commands": [
+    {
+      "captured_at": "2026-10-08T08:27:02.834793+00:00",
+      "command": [
+        "/usr/bin/python3",
+        "--version"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "Python 3.12.3\n"
+    },
+    {
+      "captured_at": "2026-10-08T08:27:02.841761+00:00",
+      "command": [
+        "/usr/bin/gcc",
+        "--version"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n"
+    },
+    {
+      "captured_at": "2026-10-08T08:27:02.855957+00:00",
+      "command": [
+        "git",
+        "--version"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "git version 2.43.0\n"
+    },
+    {
+      "captured_at": "2026-10-08T08:27:02.877870+00:00",
+      "command": [
+        "uname",
+        "-a"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "Linux localhost 6.18.40.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Fri Jul 31 22:12:15 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux\n"
+    },
+    {
+      "captured_at": "2026-10-08T08:27:02.883185+00:00",
+      "command": [
+        "cat",
+        "/etc/os-release"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "PRETTY_NAME=\"Ubuntu 24.04 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n"
+    },
+    {
+      "captured_at": "2026-10-08T08:27:02.889015+00:00",
+      "command": [
+        "cat",
+        "/proc/meminfo"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "MemTotal:        7722920 kB\nMemFree:         3857332 kB\nMemAvailable:    4319220 kB\nBuffers:           11240 kB\nCached:           730708 kB\nSwapCached:            0 kB\nActive:           106972 kB\nInactive:        1737560 kB\nActive(anon):       3344 kB\nInactive(anon):  1244788 kB\nActive(file):     103628 kB\nInactive(file):   492772 kB\nUnevictable:     1092024 kB\nMlocked:         1092024 kB\nSwapTotal:       2097152 kB\nSwapFree:        2097152 kB\nDirty:               136 kB\nWriteback:             0 kB\nAnonPages:       2195632 kB\nMapped:           545768 kB\nShmem:              4948 kB\nKReclaimable:      36784 kB\nSlab:             258576 kB\nSReclaimable:      36784 kB\nSUnreclaim:       221792 kB\nKernelStack:       14696 kB\nPageTables:        17464 kB\nSecPageTables:         0 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:     5958612 kB\nCommitted_AS:    6045448 kB\nVmallocTotal:   34359738367 kB\nVmallocUsed:      242120 kB\nVmallocChunk:          0 kB\nPercpu:            15872 kB\nHardwareCorrupted:     0 kB\nAnonHugePages:         0 kB\nShmemHugePages:        0 kB\nShmemPmdMapped:        0 kB\nFileHugePages:    116736 kB\nFilePmdMapped:         0 kB\nBalloon:               0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\nDirectMap4k:       82944 kB\nDirectMap2M:     5795840 kB\nDirectMap1G:    10485760 kB\n"
+    },
+    {
+      "captured_at": "2026-10-08T08:27:02.892984+00:00",
+      "command": [
+        "ps",
+        "-eo",
+        "pid,etimes,rss,comm",
+        "--sort=-rss"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "    PID ELAPSED   RSS COMMAND\n   1804    3639 1373728 java\n   4521     203 394696 candidate\n   1011    3643 196864 mongod\n   1374    3641 122624 python3\n   1232    3642 115848 java\n    386    3646 91336 dockerd\n   2327    3607 71468 python3\n    298    3646 56672 containerd\n   1406    3641 24192 python3\n    307    3646 23392 unattended-upgr\n    991    3643 21792 redis-server\n   4685       0 21232 python3\n     55    3648 16088 systemd-journal\n    267    3646 13900 wsl-pro-service\n      1    3650 13520 systemd\n    203    3648 12960 systemd-resolve\n   1499    3641 11732 systemd\n    809    3643 11064 containerd-shim\n    875    3643 10956 containerd-shim\n   2225    3607 10948 containerd-shim\n    895    3643 10944 containerd-shim\n    925    3643 10940 containerd-shim\n    854    3643 10912 containerd-shim\n   1522    3640  9056 bash\n   1877    3637  9052 controller\n    263    3646  8956 systemd-logind\n    213    3648  8100 systemd-timesyn\n   1321    3642  7460 nginx\n    105    3648  6600 systemd-udevd\n    284    3646  6136 rsyslogd\n    256    3646  5636 dbus-daemon\n   2312    3607  4960 docker-proxy\n   1157    3642  4936 docker-proxy\n   1116    3642  4912 docker-proxy\n   1407    3641  4784 login\n   4700       0  4212 ps\n   4664       5  4140 (udev-worker)\n   4665       5  4140 (udev-worker)\n   4667       5  4140 (udev-worker)\n   4668       5  4140 (udev-worker)\n   4682       3  3696 (udev-worker)\n   1500    3641  3636 (sd-pam)\n    995    3643  3412 bash\n    976    3643  3380 bash\n   2248    3607  3336 bash\n   1327    3642  2940 nginx\n   1328    3642  2940 nginx\n   1329    3642  2940 nginx\n   1330    3642  2940 nginx\n   1331    3642  2940 nginx\n   1332    3642  2940 nginx\n   1333    3642  2940 nginx\n   1334    3642  2940 nginx\n   1335    3642  2940 nginx\n   1336    3642  2940 nginx\n   1337    3642  2940 nginx\n   1338    3642  2940 nginx\n   1339    3642  2940 nginx\n   1340    3642  2940 nginx\n   1341    3642  2940 nginx\n   1342    3642  2940 nginx\n   1343    3642  2940 nginx\n   1344    3642  2940 nginx\n   1345    3642  2940 nginx\n   1346    3642  2940 nginx\n   1347    3642  2940 nginx\n   1348    3642  2940 nginx\n   1349    3642  2940 nginx\n   1350    3642  2940 nginx\n   1351    3642  2940 nginx\n   1352    3642  2940 nginx\n   1353    3642  2940 nginx\n   1354    3642  2940 nginx\n   1355    3642  2940 nginx\n   1356    3642  2940 nginx\n   1357    3642  2940 nginx\n   1358    3642  2940 nginx\n    255    3646  2880 cron\n      9    3649  2700 init\n      2    3650  2336 init-systemd(Ub\n      3    3650  2092 init-watcher\n    301    3646  2036 agetty\n   4518     203  1620 time\n   1405    3641  1508 Relay(1406)\n   1003    3643  1432 tini\n   4684       0  1372 Relay(4685)\n   4683       0  1320 SessionLeader\n   1404    3641  1312 SessionLeader\n"
+    },
+    {
+      "captured_at": "2026-10-08T08:27:03.000097+00:00",
+      "command": [
+        "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+        "-NoProfile",
+        "-Command",
+        "$os=Get-CimInstance Win32_OperatingSystem; $vm=Get-Process VmmemWSL -ErrorAction SilentlyContinue; [pscustomobject]@{Timestamp=[DateTimeOffset]::Now.ToString('o'); TotalBytes=[int64]$os.TotalVisibleMemorySize*1KB; FreeBytes=[int64]$os.FreePhysicalMemory*1KB; WslWorkingSetBytes=$vm.WorkingSet64; WslPrivateBytes=$vm.PrivateMemorySize64; PowerShellVersion=$PSVersionTable.PSVersion.ToString()} | ConvertTo-Json -Compress"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\"Timestamp\":\"2026-10-08T16:27:05.3035277+08:00\",\"TotalBytes\":16340406272,\"FreeBytes\":4431831040,\"WslWorkingSetBytes\":542945280,\"WslPrivateBytes\":4340822016,\"PowerShellVersion\":\"5.1.26100.9444\"}\n"
+    }
+  ],
+  "other_applications_terminated": false,
+  "system_settings_modified": false,
+  "wsl_resource_snapshot": {
+    "captured_at": "2026-10-08T08:27:05.143451+00:00",
+    "cpus_allowed_list": "0-31",
+    "loadavg": "0.98 0.64 0.69 2/883 4701",
+    "mem_available_bytes": 4419100672,
+    "mem_total_bytes": 7908270080,
+    "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+    "root_disk_free_bytes": 225317244928,
+    "swap_free_bytes": 2147483648,
+    "swap_total_bytes": 2147483648,
+    "vmstat": {
+      "pgmajfault": 2298,
+      "pswpin": 0,
+      "pswpout": 0
+    }
+  }
+}

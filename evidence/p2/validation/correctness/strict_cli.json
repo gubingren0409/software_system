@@ -1,0 +1,152 @@
+[
+  {
+    "classification": "parameter_rejected",
+    "classification_detail": "nonzero exit with matching error contract",
+    "command": [
+      "/tmp/matrix-p2-clean-tests-08eqjpjz/cache/build/9369fe5280c4cc89ee83966cb529c36bb91ca5fdb6abd0c86c68190332d36034/candidate",
+      "--block-size",
+      "0",
+      "--seed",
+      "20261008",
+      "--input",
+      "random",
+      "--reference",
+      "/tmp/matrix-p2-clean-tests-08eqjpjz/cache/reference/7a2456f615bced580fce54fa373af6af29e5a6c9dc7015584a64a9c1d044077e/reference.bin"
+    ],
+    "name": "block_zero",
+    "parsed": {
+      "error": "INVALID_ARGUMENT",
+      "schema": "matrix-multiplication-result-v1",
+      "status": "parameter_error"
+    },
+    "returncode": 64,
+    "score_seconds": null,
+    "stderr": "",
+    "stdout": "{\"schema\":\"matrix-multiplication-result-v1\",\"status\":\"parameter_error\",\"error\":\"INVALID_ARGUMENT\"}\n"
+  },
+  {
+    "classification": "parameter_rejected",
+    "classification_detail": "nonzero exit with matching error contract",
+    "command": [
+      "/tmp/matrix-p2-clean-tests-08eqjpjz/cache/build/9369fe5280c4cc89ee83966cb529c36bb91ca5fdb6abd0c86c68190332d36034/candidate",
+      "--block-size",
+      "130",
+      "--seed",
+      "20261008",
+      "--input",
+      "random",
+      "--reference",
+      "/tmp/matrix-p2-clean-tests-08eqjpjz/cache/reference/7a2456f615bced580fce54fa373af6af29e5a6c9dc7015584a64a9c1d044077e/reference.bin"
+    ],
+    "name": "block_above_n",
+    "parsed": {
+      "error": "INVALID_ARGUMENT",
+      "schema": "matrix-multiplication-result-v1",
+      "status": "parameter_error"
+    },
+    "returncode": 64,
+    "score_seconds": null,
+    "stderr": "",
+    "stdout": "{\"schema\":\"matrix-multiplication-result-v1\",\"status\":\"parameter_error\",\"error\":\"INVALID_ARGUMENT\"}\n"
+  },
+  {
+    "classification": "parameter_rejected",
+    "classification_detail": "nonzero exit with matching error contract",
+    "command": [
+      "/tmp/matrix-p2-clean-tests-08eqjpjz/cache/build/9369fe5280c4cc89ee83966cb529c36bb91ca5fdb6abd0c86c68190332d36034/candidate",
+      "--block-size",
+      "24junk",
+      "--seed",
+      "20261008",
+      "--input",
+      "random",
+      "--reference",
+      "/tmp/matrix-p2-clean-tests-08eqjpjz/cache/reference/7a2456f615bced580fce54fa373af6af29e5a6c9dc7015584a64a9c1d044077e/reference.bin"
+    ],
+    "name": "block_trailing_text",
+    "parsed": {
+      "error": "INVALID_ARGUMENT",
+      "schema": "matrix-multiplication-result-v1",
+      "status": "parameter_error"
+    },
+    "returncode": 64,
+    "score_seconds": null,
+    "stderr": "",
+    "stdout": "{\"schema\":\"matrix-multiplication-result-v1\",\"status\":\"parameter_error\",\"error\":\"INVALID_ARGUMENT\"}\n"
+  },
+  {
+    "classification": "parameter_rejected",
+    "classification_detail": "nonzero exit with matching error contract",
+    "command": [
+      "/tmp/matrix-p2-clean-tests-08eqjpjz/cache/build/9369fe5280c4cc89ee83966cb529c36bb91ca5fdb6abd0c86c68190332d36034/candidate",
+      "--block-size",
+      "24",
+      "--seed",
+      "-1",
+      "--input",
+      "random",
+      "--reference",
+      "/tmp/matrix-p2-clean-tests-08eqjpjz/cache/reference/7a2456f615bced580fce54fa373af6af29e5a6c9dc7015584a64a9c1d044077e/reference.bin"
+    ],
+    "name": "negative_seed",
+    "parsed": {
+      "error": "INVALID_ARGUMENT",
+      "schema": "matrix-multiplication-result-v1",
+      "status": "parameter_error"
+    },
+    "returncode": 64,
+    "score_seconds": null,
+    "stderr": "",
+    "stdout": "{\"schema\":\"matrix-multiplication-result-v1\",\"status\":\"parameter_error\",\"error\":\"INVALID_ARGUMENT\"}\n"
+  },
+  {
+    "classification": "parameter_rejected",
+    "classification_detail": "nonzero exit with matching error contract",
+    "command": [
+      "/tmp/matrix-p2-clean-tests-08eqjpjz/cache/build/9369fe5280c4cc89ee83966cb529c36bb91ca5fdb6abd0c86c68190332d36034/candidate",
+      "--block-size",
+      "24",
+      "--seed",
+      "20261008",
+      "--input",
+      "random"
+    ],
+    "name": "missing_argument",
+    "parsed": {
+      "error": "INVALID_ARGUMENT",
+      "schema": "matrix-multiplication-result-v1",
+      "status": "parameter_error"
+    },
+    "returncode": 64,
+    "score_seconds": null,
+    "stderr": "",
+    "stdout": "{\"schema\":\"matrix-multiplication-result-v1\",\"status\":\"parameter_error\",\"error\":\"INVALID_ARGUMENT\"}\n"
+  },
+  {
+    "classification": "parameter_rejected",
+    "classification_detail": "nonzero exit with matching error contract",
+    "command": [
+      "/tmp/matrix-p2-clean-tests-08eqjpjz/cache/build/9369fe5280c4cc89ee83966cb529c36bb91ca5fdb6abd0c86c68190332d36034/candidate",
+      "--block-size",
+      "24",
+      "--seed",
+      "20261008",
+      "--input",
+      "random",
+      "--reference",
+      "/tmp/matrix-p2-clean-tests-08eqjpjz/cache/reference/7a2456f615bced580fce54fa373af6af29e5a6c9dc7015584a64a9c1d044077e/reference.bin",
+      "--unknown",
+      "value"
+    ],
+    "name": "extra_argument",
+    "parsed": {
+      "error": "INVALID_ARGUMENT",
+      "schema": "matrix-multiplication-result-v1",
+      "status": "parameter_error"
+    },
+    "returncode": 64,
+    "score_seconds": null,
+    "stderr": "",
+    "stdout": "{\"schema\":\"matrix-multiplication-result-v1\",\"status\":\"parameter_error\",\"error\":\"INVALID_ARGUMENT\"}\n"
+  }
+]

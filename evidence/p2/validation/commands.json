@@ -1,0 +1,97 @@
+[
+  {
+    "command": [
+      "/usr/bin/python3",
+      "-m",
+      "autotuner",
+      "--help"
+    ],
+    "cwd": "/var/tmp/matrix-autotuner-p2-content-3f507621165db86ed2a41983a3d4f81e75acf8a7",
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "usage: __main__.py [-h] [--target TARGET] [--space SPACE]\n                   [--evidence-root EVIDENCE_ROOT]\n                   {list-configs,build,reference,evaluate,grid} ...\n\nMatrix multiplication P1 runner\n\npositional arguments:\n  {list-configs,build,reference,evaluate,grid}\n    grid                Run or resume the formal 20-configuration Grid session\n\noptions:\n  -h, --help            show this help message and exit\n  --target TARGET\n  --space SPACE\n  --evidence-root EVIDENCE_ROOT\n"
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "-m",
+      "autotuner",
+      "list-configs"
+    ],
+    "cwd": "/var/tmp/matrix-autotuner-p2-content-3f507621165db86ed2a41983a3d4f81e75acf8a7",
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "[\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 8\n  },\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 16\n  },\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 24\n  },\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 64\n  },\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 128\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 8\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 16\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 24\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 64\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 128\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 8\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 16\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 24\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 64\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 128\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 8\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 16\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 24\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 64\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 128\n  }\n]\n"
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v"
+    ],
+    "cwd": "/var/tmp/matrix-autotuner-p2-content-3f507621165db86ed2a41983a3d4f81e75acf8a7",
+    "returncode": 0,
+    "stderr": "test_actual_gcc_failure_is_classified_without_score (test_runner.BuildCacheTests.test_actual_gcc_failure_is_classified_without_score) ... ok\ntest_build_key_covers_size_optimization_and_fault_mode (test_runner.BuildCacheTests.test_build_key_covers_size_optimization_and_fault_mode) ... ok\ntest_performance_cache_requires_explicit_reuse (test_runner.BuildCacheTests.test_performance_cache_requires_explicit_reuse) ... ok\ntest_reference_request_rejects_seed_above_uint64 (test_runner.BuildCacheTests.test_reference_request_rejects_seed_above_uint64) ... ok\ntest_crash_timeout_and_parse_failure_are_distinct (test_runner.ClassificationTests.test_crash_timeout_and_parse_failure_are_distinct) ... ok\ntest_error_classification_requires_schema (test_runner.ClassificationTests.test_error_classification_requires_schema) ... ok\ntest_nonfinite_success_cannot_score (test_runner.ClassificationTests.test_nonfinite_success_cannot_score) ... ok\ntest_parameter_rejection_requires_contract (test_runner.ClassificationTests.test_parameter_rejection_requires_contract) ... ok\ntest_request_identity_and_tolerance_are_required (test_runner.ClassificationTests.test_request_identity_and_tolerance_are_required) ... ok\ntest_success (test_runner.ClassificationTests.test_success) ... ok\ntest_success_json_with_nonzero_exit_is_never_success (test_runner.ClassificationTests.test_success_json_with_nonzero_exit_is_never_success) ... ok\ntest_validation_failure (test_runner.ClassificationTests.test_validation_failure) ... ok\ntest_external_space_has_twenty_unique_configs_in_canonical_order (test_runner.ConfigSpaceTests.test_external_space_has_twenty_unique_configs_in_canonical_order) ... ok\ntest_search_protocol_is_frozen_with_requested_budgets_and_seeds (test_runner.ConfigSpaceTests.test_search_protocol_is_frozen_with_requested_budgets_and_seeds) ... ok\ntest_actual_crash_has_no_score (test_runner.EvaluatorFailurePathTests.test_actual_crash_has_no_score) ... ok\ntest_actual_output_parse_failure_has_no_score (test_runner.EvaluatorFailurePathTests.test_actual_output_parse_failure_has_no_score) ... ok\ntest_actual_timeout_has_no_score (test_runner.EvaluatorFailurePathTests.test_actual_timeout_has_no_score) ... ok\ntest_compile_failure_has_no_score (test_runner.EvaluatorFailurePathTests.test_compile_failure_has_no_score) ... ok\ntest_evaluator_binds_success_output_to_request (test_runner.EvaluatorFailurePathTests.test_evaluator_binds_success_output_to_request) ... ok\ntest_evaluator_never_scores_success_json_on_exit_64_65 (test_runner.EvaluatorFailurePathTests.test_evaluator_never_scores_success_json_on_exit_64_65) ... ok\ntest_rejects_duplicate_key (test_runner.StrictJsonTests.test_rejects_duplicate_key) ... ok\ntest_rejects_multiple_lines (test_runner.StrictJsonTests.test_rejects_multiple_lines) ... ok\ntest_rejects_nan_constant (test_runner.StrictJsonTests.test_rejects_nan_constant) ... ok\ntest_checkpoint_rejects_partial_and_cache_and_modified_raw_output (test_search_measurement.MeasurementTests.test_checkpoint_rejects_partial_and_cache_and_modified_raw_output) ... ok\ntest_complete_group_is_five_fresh_samples_after_warmup (test_search_measurement.MeasurementTests.test_complete_group_is_five_fresh_samples_after_warmup) ... ok\ntest_failure_never_scores_successful_subset (test_search_measurement.MeasurementTests.test_failure_never_scores_successful_subset) ... ok\ntest_formal_gate_is_not_inferred_from_exit_status (test_search_measurement.MeasurementTests.test_formal_gate_is_not_inferred_from_exit_status) ... ok\ntest_failed_observations_consume_budget_but_never_win (test_search_measurement.StrategyTests.test_failed_observations_consume_budget_but_never_win) ... ok\ntest_greedy_has_all_seven_single_parameter_neighbors (test_search_measurement.StrategyTests.test_greedy_has_all_seven_single_parameter_neighbors) ... ok\ntest_unique_budget_reproducibility_and_prefixes (test_search_measurement.StrategyTests.test_unique_budget_reproducibility_and_prefixes) ... ok\n\n----------------------------------------------------------------------\nRan 30 tests in 5.176s\n\nOK\n",
+    "stdout": ""
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "scripts/verify_p1.py"
+    ],
+    "cwd": "/var/tmp/matrix-autotuner-p2-content-3f507621165db86ed2a41983a3d4f81e75acf8a7",
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "p1_verification=PASS\noriginal_sha256=188d011109c4470e1f41829216e8677a5c2d8f2b7c8a44215652320dbdf6de15\ncore_sha256=d63f8bc9ff479c77508948ad51ae4254daf9e3f7483416df90a31b01cf9959f4\ncore_import=PASS cli_start=PASS unique_configs=20/20\nsmall_cases=160/160 faults=7/7 strict_cli=6/6\nmedium_optimization_levels=4/4 default_optimization_levels=4/4 repeats=5/5\n"
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "-m",
+      "autotuner",
+      "--target",
+      "/tmp/matrix-p2-clean-tests-08eqjpjz/target.json",
+      "--evidence-root",
+      "/mnt/e/software_system/project01/evidence/p2/validation/cli_n17",
+      "evaluate",
+      "--size",
+      "17",
+      "--optimization",
+      "O2",
+      "--block-size",
+      "8",
+      "--seed",
+      "20261008",
+      "--input",
+      "random",
+      "--timeout",
+      "30",
+      "--label",
+      "clean_cli_n17"
+    ],
+    "cwd": "/var/tmp/matrix-autotuner-p2-content-3f507621165db86ed2a41983a3d4f81e75acf8a7",
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "{\"binary_sha256\": \"0a106153f96f48d5e1fe955caa6b112cc0cecfd9ce80bf52c079bced04ac274e\", \"build_key\": \"7da572fcbae2a54031b473dd6ca87f03545d233551cefaecca2334965392df2b\", \"build_lookup_seconds\": 0.7376506479999989, \"classification\": \"success\", \"classification_detail\": \"validated result\", \"command\": [\"/tmp/matrix-p2-clean-tests-08eqjpjz/cache/build/7da572fcbae2a54031b473dd6ca87f03545d233551cefaecca2334965392df2b/candidate\", \"--block-size\", \"8\", \"--seed\", \"20261008\", \"--input\", \"random\", \"--reference\", \"/tmp/matrix-p2-clean-tests-08eqjpjz/cache/reference/4df5661ccf4bd211c46cb0ac687eb56cb6b31c0ed1110e065d757029ece05a03/reference.bin\"], \"config\": {\"block_size\": 8, \"optimization\": \"O2\"}, \"context\": {\"evidence_label\": \"clean_cli_n17\", \"fault_injection\": 0, \"force_remeasure\": true, \"input_pattern\": \"random\", \"matrix_n\": 17, \"min_wsl_available_bytes\": 0, \"protocol_hash\": \"p1-diagnostic-v1\", \"seed\": 20261008, \"timeout_seconds\": 30.0}, \"created_at\": \"2026-10-08T07:02:35.315505+00:00\", \"execution_total_seconds\": 1.6556891950000079, \"process_wall_seconds\": 0.01657459800000538, \"raw_resource\": \"\\tCommand being timed: \\\"/tmp/matrix-p2-clean-tests-08eqjpjz/cache/build/7da572fcbae2a54031b473dd6ca87f03545d233551cefaecca2334965392df2b/candidate --block-size 8 --seed 20261008 --input random --reference /tmp/matrix-p2-clean-tests-08eqjpjz/cache/reference/4df5661ccf4bd211c46cb0ac687eb56cb6b31c0ed1110e065d757029ece05a03/reference.bin\\\"\\n\\tUser time (seconds): 0.00\\n\\tSystem time (seconds): 0.00\\n\\tPercent of CPU this job got: 0%\\n\\tElapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00\\n\\tAverage shared text size (kbytes): 0\\n\\tAverage unshared data size (kbytes): 0\\n\\tAverage stack size (kbytes): 0\\n\\tAverage total size (kbytes): 0\\n\\tMaximum resident set size (kbytes): 1632\\n\\tAverage resident set size (kbytes): 0\\n\\tMajor (requiring I/O) page faults: 0\\n\\tMinor (reclaiming a frame) page faults: 79\\n\\tVoluntary context switches: 0\\n\\tInvoluntary context switches: 0\\n\\tSwaps: 0\\n\\tFile system inputs: 0\\n\\tFile system outputs: 0\\n\\tSocket messages sent: 0\\n\\tSocket messages received: 0\\n\\tSignals delivered: 0\\n\\tPage size (bytes): 4096\\n\\tExit status: 0\\n\", \"raw_stderr\": \"\", \"raw_stdout\": \"{\\\"schema\\\":\\\"matrix-multiplication-result-v1\\\",\\\"status\\\":\\\"ok\\\",\\\"n\\\":17,\\\"block_size\\\":8,\\\"seed\\\":20261008,\\\"input\\\":\\\"random\\\",\\\"input_generator\\\":\\\"splitmix64-interleaved-v1\\\",\\\"elapsed_seconds\\\":6.50200000000000059727e-06,\\\"checksum\\\":1172.32695643899505189,\\\"reference_checksum\\\":1172.32695643899505322,\\\"max_abs_error\\\":1.77635683940025046468e-15,\\\"max_rel_error\\\":4.25247709224218562151e-16,\\\"validation_seconds\\\":6.5538000000000008e-05,\\\"abs_tol\\\":1.0e-12,\\\"rel_tol\\\":1.0e-12,\\\"checked_entries\\\":289,\\\"mismatch_count\\\":0,\\\"nonfinite_result_count\\\":0,\\\"nonfinite_reference_count\\\":0,\\\"nonfinite_error_count\\\":0,\\\"finite_elapsed\\\":true,\\\"finite_checksum\\\":true,\\\"finite_reference_checksum\\\":true,\\\"finite_error_summary\\\":true,\\\"validation\\\":true,\\\"fault_injection\\\":0}\\n\", \"reference_key\": \"4df5661ccf4bd211c46cb0ac687eb56cb6b31c0ed1110e065d757029ece05a03\", \"reference_lookup_seconds\": 0.8831423640000082, \"reference_sha256\": \"bef224d918b15d68313019db1a0b77b1838ceefb60ed56f9a6e55565d5d01ac4\", \"resource_after\": {\"captured_at\": \"2026-10-08T07:02:35.298650+00:00\", \"cpus_allowed_list\": \"0-31\", \"loadavg\": \"2.57 1.40 0.56 4/793 1928\", \"mem_available_bytes\": 4893937664, \"mem_total_bytes\": 7908261888, \"memory_pressure\": \"some avg10=0.00 avg60=0.00 avg300=0.00 total=0\\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\", \"root_disk_free_bytes\": 225535385600, \"swap_free_bytes\": 2147483648, \"swap_total_bytes\": 2147483648, \"vmstat\": {\"pgmajfault\": 6802, \"pswpin\": 0, \"pswpout\": 0}}, \"resource_before\": {\"captured_at\": \"2026-10-08T07:02:35.281185+00:00\", \"cpus_allowed_list\": \"0-31\", \"loadavg\": \"2.57 1.40 0.56 4/793 1925\", \"mem_available_bytes\": 4893896704, \"mem_total_bytes\": 7908261888, \"memory_pressure\": \"some avg10=0.00 avg60=0.00 avg300=0.00 total=0\\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\", \"root_disk_free_bytes\": 225535385600, \"swap_free_bytes\": 2147483648, \"swap_total_bytes\": 2147483648, \"vmstat\": {\"pgmajfault\": 6802, \"pswpin\": 0, \"pswpout\": 0}}, \"resource_samples\": [{\"captured_at\": \"2026-10-08T07:02:35.282918+00:00\", \"cpus_allowed_list\": \"0-31\", \"loadavg\": \"2.57 1.40 0.56 5/795 1927\", \"mem_available_bytes\": 4893896704, \"mem_total_bytes\": 7908261888, \"memory_pressure\": \"some avg10=0.00 avg60=0.00 avg300=0.00 total=0\\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\", \"root_disk_free_bytes\": 225535385600, \"swap_free_bytes\": 2147483648, \"swap_total_bytes\": 2147483648, \"vmstat\": {\"pgmajfault\": 6802, \"pswpin\": 0, \"pswpout\": 0}}], \"returncode\": 0, \"run_directory\": \"/mnt/e/software_system/project01/evidence/p2/validation/cli_n17/runs/clean_cli_n17_7afac76a2698484aa6f6ad438533969b\", \"run_id\": \"7afac76a2698484aa6f6ad438533969b\", \"schema\": \"matrix-autotuner-evaluation-v1\", \"score_seconds\": 6.502000000000001e-06, \"signal\": null, \"source\": \"fresh_measurement\", \"stderr_sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\", \"stdout_sha256\": \"94179a344f561fc05d671d20f7d6c2964a5288546fe6b7ced8b006bb9573614e\", \"target_result\": {\"abs_tol\": 1e-12, \"block_size\": 8, \"checked_entries\": 289, \"checksum\": 1172.326956438995, \"elapsed_seconds\": 6.502000000000001e-06, \"fault_injection\": 0, \"finite_checksum\": true, \"finite_elapsed\": true, \"finite_error_summary\": true, \"finite_reference_checksum\": true, \"input\": \"random\", \"input_generator\": \"splitmix64-interleaved-v1\", \"max_abs_error\": 1.7763568394002505e-15, \"max_rel_error\": 4.252477092242186e-16, \"mismatch_count\": 0, \"n\": 17, \"nonfinite_error_count\": 0, \"nonfinite_reference_count\": 0, \"nonfinite_result_count\": 0, \"reference_checksum\": 1172.326956438995, \"rel_tol\": 1e-12, \"schema\": \"matrix-multiplication-result-v1\", \"seed\": 20261008, \"status\": \"ok\", \"validation\": true, \"validation_seconds\": 6.553800000000001e-05}, \"timed_command\": [\"/usr/bin/time\", \"-v\", \"-o\", \"/mnt/e/software_system/project01/evidence/p2/validation/cli_n17/runs/clean_cli_n17_7afac76a2698484aa6f6ad438533969b/resource.txt\", \"/tmp/matrix-p2-clean-tests-08eqjpjz/cache/build/7da572fcbae2a54031b473dd6ca87f03545d233551cefaecca2334965392df2b/candidate\", \"--block-size\", \"8\", \"--seed\", \"20261008\", \"--input\", \"random\", \"--reference\", \"/tmp/matrix-p2-clean-tests-08eqjpjz/cache/reference/4df5661ccf4bd211c46cb0ac687eb56cb6b31c0ed1110e065d757029ece05a03/reference.bin\"], \"timed_out\": false}\n"
+  },
+  {
+    "command": [
+      "/usr/bin/python3",
+      "scripts/run_p1_correctness.py",
+      "--target",
+      "/tmp/matrix-p2-clean-tests-08eqjpjz/target.json",
+      "--output-directory",
+      "/mnt/e/software_system/project01/evidence/p2/validation/correctness",
+      "--runtime-evidence-root",
+      "/mnt/e/software_system/project01/evidence/p2/validation/runtime"
+    ],
+    "cwd": "/var/tmp/matrix-autotuner-p2-content-3f507621165db86ed2a41983a3d4f81e75acf8a7",
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "{\"abs_tolerance\": 1e-12, \"config_count\": 20, \"fault_case_count\": 7, \"fault_rejection_count\": 7, \"group_count\": 8, \"input_patterns\": [\"random\", \"zero\", \"identity\"], \"matrix_sizes\": [129, 130], \"random_seeds\": [20261008, 20261009], \"rel_tolerance\": 1e-12, \"schema\": \"p1-correctness-summary-v1\", \"small_case_count\": 160, \"small_success_count\": 160, \"status\": \"PASS\", \"strict_cli_case_count\": 6, \"strict_cli_rejection_count\": 6}\n"
+  }
+]
