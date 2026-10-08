@@ -98,6 +98,14 @@ def run_grid(root: Path, output: Path, content_sha: str, git_identity_path: Path
         "session_id": uuid.uuid4().hex, "status": "created", "completed": [], "active": None,
         "abandoned_attempts": [], "wait_seconds": 0.0, "active_total_seconds": 0.0,
     }
+    preflight_identity = {"content_commit": content_sha, "files": files,
+                          "protocol_hash": protocol_hash,
+                          "target_config_hash": sha256_json(target_config),
+                          "compiler_version": target._compiler_version,
+                          "compiler_sha256": sha256_file(target.compiler)}
+    if resume and checkpoint.get("preflight_identity") != preflight_identity:
+        raise ValueError("resume preflight identity differs from checkpoint")
+    checkpoint["preflight_identity"] = preflight_identity
     if not resume and checkpoint_path.exists():
         raise ValueError("session exists; use --resume or a new directory")
     started = time.monotonic()
@@ -111,8 +119,12 @@ def run_grid(root: Path, output: Path, content_sha: str, git_identity_path: Path
     def gate(config: Config, purpose: str) -> bool:
         gate_started = time.monotonic()
         for retry in range(16):
-            completed = subprocess.run([*host_command, "-Mode", "Formal"], text=True,
-                                       capture_output=True, check=False, timeout=60)
+            try:
+                completed = subprocess.run([*host_command, "-Mode", "Formal"], text=True,
+                                           capture_output=True, check=False, timeout=60)
+            except subprocess.TimeoutExpired:
+                completed = subprocess.CompletedProcess([*host_command, "-Mode", "Formal"],
+                                                         124, "", "resource collection timeout")
             try:
                 parsed = json.loads(completed.stdout.lstrip("\ufeff"))
             except ValueError:
@@ -165,7 +177,7 @@ def run_grid(root: Path, output: Path, content_sha: str, git_identity_path: Path
                    "compiler_sha256": sha256_file(target.compiler), "binary_hashes": binaries,
                    "reference_key": reference.reference_key, "reference_sha256": reference.data_sha256,
                    "search_protocol_hash": sha256_json(json.loads((root / "configs/search_protocol.json").read_text()))}
-    if resume:
+    if resume and "fingerprint" in checkpoint:
         if checkpoint["fingerprint"] != fingerprint:
             raise ValueError("resume identity differs: commit/source/compiler/input/reference/protocol")
         for group in checkpoint["completed"]:

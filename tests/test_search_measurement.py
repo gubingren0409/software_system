@@ -4,6 +4,7 @@ import copy
 import json
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 from autotuner.core import Config, ConfigSpace, sha256_json
@@ -123,6 +124,26 @@ class MeasurementTests(unittest.TestCase):
                              ("mode", "Snapshot"), ("host_cpu_maximum_percent", 21)):
             altered = dict(valid, **{field: value})
             self.assertFalse(valid_formal_gate(altered, protocol))
+
+    def test_resource_blocked_checkpoint_has_identity_before_setup_and_resumes(self):
+        import subprocess
+        from autotuner.session import run_grid
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            identity = root / "identity.json"
+            identity.write_text(json.dumps({"content_sha": "test", "files": {}}))
+            output = root / "session"
+            target = type("Target", (), {"compiler": Path("/usr/bin/gcc"),
+                                         "_compiler_version": "test compiler"})()
+            fake = subprocess.CompletedProcess([], 0, "{}", "")
+            with patch("autotuner.session.TargetAdapter.load", return_value=target), \
+                 patch("autotuner.session.subprocess.run", return_value=fake), \
+                 patch("autotuner.session.time.sleep"), patch("builtins.print"):
+                self.assertEqual(run_grid(ROOT, output, "test", identity), 2)
+                checkpoint = json.loads((output / "checkpoint.json").read_text())
+                self.assertIn("preflight_identity", checkpoint)
+                self.assertNotIn("fingerprint", checkpoint)
+                self.assertEqual(run_grid(ROOT, output, "test", identity, resume=True), 2)
 
 
 if __name__ == "__main__":
