@@ -24,7 +24,8 @@ $identity = [ordered]@{content_sha=$ContentSha; files=$files}
 $identityPath = Join-Path $destination 'git_identity.json'
 [IO.File]::WriteAllText($identityPath, ($identity | ConvertTo-Json -Depth 5) + [Environment]::NewLine, [Text.UTF8Encoding]::new($false))
 $executionRoot = '/var/tmp/matrix-autotuner-p2-content-' + $ContentSha
-$archiveWsl = (wsl.exe -d Ubuntu-24.04 -- wslpath -u $archive).Trim()
+$archiveNormalized = $archive.Replace('\', '/')
+$archiveWsl = (wsl.exe -d Ubuntu-24.04 -- wslpath -u $archiveNormalized).Trim()
 wsl.exe -d Ubuntu-24.04 -- mkdir -p $executionRoot
 wsl.exe -d Ubuntu-24.04 -- tar -xf $archiveWsl -C $executionRoot
 if ($LASTEXITCODE -ne 0) { throw 'content extraction failed' }
