@@ -64,6 +64,10 @@
 
 ## Git 完成记录
 
-提交、推送和远程 SHA 核验在本文后续提交动作之后执行。为避免“文档包含自身提交
-SHA”造成循环，固定 SHA 只在最终终端交接消息中给出；远程核验原始输出写入
-`evidence/p0/remote_verification.txt` 后随最终 P0 提交一起推送。
+主内容提交 `a62a33c56851e319bb19a8a10ae67ac64106a2c0` 已推送至 GitHub
+`project01`，`ls-remote`、显式 fetch 后的跟踪引用与本地 HEAD 三者一致。第一次
+复核 fetch 遗漏了单命令 proxy 覆盖，仍访问失效的 7897 并失败；使用 10808 的
+同一只读命令重试成功。原始结果见 `evidence/p0/remote_verification.txt`。
+
+加入该远程记录后会产生最后一个文档提交。为避免“文档包含自身 SHA”造成循环，
+最终固定 SHA 及其远程一致性只在终端交接消息中给出。

@@ -1,0 +1,30 @@
+verified_at_local=2026-10-08T12:11:55.2317551+08:00
+repository=https://github.com/gubingren0409/software_system.git
+branch=project01
+verification_target=a62a33c56851e319bb19a8a10ae67ac64106a2c0
+
+command=git -c http.proxy=http://127.0.0.1:10808 -c https.proxy=http://127.0.0.1:10808 push --set-upstream github project01
+result=[new branch] project01 -> project01
+exit_code=0
+
+command=git fetch github project01
+result=fatal: failed to connect to stale configured proxy 127.0.0.1:7897
+exit_code=128
+fix=retry the same fetch with per-command proxy 127.0.0.1:10808; do not alter global configuration
+
+command=git -c http.proxy=http://127.0.0.1:10808 -c https.proxy=http://127.0.0.1:10808 fetch github project01
+result=branch project01 -> FETCH_HEAD
+exit_code=0
+
+command=git -c http.proxy=http://127.0.0.1:10808 -c https.proxy=http://127.0.0.1:10808 ls-remote --heads github project01
+result=a62a33c56851e319bb19a8a10ae67ac64106a2c0 refs/heads/project01
+exit_code=0
+
+local_head=a62a33c56851e319bb19a8a10ae67ac64106a2c0
+tracking_head=a62a33c56851e319bb19a8a10ae67ac64106a2c0
+remote_head=a62a33c56851e319bb19a8a10ae67ac64106a2c0
+all_match=true
+
+This record verifies the main P0 content commit. The later documentation commit
+that adds this record cannot contain its own SHA without a self-reference loop;
+its final remote equality check is reported in the terminal handoff.
