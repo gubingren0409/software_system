@@ -1,0 +1,108 @@
+{
+  "captured_at": "2026-10-08T11:18:40.687593+00:00",
+  "collector_sha256": "d248483d2f7626b9fcd072b9e641bcbd086c992fc56c03126410fb92ed47498c",
+  "commands": [
+    {
+      "captured_at": "2026-10-08T11:18:37.672533+00:00",
+      "command": [
+        "/usr/bin/python3",
+        "--version"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "Python 3.12.3\n"
+    },
+    {
+      "captured_at": "2026-10-08T11:18:37.675587+00:00",
+      "command": [
+        "/usr/bin/gcc",
+        "--version"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n"
+    },
+    {
+      "captured_at": "2026-10-08T11:18:37.681051+00:00",
+      "command": [
+        "git",
+        "--version"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "git version 2.43.0\n"
+    },
+    {
+      "captured_at": "2026-10-08T11:18:37.684468+00:00",
+      "command": [
+        "uname",
+        "-a"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "Linux localhost 6.18.40.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Fri Jul 31 22:12:15 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux\n"
+    },
+    {
+      "captured_at": "2026-10-08T11:18:37.688829+00:00",
+      "command": [
+        "cat",
+        "/etc/os-release"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "PRETTY_NAME=\"Ubuntu 24.04 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n"
+    },
+    {
+      "captured_at": "2026-10-08T11:18:37.692531+00:00",
+      "command": [
+        "cat",
+        "/proc/meminfo"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "MemTotal:        7722912 kB\nMemFree:         3902108 kB\nMemAvailable:    4383332 kB\nBuffers:           12320 kB\nCached:           736660 kB\nSwapCached:            0 kB\nActive:           258308 kB\nInactive:        1495008 kB\nActive(anon):       3260 kB\nInactive(anon):  1150696 kB\nActive(file):     255048 kB\nInactive(file):   344312 kB\nUnevictable:     1121452 kB\nMlocked:         1121452 kB\nSwapTotal:       2097152 kB\nSwapFree:        2097152 kB\nDirty:               156 kB\nWriteback:             0 kB\nAnonPages:       2125980 kB\nMapped:           542824 kB\nShmem:              4912 kB\nKReclaimable:      40860 kB\nSlab:             273768 kB\nSReclaimable:      40860 kB\nSUnreclaim:       232908 kB\nKernelStack:       13516 kB\nPageTables:        16780 kB\nSecPageTables:         0 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:     5958608 kB\nCommitted_AS:    5921976 kB\nVmallocTotal:   34359738367 kB\nVmallocUsed:      240916 kB\nVmallocChunk:          0 kB\nPercpu:            17152 kB\nHardwareCorrupted:     0 kB\nAnonHugePages:         0 kB\nShmemHugePages:        0 kB\nShmemPmdMapped:        0 kB\nFileHugePages:    116736 kB\nFilePmdMapped:         0 kB\nBalloon:               0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\nDirectMap4k:       97280 kB\nDirectMap2M:     5781504 kB\nDirectMap1G:    10485760 kB\n"
+    },
+    {
+      "captured_at": "2026-10-08T11:18:37.695592+00:00",
+      "command": [
+        "ps",
+        "-eo",
+        "pid,etimes,rss,comm",
+        "--sort=-rss"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "    PID ELAPSED   RSS COMMAND\n   1817     522 1352540 java\n   2721     261 394700 candidate\n   1302     525 195396 mongod\n   1700     524 122216 python3\n   1522     525 111484 java\n    362     533 87536 dockerd\n   2337     490 71908 python3\n    294     533 54160 containerd\n    306     533 23176 unattended-upgr\n    745     527 22832 python3\n   1295     525 21708 redis-server\n   2971       0 21244 python3\n     58     536 16052 systemd-journal\n      1     539 13452 systemd\n    280     533 13392 wsl-pro-service\n    244     534 13044 systemd-resolve\n    790     527 11624 systemd\n   1222     526 11004 containerd-shim\n   1143     526 10960 containerd-shim\n   1093     526 10948 containerd-shim\n   1193     526 10932 containerd-shim\n   1178     526 10888 containerd-shim\n   2210     491 10880 containerd-shim\n    824     526  9024 bash\n   1877     519  8936 controller\n    276     533  8880 systemd-logind\n    245     534  8116 systemd-timesyn\n   1655     525  7280 nginx\n    104     536  6996 systemd-udevd\n    293     533  5820 rsyslogd\n    265     534  5620 dbus-daemon\n   1452     525  5076 docker-proxy\n   1552     525  5004 docker-proxy\n   2318     490  4988 docker-proxy\n    746     527  4792 login\n   2966       0  4524 (udev-worker)\n   2968       0  4524 (udev-worker)\n   2969       0  4524 (udev-worker)\n   2970       0  4524 (udev-worker)\n   2978       0  4188 ps\n    793     527  3636 (sd-pam)\n   1264     525  3292 bash\n   1254     525  3280 bash\n   2233     491  3212 bash\n    264     534  2876 cron\n   1657     524  2868 nginx\n   1658     524  2868 nginx\n   1659     524  2868 nginx\n   1660     524  2868 nginx\n   1661     524  2868 nginx\n   1662     524  2868 nginx\n   1663     524  2868 nginx\n   1664     524  2868 nginx\n   1665     524  2868 nginx\n   1666     524  2868 nginx\n   1667     524  2868 nginx\n   1668     524  2868 nginx\n   1669     524  2868 nginx\n   1670     524  2868 nginx\n   1671     524  2868 nginx\n   1672     524  2868 nginx\n   1673     524  2868 nginx\n   1674     524  2868 nginx\n   1675     524  2868 nginx\n   1676     524  2868 nginx\n   1677     524  2868 nginx\n   1678     524  2868 nginx\n   1679     524  2868 nginx\n   1680     524  2868 nginx\n   1681     524  2868 nginx\n   1682     524  2868 nginx\n   1683     524  2868 nginx\n   1684     524  2868 nginx\n   1685     524  2868 nginx\n   1686     524  2868 nginx\n   1687     524  2868 nginx\n   1688     524  2868 nginx\n      9     537  2416 init\n      2     538  2336 init-systemd(Ub\n      3     538  2100 init-watcher\n    300     533  2028 agetty\n   2718     261  1624 time\n    744     527  1508 Relay(745)\n   1287     525  1436 tini\n   2967       0  1372 Relay(2971)\n   2965       0  1320 SessionLeader\n    741     527  1312 SessionLeader\n"
+    },
+    {
+      "captured_at": "2026-10-08T11:18:37.724683+00:00",
+      "command": [
+        "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+        "-NoProfile",
+        "-Command",
+        "Add-Type -AssemblyName System.Windows.Forms; $power=[System.Windows.Forms.SystemInformation]::PowerStatus; $os=Get-CimInstance Win32_OperatingSystem; $vm=Get-Process VmmemWSL -ErrorAction SilentlyContinue; [pscustomobject]@{Timestamp=[DateTimeOffset]::Now.ToString('o'); TotalBytes=[int64]$os.TotalVisibleMemorySize*1KB; FreeBytes=[int64]$os.FreePhysicalMemory*1KB; WslWorkingSetBytes=$vm.WorkingSet64; WslPrivateBytes=$vm.PrivateMemorySize64; PowerShellVersion=$PSVersionTable.PSVersion.ToString(); PowerLineStatus=$power.PowerLineStatus.ToString(); BatteryChargeStatus=$power.BatteryChargeStatus.ToString(); BatteryLifePercent=$power.BatteryLifePercent} | ConvertTo-Json -Compress"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\"Timestamp\":\"2026-10-08T19:18:40.7732562+08:00\",\"TotalBytes\":16340406272,\"FreeBytes\":1816043520,\"WslWorkingSetBytes\":4273475584,\"WslPrivateBytes\":4350808064,\"PowerShellVersion\":\"5.1.26100.9444\",\"PowerLineStatus\":\"Online\",\"BatteryChargeStatus\":\"Low, Charging\",\"BatteryLifePercent\":0.29}\n"
+    }
+  ],
+  "other_applications_terminated": false,
+  "system_settings_modified": false,
+  "wsl_resource_snapshot": {
+    "captured_at": "2026-10-08T11:18:40.697304+00:00",
+    "cpus_allowed_list": "0-31",
+    "loadavg": "1.00 0.86 0.52 2/812 2995",
+    "mem_available_bytes": 4483469312,
+    "mem_total_bytes": 7908261888,
+    "memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+    "root_disk_free_bytes": 225327505408,
+    "swap_free_bytes": 2147483648,
+    "swap_total_bytes": 2147483648,
+    "vmstat": {
+      "pgmajfault": 15034,
+      "pswpin": 0,
+      "pswpout": 0
+    }
+  }
+}

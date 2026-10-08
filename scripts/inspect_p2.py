@@ -17,11 +17,16 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     powershell = "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
-    host = "$os=Get-CimInstance Win32_OperatingSystem; $vm=Get-Process VmmemWSL -ErrorAction SilentlyContinue; " \
+    host = "Add-Type -AssemblyName System.Windows.Forms; " \
+           "$power=[System.Windows.Forms.SystemInformation]::PowerStatus; " \
+           "$os=Get-CimInstance Win32_OperatingSystem; $vm=Get-Process VmmemWSL -ErrorAction SilentlyContinue; " \
            "[pscustomobject]@{Timestamp=[DateTimeOffset]::Now.ToString('o'); " \
            "TotalBytes=[int64]$os.TotalVisibleMemorySize*1KB; FreeBytes=[int64]$os.FreePhysicalMemory*1KB; " \
            "WslWorkingSetBytes=$vm.WorkingSet64; WslPrivateBytes=$vm.PrivateMemorySize64; " \
-           "PowerShellVersion=$PSVersionTable.PSVersion.ToString()} | ConvertTo-Json -Compress"
+           "PowerShellVersion=$PSVersionTable.PSVersion.ToString(); " \
+           "PowerLineStatus=$power.PowerLineStatus.ToString(); " \
+           "BatteryChargeStatus=$power.BatteryChargeStatus.ToString(); " \
+           "BatteryLifePercent=$power.BatteryLifePercent} | ConvertTo-Json -Compress"
     commands = [[sys.executable, "--version"], ["/usr/bin/gcc", "--version"], ["git", "--version"],
                 ["uname", "-a"], ["cat", "/etc/os-release"], ["cat", "/proc/meminfo"],
                 ["ps", "-eo", "pid,etimes,rss,comm", "--sort=-rss"],

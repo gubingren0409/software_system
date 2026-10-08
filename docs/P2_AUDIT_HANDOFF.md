@@ -48,8 +48,10 @@
 - `grid_summary.csv`：已完成配置行；完成全部 20 行后才能认为是完整 Grid 表。
 - `evidence_audit.json`：逐条原始记录与检查点交叉核验、成本与资源统计。
 
-`evidence/p2/grid-main/` 是旧内容提交的 setup 前暂停证据，没有默认规模测量，
-不是可续跑的正式 Grid。`evidence/p2/validation/` 是修复前内容版本的干净回归；
+`evidence/p2/grid-main/` 是旧内容提交的废弃 session。它生成了 reference 并启动过
+O0/s8，但运行器中断后候选写输出时收到 SIGPIPE；仅有 /usr/bin/time 记录，没有
+可计分的完整结果。该进程于15:16:31结束，当前 session 首次执行于15:26:17开始，
+两者没有重叠；旧数据不并入当前 Grid。`evidence/p2/validation/` 是修复前内容版本的干净回归；
 最终归档验证在 `validation-final/`。P0、P1、P1-R1 证据不覆盖、不追认为正式数据。
 
 ## 资源与续跑
@@ -65,3 +67,8 @@ WSL 内部可用内存与 Windows 可用物理内存不能互相替代。未更�
 若资源导致 Grid 尚未完成，剩余配置、独立复测及完整图表仍是必需工作，不宣称
 P2_READY。运行期间宿主内存压力、CPU 温度/boost/计数器未知等限制必须在报告保留，
 不能把无 swap 的 WSL 样本解读为宿主无压力。
+
+用户因电量不足暂停后，于19:08要求续跑。暂停提交为
+`76d37b50d47a27fd798f958f8303fbf2faaa87a3`；当前session的一行完整结果和三条部分
+样本均已保存。恢复时确认电源Online、正在充电。中断执行的精确成本无法恢复，
+另以 `interruption_record.json` 保留最后一次进程观测及成本下界。

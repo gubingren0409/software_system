@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from autotuner.core import ConfigSpace, atomic_write_json, sha256_json, sha256_text
+from autotuner.core import ConfigSpace, atomic_write_json, sha256_file, sha256_json, sha256_text, utc_now
 from autotuner.session import restore_complete_group, valid_formal_gate
 
 
@@ -55,6 +55,9 @@ def audit(session: Path) -> dict:
         for sample in retest["samples"]:
             assert sample == by_id[sample["run_id"]]
         assert retest["config"] == min(completed, key=lambda group: group["score_seconds"])["config"]
+    grid_ids = {sample["run_id"] for group in completed for sample in group["samples"]}
+    retest_ids = {sample["run_id"] for sample in retest["samples"]} if retest else set()
+    unscored_records = [record for record in records if record["run_id"] not in grid_ids | retest_ids]
     if (session / "grid_summary.csv").exists():
         table = list(csv.DictReader((session / "grid_summary.csv").open(newline="")))
         assert len(table) == len(completed)
@@ -68,12 +71,28 @@ def audit(session: Path) -> dict:
                   valid_formal_gate(item["parsed"], protocol)]
     for group in completed:
         assert any(item["config"] == group["config"] for item in grid_gates), "missing passed formal gate"
+    if retest:
+        assert any(item["purpose"] == "independent_retest" and item["config"] == retest["config"] and
+                   valid_formal_gate(item["parsed"], protocol) for item in gates), "missing retest gate"
     host_samples = [item for sample in resources for item in sample.get("host", {}).get("host_samples", [])]
-    vmstats = [sample["vmstat"] for sample in resources if "vmstat" in sample]
+    # The laptop/WSL restarted between attempts. System counters cannot be subtracted
+    # across boots; sum each recorded run's before/after differences instead.
+    vmstat_deltas = []
+    for record in records:
+        before = record["resource_before"]["vmstat"]
+        after = record["resource_after"]["vmstat"]
+        assert all(after[key] >= before[key] for key in ("pswpin", "pswpout", "pgmajfault")), \
+            "vmstat reset within a supposedly complete execution"
+        vmstat_deltas.append({key: after[key] - before[key] for key in before})
+    interruptions_path = session / "interruption_record.json"
+    interruption = json.loads(interruptions_path.read_text()) if interruptions_path.exists() else None
     minimum_host = min((sample["available_memory_bytes"] for sample in host_samples), default=None)
     minimum_wsl = min((sample["mem_available_bytes"] for sample in resources), default=None)
     complete = len(completed) == 20 and retest is not None and checkpoint["status"] == "complete"
     return {
+        "schema": "p2-evidence-audit-v2", "captured_at": utc_now(),
+        "auditor_sha256": sha256_file(Path(__file__)),
+        "command_argv": [sys.executable, *sys.argv],
         "evidence_audit": "PASS", "grid_complete": complete,
         "content_commit": fingerprint["content_commit"], "protocol_hash": fingerprint["protocol_hash"],
         "checkpoint_status": checkpoint["status"], "completed_count": len(completed),
@@ -81,6 +100,11 @@ def audit(session: Path) -> dict:
         "raw_execution_count": len(records),
         "grid_execution_count": sum(record["purpose"] == "grid" for record in records),
         "retest_execution_count": sum(record["purpose"] == "retest" for record in records),
+        "completed_grid_execution_count": len(grid_ids),
+        "completed_grid_measurement_count": sum(by_id[run_id]["role"] == "measurement" for run_id in grid_ids),
+        "completed_retest_execution_count": len(retest_ids),
+        "unscored_complete_execution_count": len(unscored_records),
+        "interrupted_execution_without_complete_result": interruption,
         "abandoned_attempts": checkpoint["abandoned_attempts"],
         "all_samples_are_fresh": all(record.get("source") == "fresh_measurement" for record in records),
         "process_peak_rss_kib": peak_rss_kib,
@@ -88,8 +112,18 @@ def audit(session: Path) -> dict:
         "runtime_wsl_minimum_available_bytes": minimum_wsl,
         "wsl_swap_peak_used_bytes": max((sample["swap_total_bytes"] - sample["swap_free_bytes"]
                                          for sample in resources), default=None),
-        "wsl_swap_in_delta_pages": vmstats[-1]["pswpin"] - vmstats[0]["pswpin"] if vmstats else None,
-        "wsl_swap_out_delta_pages": vmstats[-1]["pswpout"] - vmstats[0]["pswpout"] if vmstats else None,
+        "wsl_swap_in_delta_pages_during_recorded_runs": sum(item["pswpin"] for item in vmstat_deltas),
+        "wsl_swap_out_delta_pages_during_recorded_runs": sum(item["pswpout"] for item in vmstat_deltas),
+        "wsl_major_fault_delta_during_recorded_runs": sum(item["pgmajfault"] for item in vmstat_deltas),
+        "vmstat_scope": "system-wide deltas summed only within complete executions; excludes gaps and interrupted execution",
+        "runtime_host_samples_below_start_memory_gate": sum(sample["available_memory_bytes"] <
+            protocol["resource_gate"]["formal_host_minimum_available_bytes"] for sample in host_samples),
+        "runtime_host_maximum_commit_percent": max((sample["percent_committed_bytes_in_use"]
+                                                    for sample in host_samples), default=None),
+        "runtime_host_maximum_pages_per_second": max((sample["pages_per_second"]
+                                                      for sample in host_samples), default=None),
+        "runtime_host_maximum_page_reads_per_second": max((sample["page_reads_per_second"]
+                                                           for sample in host_samples), default=None),
         "formal_gate_check_count": len(gates),
         "formal_gate_pass_count": sum(valid_formal_gate(item["parsed"], protocol) for item in gates),
         "resource_sample_count": len(resources), "host_resource_sample_count": len(host_samples),
@@ -101,9 +135,15 @@ def audit(session: Path) -> dict:
             "all_target_process_wall": sum(record.get("process_wall_seconds", 0) for record in records),
             "all_core_compute": sum(record.get("target_result", {}).get("elapsed_seconds", 0) for record in records),
             "all_validation": sum(record.get("target_result", {}).get("validation_seconds", 0) for record in records),
+            "unscored_complete_process_wall": sum(record.get("process_wall_seconds", 0)
+                                                   for record in unscored_records),
+            "interrupted_process_wall_lower_bound": interruption["last_observed_process_elapsed_seconds"]
+                if interruption else 0,
             "per_run_build_lookup": sum(record.get("build_lookup_seconds", 0) for record in records),
             "per_run_reference_lookup": sum(record.get("reference_lookup_seconds", 0) for record in records),
         },
+        "cost_caveat": "checkpoint active wall excludes uncheckpointed time before shutdown; "
+                       "an interrupted execution has only an observed lower bound, not exact final cost",
         "unknown_metrics": ["CPU temperature", "reliable boost/throttling", "hardware performance counters"],
     }
 

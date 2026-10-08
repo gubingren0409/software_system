@@ -1,0 +1,28 @@
+{
+  "schema": "p2-interrupted-execution-observation-v1",
+  "content_commit": "0d3dd5242c728d8001dd02a4e332185459d04721",
+  "attempt_id": "2b7e1cedf6544165a24d0b5e9b75404a",
+  "run_id": "032596e6bb834574903045d122568304",
+  "config": {"optimization": "O0", "block_size": 16},
+  "sample_index": 3,
+  "role": "measurement",
+  "classification": "interrupted_no_complete_result",
+  "score_seconds": null,
+  "returncode": null,
+  "stdout": null,
+  "stderr": null,
+  "exact_process_wall_seconds": null,
+  "last_observed_at_local": "2026-10-08T16:49:39.3909834+08:00",
+  "last_observed_process_elapsed_seconds": 325,
+  "elapsed_evidence": "Read-only ps -eo pid,ppid,pgid,etimes,comm,args snapshot before pause; etimes is rounded to seconds, not an exact final duration.",
+  "wrapper_pid_at_observation": 5578,
+  "candidate_pid_at_observation": 5581,
+  "process_group_at_observation": 5578,
+  "command": [
+    "/var/tmp/matrix-autotuner-p2-10245102457/cache/build/b3dab30df53c16de7d7c5c2b3c835f4699a12b0b6fe15686296f20ed0b9caaf0/candidate",
+    "--block-size", "16", "--seed", "20261008", "--input", "random", "--reference",
+    "/var/tmp/matrix-autotuner-p2-10245102457/cache/reference/ff115cbc3105d0e71993227997ac69198235e27ae44541febe93a390d95ab513/reference.bin"
+  ],
+  "reason": "User requested pause for imminent laptop shutdown. On recovery no Grid or candidate process remained. No complete result was persisted for this execution.",
+  "resume_rule": "Keep all partial evidence; abandon the entire attempt and restart a new warmup plus five measurements. This observation is not a scored sample."
+}
