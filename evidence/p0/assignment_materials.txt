@@ -1,0 +1,90 @@
+collected_at_local=2026-10-08T12:04:27.0877908+08:00
+command=Get-FileHash -Algorithm SHA256 -LiteralPath <assignment-pdf>,<common-conventions>
+FFE21DB96AB0AF28FF2F329F6D0A03B61FAC577E530E8649C375CE13BF74EAFE  E:\software_system\P1\P1 Matrix Multiplication Autotuner.pdf
+F9BD0EA0953DAC7F2505D0EBFD7E2CCACA7B706047DE6EE513D6F5B9D53A3E6B  E:\software_system\软件系统优化实验报告公用约定.md
+command=pdfinfo <assignment-pdf>
+Title:           
+Subject:         
+Keywords:        
+Author:          Jianmei Guo
+Creator:         WPS 文字
+Producer:        
+CreationDate:    Mon Sep 28 15:57:50 2026 �й���׼ʱ��
+ModDate:         Mon Sep 28 15:57:50 2026 �й���׼ʱ��
+Custom Metadata: yes
+Metadata Stream: no
+Tagged:          no
+UserProperties:  no
+Suspects:        no
+Form:            none
+JavaScript:      no
+Pages:           1
+Encrypted:       no
+Page size:       595.3 x 841.9 pts (A4)
+Page rot:        0
+File size:       198183 bytes
+Optimized:       no
+PDF version:     1.7
+command=pdftotext -layout <assignment-pdf> -
+                               2026 年秋             《软件系统优化》课程材料
+
+
+
+
+     实践项目 P1：Matrix Multiplication Autotuner
+
+  布置时间：2026 年 9 月 30 日 9:50
+
+  提交时间：2026 年 10 月 28 日 24:00
+
+  助教：梁孝强 51285903104@stu.ecnu.edu.cn
+
+
+  设计和实现一个程序性能的自动调优器 Autotuner ，可以自动测试程序的可配置参
+数，并根据性能选择最优配置输出。要求：
+
+  1. Autotuner 的实现需要包括三个明确的接口实现：
+
+  (1) 输入的目标程序；
+
+  (2) 输入的配置参数值组合；
+
+  (3) 输入的参数值搜索算法。
+
+  请在报告中附上框架设计图，并说明所设计框架和实现的优劣。
+
+  推荐参考 OpenTuner ( https://github.com/jansel/opentuner )，也可以自行思考实现。
+
+  2. 输入的目标程序为 Matrix Multiplication，源代码见附件。
+
+  3. 输入的配置参数值组合包括如下：
+
+  (1) 循环分块大小：测试循环分块大小 s 为 8, 16, 24, 64, 128 五种情况。
+
+  (2) 编译优化级别：测试 O0, O1, O2, O3 四种级别。
+
+  4. 实现三种参数值搜索算法：
+
+  (1) Grid Search 算法，遍历上述所有配置参数值的组合，对实验结果进行详细分析，并
+尝试解释不同组合的性能差异产生的原因；
+
+  (2) 自行设计和实现另外两种算法，如：随机搜索、贪心算法、模拟退火等，根据实验
+过程和结果，比较和说明三种算法的优劣。
+
+
+
+项目提交要求：
+
+  1. 请提交源代码文件或文件夹，在报告中对代码的重点部分进行说明。
+
+  2. 报告使用 markdown 格式，请保证图片可以被正确显示。
+
+  3. 报告中列出软硬件信息，包括操作系统、CPU、编译器版本。
+
+  4. 提交至分支 project01（需自建）
+                        ，提交内容包含源代码文件（夹）、report.md 即可。
+
+
+
+                                     1
+

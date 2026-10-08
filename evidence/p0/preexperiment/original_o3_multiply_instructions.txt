@@ -1,0 +1,5 @@
+command=objdump -d build/p0/original_O3 | grep multiplication instructions
+    1313:	f2 0f 59 c1          	mulsd  %xmm1,%xmm0
+    1412:	f2 0f 59 05 46 0c 00 	mulsd  0xc46(%rip),%xmm0        # 2060 <__PRETTY_FUNCTION__.0+0xc>
+    15bc:	f2 0f 59 05 9c 0a 00 	mulsd  0xa9c(%rip),%xmm0        # 2060 <__PRETTY_FUNCTION__.0+0xc>
+pipeline_exit_codes=0 0 0
