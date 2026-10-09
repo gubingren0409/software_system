@@ -12,7 +12,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from scripts.p3_clock_contract import (CRITERIA_SHA, FORMAL_CONTENT, PROBE_SHA, ROOT, SESSION,
+from scripts.p3_clock_contract import (ARCHIVE, CRITERIA_SHA, FORMAL_CONTENT, PROBE_SHA, ROOT, SESSION,
     TOLERANCES, acceptance, acceptance_exit, atomic_write_json, check_clock_intervals, load,
     campaign_command, probe_command, sha256_file, verify_batch_binding, verify_clock_evidence, verify_recovery, wsl_path)
 from scripts.start_p3_first_seed import first_failure
@@ -297,6 +297,22 @@ class ClockEvidenceTests(unittest.TestCase):
 
 
 class AcceptanceTests(unittest.TestCase):
+    def test_clock_identity_and_resource_failures_are_not_mislabeled(self):
+        from scripts.start_p3_first_seed import recovery_outcome
+        self.assertEqual(recovery_outcome(True, True, True), ("P3_RECOVERY_ELIGIBLE", None))
+        self.assertEqual(recovery_outcome(True, True, False)[0], "P3_RESOURCE_BLOCKED")
+        self.assertEqual(recovery_outcome(False, True, True)[0], "P3_IDENTITY_BLOCKED")
+        self.assertEqual(recovery_outcome(False, False, False)[0], "P3_CLOCK_BLOCKED")
+
+    def test_criteria_path_is_auxiliary_not_original_formal_archive(self):
+        from scripts.start_p3_first_seed import frozen_source_expectations
+        expected = frozen_source_expectations({"existing_formal_file": "original_hash"}, ROOT)
+        self.assertNotIn(ARCHIVE + "/configs/timing_audit_protocol.json", expected)
+        self.assertEqual(expected[wsl_path(ROOT / "configs/timing_audit_protocol.json")], CRITERIA_SHA)
+        self.assertEqual(expected[ARCHIVE + "/scripts/check_p2_clocks.py"], PROBE_SHA)
+        self.assertEqual(expected["existing_formal_file"], "original_hash")
+        self.assertTrue((ROOT / "configs/timing_audit_protocol.json").is_file())
+
     def test_recorder_summaries_are_actual_in_both_modes(self):
         finished = acceptance(True, True, True)
         partial = acceptance(True, False, False)

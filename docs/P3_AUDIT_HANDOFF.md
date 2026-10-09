@@ -1,5 +1,20 @@
 # P3 审计入口（首种子时钟阻塞，正式比较未完成）
 
+## 最新：fdeed77辅助修复与唯一次20区间复核
+
+辅助内容`0c6ee7e3726a01339d36e6ae7d19b0966dc043cd`先提交，再双干净归档验证。
+71项WSL全套测试（Windows专用1项跳过）、Windows旧7/新18项、CLI/20配置及25文件
+身份通过。[命令/来源](../evidence/p3_clock_contract/20261009-180810-0491a4ec/clean-0c6ee7e/)。
+唯一真实复核20/20 MONO/RAW失败、2/20 REALTIME/RAW失败，Windows同调用UTC/QPC
+2/2通过；宿主内存1.968GiB门禁拒绝。**没有实际resume调用，无新增正式执行**。
+辅助判据路径错误已定位并修订v2.1；原失败manifest完整保留，补充32项正确位置
+哈希匹配不追认旧结果、不授权恢复。[原始窗口/policy/启动记录](../evidence/p3_clock_contract/20261009-180810-0491a4ec/recovery/)、
+[全部20条复算](../evidence/p3_clock_contract/20261009-180810-0491a4ec/clock_review_analysis.json)、
+[路径补充](../evidence/p3_clock_contract/20261009-180810-0491a4ec/identity_location_correction.json)。
+首种子仍3/24配置、0/2轨迹、23执行（18完整组+3已放弃+2待重启），复测0。
+[当前状态/成本/后续约束](P3_FIRST_SEED_STATUS.md)、[辅助版本迁移](P3_CLOCK_CONTRACT.md)。
+以下e46b96c及更早段落仅为历史，不作为本轮通过证明；等待外部复核，不再自动探测。
+
 **最新授权与状态（e46b96c之后）**：用户要求沿用原e308bfb归档、固定身份及原
 campaign，只恢复seed=20261008随机/贪心两条12配置轨迹及其前缀候选独立复测。
 16:38用户要求继续后，原主控批前时钟检查失败，限定30秒复核也未通过，未启动目标。

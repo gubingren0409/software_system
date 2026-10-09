@@ -16,7 +16,7 @@ from autotuner.core import sha256_file, utc_now
 from autotuner.session import valid_formal_gate, source_identity
 from scripts.p3_clock_contract import (ARCHIVE, CRITERIA_SHA, FORMAL_CONTENT, POWERSHELL,
     PROBE_SHA, SESSION, acceptance, atomic_write_json, campaign_command, capture, check_clock_intervals, load,
-    probe_command, snapshot_campaign, verify_clock_evidence, verify_recovery)
+    probe_command, snapshot_campaign, verify_clock_evidence, verify_recovery, wsl_path)
 
 CAMPAIGN = ROOT / "evidence/p3/campaign-e308bfb"
 AUXILIARY_FILES = ["scripts/p3_clock_contract.py", "scripts/start_p3_first_seed.py",
@@ -49,12 +49,31 @@ def auxiliary_identity(commit):
     return source_identity(ROOT, blobs)
 
 
+def frozen_source_expectations(previous, repo_root=ROOT):
+    """The later diagnostic criteria belong to the auxiliary tree, not e308bfb."""
+    expected = dict(previous)
+    expected[ARCHIVE + "/scripts/check_p2_clocks.py"] = PROBE_SHA
+    expected[wsl_path(Path(repo_root) / "configs/timing_audit_protocol.json")] = CRITERIA_SHA
+    return expected
+
+
+def recovery_outcome(integrity, timing, resource):
+    if not timing:
+        return "P3_CLOCK_BLOCKED", "The declared twenty-interval clock review failed"
+    if not integrity:
+        return "P3_IDENTITY_BLOCKED", "Frozen file or evidence identity check failed"
+    if not resource:
+        return "P3_RESOURCE_BLOCKED", "Formal resource gate rejected"
+    return "P3_RECOVERY_ELIGIBLE", None
+
+
 def make_manifest(output, mode, commit):
     before = snapshot_campaign(CAMPAIGN)
     if before["checkpoint"]["session_id"] != SESSION or before["checkpoint"]["fingerprint"]["content_commit"] != FORMAL_CONTENT:
         raise ValueError("Original formal identity differs")
     atomic_write_json(output / "campaign_before.json", before)
-    manifest = {"schema": "p3-clock-batch-v2", "batch_id": uuid.uuid4().hex, "purpose": mode,
+    manifest = {"schema": "p3-clock-batch-v2", "auxiliary_controller_version": "2.1",
+        "batch_id": uuid.uuid4().hex, "purpose": mode,
         "declared_at": utc_now(), "formal_content_commit": FORMAL_CONTENT, "session_id": SESSION,
         "repo_root_at_run": str(ROOT), "evidence_directory_at_run": str(output.resolve()),
         "auxiliary_content_commit": commit, "auxiliary_files": auxiliary_identity(commit),
@@ -70,9 +89,7 @@ def make_manifest(output, mode, commit):
     manifest["operations"]["campaign"] = {"command": campaign_command(), "timeout_seconds": None}
     old = json.loads(subprocess.check_output(["git", "show",
         "fdeed77c43dcbbf74de46968055677f97fed8faf:evidence/p3/first-seed-review-20261009-1658/cache_and_archive_identity.json"], cwd=ROOT))
-    expected = dict(old["actual_sha256"])
-    expected[ARCHIVE + "/scripts/check_p2_clocks.py"] = PROBE_SHA
-    expected[ARCHIVE + "/configs/timing_audit_protocol.json"] = CRITERIA_SHA
+    expected = frozen_source_expectations(old["actual_sha256"])
     manifest["frozen_files_expected"] = expected
     manifest["operations"]["frozen_files"] = {"command": ["wsl.exe", "-d", "Ubuntu-24.04", "--", "sha256sum", *expected],
                                                    "timeout_seconds": 90}
@@ -156,10 +173,14 @@ def recovery(args):
     atomic_write_json(output / "campaign_after.json", after)
     recomputed = verify_recovery(output, after)
     integrity, timing = recomputed["evidence_integrity_pass"], recomputed["timing_checks_pass"]
+    status, reason = recovery_outcome(integrity, timing, resource_pass)
     result = {**acceptance(integrity, complete(after), timing), "schema": "p3-recovery-summary-v2",
-        "campaign_invoked": False, "recovery_eligible": recomputed["recovery_eligible"],
+        "auxiliary_controller_version": "2.1", "pre_clock_pass": None, "post_clock_pass": None,
+        "campaign_invoked": False, "campaign_returncode": "unknown", "failure_reason": reason,
+        "boundary_scope": "No actual campaign batch invoked; pre/post boundary checks not performed",
+        "recovery_eligible": recomputed["recovery_eligible"],
         "formal_resource_gate_pass": resource_pass, "frozen_identity_pass": identity_pass,
-        "windows": checks, "status": "P3_RECOVERY_ELIGIBLE" if integrity and timing and resource_pass else "P3_CLOCK_BLOCKED",
+        "windows": checks, "status": status,
         "auxiliary_content_commit": args.auxiliary_sha, "formal_content_commit": FORMAL_CONTENT, "session_id": SESSION,
         "campaign_after_sha256": sha256_file(output / "campaign_after.json"),
         "integrity_errors": recomputed["errors"],

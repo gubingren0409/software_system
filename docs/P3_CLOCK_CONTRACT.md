@@ -1,4 +1,4 @@
-# 辅助时钟与验收契约 v2（fdeed77 审计修复）
+# 辅助时钟与验收契约 v2.1（fdeed77 审计修复）
 
 这是辅助工具新版本，不是正式测量/搜索/campaign协议修订。正式内容仍为
 `e308bfb873e6811c50ad685a979af345302fda8d`，session仍为
@@ -45,18 +45,32 @@ NTP及近期时间/休眠事件只读采集；缺失为unknown，不据同步状
 明确启动Windows PowerShell，仅为子进程设置PSModulePath，调用前先验证Get-FileHash。
 参数用数组传递，保留PID、stdout/stderr及可靠退出码；未知就是unknown。不改执行策略。
 
-在`E:/software_system/project01`执行，`AUX_CONTENT_SHA`须为本轮准确辅助内容提交：
+本轮唯一复核的实际命令如下，已执行并失败，**不得在本轮重复**：
 
 ```powershell
-python scripts/start_p3_first_seed.py --mode recover --auxiliary-sha AUX_CONTENT_SHA --output evidence/p3_clock_contract/20261009-180810-0491a4ec/recovery
-# 仅上述唯一复核全部通过时，才执行一次新的批次：
-python scripts/start_p3_first_seed.py --mode resume --auxiliary-sha AUX_CONTENT_SHA --recovery-directory evidence/p3_clock_contract/20261009-180810-0491a4ec/recovery --output evidence/p3_clock_contract/20261009-180810-0491a4ec/batch
+python scripts/start_p3_first_seed.py --mode recover --auxiliary-sha 0c6ee7e3726a01339d36e6ae7d19b0966dc043cd --output evidence/p3_clock_contract/20261009-180810-0491a4ec/recovery
 ```
 
 恢复前重新正式门禁、冻结身份和当前检查点核验，实际调用批前/批后各3×3秒检查独立保存。
 主控分别记录pre_clock_pass、campaign_invoked、campaign_returncode、post_clock_pass及
 failure_reason；批后问题只追加，不能覆盖首个拒绝原因。原运行器自行归档暂停标记及
 2条新部分样本，O0/s8新attempt重新1预热+5fresh，不拼部分组或性能缓存。
+
+本轮没有实际resume批次。20/20 MONO/RAW失败，2/20 REALTIME/RAW失败，两个Windows
+同调用UTC/QPC通过；另有宿主内存门禁拒绝。全部原始数据、端点复算及说明见
+[复核分析](../evidence/p3_clock_contract/20261009-180810-0491a4ec/clock_review_analysis.json)。
+
+### v2 → v2.1 辅助迁移（不改变正式身份）
+
+真实复核使用已干净验证的辅助内容`0c6ee7e3726a01339d36e6ae7d19b0966dc043cd`。
+复核另发现身份清单误把后增的`timing_audit_protocol.json`要求在原e308bfb归档中存在；
+原归档没有此文件，sha256sum退出1。因此原summary的identity/integrity为false，保留不改。
+原有31项存在的文件均匹配，实际执行判据一直来自辅助工作树且SHA正确；这是辅助
+位置错误，不是正式源码改动。v2.1仅将该清单项指向辅助工作树，增加路径回归，
+并区分时钟/身份/资源拒绝原因。共享时钟检查器字节、判据及正式协议全部不变。
+[补充32项只读哈希](../evidence/p3_clock_contract/20261009-180810-0491a4ec/identity_location_correction.json)
+全部匹配，但不修改旧manifest、不追认旧identity为PASS、不授权恢复，不重采时钟。
+修订后的辅助内容须独立提交/干净验证；本轮就此阻塞交付。
 
 ## 验收与成本
 

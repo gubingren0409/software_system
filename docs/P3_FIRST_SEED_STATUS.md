@@ -1,12 +1,52 @@
 # 首种子正式比较：时钟阻塞（2026-10-09）
 
-## 本轮 fdeed77 修复（复核尚未执行）
+## 本轮 fdeed77 修复：P3_CLOCK_BLOCKED
 
 依据`fdeed77c43dcbbf74de46968055677f97fed8faf`继续，初始工作区干净；Windows fetch
 遇失效本机代理，WSL fetch origin成功，未改TLS/代理。正式3配置、23条记录及全部
 历史证据保持。新辅助契约v2和唯一20区间计划见[P3_CLOCK_CONTRACT](P3_CLOCK_CONTRACT.md)。
 初始检查点、ID/哈希及测试记录位于`evidence/p3_clock_contract/20261009-180810-0491a4ec/`。
-当前正在完成辅助提交和干净验证；真实复核和正式恢复均尚未调用。
+辅助内容`0c6ee7e3726a01339d36e6ae7d19b0966dc043cd`已从WSL/Windows干净归档验证：
+WSL全套71项单测（1项Windows专用跳过），Windows旧7项与新18项均通过，CLI、
+20唯一配置、历史证据及25文件Git/实际身份通过。只有PS脚本存在预期LF/CRLF差异；
+老师原件字节完全一致。[15条命令](../evidence/p3_clock_contract/20261009-180810-0491a4ec/clean-0c6ee7e/commands.json)。
+这些测试不代表正式比较完成；更早precommit日志是中间版本，不能替代该干净验证。
+
+18:39–18:41按先落policy的唯一次方案完成A/B各10×3秒，**没有恢复campaign**：
+
+| 窗口 | MONO/RAW失败 | REALTIME/RAW失败 | Windows UTC/QPC秒 | 宿主同调用检查 |
+|---|---:|---:|---|---|
+| A | 10/10 | 1/10（第4区间） | 29.5880455 / 29.5913338 | PASS |
+| B | 10/10 | 1/10（第4区间） | 29.4256449 / 29.4254076 | PASS |
+
+MONO/RAW绝对差96.361–157.728ms，冻结允许差33.442–34.140ms，20个区间全部不通过。
+原始schema/端点/delta/操作来源逐项复算通过；不筛失败区间，不用比例校准历史数据。
+[全部20条分析](../evidence/p3_clock_contract/20261009-180810-0491a4ec/clock_review_analysis.json)、
+[policy/manifest及原始读数](../evidence/p3_clock_contract/20261009-180810-0491a4ec/recovery/)。
+原探针两次均退出0，Windows入口可靠记录退出2；工具外层PowerShell以1表示非零子进程。
+没有实际campaign调用，批前/批后字段为未执行，campaign_returncode为unknown（非成功）。
+
+本次正式资源门禁同时拒绝：宿主最低2113110016字节（1.968GiB），WSL5035520000
+字节（4.690GiB），CPU均值7.4%/最高12%，swap使用0。根盘空闲224183226368字节。
+之前干净验证时门禁PASS不能代替此快照。Windows10.0.26200，宿主启动17:20:44；
+WSL Ubuntu24.04/6.18.40.1，启动18:36:44，clocksource=tsc，NTP报告已同步。
+只读事件查询保留最近24小时最多30条ID/时间；它们及NTP状态不证明时钟准确或根因。
+两个REALTIME异常区间也保留，原因仍unknown，未调整任何系统设置。
+
+复核暴露辅助身份清单的判据路径错误；原e308bfb不含后来新增的判据文件，原身份
+检查据实失败。v2.1已修正辅助路径并增加回归；[补充32项哈希](../evidence/p3_clock_contract/20261009-180810-0491a4ec/identity_location_correction.json)
+一致。原失败manifest/check/summary完整保留，补充核验不追认PASS、不授权resume。
+详见[迁移说明](P3_CLOCK_CONTRACT.md)。
+
+当前仍随机3/12、贪心0/12，0/2完整轨迹、23条原始执行；18条属于完整组，旧3条
+abandoned、新2条pending_restart，均不计分。原campaign检查点、run_id、JSONL字节
+与完整观测未变，新增正式配置/执行/复测均为0。剩余21配置和各前缀候选复测。
+原活动成本7120.754915s、门禁/等待1165.348475s、终态调用3668.358619s、部分组
+进程2236.427057s、复测0；本轮增量0，各范围嵌套不相加。唯一次复核整个Windows
+入口QPC93.366197s（内含两探针、门禁、哈希与元数据），辅助命令另列，不混入campaign。
+
+下一步仅外部审计和只读复算。不得直接再次recover/resume；需要先确定环境/时钟
+问题处理方案及新的有限验证授权。如果改变正式计时协议，必须另起匹配Grid基线。
 
 ## fdeed77 交付时的历史状态
 
