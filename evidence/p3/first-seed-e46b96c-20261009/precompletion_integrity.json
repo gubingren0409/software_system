@@ -1,0 +1,248 @@
+{
+  "audit_baseline": "e46b96cff35e7ea3b23c0b1eaef5fc66b03399ec",
+  "boundary_clock_checks": {
+    "clock_before": {
+      "calibration_applied": false,
+      "criteria_source": "configs/timing_audit_protocol.json",
+      "host_utc_stopwatch_pass": true,
+      "pass": true,
+      "performance_protocol_modified": false,
+      "probe_script_sha256": "1cf4217497f674520ce22f015c61067287051d5644af66f4b27d2df2720706aa",
+      "scope": "WSL same-interval sleep clocks; Windows same-interval whole invocation UTC/QPC. Host invocation is not compared with the sum of WSL sleeps.",
+      "wsl_intervals": [
+        {
+          "delta": {
+            "boottime_seconds": 3.00028305,
+            "monotonic_seconds": 3.000280286,
+            "raw_seconds": 3.004632211,
+            "realtime_seconds": 3.000278518
+          },
+          "monotonic_raw_pass": true,
+          "realtime_raw_pass": true
+        },
+        {
+          "delta": {
+            "boottime_seconds": 3.000325791,
+            "monotonic_seconds": 3.000321961,
+            "raw_seconds": 2.9953134,
+            "realtime_seconds": 3.000319619
+          },
+          "monotonic_raw_pass": true,
+          "realtime_raw_pass": true
+        },
+        {
+          "delta": {
+            "boottime_seconds": 3.001313939,
+            "monotonic_seconds": 3.001310124,
+            "raw_seconds": 2.990118504,
+            "realtime_seconds": 3.00130795
+          },
+          "monotonic_raw_pass": true,
+          "realtime_raw_pass": true
+        }
+      ]
+    }
+  },
+  "campaign_audit": {
+    "aggregates": [
+      {
+        "algorithm": "random",
+        "budget": 4,
+        "mean_best_median_seconds": null,
+        "observed_seed_count": 0,
+        "sample_stdev_best_median_seconds": null,
+        "scope": "partial unless all five frozen seeds are present; n=1 dispersion is unknown, not zero",
+        "valid_seed_count": 0
+      },
+      {
+        "algorithm": "random",
+        "budget": 8,
+        "mean_best_median_seconds": null,
+        "observed_seed_count": 0,
+        "sample_stdev_best_median_seconds": null,
+        "scope": "partial unless all five frozen seeds are present; n=1 dispersion is unknown, not zero",
+        "valid_seed_count": 0
+      },
+      {
+        "algorithm": "random",
+        "budget": 12,
+        "mean_best_median_seconds": null,
+        "observed_seed_count": 0,
+        "sample_stdev_best_median_seconds": null,
+        "scope": "partial unless all five frozen seeds are present; n=1 dispersion is unknown, not zero",
+        "valid_seed_count": 0
+      },
+      {
+        "algorithm": "greedy",
+        "budget": 4,
+        "mean_best_median_seconds": null,
+        "observed_seed_count": 0,
+        "sample_stdev_best_median_seconds": null,
+        "scope": "partial unless all five frozen seeds are present; n=1 dispersion is unknown, not zero",
+        "valid_seed_count": 0
+      },
+      {
+        "algorithm": "greedy",
+        "budget": 8,
+        "mean_best_median_seconds": null,
+        "observed_seed_count": 0,
+        "sample_stdev_best_median_seconds": null,
+        "scope": "partial unless all five frozen seeds are present; n=1 dispersion is unknown, not zero",
+        "valid_seed_count": 0
+      },
+      {
+        "algorithm": "greedy",
+        "budget": 12,
+        "mean_best_median_seconds": null,
+        "observed_seed_count": 0,
+        "sample_stdev_best_median_seconds": null,
+        "scope": "partial unless all five frozen seeds are present; n=1 dispersion is unknown, not zero",
+        "valid_seed_count": 0
+      }
+    ],
+    "auditor_sha256": "8e4e4acb718640ea0040e2b3dcd8a7a6ca62fff8bdd5ab3241885d526c469ed8",
+    "campaign_status": "running",
+    "captured_at": "2026-10-09T06:08:49.786307+00:00",
+    "completed_trajectory_count": 0,
+    "configuration_rows": [
+      {
+        "algorithm": "random",
+        "attempt_id": "4440e8488d104b6291939fa4fb5b0e39",
+        "block_size": 64,
+        "classification": "success",
+        "configuration_evaluation_seconds": 338.8351534629983,
+        "configuration_total_wall_seconds": 471.8945421790013,
+        "diagnostic_only": false,
+        "evaluation_index": 1,
+        "median_seconds": 54.993200129,
+        "optimization": "O1",
+        "search_seed": 20261008
+      },
+      {
+        "algorithm": "random",
+        "attempt_id": "dd044b945ab646cdbd742e94d4c579a1",
+        "block_size": 24,
+        "classification": "success",
+        "configuration_evaluation_seconds": 2829.226327270997,
+        "configuration_total_wall_seconds": 3003.686855993001,
+        "diagnostic_only": false,
+        "evaluation_index": 2,
+        "median_seconds": 467.876385448,
+        "optimization": "O0",
+        "search_seed": 20261008
+      },
+      {
+        "algorithm": "random",
+        "attempt_id": "d3698a3b90b04797802edb81457bfba7",
+        "block_size": 16,
+        "classification": "success",
+        "configuration_evaluation_seconds": 500.2971380710005,
+        "configuration_total_wall_seconds": 510.72858136200375,
+        "diagnostic_only": false,
+        "evaluation_index": 3,
+        "median_seconds": 80.217486883,
+        "optimization": "O3",
+        "search_seed": 20261008
+      }
+    ],
+    "content_commit": "e308bfb873e6811c50ad685a979af345302fda8d",
+    "cost_seconds": {
+      "all_complete_process_wall": 4994.6764811280045,
+      "all_terminal_configuration_evaluation": 3668.358618804996,
+      "campaign_active_wall": 6219.668894571994,
+      "candidate_build_setup": 3.757940970001073,
+      "reference_setup": 38.46878848299821,
+      "resource_gate_and_wait": 1165.348474737002,
+      "resume_setup": 1.1942548990045907,
+      "setup": 42.3517586520029
+    },
+    "diagnostic_only": false,
+    "host_resource_sample_count": 162,
+    "limitations": [
+      "P2/P3 clock is uncalibrated MONOTONIC",
+      "start gates do not ensure stationary resources",
+      "negative own-time gap can reflect cross-session variation, not a new oracle minimum"
+    ],
+    "p2_comparison_reference": {
+      "checkpoint_sha256": "4947bd9e3081feb1121a8287530ad134b45d6c01387faab60c3eddb07a780eea",
+      "content_commit": "0d3dd5242c728d8001dd02a4e332185459d04721",
+      "lowest_median_seconds": 53.44462776,
+      "scope": "post-hoc reference only; never provided to a SearchStrategy"
+    },
+    "prefix_rows": [],
+    "raw_execution_count": 21,
+    "remaining_trajectory_count": 10,
+    "resource_sample_count": 913,
+    "runtime_host_maximum_cpu_percent": 23,
+    "runtime_host_minimum_available_bytes": 755113984,
+    "schema": "p3-evidence-audit-v1",
+    "status": "PASS",
+    "trajectories": [
+      {
+        "checkpoint_sha256": "288bcf2005881171ad978378b6b0d498c2eaeace63e094f5fc27871efdf45f4f",
+        "configuration_evaluation_seconds": 3668.358618804996,
+        "failed_terminal_group_count": 0,
+        "incomplete_run_directories": [
+          "runs\\search_8a3381493a884ceaa220b3779fe6a822_0_2d55955aa4c0493f94d5294dbd232bbc"
+        ],
+        "independent_retest_group_count": 0,
+        "job": {
+          "algorithm": "random",
+          "seed": 20261008
+        },
+        "name": "00_random_20261008",
+        "nonterminal_raw_execution_count": 3,
+        "prefixes": [],
+        "process_wall_seconds": 4994.6764811280045,
+        "raw_execution_count": 21,
+        "status": "PASS",
+        "trajectory_status": "running",
+        "unique_count": 3
+      }
+    ],
+    "unique_configuration_count": 3
+  },
+  "cost_scope": "Prefix evaluator totals exclude gates/setup/abandoned attempts/retests/offline waits; campaign checkpoint active cost is separate and includes prior invocations. Nested time scopes must not be added.",
+  "formal_first_seed_complete": false,
+  "historical_windows_sampling_correction": {
+    "below_2gib_count": 44,
+    "interval_max_seconds": 33.453554,
+    "interval_median_seconds": 33.1112575,
+    "interval_min_seconds": 28.167903,
+    "maximum_cpu_percent": 21,
+    "minimum_available_bytes": 1961046016,
+    "runtime_host_samples": 72,
+    "sources": [
+      {
+        "path": "evidence\\p3_audit_0023ceed\\session-0d57f8c\\groups\\r1_O1\\samples.jsonl",
+        "sha256": "0deab3545327ac5338452b142aebf4533a87a11609b9411dd83f90836c2a99a2"
+      },
+      {
+        "path": "evidence\\p3_audit_0023ceed\\session-0d57f8c\\groups\\r1_O2\\samples.jsonl",
+        "sha256": "f142c34e07dbf99ebb1b36a56a60417f8281ff7becb9a3037a1b706e262d7a18"
+      },
+      {
+        "path": "evidence\\p3_audit_0023ceed\\session-0d57f8c\\groups\\r1_O3\\samples.jsonl",
+        "sha256": "628e2f2d139469fb64a3811ba7144e3bf82fe762e1b08f5537985dff075fe386"
+      },
+      {
+        "path": "evidence\\p3_audit_0023ceed\\session-0d57f8c\\groups\\r2_O1\\samples.jsonl",
+        "sha256": "a5f28b05e8f9902a6344587d4f76a55b272578bb6feb9bcca714b4ade19dbd5c"
+      },
+      {
+        "path": "evidence\\p3_audit_0023ceed\\session-0d57f8c\\groups\\r2_O2\\samples.jsonl",
+        "sha256": "4a51d6d844ff49baaca39cb503a688e2832fdfbfd9782a84c31450feda9824ea"
+      },
+      {
+        "path": "evidence\\p3_audit_0023ceed\\session-0d57f8c\\groups\\r2_O3\\samples.jsonl",
+        "sha256": "58432c06a15a3b411938f6b65692c5f458d3ed451426f6f468535a73e63514b1"
+      }
+    ]
+  },
+  "independent_retests": [],
+  "old_complete_observations_unchanged": 3,
+  "old_partial_marked_abandoned": true,
+  "old_partial_samples_preserved": 3,
+  "old_raw_sample_prefix_unchanged": true,
+  "postprocessor_sha256": "d7b56712d4c73e5d9e1b42cf5b39a98e53e704b7b8b965bba509c2d7fd4e6d44"
+}

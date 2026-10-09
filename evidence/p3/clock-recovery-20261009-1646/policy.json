@@ -1,0 +1,18 @@
+{
+  "schema": "p3-clock-recovery-check-v1",
+  "declared_before_new_probe": true,
+  "purpose": "One bounded read-only recovery check after the failed 16:42 pre/post probes; no target execution or calibration",
+  "formal_content_commit": "e308bfb873e6811c50ad685a979af345302fda8d",
+  "criteria_file": "configs/timing_audit_protocol.json",
+  "criteria_file_sha256": "720c91efdf26f6e435629d2638781cca1d79ebc49f49d203a7dcdaa398311b9f",
+  "intervals": 10,
+  "sleep_seconds_per_interval": 3,
+  "total_sleep_budget_seconds": 30,
+  "monotonic_raw_rule": "abs(MONOTONIC-RAW) <= 0.005 seconds + 0.01*RAW",
+  "realtime_raw_rule": "abs(REALTIME-RAW) <= 0.25 seconds + 0.01*RAW",
+  "recovery_acceptance": "Every one of the ten intervals must pass both unchanged criteria. The original controller must then independently pass its own pre-batch check and the original formal resource gates before resuming.",
+  "failure_action": "Do not resume the campaign. Preserve its user_paused checkpoint, all failed and passed probes, and a clock-blocked explanation. No repeated probing until a lucky pass.",
+  "system_settings_modified": false,
+  "performance_protocol_modified": false,
+  "calibration_applied": false
+}

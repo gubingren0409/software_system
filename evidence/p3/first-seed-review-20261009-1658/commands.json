@@ -1,0 +1,85 @@
+[
+  {
+    "command": [
+      "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "--version"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T08:56:30.048335+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.06488639999588486,
+    "returncode": 0,
+    "started_at": "2026-10-09T08:56:29.983901+00:00",
+    "stderr": "",
+    "stdout": "Python 3.12.6\n"
+  },
+  {
+    "command": [
+      "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+      "-NoProfile",
+      "-File",
+      "E:\\software_system\\project01\\scripts\\check_p2_resources.ps1",
+      "-Mode",
+      "Formal"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T08:56:42.804729+00:00",
+    "expected_returncodes": [
+      0,
+      2
+    ],
+    "host_perf_counter_seconds": 12.748716600006446,
+    "returncode": 0,
+    "started_at": "2026-10-09T08:56:30.055915+00:00",
+    "stderr": "",
+    "stdout": "{\"schema\":\"p2-resource-gate-v2\",\"captured_at_local\":\"2026-10-09T16:56:41.9650069+08:00\",\"mode\":\"Formal\",\"host_total_visible_bytes\":16340406272,\"host_samples\":[{\"timestamp\":\"2026-10-09T16:56:35.5167892+08:00\",\"cpu_percent\":7,\"available_memory_bytes\":2972852224,\"committed_bytes\":34049142784,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":62,\"pages_per_second\":619,\"page_reads_per_second\":186,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T16:56:37.1431098+08:00\",\"cpu_percent\":6,\"available_memory_bytes\":2960060416,\"committed_bytes\":34061623296,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":62,\"pages_per_second\":62,\"page_reads_per_second\":3,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T16:56:38.7440072+08:00\",\"cpu_percent\":7,\"available_memory_bytes\":3003928576,\"committed_bytes\":34013446144,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":62,\"pages_per_second\":346,\"page_reads_per_second\":75,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T16:56:40.3665408+08:00\",\"cpu_percent\":0,\"available_memory_bytes\":2994106368,\"committed_bytes\":34030100480,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":62,\"pages_per_second\":0,\"page_reads_per_second\":0,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T16:56:41.9605501+08:00\",\"cpu_percent\":5,\"available_memory_bytes\":3011416064,\"committed_bytes\":34009231360,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":62,\"pages_per_second\":0,\"page_reads_per_second\":0,\"memory_temperature_or_throttling\":\"unknown\"}],\"host_minimum_available_bytes\":2960060416,\"host_cpu_average_percent\":5,\"host_cpu_maximum_percent\":7,\"minimum_memory_bytes\":2147483648,\"minimum_disk_bytes\":1073741824,\"wsl_available_bytes\":4224266240,\"wsl_total_bytes\":7908261888,\"wsl_swap_total_bytes\":2147483648,\"wsl_swap_free_bytes\":2147483648,\"wsl_root_free_bytes\":224648380416,\"formal_gate\":\"PASS\"}\n"
+  },
+  {
+    "command": [
+      "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_first_seed_audit.py",
+      "-v"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T08:56:43.413642+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.5976744999934454,
+    "returncode": 0,
+    "started_at": "2026-10-09T08:56:42.819622+00:00",
+    "stderr": "test_expected_count_and_unchanged_boundary (test_first_seed_audit.FirstSeedClockTests.test_expected_count_and_unchanged_boundary) ... ok\ntest_invalid_or_divergent_clocks_cannot_pass (test_first_seed_audit.FirstSeedClockTests.test_invalid_or_divergent_clocks_cannot_pass) ... ok\ntest_campaign_activity_and_retests_remain_separate_from_search (test_first_seed_audit.FirstSeedCostTests.test_campaign_activity_and_retests_remain_separate_from_search) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 0.001s\n\nOK\n",
+    "stdout": ""
+  },
+  {
+    "command": [
+      "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "scripts/audit_p3_first_seed.py",
+      "--batch",
+      "evidence\\p3\\first-seed-e46b96c-resume-20261009-1643",
+      "--clock-recovery",
+      "evidence\\p3\\clock-recovery-20261009-1646",
+      "--output",
+      "evidence\\p3\\first-seed-review-20261009-1658\\first_seed_status.json",
+      "--require-two"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T08:56:46.022219+00:00",
+    "expected_returncodes": [
+      2
+    ],
+    "host_perf_counter_seconds": 2.5710650000110036,
+    "returncode": 2,
+    "started_at": "2026-10-09T08:56:43.454389+00:00",
+    "stderr": "warning: in the working copy of 'evidence/p3/campaign-e308bfb/PAUSE_REQUEST', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'evidence/p3/campaign-e308bfb/trajectories/00_random_20261008/samples.jsonl', LF will be replaced by CRLF the next time Git touches it\n",
+    "stdout": "{\"formal_first_seed_complete\": false, \"old_complete_observations_unchanged\": 3, \"old_raw_sample_prefix_unchanged\": true, \"old_partial_samples_preserved\": 3, \"old_partial_marked_abandoned\": true}\n"
+  }
+]
