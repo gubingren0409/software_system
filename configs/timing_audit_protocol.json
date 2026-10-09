@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "status": "declared-before-diagnostics",
+  "audit_baseline_commit": "0023ceedcbbb416e6ee8b6e2db44c41a10e90983",
+  "preserved_p3_content_commit": "e308bfb873e6811c50ad685a979af345302fda8d",
+  "measurement_protocol_hash": "2b1a75e9c5f88b80d83a47be4e34c2c5577d82d1468f37fd976e0d6d6ce5b828",
+  "classification": "audit-only, never a Grid/search observation or calibrated replacement",
+  "target": {"n": 4096, "block_size": 128, "seed": 20261008, "input": "random"},
+  "groups": [
+    {"id": "r1_O1", "round": 1, "optimization": "O1"},
+    {"id": "r1_O2", "round": 1, "optimization": "O2"},
+    {"id": "r1_O3", "round": 1, "optimization": "O3"},
+    {"id": "r2_O3", "round": 2, "optimization": "O3"},
+    {"id": "r2_O2", "round": 2, "optimization": "O2"},
+    {"id": "r2_O1", "round": 2, "optimization": "O1"}
+  ],
+  "order_reason": "Reverse-order crossover balances linear position drift; central O3 adjacency and only two rounds remain limitations. Each group gets a new warmup.",
+  "warmup_runs": 1,
+  "measured_runs": 5,
+  "force_remeasure": true,
+  "clock_probes": {"seconds": 20, "before_count": 3, "after_count": 3},
+  "diagnostic_criteria": {
+    "monotonic_raw_relative_tolerance": 0.01,
+    "monotonic_raw_absolute_allowance_seconds": 0.005,
+    "host_raw_relative_tolerance": 0.01,
+    "host_launch_and_collection_allowance_seconds": 1.0,
+    "realtime_raw_relative_tolerance": 0.01,
+    "realtime_raw_absolute_allowance_seconds": 0.25,
+    "group_cv_warning": 0.02,
+    "cross_round_median_drift_warning": 0.02,
+    "adjacent_rank_gap_minimum": 0.02
+  },
+  "rules": [
+    "Compare overlapping whole-operation intervals, not core time against host total time.",
+    "Per-sample MONOTONIC/RAW intervals surround Evaluator including lookups/resource collection; they are not RAW core times.",
+    "Host QPC/Stopwatch surrounds the complete WSL operation including launch and output; retain all endpoint readings.",
+    "CLOCK_MONOTONIC core timer, C loops/input/tolerance and configuration measurement interface are unchanged.",
+    "Formal JSON gate before setup and each group; recording during execution does not certify a stationary environment.",
+    "Any failed warmup/measurement invalidates the group. Retain partial/failed records; no successful-subset score or cache repetitions.",
+    "Clock flags are audit findings, not automatic retroactive filtering or single-ratio calibration.",
+    "Robust ranking requires identical order in both rounds, all adjacent gaps >= 2%, drift <= 2%, clock checks pass and no runtime resource warning; otherwise only report observed ranks.",
+    "No full P3 restart in this task. A future clock/measurement change requires a new protocol, content/session and matching fresh Grid."
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "audit_baseline": "0023ceedcbbb416e6ee8b6e2db44c41a10e90983",
+  "continued_from": "55b776b58bd5ac567fa503ad96e4adcb4f2cc492",
+  "pause_request": "../p3/campaign-e308bfb/PAUSE_REQUEST",
+  "tool_result": {
+    "chunk_id": "a4be31",
+    "wall_time_seconds": 1.5409676,
+    "exit_code": 0,
+    "original_token_count": 298,
+    "output": "{\r\n  \"captured_at_local\": \"2026-10-09T11:32:10.1283484+08:00\",\r\n  \"status\": \"user_paused\",\r\n  \"session_id\": \"dc1c292900654d44b36a72548b95a610\",\r\n  \"complete_configurations\": 3,\r\n  \"configurations\": [\r\n    {\r\n      \"config\": {\r\n        \"block_size\": 64,\r\n        \"optimization\": \"O1\"\r\n      },\r\n      \"attempt_id\": \"4440e8488d104b6291939fa4fb5b0e39\",\r\n      \"median_seconds\": 54.993200129\r\n    },\r\n    {\r\n      \"config\": {\r\n        \"block_size\": 24,\r\n        \"optimization\": \"O0\"\r\n      },\r\n      \"attempt_id\": \"dd044b945ab646cdbd742e94d4c579a1\",\r\n      \"median_seconds\": 467.876385448\r\n    },\r\n    {\r\n      \"config\": {\r\n        \"block_size\": 16,\r\n        \"optimization\": \"O3\"\r\n      },\r\n      \"attempt_id\": \"d3698a3b90b04797802edb81457bfba7\",\r\n      \"median_seconds\": 80.217486883\r\n    }\r\n  ],\r\n  \"partial_attempt\": {\r\n    \"attempt_id\": \"bd47c31bb02740d491fb077c68ff5814\",\r\n    \"config\": {\r\n      \"block_size\": 8,\r\n      \"optimization\": \"O0\"\r\n    },\r\n    \"purpose\": \"search\",\r\n    \"sample_count\": 3\r\n  },\r\n  \"raw_execution_count\": 21,\r\n  \"active_total_seconds\": 6031.6506602429945,\r\n  \"wait_seconds\": 979.5004072100055,\r\n  \"clock_source_unchanged\": true,\r\n  \"search_not_complete\": true\r\n}\r\n"
+  },
+  "parsed": {
+    "captured_at_local": "2026-10-09T11:32:10.1283484+08:00",
+    "status": "user_paused",
+    "session_id": "dc1c292900654d44b36a72548b95a610",
+    "complete_configurations": 3,
+    "configurations": [
+      {
+        "config": {
+          "block_size": 64,
+          "optimization": "O1"
+        },
+        "attempt_id": "4440e8488d104b6291939fa4fb5b0e39",
+        "median_seconds": 54.993200129
+      },
+      {
+        "config": {
+          "block_size": 24,
+          "optimization": "O0"
+        },
+        "attempt_id": "dd044b945ab646cdbd742e94d4c579a1",
+        "median_seconds": 467.876385448
+      },
+      {
+        "config": {
+          "block_size": 16,
+          "optimization": "O3"
+        },
+        "attempt_id": "d3698a3b90b04797802edb81457bfba7",
+        "median_seconds": 80.217486883
+      }
+    ],
+    "partial_attempt": {
+      "attempt_id": "bd47c31bb02740d491fb077c68ff5814",
+      "config": {
+        "block_size": 8,
+        "optimization": "O0"
+      },
+      "purpose": "search",
+      "sample_count": 3
+    },
+    "raw_execution_count": 21,
+    "active_total_seconds": 6031.6506602429945,
+    "wait_seconds": 979.5004072100055,
+    "clock_source_unchanged": true,
+    "search_not_complete": true
+  },
+  "stop_tool_result": {
+    "chunk_id": "9ab5a7",
+    "wall_time_seconds": 0.0000126,
+    "exit_code": 1,
+    "original_token_count": 279,
+    "output": "{\"event\": \"sample\", \"trajectory\": \"00_random_20261008\", \"config\": {\"optimization\": \"O3\", \"block_size\": 16}, \"index\": 4, \"classification\": \"success\", \"compute_seconds\": 79.836391068}\n{\"event\": \"sample\", \"trajectory\": \"00_random_20261008\", \"config\": {\"optimization\": \"O3\", \"block_size\": 16}, \"index\": 5, \"classification\": \"success\", \"compute_seconds\": 80.80380069}\n{\"event\": \"configuration_complete\", \"trajectory\": \"00_random_20261008\", \"unique_count\": 3, \"config\": {\"optimization\": \"O3\", \"block_size\": 16}, \"classification\": \"success\", \"median_seconds\": 80.217486883}\n{\"event\": \"sample\", \"trajectory\": \"00_random_20261008\", \"config\": {\"optimization\": \"O0\", \"block_size\": 8}, \"index\": 0, \"classification\": \"success\", \"compute_seconds\": 442.614276885}\n{\"event\": \"sample\", \"trajectory\": \"00_random_20261008\", \"config\": {\"optimization\": \"O0\", \"block_size\": 8}, \"index\": 1, \"classification\": \"success\", \"compute_seconds\": 444.241147528}\n{\"event\": \"sample\", \"trajectory\": \"00_random_20261008\", \"config\": {\"optimization\": \"O0\", \"block_size\": 8}, \"index\": 2, \"classification\": \"success\", \"compute_seconds\": 443.386581844}\n"
+  },
+  "notes": [
+    "All P2/P3 raw data and checkpoint retained. Old formal runtime/content e308bfb unchanged.",
+    "No diagnostics run concurrently with the stopped formal target.",
+    "Partial O0/s8 must restart a full group on any later explicit resume; its three old samples cannot score."
+  ]
+}

@@ -14,7 +14,7 @@ foreach ($line in (git ls-tree -r $ContentSha)) {
     if ($line -match '^100\d+ blob ([0-9a-f]{40})\t(.+)$') {
         $relative = $matches[2]
         $blobSha = $matches[1]
-        if ($relative -match '^(autotuner/.*\.py|code/(working|original)/.*\.[ch]|configs/.*\.json|scripts/(check_p2_resources\.ps1|run_p[23]_.*\.py|audit_p[23]_evidence\.py)|\.gitattributes)$') {
+        if ($relative -match '^(autotuner/.*\.py|code/(working|original)/.*\.[ch]|configs/.*\.json|scripts/(check_p2_resources\.ps1|run_p[23]_.*\.py|audit_p[23]_evidence\.py|timing_audit\.py|run_timing_audit\.ps1)|\.gitattributes)$') {
             $files[$relative] = $blobSha
         }
     }
