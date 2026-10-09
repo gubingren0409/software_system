@@ -4,7 +4,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import math
 from pathlib import Path
 import statistics
 import subprocess
@@ -13,10 +12,13 @@ from datetime import datetime
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from autotuner.core import atomic_write_json, sha256_file
+from autotuner.core import sha256_file
 from scripts.audit_p3_evidence import audit
+from scripts.p3_clock_contract import (acceptance, acceptance_exit, atomic_write_json, check_clock_intervals,
+    load, snapshot_campaign, verify_batch_binding, verify_clock_evidence, verify_recovery, verify_setup_evidence)
 
-BASELINE = "e46b96cff35e7ea3b23c0b1eaef5fc66b03399ec"
+BASELINE = "fdeed77c43dcbbf74de46968055677f97fed8faf"
+LEGACY_BASELINE = "e46b96cff35e7ea3b23c0b1eaef5fc66b03399ec"
 CAMPAIGN = ROOT / "evidence/p3/campaign-e308bfb"
 
 
@@ -24,8 +26,8 @@ def read(path):
     return json.loads(path.read_text(encoding="utf-8-sig"))
 
 
-def committed(relative):
-    data = subprocess.check_output(["git", "-C", str(ROOT), "show", BASELINE + ":" + relative])
+def committed(relative, commit=BASELINE):
+    data = subprocess.check_output(["git", "-C", str(ROOT), "show", commit + ":" + relative])
     return json.loads(data.decode("utf-8"))
 
 
@@ -94,31 +96,19 @@ def activity_costs(checkpoint, baseline, states):
                 "Gate/wait and terminal calls are nested, not additive to campaign active."}
 
 
-def check_clock_intervals(probe, criteria, expected_count):
-    """Same audit criteria, without importing the POSIX-only diagnostic runner."""
-    checks = []
-    for index, sample in enumerate(probe["wsl_intervals"]):
-        delta = sample["delta"]
-        raw = delta["raw_seconds"]
-        row = {"interval_index": index, "delta": delta}
-        for clock, rule in (("monotonic", "monotonic"), ("realtime", "realtime")):
-            value = delta[clock + "_seconds"]
-            row[clock + "_raw_pass"] = all(math.isfinite(v) and v > 0 for v in (value, raw)) and \
-                abs(value - raw) <= criteria[rule + "_raw_absolute_allowance_seconds"] + \
-                    criteria[rule + "_raw_relative_tolerance"] * raw
-        checks.append(row)
-    return {"pass": expected_count > 0 and len(checks) == expected_count and
-            all(row["monotonic_raw_pass"] and row["realtime_raw_pass"] for row in checks),
-            "expected_interval_count": expected_count, "checks": checks}
+def first_seed_execution_complete(result, checkpoint):
+    trajectories = result["trajectories"]
+    rows = result["prefix_rows"]
+    return checkpoint["status"] == "batch_complete" and result["completed_trajectory_count"] == 2 and \
+        [row["name"] for row in trajectories] == ["00_random_20261008", "01_greedy_20261008"] and \
+        all(row["unique_count"] == 12 and row["job"]["seed"] == 20261008 and
+            row["trajectory_status"] == "complete" for row in trajectories) and len(rows) == 6 and \
+        {(row["algorithm"], row["search_seed"], row["budget"]) for row in rows} == \
+        {(algorithm, 20261008, budget) for algorithm in ("random", "greedy") for budget in (4, 8, 12)} and \
+        all(row["own_median_seconds"] is not None and row["independent_retest_median_seconds"] is not None for row in rows)
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--batch", type=Path, required=True)
-    parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--require-two", action="store_true")
-    parser.add_argument("--clock-recovery", type=Path)
-    args = parser.parse_args()
+def audit_first_seed(args):
     protection = unchanged_original_files()
     result = audit(CAMPAIGN, ROOT / "evidence/p2/grid-session-0d3dd52")
     checkpoint = read(CAMPAIGN / "checkpoint.json")
@@ -131,18 +121,24 @@ def main():
     before = committed("evidence/p3/campaign-e308bfb/trajectories/" + name + "/checkpoint.json")
     if state["observations"][:len(before["observations"])] != before["observations"]:
         raise ValueError("An existing complete observation changed")
-    prefix = read(args.batch / "samples_prefix_before.json")
+    new_batch = (args.batch / "manifest.json").exists()
+    if new_batch:
+        previous = load(args.batch / "campaign_before.json")["trajectories"][name]
+        prefix = {"bytes": previous["sample_bytes"], "sha256": previous["samples_sha256"]}
+    else:
+        prefix = read(args.batch / "samples_prefix_before.json")
     prefix_check = verify_sample_prefix(directory / "samples.jsonl", prefix,
                                        args.batch / "samples_prefix_normalized_identity.json")
-    partial_id = before["active"]["attempt_id"]
+    old_state = committed("evidence/p3/campaign-e308bfb/trajectories/" + name + "/checkpoint.json", LEGACY_BASELINE)
+    partial_id = old_state["active"]["attempt_id"]
     partial = read(directory / "configurations" / ("search_" + partial_id + ".json"))
-    if partial != committed("evidence/p3/campaign-e308bfb/trajectories/" + name + "/configurations/search_" + partial_id + ".json"):
+    if partial != committed("evidence/p3/campaign-e308bfb/trajectories/" + name + "/configurations/search_" + partial_id + ".json", LEGACY_BASELINE):
         raise ValueError("Original partial attempt changed")
     if len(partial["samples"]) != 3:
         raise ValueError("Original O0/s8 partial count differs")
     abandoned = any(item["attempt_id"] == partial_id and item["sample_count"] == 3
                     for item in state["abandoned_attempts"])
-    complete = result["completed_trajectory_count"] == 2 and checkpoint["status"] == "batch_complete"
+    complete = first_seed_execution_complete(result, checkpoint)
     if complete and (not abandoned or len(result["prefix_rows"]) != 6 or
                      [item["name"] for item in result["trajectories"]] !=
                      ["00_random_20261008", "01_greedy_20261008"] or
@@ -175,38 +171,77 @@ def main():
             host_samples.extend(hosts)
             intervals.extend((datetime.fromisoformat(b["timestamp"]) - datetime.fromisoformat(a["timestamp"])).total_seconds()
                              for a, b in zip(hosts, hosts[1:]))
-    clocks = {phase: read(args.batch / (phase + ".check.json"))
-              for phase in ("clock_before", "clock_after") if (args.batch / (phase + ".check.json")).exists()}
-    clocks_pass = len(clocks) == 2 and all(item["pass"] for item in clocks.values())
+    clocks, binding = {}, None
+    clock_integrity, clocks_pass = True, False
+    if new_batch and load(args.batch / "manifest.json")["purpose"] == "resume":
+        binding = verify_batch_binding(args.batch, snapshot_campaign(CAMPAIGN))
+        setup = verify_setup_evidence(args.batch, load(args.batch / "manifest.json"))
+        clocks = {phase: verify_clock_evidence(args.batch, phase) for phase in ("clock_before", "clock_after")
+                  if (args.batch / (phase + ".operation.json")).exists()}
+        clock_integrity = setup["frozen_identity_pass"] and all(item["evidence_integrity_pass"] for item in clocks.values())
+        clocks_pass = len(clocks) == 2 and all(item["pass"] for item in clocks.values())
+        controller = load(args.batch / "controller.json")
+        for phase, field in (("clock_before", "pre_clock_pass"), ("clock_after", "post_clock_pass")):
+            if phase in clocks and controller[field] != clocks[phase]["pass"]:
+                clock_integrity = False
+        if binding["campaign_invoked"] and controller["campaign_returncode"] != 0:
+            complete = False
+        if binding["campaign_invoked"] and not setup["formal_resource_gate_pass"]:
+            raise ValueError("Formal campaign invoked without passed resource gate")
+    elif not new_batch:
+        for phase in ("clock_before", "clock_after"):
+            path = args.batch / (phase + ".wsl.json")
+            if path.exists():
+                clocks[phase] = check_clock_intervals(load(path), read(ROOT / "configs/timing_audit_protocol.json")["diagnostic_criteria"], 3)
+                saved = read(args.batch / (phase + ".check.json"))
+                clock_integrity = clock_integrity and clocks[phase]["evidence_integrity_pass"] and saved["pass"] == clocks[phase]["pass"]
+        # v1 lacks the new invocation/checkpoint binding. It cannot certify a newer batch.
     recovery = None
     if args.clock_recovery:
         recovery_policy = read(args.clock_recovery / "policy.json")
         criteria_path = ROOT / "configs/timing_audit_protocol.json"
-        if sha256_file(criteria_path) != recovery_policy["criteria_file_sha256"]:
+        if sha256_file(criteria_path) != recovery_policy.get("criteria_sha256", recovery_policy.get("criteria_file_sha256")):
             raise ValueError("Clock recovery criteria changed")
-        recovery = check_clock_intervals(read(args.clock_recovery / "probe.json"),
-            read(criteria_path)["diagnostic_criteria"], recovery_policy["intervals"])
-        recovery.update(probe_sha256=sha256_file(args.clock_recovery / "probe.json"),
-                        policy_sha256=sha256_file(args.clock_recovery / "policy.json"))
+        if (args.clock_recovery / "manifest.json").exists():
+            if new_batch and load(args.batch / "manifest.json")["purpose"] == "resume" and \
+                    load(args.batch / "manifest.json")["recovery_manifest_sha256"] != sha256_file(args.clock_recovery / "manifest.json"):
+                raise ValueError("Recovery evidence does not belong to this batch")
+            recovery = verify_recovery(args.clock_recovery,
+                load(args.batch / "campaign_before.json") if new_batch else None)
+        else:
+            recovery = check_clock_intervals(load(args.clock_recovery / "probe.json"),
+                read(criteria_path)["diagnostic_criteria"], recovery_policy["intervals"])
+            recovery.update(recovery_eligible=False, legacy_scope="Historical 10-interval diagnostic, not this round's 20-interval authorization")
+        clock_integrity = clock_integrity and recovery["evidence_integrity_pass"]
+    if new_batch and load(args.batch / "manifest.json")["purpose"] == "recover":
+        recovery = verify_recovery(args.batch, snapshot_campaign(CAMPAIGN))
+        clock_integrity, clocks_pass = recovery["evidence_integrity_pass"], recovery["timing_checks_pass"]
+    elif new_batch:
+        clocks_pass = clocks_pass and recovery is not None and recovery.get("recovery_eligible", False)
     nonterminal = []
-    scored_ids = {sample["run_id"] for group in [*state["observations"], *state["independent_retests"]]
-                  for sample in group["samples"]}
-    attempts = [*state["abandoned_attempts"], *([state["active"]] if state["active"] else [])]
-    for attempt in attempts:
-        path = directory / "configurations" / (attempt["purpose"] + "_" + attempt["attempt_id"] + ".json")
-        if not path.exists():
-            continue
-        group = read(path)
-        if any(sample["run_id"] in scored_ids for sample in group["samples"]):
-            raise ValueError("A partial attempt contributed to a terminal score")
-        nonterminal.append({"attempt_id": attempt["attempt_id"], "config": attempt["config"],
-            "sample_count": len(group["samples"]), "group_sha256": sha256_file(path),
-            "state": "abandoned" if attempt in state["abandoned_attempts"] else "interrupted_pending_restart",
-            "process_wall_seconds": sum(sample["process_wall_seconds"] for sample in group["samples"]),
-            "core_seconds": sum(sample["target_result"]["elapsed_seconds"] for sample in group["samples"])})
-    first_seed = {"audit_baseline": BASELINE, "formal_first_seed_complete": complete,
+    for trajectory, info in zip(states, result["trajectories"]):
+        trajectory_name = info["name"]
+        destination = CAMPAIGN / "trajectories" / trajectory_name
+        scored_ids = {sample["run_id"] for group in [*trajectory["observations"], *trajectory["independent_retests"]]
+                      for sample in group["samples"]}
+        attempts = [*trajectory["abandoned_attempts"], *([trajectory["active"]] if trajectory["active"] else [])]
+        for attempt in attempts:
+            path = destination / "configurations" / (attempt["purpose"] + "_" + attempt["attempt_id"] + ".json")
+            if not path.exists():
+                continue
+            group = read(path)
+            if any(sample["run_id"] in scored_ids for sample in group["samples"]):
+                raise ValueError("A partial attempt contributed to a terminal score")
+            nonterminal.append({"trajectory": trajectory_name, "attempt_id": attempt["attempt_id"], "config": attempt["config"],
+                "sample_count": len(group["samples"]), "group_sha256": sha256_file(path),
+                "state": "abandoned" if attempt in trajectory["abandoned_attempts"] else "interrupted_pending_restart",
+                "process_wall_seconds": sum(sample["process_wall_seconds"] for sample in group["samples"]),
+                "core_seconds": sum(sample["target_result"]["elapsed_seconds"] for sample in group["samples"])})
+    status = acceptance(clock_integrity, complete, clocks_pass)
+    first_seed = {**status, "audit_baseline": BASELINE, "formal_first_seed_complete": complete,
         "campaign_audit": result, "independent_retests": retests,
-        "activity_costs": activity_costs(checkpoint, read(args.batch / "campaign_checkpoint_before.json"), states),
+        "activity_costs": activity_costs(checkpoint, load(args.batch / "campaign_before.json")["checkpoint"]
+                                       if new_batch else read(args.batch / "campaign_checkpoint_before.json"), states),
         "original_file_protection": protection, "old_partial_cost": partial_cost,
         "nonterminal_attempts": nonterminal, "clock_recovery_reevaluation": recovery,
         "since_audit_baseline_active_delta_seconds": checkpoint["active_total_seconds"] - original["active_total_seconds"],
@@ -216,6 +251,7 @@ def main():
         "sample_prefix_identity": prefix_check["identity"], "old_partial_samples_preserved": 3,
         "old_partial_marked_abandoned": abandoned, "boundary_clock_checks": clocks,
         "both_boundary_clock_checks_pass": clocks_pass,
+        "batch_binding": binding, "legacy_clock_evidence_not_a_new_batch_certificate": not new_batch,
         "historical_windows_sampling_correction": {"sources": diagnostic_sources,
             "runtime_host_samples": len(host_samples), "interval_min_seconds": min(intervals),
             "interval_max_seconds": max(intervals), "interval_median_seconds": statistics.median(intervals),
@@ -227,7 +263,26 @@ def main():
     atomic_write_json(args.output, first_seed)
     print(json.dumps({key: first_seed[key] for key in ("formal_first_seed_complete", "old_complete_observations_unchanged",
         "old_raw_sample_prefix_unchanged", "old_partial_samples_preserved", "old_partial_marked_abandoned")}))
-    return 2 if args.require_two and not (complete and clocks_pass and (recovery is None or recovery["pass"])) else 0
+    if args.acceptance_mode == "incomplete" and complete:
+        return 1
+    return acceptance_exit(status, args.require_two or args.acceptance_mode == "complete")
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--batch", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--require-two", action="store_true")
+    parser.add_argument("--clock-recovery", type=Path)
+    parser.add_argument("--acceptance-mode", choices=("incomplete", "complete"))
+    args = parser.parse_args()
+    try:
+        return audit_first_seed(args)
+    except (ValueError, OSError, KeyError, TypeError) as error:
+        atomic_write_json(args.output, {**acceptance(False, False, False), "failure_reason": str(error),
+                                       "completion_not_verified": True})
+        print(json.dumps({"evidence_integrity_pass": False, "failure_reason": str(error)}))
+        return 1
 
 
 if __name__ == "__main__":

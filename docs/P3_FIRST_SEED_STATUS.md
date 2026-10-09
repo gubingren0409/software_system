@@ -1,5 +1,15 @@
 # 首种子正式比较：时钟阻塞（2026-10-09）
 
+## 本轮 fdeed77 修复（复核尚未执行）
+
+依据`fdeed77c43dcbbf74de46968055677f97fed8faf`继续，初始工作区干净；Windows fetch
+遇失效本机代理，WSL fetch origin成功，未改TLS/代理。正式3配置、23条记录及全部
+历史证据保持。新辅助契约v2和唯一20区间计划见[P3_CLOCK_CONTRACT](P3_CLOCK_CONTRACT.md)。
+初始检查点、ID/哈希及测试记录位于`evidence/p3_clock_contract/20261009-180810-0491a4ec/`。
+当前正在完成辅助提交和干净验证；真实复核和正式恢复均尚未调用。
+
+## fdeed77 交付时的历史状态
+
 当前状态为 **P3_CLOCK_BLOCKED**，不是READY。审计基点为
 `e46b96cff35e7ea3b23c0b1eaef5fc66b03399ec`；保留其后68392db内容及已有工作。
 只授权seed=20261008的随机、贪心各12配置和前缀候选复测，未扩展五种子。

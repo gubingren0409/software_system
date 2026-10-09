@@ -33,8 +33,19 @@ class FirstSeedClockTests(unittest.TestCase):
                 "realtime_raw_absolute_allowance_seconds": 0.25}
 
     def probe(self, monotonic=3, raw=3, realtime=3):
-        return {"wsl_intervals": [{"delta": {"monotonic_seconds": monotonic,
-                "raw_seconds": raw, "realtime_seconds": realtime}}]}
+        from scripts.p3_clock_contract import PROBE_SHA
+        values = {"monotonic": monotonic, "raw": raw, "realtime": realtime, "boottime": 3}
+        before = {name + "_ns": 1791535359971989073 for name in values}
+        after = {name + "_ns": before[name + "_ns"] +
+                 (round(value * 1e9) if math.isfinite(value) else 3_000_000_000)
+                 for name, value in values.items()}
+        return {"schema": "p2-clock-probe-v1", "captured_at": "2026-10-09T00:00:00+00:00",
+                "script_sha256": PROBE_SHA, "system_settings_modified": False,
+                "command": ["python3", "scripts/check_p2_clocks.py"],
+                "commands": [{"command": ["cat"], "stdout": "", "stderr": "", "returncode": 0}],
+                "clock_info": {"time": "test", "monotonic": "test"},
+                "wsl_intervals": [{"before": before, "after": after,
+                    "delta": {name + "_seconds": value for name, value in values.items()}}]}
 
     def test_expected_count_and_unchanged_boundary(self):
         self.assertTrue(check_clock_intervals(self.probe(3.034), self.criteria, 1)["pass"])

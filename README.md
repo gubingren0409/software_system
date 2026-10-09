@@ -15,6 +15,8 @@ P3沿用原e308bfb归档、固定身份和campaign；当前3个完整配置、23
 请求安全停止；16:38用户要求继续，批前检查及限定复核发现时钟异常，没有恢复目标。
 最新资源门禁PASS不解除时钟阻塞。只限seed=20261008两条轨迹，不扩展五种子。
 当前状态、成本及续跑条件见[首种子状态](docs/P3_FIRST_SEED_STATUS.md)。
+fdeed77后的辅助检查/验收修复及唯一20区间复核方案见
+[辅助契约v2](docs/P3_CLOCK_CONTRACT.md)。正式e308bfb身份和协议不变；复核完成前不启动长测。
 本轮交付代码从内容`f64d41c1eab21c72e541f91ab7e2dbecf4adfe2b`独立归档验证：
 CLI、20唯一配置、53项单测、历史证据核验及Git/实际文件身份检查通过，
 [全部命令及结果](evidence/p3/first-seed-clean-f64d41c/summary.json)。不是正式比较PASS。

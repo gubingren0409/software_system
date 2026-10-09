@@ -1,0 +1,110 @@
+[
+  {
+    "command": [
+      "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "--version"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T10:23:07.868979+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.04853529999991224,
+    "returncode": 0,
+    "started_at": "2026-10-09T10:23:07.821790+00:00",
+    "stderr": "",
+    "stdout": "Python 3.12.6\n"
+  },
+  {
+    "command": [
+      "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+      "-NoProfile",
+      "-File",
+      "E:\\software_system\\project01\\scripts\\check_p2_resources.ps1",
+      "-Mode",
+      "Formal"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T10:23:36.905164+00:00",
+    "expected_returncodes": [
+      0,
+      2
+    ],
+    "host_perf_counter_seconds": 29.022782300000017,
+    "returncode": 0,
+    "started_at": "2026-10-09T10:23:07.878858+00:00",
+    "stderr": "",
+    "stdout": "{\"schema\":\"p2-resource-gate-v2\",\"captured_at_local\":\"2026-10-09T18:23:20.0700531+08:00\",\"mode\":\"Formal\",\"host_total_visible_bytes\":16340406272,\"host_samples\":[{\"timestamp\":\"2026-10-09T18:23:13.5876279+08:00\",\"cpu_percent\":9,\"available_memory_bytes\":7983587328,\"committed_bytes\":14389460992,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":26,\"pages_per_second\":2554,\"page_reads_per_second\":117,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T18:23:15.2283825+08:00\",\"cpu_percent\":12,\"available_memory_bytes\":7984091136,\"committed_bytes\":14388506624,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":26,\"pages_per_second\":0,\"page_reads_per_second\":0,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T18:23:16.8509523+08:00\",\"cpu_percent\":3,\"available_memory_bytes\":7992897536,\"committed_bytes\":14384746496,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":26,\"pages_per_second\":0,\"page_reads_per_second\":0,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T18:23:18.4614610+08:00\",\"cpu_percent\":0,\"available_memory_bytes\":7995256832,\"committed_bytes\":14383595520,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":26,\"pages_per_second\":0,\"page_reads_per_second\":0,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T18:23:20.0700531+08:00\",\"cpu_percent\":4,\"available_memory_bytes\":7995547648,\"committed_bytes\":14385995776,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":26,\"pages_per_second\":0,\"page_reads_per_second\":0,\"memory_temperature_or_throttling\":\"unknown\"}],\"host_minimum_available_bytes\":7983587328,\"host_cpu_average_percent\":5.6,\"host_cpu_maximum_percent\":12,\"minimum_memory_bytes\":2147483648,\"minimum_disk_bytes\":1073741824,\"wsl_available_bytes\":6199197696,\"wsl_total_bytes\":7908241408,\"wsl_swap_total_bytes\":2147483648,\"wsl_swap_free_bytes\":2147483648,\"wsl_root_free_bytes\":224346193920,\"formal_gate\":\"PASS\"}\n"
+  },
+  {
+    "command": [
+      "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_first_seed_audit.py",
+      "-v"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T10:23:37.822017+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.8993900000000394,
+    "returncode": 0,
+    "started_at": "2026-10-09T10:23:36.922363+00:00",
+    "stderr": "test_content_changes_and_original_newline_conversion_are_rejected (test_first_seed_audit.FirstSeedArchiveIdentityTests.test_content_changes_and_original_newline_conversion_are_rejected) ... ok\ntest_line_endings_have_distinct_runtime_but_equal_git_identity (test_first_seed_audit.FirstSeedArchiveIdentityTests.test_line_endings_have_distinct_runtime_but_equal_git_identity) ... ok\ntest_expected_count_and_unchanged_boundary (test_first_seed_audit.FirstSeedClockTests.test_expected_count_and_unchanged_boundary) ... ok\ntest_invalid_or_divergent_clocks_cannot_pass (test_first_seed_audit.FirstSeedClockTests.test_invalid_or_divergent_clocks_cannot_pass) ... ok\ntest_campaign_activity_and_retests_remain_separate_from_search (test_first_seed_audit.FirstSeedCostTests.test_campaign_activity_and_retests_remain_separate_from_search) ... ok\ntest_git_line_ending_conversion_is_explicit_but_content_changes_fail (test_first_seed_audit.FirstSeedPrefixTests.test_git_line_ending_conversion_is_explicit_but_content_changes_fail) ... ok\ntest_missing_normalized_identity_cannot_bless_different_runtime_bytes (test_first_seed_audit.FirstSeedPrefixTests.test_missing_normalized_identity_cannot_bless_different_runtime_bytes) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.089s\n\nOK\n",
+    "stdout": ""
+  },
+  {
+    "command": [
+      "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_p3_clock_contract.py",
+      "-v"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T10:23:49.057344+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 11.233862899999622,
+    "returncode": 0,
+    "started_at": "2026-10-09T10:23:37.829136+00:00",
+    "stderr": "test_actual_windows_module_entry_and_abnormal_probe_refusal (test_p3_clock_contract.AcceptanceTests.test_actual_windows_module_entry_and_abnormal_probe_refusal) ... ok\ntest_completed_two_trajectories_need_all_six_retested_prefixes (test_p3_clock_contract.AcceptanceTests.test_completed_two_trajectories_need_all_six_retested_prefixes) ... ok\ntest_incomplete_and_complete_exit_states (test_p3_clock_contract.AcceptanceTests.test_incomplete_and_complete_exit_states) ... ok\ntest_pre_rejection_reason_survives_post_failure (test_p3_clock_contract.AcceptanceTests.test_pre_rejection_reason_survives_post_failure) ... ok\ntest_bad_criteria_probe_operation_and_stale_batch (test_p3_clock_contract.ClockEvidenceTests.test_bad_criteria_probe_operation_and_stale_batch) ... ok\ntest_batch_checkpoint_binding_rejects_newer_records (test_p3_clock_contract.ClockEvidenceTests.test_batch_checkpoint_binding_rejects_newer_records) ... ok\ntest_raw_output_mutation_is_rejected_not_just_saved_pass (test_p3_clock_contract.ClockEvidenceTests.test_raw_output_mutation_is_rejected_not_just_saved_pass) ... ok\ntest_success_and_saved_pass_contradiction (test_p3_clock_contract.ClockEvidenceTests.test_success_and_saved_pass_contradiction) ... ok\ntest_empty_missing_wrong_schema_or_count_rejected (test_p3_clock_contract.StrictClockTests.test_empty_missing_wrong_schema_or_count_rejected) ... ok\ntest_integer_ns_precision_and_float_endpoint_rejection (test_p3_clock_contract.StrictClockTests.test_integer_ns_precision_and_float_endpoint_rejection) ... ok\ntest_nonfinite_duplicate_json_is_not_accepted (test_p3_clock_contract.StrictClockTests.test_nonfinite_duplicate_json_is_not_accepted) ... ok\ntest_nonfinite_zero_negative_wrong_types_rejected (test_p3_clock_contract.StrictClockTests.test_nonfinite_zero_negative_wrong_types_rejected) ... ok\ntest_saved_delta_and_source_tolerances_must_match (test_p3_clock_contract.StrictClockTests.test_saved_delta_and_source_tolerances_must_match) ... ok\n\n----------------------------------------------------------------------\nRan 13 tests in 10.265s\n\nOK\n",
+    "stdout": ""
+  },
+  {
+    "command": [
+      "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "scripts/audit_p3_first_seed.py",
+      "--batch",
+      "evidence\\p3\\first-seed-e46b96c-resume-20261009-1643",
+      "--clock-recovery",
+      "evidence\\p3\\clock-recovery-20261009-1646",
+      "--output",
+      "evidence\\p3_clock_contract\\20261009-180810-0491a4ec\\precommit_checks\\first_seed_status.json",
+      "--acceptance-mode",
+      "incomplete",
+      "--require-two"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T10:23:51.969572+00:00",
+    "expected_returncodes": [
+      2
+    ],
+    "host_perf_counter_seconds": 2.899342700000034,
+    "returncode": 2,
+    "started_at": "2026-10-09T10:23:49.070242+00:00",
+    "stderr": "",
+    "stdout": "{\"formal_first_seed_complete\": false, \"old_complete_observations_unchanged\": 3, \"old_raw_sample_prefix_unchanged\": true, \"old_partial_samples_preserved\": 3, \"old_partial_marked_abandoned\": true}\n"
+  }
+]

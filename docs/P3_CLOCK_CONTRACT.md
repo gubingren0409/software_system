@@ -1,0 +1,72 @@
+# 辅助时钟与验收契约 v2（fdeed77 审计修复）
+
+这是辅助工具新版本，不是正式测量/搜索/campaign协议修订。正式内容仍为
+`e308bfb873e6811c50ad685a979af345302fda8d`，session仍为
+`dc1c292900654d44b36a72548b95a610`。C源码、循环、输入、容差、评分和原Grid不变。
+本轮只授权seed=20261008的random/greedy两条12配置轨迹，不扩展五种子或第四算法。
+
+## 单一判断实现与来源
+
+主控和后处理均调用[`p3_clock_contract.py`](../scripts/p3_clock_contract.py)。原探针
+`check_p2_clocks.py`仍从原e308bfb归档执行，SHA256为
+`1cf4217497f674520ce22f015c61067287051d5644af66f4b27d2df2720706aa`。
+判据文件未变，SHA256仍为
+`720c91efdf26f6e435629d2638781cca1d79ebc49f49d203a7dcdaa398311b9f`：
+
+- MONO/RAW：`abs(MONO-RAW) <= 0.005 + 0.01*RAW`。
+- REALTIME/RAW及Windows整次调用UTC/QPC：`abs(a-b) <= 0.25 + 0.01*b`。
+- 不用Windows启动全过程与WSL内部sleep之和直接比较；范围不同。
+- 检查schema、必需字段/类型和准确数量；计时必须有限且正。纳秒端点必须为整数，
+  先相减再除1e9，保存的delta必须与此结果相等。拒绝空、缺失、错误数量或来源。
+- 每次操作绑定batch ID、manifest SHA、实际命令、输出路径、PID、退出码和stdout/
+  stderr哈希。原始探针和stdout JSON须一致；保存的check必须与重新计算一致。
+  不是信任check中的pass，也不是用旧批次通过证明新批次通过。
+
+新辅助JSON明确写LF；源文件、流、检查点和JSONL仍同时保留运行时SHA与LF身份。
+归档重定位时使用manifest记录的原执行路径，不能把新检出路径当成当时命令。
+只接受可核验的CRLF/LF转换，不能接受内容变动；老师原件要求原始字节严格相等。
+
+## 唯一一次有限复核
+
+本轮证据根为`evidence/p3_clock_contract/20261009-180810-0491a4ec/`。
+真实采集前落policy及manifest，再做A/B两个窗口，每个10×3秒，共20区间、60秒sleep预算。
+每窗口WSL内部timeout为90秒，宿主等待上限120秒。A失败也采完B；没有自动重试路径。
+全部20区间、整次调用UTC/QPC、冻结文件身份及正式资源门禁通过，才允许恢复。
+任何失败保存全部可用数据并停止正式实验。Windows/WSL版本、启动、clocksource、
+NTP及近期时间/休眠事件只读采集；缺失为unknown，不据同步状态推断物理时钟已校准。
+
+测试使用合成端点，不占真实20区间预算。启动前先提交辅助实现，从同一内容提交
+导出WSL和Windows独立副本。全套单测/CLI/20唯一配置及Windows实际模块/拒绝路径
+从干净内容核验；不重复历史160案例或为辅助修复另跑4096。
+
+## 统一入口和恢复
+
+仅使用[`start_p3_first_seed.py`](../scripts/start_p3_first_seed.py)作为Windows入口：
+明确启动Windows PowerShell，仅为子进程设置PSModulePath，调用前先验证Get-FileHash。
+参数用数组传递，保留PID、stdout/stderr及可靠退出码；未知就是unknown。不改执行策略。
+
+在`E:/software_system/project01`执行，`AUX_CONTENT_SHA`须为本轮准确辅助内容提交：
+
+```powershell
+python scripts/start_p3_first_seed.py --mode recover --auxiliary-sha AUX_CONTENT_SHA --output evidence/p3_clock_contract/20261009-180810-0491a4ec/recovery
+# 仅上述唯一复核全部通过时，才执行一次新的批次：
+python scripts/start_p3_first_seed.py --mode resume --auxiliary-sha AUX_CONTENT_SHA --recovery-directory evidence/p3_clock_contract/20261009-180810-0491a4ec/recovery --output evidence/p3_clock_contract/20261009-180810-0491a4ec/batch
+```
+
+恢复前重新正式门禁、冻结身份和当前检查点核验，实际调用批前/批后各3×3秒检查独立保存。
+主控分别记录pre_clock_pass、campaign_invoked、campaign_returncode、post_clock_pass及
+failure_reason；批后问题只追加，不能覆盖首个拒绝原因。原运行器自行归档暂停标记及
+2条新部分样本，O0/s8新attempt重新1预热+5fresh，不拼部分组或性能缓存。
+
+## 验收与成本
+
+验收分为evidence_integrity_pass、execution_complete、timing_checks_pass、comparison_ready。
+两条轨迹须各12唯一配置、六个4/8/12前缀及候选独立复测齐备。证据和相关时钟都通过
+才能comparison_ready。`audit_p3_first_seed.py --require-two`未完成退出2、满足全部条件退出0；
+证据损坏退出1。record入口支持`--acceptance-mode incomplete|complete`，摘要使用实际结果。
+旧v1阻塞核验继续可读，但不能作为新批次证书。
+
+前后检查点、原始记录前缀/ID、完整观测和实际campaign操作绑定；过期批次拒绝。
+原Grid、旧P3的时钟/资源限制继续披露，不校准旧数据，不把诊断反馈策略。
+成本仍按[`P3_COST_SCOPE.md`](P3_COST_SCOPE.md)：终态评估、复测、活动campaign、门禁/
+等待、放弃尝试及本轮辅助QPC成本分列；层级嵌套，不全部相加。完整端到端前缀未知。
