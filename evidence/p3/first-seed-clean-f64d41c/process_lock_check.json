@@ -1,0 +1,23 @@
+{
+  "command": [
+    "wsl.exe",
+    "-d",
+    "Ubuntu-24.04",
+    "--cd",
+    "/tmp",
+    "--",
+    "env",
+    "-u",
+    "PYTHONPATH",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "python3",
+    "-c",
+    "import fcntl,json,os,pathlib\nf=open(\"/var/tmp/matrix-autotuner-p3-10245102457.runner.lock\",\"a\"); fcntl.flock(f,fcntl.LOCK_EX|fcntl.LOCK_NB); found=[]\nfor p in pathlib.Path(\"/proc\").iterdir():\n if not p.name.isdigit(): continue\n try:\n  exe=os.readlink(p/\"exe\"); cwd=os.readlink(p/\"cwd\"); args=(p/\"cmdline\").read_bytes().split(b\"\\0\")\n  if exe.startswith(\"/var/tmp/matrix-autotuner-p3-10245102457/cache\") or (cwd==\"/var/tmp/matrix-autotuner-p2-content-e308bfb873e6811c50ad685a979af345302fda8d\" and b\"campaign\" in args): found.append({\"pid\":int(p.name),\"exe\":exe})\n except OSError: pass\nprint(json.dumps({\"runner_lock_available\":True,\"formal_processes\":found})); f.close(); raise SystemExit(bool(found))"
+  ],
+  "ended_at": "2026-10-09T09:37:20.155465+00:00",
+  "host_perf_counter_seconds": 10.931641499999955,
+  "returncode": 0,
+  "started_at": "2026-10-09T09:37:09.227328+00:00",
+  "stderr": "",
+  "stdout": "{\"runner_lock_available\": true, \"formal_processes\": []}\n"
+}

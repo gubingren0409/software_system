@@ -57,6 +57,14 @@
 - 按Karpathy技能最小修复：只读收集器复用原source_identity，并核对指定提交树，
   分别保留实际SHA/Git内容SHA/行尾数量，只容许有证据的行尾转换；老师原件仍严格
   比较原始字节。加两项行尾身份/篡改拒绝回归；原正式运行器、协议和campaign不变。
+- 修复内容f64d41c1eab21c72e541f91ab7e2dbecf4adfe2b提交后再次独立导出，干净副本
+  无.git/初始pycache、去除PYTHONPATH。12条命令按预期退出：Windows7项/WSL53项
+  单测、CLI20唯一配置、verify_p1历史证据及22文件身份核验通过，收集器退出0。
+  输出first-seed-clean-f64d41c；原PS归档CRLF与工作LF分别保留实际SHA，Git内容一致。
+  `--require-two`仍按预期退出2；门禁PASS不解除时钟异常，未新增正式目标执行。
+- 交付自查166个本地Markdown链接全部有效，改动文件无>5MiB文件或常见凭据模式；
+  原件哈希一致、受保护正式文件零差异。process_lock_check记录独占锁可取得、
+  原campaign及cache中无活动目标进程。只提交本轮文档/证据，随后正常推送GitHub。
 
 ## 0023ceed 审计修订（2026-10-09）
 

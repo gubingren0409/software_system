@@ -10,6 +10,10 @@ campaign，只恢复seed=20261008随机/贪心两条12配置轨迹及其前缀�
 14:04恢复新增的2条部分样本在14:22暂停后仍未计分，下一次须重新1预热+5测量。
 [最新阻塞说明、成本和命令](P3_FIRST_SEED_STATUS.md)、
 [只读核验与全部命令输出](../evidence/p3/first-seed-review-20261009-1658/)。
+交付内容`f64d41c1eab21c72e541f91ab7e2dbecf4adfe2b`的
+[干净归档验证](../evidence/p3/first-seed-clean-f64d41c/summary.json)整体PASS：53项单测、
+CLI/20配置、历史证据、两侧文件身份；正式比较仍false，`--require-two`按预期退出2。
+正式实验内容仍是e308bfb，不将辅助核验内容提交当作新的实验session。
 下文0023ceed审计与先前暂停/恢复段落均为历史记录，不代表最新运行状态。
 
 授权：用户要求 P2 完成后开始 P3。P2 保留基线

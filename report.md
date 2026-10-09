@@ -332,10 +332,15 @@ MONO/RAW区间失败，保留全部读数并停止新增正式测量，不探测
 `evidence/p1/correctness/summary.json` 与 `evidence/p1/pilots/summary.json`，完整
 逐次记录分别位于同目录 JSONL 文件。测量与搜索冻结规则位于 `configs/`。
 
-本轮干净归档回归在`evidence/p2/validation-final/`：31项单测、160个正确性案例、
+P2阶段干净归档回归在`evidence/p2/validation-final/`：31项单测、160个正确性案例、
 7类故障和6类非法参数通过；n=130实际Grid20/随机8/贪心8均通过统一配置接口。
 提交后的交付归档复验另存`evidence/p2/validation-delivery/`，内容提交
 `c2a964162915b8cf0019df4e73bcd7cd634d1902`的同一套回归全部PASS，独立空缓存
 n17 fresh及n130三策略20/8/8通过，20个Python文件AST和已提交正式证据审计通过。
 这不改正式实验身份。正式续跑、身份核验及完整证据审计命令见README。
 策略诊断不构成正式算法质量比较。报告图片均为仓库相对路径。
+
+首种子时钟阻塞后的交付内容`f64d41c1eab21c72e541f91ab7e2dbecf4adfe2b`也从
+独立归档验证：CLI/20配置、53项单测、历史证据核验及文件身份检查整体通过。
+[新证据](evidence/p3/first-seed-clean-f64d41c/summary.json)明确正式比较未完成；
+这不是重跑4096、完整Grid或两条P3轨迹，不替换正式实验e308bfb身份。

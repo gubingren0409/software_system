@@ -73,6 +73,15 @@ CPU21%的警告保留，不追认旧结果稳定。
 修复只读身份检查，使用既有严格Git blob核验，另存两侧实际SHA和行尾数量。
 不能将Git内容相等写成执行字节完全相同，也不能借行尾转换接受任何内容改动。
 
+修复后的内容`f64d41c1eab21c72e541f91ab7e2dbecf4adfe2b`独立归档，初始无.git、
+pycache且移除PYTHONPATH。12个[实测命令](../evidence/p3/first-seed-clean-f64d41c/commands.json)
+均按预期退出：Windows7项针对性回归、干净WSL53项全套单测、CLI/20唯一配置、
+verify_p1历史证据核验及22个文件身份核对通过。verify_p1核验已有160等历史案例，
+不是本轮重跑这些实验。两侧实际字节只在PS脚本行尾不同，
+[身份判定](../evidence/p3/first-seed-clean-f64d41c/archive_identity_check.json)明确记录。
+[整体只读验证PASS](../evidence/p3/first-seed-clean-f64d41c/summary.json)不代表正式比较PASS；
+`--require-two`正确返回2。该核验没有调用正式目标，正式实验内容仍为e308bfb。
+
 ## 后续入口（本轮不再启动）
 
 先复核时钟异常及是否能恢复原协议；不能仅因资源PASS或某一次探针PASS就宣称稳定。
