@@ -98,8 +98,10 @@ NTP/tsc状态与[运行后采集](../evidence/p3_audit_0023ceed/post_environment
 
 六组正式开始门禁都解析为PASS；此前共5次低内存拒绝（r2_O3一次、r2_O2一次、
 r2_O1三次），按30s重查后恢复，原始门禁及其returncode=2全部保留。
-宿主72个去重前/后快照中44个低于2GiB，最低**1.8264GiB**；一条CPU=21%，
-因此有运行期资源警告。Windows仅每次目标前/后采集，不是核心执行期连续监控。
+宿主72个去重运行中快照中44个低于2GiB，最低**1.8264GiB**；一条CPU=21%，
+因此有运行期资源警告。原始执行记录的`resource_samples[].host.host_samples`表明，
+Windows在目标运行期间按约30秒节奏采样，实际相邻时间戳间隔28–34秒；不是仅在
+目标执行前后采集，也不是连续监控。该说明修正不改变原始样本或资源警告。
 WSL执行期间有资源样本，最低可用**3.4757GiB**，swap使用0、pswpin/pswpout均
 0→0；PSI读数全为avg10/60/300=0、total=0。全WSL pgmajfault40359→40583，
 不是目标独占计数。目标GNU time峰值RSS**394856KiB（385.60MiB）**。
