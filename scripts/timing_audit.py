@@ -48,7 +48,7 @@ def load_session(output: Path, content_sha: str) -> tuple[dict, dict, TargetAdap
     return audit, protocol, TargetAdapter.load(output / "target.json", evidence_root=output / "setup")
 
 
-def setup(output: Path, content_sha: str, identity_path: Path) -> dict:
+def setup(output: Path, content_sha: str, identity_path: Path, host_resource_script: str) -> dict:
     if (ROOT / ".git").exists() or list(ROOT.rglob("__pycache__")):
         raise ValueError("diagnostics must execute a clean committed archive")
     if (output / "session.json").exists():
@@ -59,6 +59,7 @@ def setup(output: Path, content_sha: str, identity_path: Path) -> dict:
     audit = json.loads((ROOT / "configs/timing_audit_protocol.json").read_text())
     protocol = json.loads((ROOT / "configs/measurement_protocol.json").read_text())
     campaign = json.loads((ROOT / "configs/p3_campaign_protocol.json").read_text())
+    host_script = host_script_identity(host_resource_script)
     if sha256_json(protocol) != audit["measurement_protocol_hash"]:
         raise ValueError("frozen measurement protocol differs")
     for relative, expected in campaign["unchanged_source_sha256"].items():
@@ -98,6 +99,7 @@ def setup(output: Path, content_sha: str, identity_path: Path) -> dict:
                "compiler_sha256": sha256_file(target.compiler), "compiler_version": target._compiler_version,
                "python_version": sys.version, "platform": platform.platform(),
                "reference_key": reference.reference_key, "reference_sha256": reference.data_sha256,
+               "host_resource_script": host_script,
                "start": start, "end": end, "interval": interval(start, end)}
     atomic_write_json(output / "session.json", session)
     return {"status": "setup_complete", "content_commit": content_sha}
@@ -121,7 +123,10 @@ def group(output: Path, content_sha: str, index: int) -> dict:
     if destination.exists():
         raise ValueError("group directory already exists; keep old attempt and use a new diagnostic session")
     target = TargetAdapter.load(output / "target.json", evidence_root=destination)
-    script = subprocess_script_path(ROOT / "scripts/check_p2_resources.ps1")
+    host_script = json.loads((output / "session.json").read_text())["host_resource_script"]
+    if host_script_identity(host_script["windows_path"]) != host_script:
+        raise ValueError("Windows resource script execution identity changed")
+    script = host_script["windows_path"]
     executor = AuditExecutor(target, ["/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
                                     "-NoProfile", "-File", script, "-Mode", "Snapshot"])
     executor.audit_directory = destination
@@ -141,10 +146,14 @@ def group(output: Path, content_sha: str, index: int) -> dict:
     return {"status": result["classification"], "group": job["id"], "median_seconds": result["score_seconds"]}
 
 
-def subprocess_script_path(path: Path) -> str:
+def host_script_identity(windows_path: str) -> dict:
     import subprocess
-    return subprocess.run(["wslpath", "-w", str(path)], text=True, capture_output=True,
-                          check=True).stdout.strip()
+    path = Path(subprocess.run(["wslpath", "-u", windows_path], text=True, capture_output=True,
+                               check=True).stdout.strip())
+    digest = sha256_file(path)
+    if digest != sha256_file(ROOT / "scripts/check_p2_resources.ps1"):
+        raise ValueError("Windows resource script differs from the committed archive")
+    return {"windows_path": windows_path, "execution_sha256": digest}
 
 
 def probe(output: Path, content_sha: str, name: str) -> dict:
@@ -278,6 +287,7 @@ def main() -> int:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--content-sha", required=True)
     parser.add_argument("--git-identity", type=Path)
+    parser.add_argument("--host-resource-script")
     parser.add_argument("--probe-id")
     parser.add_argument("--group-index", type=int)
     args = parser.parse_args()
@@ -287,11 +297,11 @@ def main() -> int:
         parser.error("group index must be 0..5")
     if args.action == "probe" and args.probe_id not in {kind + str(i) for kind in ("before", "after") for i in range(3)}:
         parser.error("unknown frozen probe ID")
-    if args.action == "setup" and args.git_identity is None:
-        parser.error("setup requires Git identity")
+    if args.action == "setup" and (args.git_identity is None or not args.host_resource_script):
+        parser.error("setup requires Git identity and committed local Windows resource script")
     with Path("/var/tmp/matrix-autotuner-p3-10245102457.runner.lock").open("a") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        if args.action == "setup": result = setup(args.output, args.content_sha, args.git_identity)
+        if args.action == "setup": result = setup(args.output, args.content_sha, args.git_identity, args.host_resource_script)
         elif args.action == "probe": result = probe(args.output, args.content_sha, args.probe_id)
         elif args.action == "group": result = group(args.output, args.content_sha, args.group_index)
         else: result = analyze(args.output, args.content_sha)

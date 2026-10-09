@@ -345,3 +345,10 @@
   补充采集器inspect_p2的优化选项列表少一个闭括号，实际执行SyntaxError退出1，
   未执行任何采集命令；保留失败命令、stderr和修复前源码哈希，补括号后先做AST
   检查再重跑。此辅助脚本不在正式内容归档的运行依赖中，不改变实验session。
+# 0023ceed 诊断主控启动修复
+
+第一次从dbf43e6干净WSL UNC副本执行PS被Windows未签名脚本策略拒绝（rc=1），
+未执行目标。保留diagnostic_controller.json；不放宽系统/进程执行策略。
+使用相同新提交的Windows本地与WSL双归档、SHA逐项核对，主控schema v2，
+Snapshot也执行校验过的本地资源脚本。计时/输入/容差/测量算法不变，新内容与session。
+

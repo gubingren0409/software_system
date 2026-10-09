@@ -12,10 +12,18 @@ if (Test-Path -LiteralPath $auditOutput) { throw 'Diagnostic output must be a ne
 New-Item -ItemType Directory -Path $auditOutput | Out-Null
 $auditOutputWsl = (wsl.exe -d Ubuntu-24.04 -- wslpath -u $auditOutput.Replace('\','/')).Trim()
 $identityWsl = (wsl.exe -d Ubuntu-24.04 -- wslpath -u $GitIdentity.Replace('\','/')).Trim()
-$resourceScript = (wsl.exe -d Ubuntu-24.04 -- wslpath -w ($ArchiveRoot + '/scripts/check_p2_resources.ps1')).Trim()
+$resourceScript = Join-Path $PSScriptRoot 'check_p2_resources.ps1'
 $protocol = Get-Content (Join-Path $PSScriptRoot '../configs/timing_audit_protocol.json') -Raw | ConvertFrom-Json
 $measurement = Get-Content (Join-Path $PSScriptRoot '../configs/measurement_protocol.json') -Raw | ConvertFrom-Json
-$checkpoint = [ordered]@{schema='timing-audit-host-v1'; content_commit=$ContentSha; status='created'; completed_groups=@(); gate_wait_seconds=0.0}
+$hostFiles = [ordered]@{}
+foreach ($relative in @('scripts/run_timing_audit.ps1','scripts/check_p2_resources.ps1','configs/timing_audit_protocol.json','configs/measurement_protocol.json')) {
+    $localFile = Join-Path (Split-Path $PSScriptRoot -Parent) $relative
+    $archiveFile = (wsl.exe -d Ubuntu-24.04 -- wslpath -w ($ArchiveRoot + '/' + $relative)).Trim()
+    $localHash = (Get-FileHash -LiteralPath $localFile -Algorithm SHA256).Hash.ToLower()
+    if ($localHash -ne (Get-FileHash -LiteralPath $archiveFile -Algorithm SHA256).Hash.ToLower()) { throw ('Windows/WSL archive bytes differ: ' + $relative) }
+    $hostFiles[$relative] = @{path=$localFile; sha256=$localHash}
+}
+$checkpoint = [ordered]@{schema='timing-audit-host-v2'; content_commit=$ContentSha; status='created'; completed_groups=@(); gate_wait_seconds=0.0; host_execution_files=$hostFiles}
 
 function Write-AuditJson([string]$Path, $Value) {
     New-Item -ItemType Directory -Force ([IO.Path]::GetDirectoryName($Path)) | Out-Null
@@ -102,7 +110,7 @@ $totalTimer = [Diagnostics.Stopwatch]::StartNew()
 try {
     Save-Checkpoint
     Formal-Gate 'setup'
-    Invoke-Python 'setup' @('--action','setup','--git-identity',$identityWsl) 900 | Out-Null
+    Invoke-Python 'setup' @('--action','setup','--git-identity',$identityWsl,'--host-resource-script',$resourceScript) 900 | Out-Null
     for ($i=0; $i -lt $protocol.clock_probes.before_count; $i++) {
         Invoke-Python ('before'+$i) @('--action','probe','--probe-id',('before'+$i)) 90 | Out-Null
     }

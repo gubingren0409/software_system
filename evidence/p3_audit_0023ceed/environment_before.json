@@ -1,0 +1,108 @@
+{
+  "classification": "readonly pre-diagnostic environment, not retroactive P2/P3 replacement",
+  "content_commit": "dbf43e6038619f3837baeff48b504dddd11ef928",
+  "commands": [
+    {
+      "cmd": "Get-Date -Format o",
+      "chunk_id": "a3446c",
+      "wall_time_seconds": 1.2350542,
+      "exit_code": 0,
+      "original_token_count": 9,
+      "output": "2026-10-09T11:39:33.0468453+08:00\r\n"
+    },
+    {
+      "cmd": "Get-CimInstance Win32_OperatingSystem | Select-Object Caption,Version,BuildNumber,TotalVisibleMemorySize,FreePhysicalMemory | ConvertTo-Json -Compress",
+      "chunk_id": "1bf9b2",
+      "wall_time_seconds": 2.1095509,
+      "exit_code": 0,
+      "original_token_count": 41,
+      "output": "{\"Caption\":\"Microsoft Windows 11 家庭版 中文版\",\"Version\":\"10.0.26200\",\"BuildNumber\":\"26200\",\"TotalVisibleMemorySize\":15957428,\"FreePhysicalMemory\":3187656}\r\n"
+    },
+    {
+      "cmd": "Get-CimInstance Win32_Processor | Select-Object Name,NumberOfCores,NumberOfLogicalProcessors | ConvertTo-Json -Compress",
+      "chunk_id": "d47b4b",
+      "wall_time_seconds": 2.6538573,
+      "exit_code": 0,
+      "original_token_count": 28,
+      "output": "{\"Name\":\"AMD Ryzen 9 7940HX with Radeon Graphics        \",\"NumberOfCores\":16,\"NumberOfLogicalProcessors\":32}\r\n"
+    },
+    {
+      "cmd": "Get-CimInstance -Namespace root/wmi -ClassName BatteryStatus | Select-Object PowerOnline,Charging,Discharging | ConvertTo-Json -Compress",
+      "chunk_id": "16fc36",
+      "wall_time_seconds": 1.5428652999999999,
+      "exit_code": 0,
+      "original_token_count": 15,
+      "output": "{\"PowerOnline\":true,\"Charging\":false,\"Discharging\":false}\r\n"
+    },
+    {
+      "cmd": "wsl.exe -d Ubuntu-24.04 -- uname -a",
+      "chunk_id": "34a36e",
+      "wall_time_seconds": 1.4519317,
+      "exit_code": 0,
+      "original_token_count": 34,
+      "output": "Linux localhost 6.18.40.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Fri Jul 31 22:12:15 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux\n"
+    },
+    {
+      "cmd": "wsl.exe -d Ubuntu-24.04 -- cat /sys/devices/system/clocksource/clocksource0/current_clocksource",
+      "chunk_id": "b04f7f",
+      "wall_time_seconds": 1.4435319,
+      "exit_code": 0,
+      "original_token_count": 1,
+      "output": "tsc\n"
+    },
+    {
+      "cmd": "wsl.exe -d Ubuntu-24.04 -- timedatectl show --property=NTP --property=NTPSynchronized --property=Timezone",
+      "chunk_id": "338be4",
+      "wall_time_seconds": 1.5422449999999999,
+      "exit_code": 0,
+      "original_token_count": 13,
+      "output": "Timezone=Asia/Shanghai\nNTP=yes\nNTPSynchronized=yes\n"
+    },
+    {
+      "cmd": "wsl.exe -d Ubuntu-24.04 -- python3 --version",
+      "chunk_id": "93f27c",
+      "wall_time_seconds": 1.4143158,
+      "exit_code": 0,
+      "original_token_count": 4,
+      "output": "Python 3.12.3\n"
+    },
+    {
+      "cmd": "wsl.exe -d Ubuntu-24.04 -- gcc --version",
+      "chunk_id": "0dbc31",
+      "wall_time_seconds": 1.4639376,
+      "exit_code": 0,
+      "original_token_count": 62,
+      "output": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n"
+    },
+    {
+      "cmd": "git --version",
+      "chunk_id": "4c42b0",
+      "wall_time_seconds": 1.2259324,
+      "exit_code": 0,
+      "original_token_count": 8,
+      "output": "git version 2.50.1.windows.1\n"
+    },
+    {
+      "cmd": "$PSVersionTable.PSVersion.ToString()",
+      "chunk_id": "adf666",
+      "wall_time_seconds": 0.94202,
+      "exit_code": 0,
+      "original_token_count": 2,
+      "output": "7.6.5\r\n"
+    },
+    {
+      "cmd": "Get-FileHash evidence/p2/grid-session-0d3dd52/grid_summary.csv,evidence/p2/grid-session-0d3dd52/checkpoint.json,code/original/matrix_multiplication.c,evidence/p3_audit_0023ceed/content-dbf43e6/git_identity.json -Algorithm SHA256 | Select-Object Path,Hash | ConvertTo-Json",
+      "chunk_id": "628e88",
+      "wall_time_seconds": 1.3557104,
+      "exit_code": 0,
+      "original_token_count": 193,
+      "output": "[\r\n  {\r\n    \"Path\": \"E:\\\\software_system\\\\project01\\\\evidence\\\\p2\\\\grid-session-0d3dd52\\\\grid_summary.csv\",\r\n    \"Hash\": \"D2B36A23CCF179E85EBA194EDE35408144DA6298A3C8A695412D8629D2AE6158\"\r\n  },\r\n  {\r\n    \"Path\": \"E:\\\\software_system\\\\project01\\\\evidence\\\\p2\\\\grid-session-0d3dd52\\\\checkpoint.json\",\r\n    \"Hash\": \"4947BD9E3081FEB1121A8287530AD134B45D6C01387FAAB60C3EDDB07A780EEA\"\r\n  },\r\n  {\r\n    \"Path\": \"E:\\\\software_system\\\\project01\\\\code\\\\original\\\\matrix_multiplication.c\",\r\n    \"Hash\": \"188D011109C4470E1F41829216E8677A5C2D8F2B7C8A44215652320DBDF6DE15\"\r\n  },\r\n  {\r\n    \"Path\": \"E:\\\\software_system\\\\project01\\\\evidence\\\\p3_audit_0023ceed\\\\content-dbf43e6\\\\git_identity.json\",\r\n    \"Hash\": \"102173CBB9642669CB1B03026B27F300CE88FC102B99326433D32130DA84B3E6\"\r\n  }\r\n]\r\n"
+    }
+  ],
+  "unknown": [
+    "physical time accuracy/calibration",
+    "host compressed memory exact size",
+    "CPU temperature/throttling/boost state",
+    "cause of any clock divergence"
+  ]
+}

@@ -53,3 +53,14 @@ P3原内容仍e308bfb；新诊断session单独绑定新内容SHA，不迁移/改
 原缓存不清理，新增大数据/二进制仅在WSL本地独立audit缓存，不提交Git。
 
 诊断结果与实际新SHA在本轮执行后补充；当前不预填任何性能或时钟结论。
+
+### 主控v2迁移（读数出现前）
+
+首次从WSL UNC路径启动dbf43e6副本，Windows返回未签名脚本拒绝（退出1），
+没有建立诊断session或执行目标。原失败stdout/stderr保留在
+[controller](../evidence/p3_audit_0023ceed/diagnostic_controller.json)。
+不修改执行策略：改用同一新内容提交的Windows本地`git archive`副本执行PS，
+WSL仍用该提交的独立干净归档执行Python/C。主控schema升为`timing-audit-host-v2`，
+逐项核对本地PS/协议与WSL归档的SHA-256；Snapshot子进程也使用校验过的本地
+资源脚本。新的内容SHA、诊断session与迁移记录绑定，原测量/搜索协议与C计时源
+不变，无任何旧/新样本拼接。
