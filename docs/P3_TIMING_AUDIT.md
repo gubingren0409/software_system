@@ -131,6 +131,12 @@ SHA与运行前相同，老师原件188d0111…未动。PS的实际CRLF与Git规
 Python读文本的换行归一化，不宣称所有.txt在任意检出中保持字节完全相同。
 原P3保持user_paused、3完整配置/21次执行（含3条部分组），正式比较未完成。
 辅助绘图仅收窄成本标签；无完整P3前缀，本轮不生成比较图。
+证据内容提交`4ec89ed51f35cea19e41082afa7d10e8fe3ff13d`随后另导出干净归档，CLI/
+配置20/verify_p1/46项回归及对**归档内**六组原始数据的重分析通过。
+[归档复验](../evidence/p3_audit_0023ceed/delivery_archive-4ec89ed.json)、
+[重分析SHA一致](../evidence/p3_audit_0023ceed/archive_analysis_identity.json)。
+验证没有新增n4096执行，实验身份仍0d57f8c；随后仅补复验日志/说明和派生成本
+字段的预热范围标签（数值未变），不更改运行器或冻结协议。
 
 ### 主控v2迁移（读数出现前）
 

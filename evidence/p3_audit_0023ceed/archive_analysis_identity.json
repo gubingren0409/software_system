@@ -1,0 +1,18 @@
+{
+  "command": "$local='evidence/p3_audit_0023ceed/session-0d57f8c/analysis.json'; $archived='\\\\wsl.localhost\\Ubuntu-24.04\\var\\tmp\\matrix-autotuner-p2-content-4ec89ed51f35cea19e41082afa7d10e8fe3ff13d\\evidence\\p3_audit_0023ceed\\session-0d57f8c\\analysis.json'; $left=(Get-FileHash -LiteralPath $local -Algorithm SHA256).Hash.ToLower(); $right=(Get-FileHash -LiteralPath $archived -Algorithm SHA256).Hash.ToLower(); [ordered]@{analysis_identical=($left -eq $right); original_analysis_sha256=$left; archived_reanalysis_sha256=$right; validated_evidence_commit='4ec89ed51f35cea19e41082afa7d10e8fe3ff13d'; experiment_content_commit='0d57f8c53a14a8c1d02dfd91263b038fac710ee4'; scope='Reanalysis reads committed six-group raw evidence, not workspace logs; no new n4096 executions'} | ConvertTo-Json; if($left -ne $right){exit 1}",
+  "tool_result": {
+    "chunk_id": "1297f3",
+    "wall_time_seconds": 1.325847,
+    "exit_code": 0,
+    "original_token_count": 125,
+    "output": "{\r\n  \"analysis_identical\": true,\r\n  \"original_analysis_sha256\": \"527bb39dceb8f4277bcad08310ee34d3cfa0443a8ef8b50d58d7f3804465cf92\",\r\n  \"archived_reanalysis_sha256\": \"527bb39dceb8f4277bcad08310ee34d3cfa0443a8ef8b50d58d7f3804465cf92\",\r\n  \"validated_evidence_commit\": \"4ec89ed51f35cea19e41082afa7d10e8fe3ff13d\",\r\n  \"experiment_content_commit\": \"0d57f8c53a14a8c1d02dfd91263b038fac710ee4\",\r\n  \"scope\": \"Reanalysis reads committed six-group raw evidence, not workspace logs; no new n4096 executions\"\r\n}\r\n"
+  },
+  "parsed": {
+    "analysis_identical": true,
+    "original_analysis_sha256": "527bb39dceb8f4277bcad08310ee34d3cfa0443a8ef8b50d58d7f3804465cf92",
+    "archived_reanalysis_sha256": "527bb39dceb8f4277bcad08310ee34d3cfa0443a8ef8b50d58d7f3804465cf92",
+    "validated_evidence_commit": "4ec89ed51f35cea19e41082afa7d10e8fe3ff13d",
+    "experiment_content_commit": "0d57f8c53a14a8c1d02dfd91263b038fac710ee4",
+    "scope": "Reanalysis reads committed six-group raw evidence, not workspace logs; no new n4096 executions"
+  }
+}

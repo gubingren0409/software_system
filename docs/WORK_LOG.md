@@ -5,6 +5,11 @@
 
 ## 0023ceed 审计修订（2026-10-09）
 
+- 证据提交4ec89ed再次独立git archive：CLI/20配置/verify_p1/46单测和对归档内
+  六组原始数据重分析全部通过；重分析JSON与原件SHA完全一致。没有新增n4096
+  实验；只补该复验及派生成本字段“30计分不含预热/36条含预热”的范围标签，
+  数值、运行器与协议不变。109个本地Markdown链接检查PASS。
+
 - 内容0d57f8c的主控v3完成独立audit session：两轮六组共36次n4096执行，全部
   fresh/force、返回0、全矩阵通过、run ID唯一；编译器/三个二进制/reference与
   原P3相同，P2表/检查点SHA不变。P3原session继续user_paused，不自动长搜索。
