@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/var/tmp/matrix-autotuner-p2-content-46bcbd7be5fd870bb3499ed4a2e76ec9a35bc087/scripts/timing_audit.py", line 313, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/var/tmp/matrix-autotuner-p2-content-46bcbd7be5fd870bb3499ed4a2e76ec9a35bc087/scripts/timing_audit.py", line 304, in main
+    if args.action == "setup": result = setup(args.output, args.content_sha, args.git_identity, args.host_resource_script)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/tmp/matrix-autotuner-p2-content-46bcbd7be5fd870bb3499ed4a2e76ec9a35bc087/scripts/timing_audit.py", line 62, in setup
+    host_script = host_script_identity(host_resource_script)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/tmp/matrix-autotuner-p2-content-46bcbd7be5fd870bb3499ed4a2e76ec9a35bc087/scripts/timing_audit.py", line 151, in host_script_identity
+    path = Path(subprocess.run(["wslpath", "-u", windows_path], text=True, capture_output=True,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['wslpath', '-u', 'E:software_systemproject01buildp3auditwindows-content-46bcbd7be5fd870bb3499ed4a2e76ec9a35bc087scriptscheck_p2_resources.ps1']' returned non-zero exit status 1.

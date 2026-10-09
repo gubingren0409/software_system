@@ -64,3 +64,7 @@ WSL仍用该提交的独立干净归档执行Python/C。主控schema升为`timin
 逐项核对本地PS/协议与WSL归档的SHA-256；Snapshot子进程也使用校验过的本地
 资源脚本。新的内容SHA、诊断session与迁移记录绑定，原测量/搜索协议与C计时源
 不变，无任何旧/新样本拼接。
+
+v2的正式门禁PASS后，setup发现`wsl.exe`边界把反斜线路径去转义为无分隔符路径，
+在构建/reference/目标前失败。保留session-46bcbd7全部原始输出。v3仅将传给WSL
+的Windows脚本路径规范化为正斜线；本地执行及SHA校验不变，另建内容提交/session。

@@ -23,7 +23,7 @@ foreach ($relative in @('scripts/run_timing_audit.ps1','scripts/check_p2_resourc
     if ($localHash -ne (Get-FileHash -LiteralPath $archiveFile -Algorithm SHA256).Hash.ToLower()) { throw ('Windows/WSL archive bytes differ: ' + $relative) }
     $hostFiles[$relative] = @{path=$localFile; sha256=$localHash}
 }
-$checkpoint = [ordered]@{schema='timing-audit-host-v2'; content_commit=$ContentSha; status='created'; completed_groups=@(); gate_wait_seconds=0.0; host_execution_files=$hostFiles}
+$checkpoint = [ordered]@{schema='timing-audit-host-v3'; content_commit=$ContentSha; status='created'; completed_groups=@(); gate_wait_seconds=0.0; host_execution_files=$hostFiles}
 
 function Write-AuditJson([string]$Path, $Value) {
     New-Item -ItemType Directory -Force ([IO.Path]::GetDirectoryName($Path)) | Out-Null
@@ -110,7 +110,7 @@ $totalTimer = [Diagnostics.Stopwatch]::StartNew()
 try {
     Save-Checkpoint
     Formal-Gate 'setup'
-    Invoke-Python 'setup' @('--action','setup','--git-identity',$identityWsl,'--host-resource-script',$resourceScript) 900 | Out-Null
+    Invoke-Python 'setup' @('--action','setup','--git-identity',$identityWsl,'--host-resource-script',($resourceScript.Replace('\','/'))) 900 | Out-Null
     for ($i=0; $i -lt $protocol.clock_probes.before_count; $i++) {
         Invoke-Python ('before'+$i) @('--action','probe','--probe-id',('before'+$i)) 90 | Out-Null
     }
