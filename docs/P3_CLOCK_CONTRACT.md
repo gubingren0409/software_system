@@ -71,6 +71,9 @@ failure_reason；批后问题只追加，不能覆盖首个拒绝原因。原运
 [补充32项只读哈希](../evidence/p3_clock_contract/20261009-180810-0491a4ec/identity_location_correction.json)
 全部匹配，但不修改旧manifest、不追认旧identity为PASS、不授权恢复，不重采时钟。
 修订后的辅助内容须独立提交/干净验证；本轮就此阻塞交付。
+v2.1最终验收另显式禁止“仅恢复探针通过”认证实际campaign：必须有实际调用及
+该调用绑定的两个边界检查，恢复-only即使面对已完整检查点也不能comparison_ready。
+此前bb17720是路径修复中间内容，最终辅助内容另提交后独立验证，未再采真实探针。
 
 ## 验收与成本
 

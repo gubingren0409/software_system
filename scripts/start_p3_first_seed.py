@@ -185,6 +185,8 @@ def recovery(args):
         "campaign_after_sha256": sha256_file(output / "campaign_after.json"),
         "integrity_errors": recomputed["errors"],
         "policy_sha256": sha256_file(output / "policy.json"), "manifest_sha256": sha256_file(output / "manifest.json")}
+    # A recovery-only check is a prerequisite, not a certificate for a formal batch.
+    result["comparison_ready"] = result["comparison_ready"] and result["campaign_invoked"]
     atomic_write_json(output / "summary.json", result)
     print(json.dumps({k: result[k] for k in ("status", "recovery_eligible", "timing_checks_pass", "evidence_integrity_pass")}))
     return 0 if result["recovery_eligible"] else 2

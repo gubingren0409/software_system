@@ -108,6 +108,13 @@ def first_seed_execution_complete(result, checkpoint):
         all(row["own_median_seconds"] is not None and row["independent_retest_median_seconds"] is not None for row in rows)
 
 
+def campaign_timing_certified(purpose, clocks, recovery, campaign_invoked):
+    """Recovery alone never certifies the timing of an actual campaign batch."""
+    return purpose == "resume" and campaign_invoked is True and \
+        set(clocks) == {"clock_before", "clock_after"} and all(item["pass"] for item in clocks.values()) and \
+        recovery is not None and recovery.get("recovery_eligible") is True
+
+
 def audit_first_seed(args):
     protection = unchanged_original_files()
     result = audit(CAMPAIGN, ROOT / "evidence/p2/grid-session-0d3dd52")
@@ -215,9 +222,10 @@ def audit_first_seed(args):
         clock_integrity = clock_integrity and recovery["evidence_integrity_pass"]
     if new_batch and load(args.batch / "manifest.json")["purpose"] == "recover":
         recovery = verify_recovery(args.batch, snapshot_campaign(CAMPAIGN))
-        clock_integrity, clocks_pass = recovery["evidence_integrity_pass"], recovery["timing_checks_pass"]
-    elif new_batch:
-        clocks_pass = clocks_pass and recovery is not None and recovery.get("recovery_eligible", False)
+        clock_integrity = recovery["evidence_integrity_pass"]
+    if new_batch:
+        clocks_pass = campaign_timing_certified(load(args.batch / "manifest.json")["purpose"], clocks,
+                                                recovery, binding is not None and binding["campaign_invoked"])
     nonterminal = []
     for trajectory, info in zip(states, result["trajectories"]):
         trajectory_name = info["name"]

@@ -16,7 +16,7 @@ from scripts.p3_clock_contract import (ARCHIVE, CRITERIA_SHA, FORMAL_CONTENT, PR
     TOLERANCES, acceptance, acceptance_exit, atomic_write_json, check_clock_intervals, load,
     campaign_command, probe_command, sha256_file, verify_batch_binding, verify_clock_evidence, verify_recovery, wsl_path)
 from scripts.start_p3_first_seed import first_failure
-from scripts.audit_p3_first_seed import first_seed_execution_complete
+from scripts.audit_p3_first_seed import campaign_timing_certified, first_seed_execution_complete
 from scripts.record_p3_first_seed_checks import review_result
 
 
@@ -297,6 +297,16 @@ class ClockEvidenceTests(unittest.TestCase):
 
 
 class AcceptanceTests(unittest.TestCase):
+    def test_recovery_never_substitutes_for_actual_campaign_boundaries(self):
+        clocks = {name: {"pass": True} for name in ("clock_before", "clock_after")}
+        recovery = {"recovery_eligible": True}
+        self.assertFalse(campaign_timing_certified("recover", clocks, recovery, False))
+        self.assertFalse(campaign_timing_certified("resume", clocks, recovery, False))
+        self.assertFalse(campaign_timing_certified("resume", {}, recovery, True))
+        self.assertTrue(campaign_timing_certified("resume", clocks, recovery, True))
+        clocks["clock_after"]["pass"] = False
+        self.assertFalse(campaign_timing_certified("resume", clocks, recovery, True))
+
     def test_clock_identity_and_resource_failures_are_not_mislabeled(self):
         from scripts.start_p3_first_seed import recovery_outcome
         self.assertEqual(recovery_outcome(True, True, True), ("P3_RECOVERY_ELIGIBLE", None))
