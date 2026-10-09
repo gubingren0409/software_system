@@ -19,8 +19,11 @@ fdeed77后统一辅助检查和验收，唯一次20区间复核中MONO/RAW全部
 另有2项失败；本次宿主内存门禁也拒绝。未启动4096或恢复campaign，状态仍为
 **P3_CLOCK_BLOCKED**。[辅助契约v2.1/路径修复](docs/P3_CLOCK_CONTRACT.md)、
 [完整复核分析](evidence/p3_clock_contract/20261009-180810-0491a4ec/clock_review_analysis.json)。
-辅助内容0c6ee7e双干净归档71项全套测试（WSL跳过1项）及Windows专用回归通过；
-测试通过不代表算法比较完成，也不授权继续尝试探针。
+最终辅助内容`fa597017c2317772a0f7f34faa75194ffecec8f2`双干净归档74项全套测试
+（WSL跳过1项）及Windows旧7/新21项回归通过；
+[最终验证](evidence/p3_clock_contract/20261009-180810-0491a4ec/clean-fa59701/summary.json)。
+测试通过不代表算法比较完成，也不授权继续尝试探针。原始20区间使用0c6ee7e辅助内容，
+后续仅修辅助路径/验收，不替换该来源身份。
 此前交付代码从内容`f64d41c1eab21c72e541f91ab7e2dbecf4adfe2b`独立归档验证：
 CLI、20唯一配置、53项单测、历史证据核验及Git/实际文件身份检查通过，
 [全部命令及结果](evidence/p3/first-seed-clean-f64d41c/summary.json)。不是正式比较PASS。

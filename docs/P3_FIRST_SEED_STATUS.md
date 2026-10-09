@@ -48,6 +48,35 @@ abandoned、新2条pending_restart，均不计分。原campaign检查点、run_i
 下一步仅外部审计和只读复算。不得直接再次recover/resume；需要先确定环境/时钟
 问题处理方案及新的有限验证授权。如果改变正式计时协议，必须另起匹配Grid基线。
 
+最终辅助内容`fa597017c2317772a0f7f34faa75194ffecec8f2`已经双干净归档复验：
+WSL74项（1项Windows专用跳过）、Windows旧7/新21项通过；CLI/20唯一配置、导入、
+历史证据及Git/执行字节身份均通过。[最终15条命令/摘要](../evidence/p3_clock_contract/20261009-180810-0491a4ec/clean-fa59701/)。
+该摘要只认证代码及历史未完成验收模式，不认证此次真实时钟通过。实际复核
+[最终后处理](../evidence/p3_clock_contract/20261009-180810-0491a4ec/final_recovery_acceptance.json)
+保留原身份拒绝，退出1；原始窗口完整性通过、计时失败，不伪装为仅未完成退出2。
+恢复-only不能认证完整campaign的回归也通过；没有固定false掩盖真正完成的batch验收。
+
+19:01验证阶段新资源快照另拒绝CPU均值12.8%（门槛10%），最高18%；宿主
+2241531904字节、WSL5041565696字节。这不替代18:40的内存拒绝，也不解除时钟阻塞。
+18:58只读补充WSL包3.0.1.0/Windows完整版本10.0.26200.9457及Windows w32tm状态：
+Leap=3未同步、源Local CMOS Clock；WSL先前报告已同步。它们是不同来源/时间，
+不能据此断言异常因果。[原始与解码说明](../evidence/p3_clock_contract/20261009-180810-0491a4ec/extra_metadata_readable_v2.json)。
+
+[最终保护/进程核验](../evidence/p3_clock_contract/20261009-180810-0491a4ec/final_state.json)：
+初始10个受保护文件的运行时字节哈希全相同，PAUSE_REQUEST仍在，原件SHA正确，
+正式进程清单为空、原runner锁可获取，未终止用户应用。辅助操作已记录的非重叠
+QPC合计627.847147s；[逐项成本与排除项](../evidence/p3_clock_contract/20261009-180810-0491a4ec/auxiliary_cost_index.json)
+排除嵌套子操作，且不包含后续推送、未记录编辑/模型开销，不能称完整轮次总时间。
+
+可执行的下一步仅只读复算（output使用新文件，非正式恢复命令）：
+
+```powershell
+python scripts/audit_p3_first_seed.py --batch evidence/p3_clock_contract/20261009-180810-0491a4ec/recovery --clock-recovery evidence/p3_clock_contract/20261009-180810-0491a4ec/recovery --output build/p3_clock_contract_recheck.json --require-two
+```
+
+预期退出1（保留的原始身份清单错误）；必须同时查看20条raw复算与补充位置核验，
+不能据单一退出码判断算法完成。本轮不再执行recover/resume，等待外部审计。
+
 ## fdeed77 交付时的历史状态
 
 当前状态为 **P3_CLOCK_BLOCKED**，不是READY。审计基点为

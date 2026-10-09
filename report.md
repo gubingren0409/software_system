@@ -366,3 +366,12 @@ Windows同一次调用UTC/QPC两窗口均通过，不能把其调用全过程与
 入口QPC93.366197s单列，内部资源/哈希/探针为嵌套子范围，不能全部相加。
 设计、迁移、证据与下一步限制见[辅助契约v2.1](docs/P3_CLOCK_CONTRACT.md)及
 [全部复核分析](evidence/p3_clock_contract/20261009-180810-0491a4ec/clock_review_analysis.json)。
+
+最终辅助内容`fa597017c2317772a0f7f34faa75194ffecec8f2`双干净归档74项单测
+（WSL跳过1项）、Windows旧7/新21项、CLI/20配置和源码身份检查通过，包含恢复-only
+不能代替真实campaign边界的回归；[验证摘要](evidence/p3_clock_contract/20261009-180810-0491a4ec/clean-fa59701/summary.json)。
+此处PASS仅指辅助实现/历史未完成模式，当前复核原始身份拒绝及计时失败仍保留。
+19:01的新门禁CPU平均12.8%再次拒绝，不能混成18:40快照。只读w32tm显示Windows
+未同步、WSL另报告同步，根因仍unknown；未更换计时源或校准历史数据。
+最终正式进程为空，10个初始保护文件字节未变；已记录独立辅助QPC627.847147s
+不含后续推送及未记录编辑开销，不能与原campaign或嵌套子成本相加。

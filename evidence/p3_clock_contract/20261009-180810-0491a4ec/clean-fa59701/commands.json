@@ -1,0 +1,378 @@
+[
+  {
+    "command": [
+      "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "--version"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T11:01:12.563801+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.053788799999892944,
+    "returncode": 0,
+    "started_at": "2026-10-09T11:01:12.510752+00:00",
+    "stderr": "",
+    "stdout": "Python 3.12.6\n"
+  },
+  {
+    "command": [
+      "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+      "-NoProfile",
+      "-File",
+      "E:\\software_system\\project01\\scripts\\check_p2_resources.ps1",
+      "-Mode",
+      "Formal"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T11:01:22.667046+00:00",
+    "expected_returncodes": [
+      0,
+      2
+    ],
+    "host_perf_counter_seconds": 10.09544619999997,
+    "returncode": 2,
+    "started_at": "2026-10-09T11:01:12.571143+00:00",
+    "stderr": "",
+    "stdout": "{\"schema\":\"p2-resource-gate-v2\",\"captured_at_local\":\"2026-10-09T19:01:21.7005510+08:00\",\"mode\":\"Formal\",\"host_total_visible_bytes\":16340406272,\"host_samples\":[{\"timestamp\":\"2026-10-09T19:01:15.2277503+08:00\",\"cpu_percent\":18,\"available_memory_bytes\":2395230208,\"committed_bytes\":20281221120,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":37,\"pages_per_second\":0,\"page_reads_per_second\":0,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T19:01:16.8739508+08:00\",\"cpu_percent\":13,\"available_memory_bytes\":2306465792,\"committed_bytes\":20383813632,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":37,\"pages_per_second\":54,\"page_reads_per_second\":7,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T19:01:18.4910360+08:00\",\"cpu_percent\":8,\"available_memory_bytes\":2276900864,\"committed_bytes\":20401455104,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":37,\"pages_per_second\":0,\"page_reads_per_second\":0,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T19:01:20.0932758+08:00\",\"cpu_percent\":13,\"available_memory_bytes\":2252849152,\"committed_bytes\":20436185088,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":37,\"pages_per_second\":66,\"page_reads_per_second\":7,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T19:01:21.7005510+08:00\",\"cpu_percent\":12,\"available_memory_bytes\":2241531904,\"committed_bytes\":20451409920,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":37,\"pages_per_second\":0,\"page_reads_per_second\":0,\"memory_temperature_or_throttling\":\"unknown\"}],\"host_minimum_available_bytes\":2241531904,\"host_cpu_average_percent\":12.8,\"host_cpu_maximum_percent\":18,\"minimum_memory_bytes\":2147483648,\"minimum_disk_bytes\":1073741824,\"wsl_available_bytes\":5041565696,\"wsl_total_bytes\":7908265984,\"wsl_swap_total_bytes\":2147483648,\"wsl_swap_free_bytes\":2147483648,\"wsl_root_free_bytes\":223888859136,\"formal_gate\":\"REJECT\"}\n"
+  },
+  {
+    "command": [
+      "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_first_seed_audit.py",
+      "-v"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T11:01:23.510154+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.8298664000003555,
+    "returncode": 0,
+    "started_at": "2026-10-09T11:01:22.678801+00:00",
+    "stderr": "test_content_changes_and_original_newline_conversion_are_rejected (test_first_seed_audit.FirstSeedArchiveIdentityTests.test_content_changes_and_original_newline_conversion_are_rejected) ... ok\ntest_line_endings_have_distinct_runtime_but_equal_git_identity (test_first_seed_audit.FirstSeedArchiveIdentityTests.test_line_endings_have_distinct_runtime_but_equal_git_identity) ... ok\ntest_expected_count_and_unchanged_boundary (test_first_seed_audit.FirstSeedClockTests.test_expected_count_and_unchanged_boundary) ... ok\ntest_invalid_or_divergent_clocks_cannot_pass (test_first_seed_audit.FirstSeedClockTests.test_invalid_or_divergent_clocks_cannot_pass) ... ok\ntest_campaign_activity_and_retests_remain_separate_from_search (test_first_seed_audit.FirstSeedCostTests.test_campaign_activity_and_retests_remain_separate_from_search) ... ok\ntest_git_line_ending_conversion_is_explicit_but_content_changes_fail (test_first_seed_audit.FirstSeedPrefixTests.test_git_line_ending_conversion_is_explicit_but_content_changes_fail) ... ok\ntest_missing_normalized_identity_cannot_bless_different_runtime_bytes (test_first_seed_audit.FirstSeedPrefixTests.test_missing_normalized_identity_cannot_bless_different_runtime_bytes) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.085s\n\nOK\n",
+    "stdout": ""
+  },
+  {
+    "command": [
+      "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_p3_clock_contract.py",
+      "-v"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T11:01:35.610940+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 12.094361700000263,
+    "returncode": 0,
+    "started_at": "2026-10-09T11:01:23.517649+00:00",
+    "stderr": "test_actual_windows_module_entry_and_abnormal_probe_refusal (test_p3_clock_contract.AcceptanceTests.test_actual_windows_module_entry_and_abnormal_probe_refusal) ... ok\ntest_clock_identity_and_resource_failures_are_not_mislabeled (test_p3_clock_contract.AcceptanceTests.test_clock_identity_and_resource_failures_are_not_mislabeled) ... ok\ntest_completed_two_trajectories_need_all_six_retested_prefixes (test_p3_clock_contract.AcceptanceTests.test_completed_two_trajectories_need_all_six_retested_prefixes) ... ok\ntest_criteria_path_is_auxiliary_not_original_formal_archive (test_p3_clock_contract.AcceptanceTests.test_criteria_path_is_auxiliary_not_original_formal_archive) ... ok\ntest_incomplete_and_complete_exit_states (test_p3_clock_contract.AcceptanceTests.test_incomplete_and_complete_exit_states) ... ok\ntest_pre_rejection_reason_survives_post_failure (test_p3_clock_contract.AcceptanceTests.test_pre_rejection_reason_survives_post_failure) ... ok\ntest_recorder_summaries_are_actual_in_both_modes (test_p3_clock_contract.AcceptanceTests.test_recorder_summaries_are_actual_in_both_modes) ... ok\ntest_recovery_never_substitutes_for_actual_campaign_boundaries (test_p3_clock_contract.AcceptanceTests.test_recovery_never_substitutes_for_actual_campaign_boundaries) ... ok\ntest_actual_call_binding_requires_matching_command_and_clock_order (test_p3_clock_contract.ClockEvidenceTests.test_actual_call_binding_requires_matching_command_and_clock_order) ... ok\ntest_archived_eol_conversion_is_distinct_from_stream_content_mutation (test_p3_clock_contract.ClockEvidenceTests.test_archived_eol_conversion_is_distinct_from_stream_content_mutation) ... ok\ntest_bad_criteria_probe_operation_and_stale_batch (test_p3_clock_contract.ClockEvidenceTests.test_bad_criteria_probe_operation_and_stale_batch) ... ok\ntest_batch_checkpoint_binding_rejects_newer_records (test_p3_clock_contract.ClockEvidenceTests.test_batch_checkpoint_binding_rejects_newer_records) ... ok\ntest_raw_output_mutation_is_rejected_not_just_saved_pass (test_p3_clock_contract.ClockEvidenceTests.test_raw_output_mutation_is_rejected_not_just_saved_pass) ... ok\ntest_recovery_requires_twenty_intervals_and_current_checkpoint (test_p3_clock_contract.ClockEvidenceTests.test_recovery_requires_twenty_intervals_and_current_checkpoint) ... ok\ntest_single_bad_interval_rejects_whole_recovery_without_filtering (test_p3_clock_contract.ClockEvidenceTests.test_single_bad_interval_rejects_whole_recovery_without_filtering) ... ok\ntest_success_and_saved_pass_contradiction (test_p3_clock_contract.ClockEvidenceTests.test_success_and_saved_pass_contradiction) ... ok\ntest_empty_missing_wrong_schema_or_count_rejected (test_p3_clock_contract.StrictClockTests.test_empty_missing_wrong_schema_or_count_rejected) ... ok\ntest_integer_ns_precision_and_float_endpoint_rejection (test_p3_clock_contract.StrictClockTests.test_integer_ns_precision_and_float_endpoint_rejection) ... ok\ntest_nonfinite_duplicate_json_is_not_accepted (test_p3_clock_contract.StrictClockTests.test_nonfinite_duplicate_json_is_not_accepted) ... ok\ntest_nonfinite_zero_negative_wrong_types_rejected (test_p3_clock_contract.StrictClockTests.test_nonfinite_zero_negative_wrong_types_rejected) ... ok\ntest_saved_delta_and_source_tolerances_must_match (test_p3_clock_contract.StrictClockTests.test_saved_delta_and_source_tolerances_must_match) ... ok\n\n----------------------------------------------------------------------\nRan 21 tests in 11.039s\n\nOK\n",
+    "stdout": ""
+  },
+  {
+    "command": [
+      "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "scripts/audit_p3_first_seed.py",
+      "--batch",
+      "evidence\\p3\\first-seed-e46b96c-resume-20261009-1643",
+      "--clock-recovery",
+      "evidence\\p3\\clock-recovery-20261009-1646",
+      "--output",
+      "evidence\\p3_clock_contract\\20261009-180810-0491a4ec\\clean-fa59701\\first_seed_status.json",
+      "--acceptance-mode",
+      "incomplete",
+      "--require-two"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T11:01:38.539886+00:00",
+    "expected_returncodes": [
+      0,
+      1,
+      2
+    ],
+    "host_perf_counter_seconds": 2.9191381000000547,
+    "returncode": 2,
+    "started_at": "2026-10-09T11:01:35.620280+00:00",
+    "stderr": "",
+    "stdout": "{\"formal_first_seed_complete\": false, \"old_complete_observations_unchanged\": 3, \"old_raw_sample_prefix_unchanged\": true, \"old_partial_samples_preserved\": 3, \"old_partial_marked_abandoned\": true}\n"
+  },
+  {
+    "command": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "--cd",
+      "/var/tmp/matrix-autotuner-p2-content-fa597017c2317772a0f7f34faa75194ffecec8f2",
+      "--",
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "python3",
+      "-c",
+      "import json,pathlib; p=pathlib.Path('.'); print(json.dumps({'has_git':(p/'.git').exists(),'pycache':list(map(str,p.rglob('__pycache__')))}))"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T11:01:56.149777+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 13.446357899999384,
+    "returncode": 0,
+    "started_at": "2026-10-09T11:01:42.696992+00:00",
+    "stderr": "",
+    "stdout": "{\"has_git\": false, \"pycache\": []}\n"
+  },
+  {
+    "command": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "--cd",
+      "/var/tmp/matrix-autotuner-p2-content-fa597017c2317772a0f7f34faa75194ffecec8f2",
+      "--",
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "python3",
+      "--version"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T11:01:56.535339+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.3766793000004327,
+    "returncode": 0,
+    "started_at": "2026-10-09T11:01:56.158417+00:00",
+    "stderr": "",
+    "stdout": "Python 3.12.3\n"
+  },
+  {
+    "command": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "--cd",
+      "/var/tmp/matrix-autotuner-p2-content-fa597017c2317772a0f7f34faa75194ffecec8f2",
+      "--",
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "/usr/bin/gcc",
+      "--version"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T11:01:56.924227+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.3818951000002926,
+    "returncode": 0,
+    "started_at": "2026-10-09T11:01:56.542249+00:00",
+    "stderr": "",
+    "stdout": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n"
+  },
+  {
+    "command": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "--cd",
+      "/var/tmp/matrix-autotuner-p2-content-fa597017c2317772a0f7f34faa75194ffecec8f2",
+      "--",
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "python3",
+      "-m",
+      "autotuner",
+      "--help"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T11:01:57.370819+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.4446692000001349,
+    "returncode": 0,
+    "started_at": "2026-10-09T11:01:56.931405+00:00",
+    "stderr": "",
+    "stdout": "usage: __main__.py [-h] [--target TARGET] [--space SPACE]\n                   [--evidence-root EVIDENCE_ROOT]\n                   {list-configs,build,reference,evaluate,grid,campaign} ...\n\nMatrix multiplication P1 runner\n\npositional arguments:\n  {list-configs,build,reference,evaluate,grid,campaign}\n    grid                Run or resume the formal 20-configuration Grid session\n    campaign            Run or resume the private P3 search trajectories\n\noptions:\n  -h, --help            show this help message and exit\n  --target TARGET\n  --space SPACE\n  --evidence-root EVIDENCE_ROOT\n"
+  },
+  {
+    "command": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "--cd",
+      "/var/tmp/matrix-autotuner-p2-content-fa597017c2317772a0f7f34faa75194ffecec8f2",
+      "--",
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "python3",
+      "-m",
+      "autotuner",
+      "list-configs"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T11:01:57.780921+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.39856090000012045,
+    "returncode": 0,
+    "started_at": "2026-10-09T11:01:57.370819+00:00",
+    "stderr": "",
+    "stdout": "[\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 8\n  },\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 16\n  },\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 24\n  },\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 64\n  },\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 128\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 8\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 16\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 24\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 64\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 128\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 8\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 16\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 24\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 64\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 128\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 8\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 16\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 24\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 64\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 128\n  }\n]\n"
+  },
+  {
+    "command": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "--cd",
+      "/var/tmp/matrix-autotuner-p2-content-fa597017c2317772a0f7f34faa75194ffecec8f2",
+      "--",
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T11:02:08.725937+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 10.935914600000615,
+    "returncode": 0,
+    "started_at": "2026-10-09T11:01:57.789695+00:00",
+    "stderr": "test_campaign_pairs_frozen_seeds_and_keeps_original_measurement (test_campaign.CampaignTests.test_campaign_pairs_frozen_seeds_and_keeps_original_measurement) ... ok\ntest_equal_scores_choose_canonical_configuration_without_extra_observations (test_campaign.CampaignTests.test_equal_scores_choose_canonical_configuration_without_extra_observations) ... ok\ntest_failed_configuration_consumes_unique_budget_and_does_not_score (test_campaign.CampaignTests.test_failed_configuration_consumes_unique_budget_and_does_not_score) ... ok\ntest_foreign_trajectory_order_cannot_be_restored_as_own (test_campaign.CampaignTests.test_foreign_trajectory_order_cannot_be_restored_as_own) ... ok\ntest_modified_statistics_partial_groups_and_performance_cache_are_rejected (test_campaign.CampaignTests.test_modified_statistics_partial_groups_and_performance_cache_are_rejected) ... ok\ntest_prefixes_use_only_own_successes (test_campaign.CampaignTests.test_prefixes_use_only_own_successes) ... ok\ntest_rejected_setup_saves_identity_and_resumes_without_building_or_measuring (test_campaign.CampaignTests.test_rejected_setup_saves_identity_and_resumes_without_building_or_measuring) ... ok\ntest_replay_preserves_own_decisions_and_rng_for_both_algorithms (test_campaign.CampaignTests.test_replay_preserves_own_decisions_and_rng_for_both_algorithms) ... ok\ntest_terminal_failures_cannot_fabricate_score_or_success (test_campaign.CampaignTests.test_terminal_failures_cannot_fabricate_score_or_success) ... ok\ntest_failed_configuration_gate_pause_then_success_preserves_session_cost_not_prefix (test_campaign_costs.CostRegressionTests.test_failed_configuration_gate_pause_then_success_preserves_session_cost_not_prefix) ... ok\ntest_content_changes_and_original_newline_conversion_are_rejected (test_first_seed_audit.FirstSeedArchiveIdentityTests.test_content_changes_and_original_newline_conversion_are_rejected) ... ok\ntest_line_endings_have_distinct_runtime_but_equal_git_identity (test_first_seed_audit.FirstSeedArchiveIdentityTests.test_line_endings_have_distinct_runtime_but_equal_git_identity) ... ok\ntest_expected_count_and_unchanged_boundary (test_first_seed_audit.FirstSeedClockTests.test_expected_count_and_unchanged_boundary) ... ok\ntest_invalid_or_divergent_clocks_cannot_pass (test_first_seed_audit.FirstSeedClockTests.test_invalid_or_divergent_clocks_cannot_pass) ... ok\ntest_campaign_activity_and_retests_remain_separate_from_search (test_first_seed_audit.FirstSeedCostTests.test_campaign_activity_and_retests_remain_separate_from_search) ... ok\ntest_git_line_ending_conversion_is_explicit_but_content_changes_fail (test_first_seed_audit.FirstSeedPrefixTests.test_git_line_ending_conversion_is_explicit_but_content_changes_fail) ... ok\ntest_missing_normalized_identity_cannot_bless_different_runtime_bytes (test_first_seed_audit.FirstSeedPrefixTests.test_missing_normalized_identity_cannot_bless_different_runtime_bytes) ... ok\ntest_actual_windows_module_entry_and_abnormal_probe_refusal (test_p3_clock_contract.AcceptanceTests.test_actual_windows_module_entry_and_abnormal_probe_refusal) ... skipped 'Actual Windows PowerShell entry is tested on Windows'\ntest_clock_identity_and_resource_failures_are_not_mislabeled (test_p3_clock_contract.AcceptanceTests.test_clock_identity_and_resource_failures_are_not_mislabeled) ... ok\ntest_completed_two_trajectories_need_all_six_retested_prefixes (test_p3_clock_contract.AcceptanceTests.test_completed_two_trajectories_need_all_six_retested_prefixes) ... ok\ntest_criteria_path_is_auxiliary_not_original_formal_archive (test_p3_clock_contract.AcceptanceTests.test_criteria_path_is_auxiliary_not_original_formal_archive) ... ok\ntest_incomplete_and_complete_exit_states (test_p3_clock_contract.AcceptanceTests.test_incomplete_and_complete_exit_states) ... ok\ntest_pre_rejection_reason_survives_post_failure (test_p3_clock_contract.AcceptanceTests.test_pre_rejection_reason_survives_post_failure) ... ok\ntest_recorder_summaries_are_actual_in_both_modes (test_p3_clock_contract.AcceptanceTests.test_recorder_summaries_are_actual_in_both_modes) ... ok\ntest_recovery_never_substitutes_for_actual_campaign_boundaries (test_p3_clock_contract.AcceptanceTests.test_recovery_never_substitutes_for_actual_campaign_boundaries) ... ok\ntest_actual_call_binding_requires_matching_command_and_clock_order (test_p3_clock_contract.ClockEvidenceTests.test_actual_call_binding_requires_matching_command_and_clock_order) ... ok\ntest_archived_eol_conversion_is_distinct_from_stream_content_mutation (test_p3_clock_contract.ClockEvidenceTests.test_archived_eol_conversion_is_distinct_from_stream_content_mutation) ... ok\ntest_bad_criteria_probe_operation_and_stale_batch (test_p3_clock_contract.ClockEvidenceTests.test_bad_criteria_probe_operation_and_stale_batch) ... ok\ntest_batch_checkpoint_binding_rejects_newer_records (test_p3_clock_contract.ClockEvidenceTests.test_batch_checkpoint_binding_rejects_newer_records) ... ok\ntest_raw_output_mutation_is_rejected_not_just_saved_pass (test_p3_clock_contract.ClockEvidenceTests.test_raw_output_mutation_is_rejected_not_just_saved_pass) ... ok\ntest_recovery_requires_twenty_intervals_and_current_checkpoint (test_p3_clock_contract.ClockEvidenceTests.test_recovery_requires_twenty_intervals_and_current_checkpoint) ... ok\ntest_single_bad_interval_rejects_whole_recovery_without_filtering (test_p3_clock_contract.ClockEvidenceTests.test_single_bad_interval_rejects_whole_recovery_without_filtering) ... ok\ntest_success_and_saved_pass_contradiction (test_p3_clock_contract.ClockEvidenceTests.test_success_and_saved_pass_contradiction) ... ok\ntest_empty_missing_wrong_schema_or_count_rejected (test_p3_clock_contract.StrictClockTests.test_empty_missing_wrong_schema_or_count_rejected) ... ok\ntest_integer_ns_precision_and_float_endpoint_rejection (test_p3_clock_contract.StrictClockTests.test_integer_ns_precision_and_float_endpoint_rejection) ... ok\ntest_nonfinite_duplicate_json_is_not_accepted (test_p3_clock_contract.StrictClockTests.test_nonfinite_duplicate_json_is_not_accepted) ... ok\ntest_nonfinite_zero_negative_wrong_types_rejected (test_p3_clock_contract.StrictClockTests.test_nonfinite_zero_negative_wrong_types_rejected) ... ok\ntest_saved_delta_and_source_tolerances_must_match (test_p3_clock_contract.StrictClockTests.test_saved_delta_and_source_tolerances_must_match) ... ok\ntest_actual_gcc_failure_is_classified_without_score (test_runner.BuildCacheTests.test_actual_gcc_failure_is_classified_without_score) ... ok\ntest_build_key_covers_size_optimization_and_fault_mode (test_runner.BuildCacheTests.test_build_key_covers_size_optimization_and_fault_mode) ... ok\ntest_performance_cache_requires_explicit_reuse (test_runner.BuildCacheTests.test_performance_cache_requires_explicit_reuse) ... ok\ntest_reference_request_rejects_seed_above_uint64 (test_runner.BuildCacheTests.test_reference_request_rejects_seed_above_uint64) ... ok\ntest_crash_timeout_and_parse_failure_are_distinct (test_runner.ClassificationTests.test_crash_timeout_and_parse_failure_are_distinct) ... ok\ntest_error_classification_requires_schema (test_runner.ClassificationTests.test_error_classification_requires_schema) ... ok\ntest_nonfinite_success_cannot_score (test_runner.ClassificationTests.test_nonfinite_success_cannot_score) ... ok\ntest_parameter_rejection_requires_contract (test_runner.ClassificationTests.test_parameter_rejection_requires_contract) ... ok\ntest_request_identity_and_tolerance_are_required (test_runner.ClassificationTests.test_request_identity_and_tolerance_are_required) ... ok\ntest_success (test_runner.ClassificationTests.test_success) ... ok\ntest_success_json_with_nonzero_exit_is_never_success (test_runner.ClassificationTests.test_success_json_with_nonzero_exit_is_never_success) ... ok\ntest_validation_failure (test_runner.ClassificationTests.test_validation_failure) ... ok\ntest_external_space_has_twenty_unique_configs_in_canonical_order (test_runner.ConfigSpaceTests.test_external_space_has_twenty_unique_configs_in_canonical_order) ... ok\ntest_search_protocol_is_frozen_with_requested_budgets_and_seeds (test_runner.ConfigSpaceTests.test_search_protocol_is_frozen_with_requested_budgets_and_seeds) ... ok\ntest_actual_crash_has_no_score (test_runner.EvaluatorFailurePathTests.test_actual_crash_has_no_score) ... ok\ntest_actual_output_parse_failure_has_no_score (test_runner.EvaluatorFailurePathTests.test_actual_output_parse_failure_has_no_score) ... ok\ntest_actual_timeout_has_no_score (test_runner.EvaluatorFailurePathTests.test_actual_timeout_has_no_score) ... ok\ntest_compile_failure_has_no_score (test_runner.EvaluatorFailurePathTests.test_compile_failure_has_no_score) ... ok\ntest_evaluator_binds_success_output_to_request (test_runner.EvaluatorFailurePathTests.test_evaluator_binds_success_output_to_request) ... ok\ntest_evaluator_never_scores_success_json_on_exit_64_65 (test_runner.EvaluatorFailurePathTests.test_evaluator_never_scores_success_json_on_exit_64_65) ... ok\ntest_rejects_duplicate_key (test_runner.StrictJsonTests.test_rejects_duplicate_key) ... ok\ntest_rejects_multiple_lines (test_runner.StrictJsonTests.test_rejects_multiple_lines) ... ok\ntest_rejects_nan_constant (test_runner.StrictJsonTests.test_rejects_nan_constant) ... ok\ntest_checkpoint_rejects_partial_and_cache_and_modified_raw_output (test_search_measurement.MeasurementTests.test_checkpoint_rejects_partial_and_cache_and_modified_raw_output) ... ok\ntest_complete_group_is_five_fresh_samples_after_warmup (test_search_measurement.MeasurementTests.test_complete_group_is_five_fresh_samples_after_warmup) ... ok\ntest_failure_never_scores_successful_subset (test_search_measurement.MeasurementTests.test_failure_never_scores_successful_subset) ... ok\ntest_formal_gate_is_not_inferred_from_exit_status (test_search_measurement.MeasurementTests.test_formal_gate_is_not_inferred_from_exit_status) ... ok\ntest_resource_blocked_checkpoint_has_identity_before_setup_and_resumes (test_search_measurement.MeasurementTests.test_resource_blocked_checkpoint_has_identity_before_setup_and_resumes) ... ok\ntest_failed_observations_consume_budget_but_never_win (test_search_measurement.StrategyTests.test_failed_observations_consume_budget_but_never_win) ... ok\ntest_greedy_has_all_seven_single_parameter_neighbors (test_search_measurement.StrategyTests.test_greedy_has_all_seven_single_parameter_neighbors) ... ok\ntest_unique_budget_reproducibility_and_prefixes (test_search_measurement.StrategyTests.test_unique_budget_reproducibility_and_prefixes) ... ok\ntest_changed_windows_resource_script_is_rejected (test_timing_audit.TimingAuditTests.test_changed_windows_resource_script_is_rejected) ... ok\ntest_local_windows_resource_script_requires_matching_archive_bytes (test_timing_audit.TimingAuditTests.test_local_windows_resource_script_requires_matching_archive_bytes) ... ok\ntest_nonfinite_negative_and_clock_divergence_are_not_agreement (test_timing_audit.TimingAuditTests.test_nonfinite_negative_and_clock_divergence_are_not_agreement) ... ok\ntest_predeclared_relative_and_absolute_boundaries (test_timing_audit.TimingAuditTests.test_predeclared_relative_and_absolute_boundaries) ... ok\ntest_retains_nanosecond_precision_without_float_endpoints (test_timing_audit.TimingAuditTests.test_retains_nanosecond_precision_without_float_endpoints) ... ok\n\n----------------------------------------------------------------------\nRan 74 tests in 10.344s\n\nOK (skipped=1)\n",
+    "stdout": ""
+  },
+  {
+    "command": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "--cd",
+      "/var/tmp/matrix-autotuner-p2-content-fa597017c2317772a0f7f34faa75194ffecec8f2",
+      "--",
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "python3",
+      "scripts/verify_p1.py"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T11:02:09.345463+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.6120945000002393,
+    "returncode": 0,
+    "started_at": "2026-10-09T11:02:08.729958+00:00",
+    "stderr": "",
+    "stdout": "p1_verification=PASS\noriginal_sha256=188d011109c4470e1f41829216e8677a5c2d8f2b7c8a44215652320dbdf6de15\ncore_sha256=d63f8bc9ff479c77508948ad51ae4254daf9e3f7483416df90a31b01cf9959f4\ncore_import=PASS cli_start=PASS unique_configs=20/20\nsmall_cases=160/160 faults=7/7 strict_cli=6/6\nmedium_optimization_levels=4/4 default_optimization_levels=4/4 repeats=5/5\n"
+  },
+  {
+    "command": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "--cd",
+      "/var/tmp/matrix-autotuner-p2-content-fa597017c2317772a0f7f34faa75194ffecec8f2",
+      "--",
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "python3",
+      "-c",
+      "import json,sys; from pathlib import Path; from autotuner.session import source_identity; print(json.dumps(source_identity(Path('.'),json.loads(sys.argv[1]))))",
+      "{\"autotuner/__init__.py\": \"253880bbc0a43275434ec7c147a1d687b096e5f7\", \"autotuner/__main__.py\": \"eb53e2f31b2f703ad32ef64b8a41faa3e7d18e08\", \"autotuner/campaign.py\": \"4e52b471fa8fb0c5e8345fd99a04447ebdf85c7e\", \"autotuner/cli.py\": \"b79394ef8c6f3f20872e9acb7198ddbca94f168e\", \"autotuner/core.py\": \"dfab2b590e3f0063b84eaad0e1e3ff5801e50273\", \"autotuner/measurement.py\": \"3d69301d8b8e35d1b1c9fb4f9cb4f27c1d98a486\", \"autotuner/search.py\": \"cc76a6de5506c0767cea80be1d6c17ff33d41009\", \"autotuner/session.py\": \"8a577c5c863128b8d14be9c1d55d6c8fdfaf5516\", \"configs/config_space.json\": \"cda32f8eee9cd8a3622c329658f18fae89cb7034\", \"configs/measurement_protocol.json\": \"49586a5af5242f02654606997ffc69a7ad4c3270\", \"configs/p3_campaign_protocol.json\": \"467ba0318cbfff8517e652db1578355b85a0335e\", \"configs/search_protocol.json\": \"49e354b2bcc64cf9f53ede3a574c51bc05cfeb68\", \"configs/target.json\": \"11a23c200230fc1e0ccb56b2d81def58aa8d1f03\", \"configs/timing_audit_protocol.json\": \"f4c35edc30c698325ef32c559e5f2bfc6c5ace38\", \"code/working/matrix_input.h\": \"2357c0e40883e2d87f8664aec123feb470e06a52\", \"code/working/matrix_multiplication.c\": \"746e4158b5089881e42feebdaf14e3b6e62d6402\", \"code/working/reference_generator.c\": \"c3684bcedb4a5c7a85da01927de57da3a7babdf5\", \"code/original/matrix_multiplication.c\": \"1f6625cf5258ebe386c6ca616a2d098140fe5702\", \"scripts/resume_p3_first_seed.ps1\": \"a6e421378d72bbbcb51c337f40ea83dc40a22bd0\", \"scripts/record_p3_first_seed_checks.py\": \"60fc322a656e96e904805c3b225ad2e2cde630eb\", \"scripts/audit_p3_first_seed.py\": \"533d1abc1228fa303fdde402169ab6cb95f7ddb4\", \"tests/test_first_seed_audit.py\": \"d819a1f9b141bb9dbdb247134612b08deddf7847\", \"scripts/p3_clock_contract.py\": \"33e5f2038012804aa7a968f0bcdda27516314ead\", \"scripts/start_p3_first_seed.py\": \"53a27a979f972a9605c9eebbe47a3c2560274edf\", \"tests/test_p3_clock_contract.py\": \"ba22d54259d32e09b7f886e5e6471062b39cc3a8\"}"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T11:02:09.752666+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.4031051000001753,
+    "returncode": 0,
+    "started_at": "2026-10-09T11:02:09.351146+00:00",
+    "stderr": "",
+    "stdout": "{\"autotuner/__init__.py\": {\"git_blob_sha1\": \"253880bbc0a43275434ec7c147a1d687b096e5f7\", \"executed_sha256\": \"8bf89ddfd5cd348fab4ffd079b0be3343bcb923fd372228ba2c1b2e31353831c\", \"git_content_sha256\": \"8bf89ddfd5cd348fab4ffd079b0be3343bcb923fd372228ba2c1b2e31353831c\", \"byte_count\": 222, \"crlf_count\": 0, \"lf_count\": 5}, \"autotuner/__main__.py\": {\"git_blob_sha1\": \"eb53e2f31b2f703ad32ef64b8a41faa3e7d18e08\", \"executed_sha256\": \"935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d\", \"git_content_sha256\": \"935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d\", \"byte_count\": 48, \"crlf_count\": 0, \"lf_count\": 3}, \"autotuner/campaign.py\": {\"git_blob_sha1\": \"4e52b471fa8fb0c5e8345fd99a04447ebdf85c7e\", \"executed_sha256\": \"c725688c9fe95e1f59d404784003ccc0d0348bca567505a6ace768b2079ef9c5\", \"git_content_sha256\": \"c725688c9fe95e1f59d404784003ccc0d0348bca567505a6ace768b2079ef9c5\", \"byte_count\": 29254, \"crlf_count\": 0, \"lf_count\": 476}, \"autotuner/cli.py\": {\"git_blob_sha1\": \"b79394ef8c6f3f20872e9acb7198ddbca94f168e\", \"executed_sha256\": \"d1c963bc2774947d2f36af2888248f881eb939a13275c199b9d5170336d7bca1\", \"git_content_sha256\": \"d1c963bc2774947d2f36af2888248f881eb939a13275c199b9d5170336d7bca1\", \"byte_count\": 5807, \"crlf_count\": 0, \"lf_count\": 137}, \"autotuner/core.py\": {\"git_blob_sha1\": \"dfab2b590e3f0063b84eaad0e1e3ff5801e50273\", \"executed_sha256\": \"d63f8bc9ff479c77508948ad51ae4254daf9e3f7483416df90a31b01cf9959f4\", \"git_content_sha256\": \"d63f8bc9ff479c77508948ad51ae4254daf9e3f7483416df90a31b01cf9959f4\", \"byte_count\": 37313, \"crlf_count\": 0, \"lf_count\": 936}, \"autotuner/measurement.py\": {\"git_blob_sha1\": \"3d69301d8b8e35d1b1c9fb4f9cb4f27c1d98a486\", \"executed_sha256\": \"81b2b43744482cfd85ee63e66cc7e93626b973d3bdc7b8226d1cc5d7edd0bd7a\", \"git_content_sha256\": \"81b2b43744482cfd85ee63e66cc7e93626b973d3bdc7b8226d1cc5d7edd0bd7a\", \"byte_count\": 5181, \"crlf_count\": 0, \"lf_count\": 101}, \"autotuner/search.py\": {\"git_blob_sha1\": \"cc76a6de5506c0767cea80be1d6c17ff33d41009\", \"executed_sha256\": \"f90daeb53292304a73383c8adc5f80a0f5e7647289d45c7f5d0c4e1bb8e08553\", \"git_content_sha256\": \"f90daeb53292304a73383c8adc5f80a0f5e7647289d45c7f5d0c4e1bb8e08553\", \"byte_count\": 4284, \"crlf_count\": 0, \"lf_count\": 102}, \"autotuner/session.py\": {\"git_blob_sha1\": \"8a577c5c863128b8d14be9c1d55d6c8fdfaf5516\", \"executed_sha256\": \"ff1b44563e67f9cac7e2f8e8895bd9b08dfc600d669ea0c5cd45712db5017438\", \"git_content_sha256\": \"ff1b44563e67f9cac7e2f8e8895bd9b08dfc600d669ea0c5cd45712db5017438\", \"byte_count\": 17189, \"crlf_count\": 0, \"lf_count\": 286}, \"configs/config_space.json\": {\"git_blob_sha1\": \"cda32f8eee9cd8a3622c329658f18fae89cb7034\", \"executed_sha256\": \"2a8ef5e178536a9f217f6eb0dac071600a18d084500b93098d2221ca979e30cd\", \"git_content_sha256\": \"2a8ef5e178536a9f217f6eb0dac071600a18d084500b93098d2221ca979e30cd\", \"byte_count\": 116, \"crlf_count\": 0, \"lf_count\": 5}, \"configs/measurement_protocol.json\": {\"git_blob_sha1\": \"49586a5af5242f02654606997ffc69a7ad4c3270\", \"executed_sha256\": \"c02cbf718cda049dc621c807df9b68acc539a8e06aa5918f7cb0376456515ab4\", \"git_content_sha256\": \"c02cbf718cda049dc621c807df9b68acc539a8e06aa5918f7cb0376456515ab4\", \"byte_count\": 2719, \"crlf_count\": 0, \"lf_count\": 50}, \"configs/p3_campaign_protocol.json\": {\"git_blob_sha1\": \"467ba0318cbfff8517e652db1578355b85a0335e\", \"executed_sha256\": \"43f0d5aadf183a09f44df66969926a4256347147a48933a7ca40c06a191b923f\", \"git_content_sha256\": \"43f0d5aadf183a09f44df66969926a4256347147a48933a7ca40c06a191b923f\", \"byte_count\": 3240, \"crlf_count\": 0, \"lf_count\": 37}, \"configs/search_protocol.json\": {\"git_blob_sha1\": \"49e354b2bcc64cf9f53ede3a574c51bc05cfeb68\", \"executed_sha256\": \"3a0451f0e84ef272e603100719e44a0af8c9fc1afa197ccfbb54ce5a2bfae468\", \"git_content_sha256\": \"3a0451f0e84ef272e603100719e44a0af8c9fc1afa197ccfbb54ce5a2bfae468\", \"byte_count\": 2700, \"crlf_count\": 0, \"lf_count\": 40}, \"configs/target.json\": {\"git_blob_sha1\": \"11a23c200230fc1e0ccb56b2d81def58aa8d1f03\", \"executed_sha256\": \"26301aad3ab0f78ac7c1e9f91330ee7f448482a640dd41305f07f1fb3c59461c\", \"git_content_sha256\": \"26301aad3ab0f78ac7c1e9f91330ee7f448482a640dd41305f07f1fb3c59461c\", \"byte_count\": 756, \"crlf_count\": 0, \"lf_count\": 21}, \"configs/timing_audit_protocol.json\": {\"git_blob_sha1\": \"f4c35edc30c698325ef32c559e5f2bfc6c5ace38\", \"executed_sha256\": \"720c91efdf26f6e435629d2638781cca1d79ebc49f49d203a7dcdaa398311b9f\", \"git_content_sha256\": \"720c91efdf26f6e435629d2638781cca1d79ebc49f49d203a7dcdaa398311b9f\", \"byte_count\": 2762, \"crlf_count\": 0, \"lf_count\": 44}, \"code/working/matrix_input.h\": {\"git_blob_sha1\": \"2357c0e40883e2d87f8664aec123feb470e06a52\", \"executed_sha256\": \"6ad1cfc920e5d1920c955a116b5e82ebb3cb9bc2d7b88f4fb5fa217610a44379\", \"git_content_sha256\": \"6ad1cfc920e5d1920c955a116b5e82ebb3cb9bc2d7b88f4fb5fa217610a44379\", \"byte_count\": 2104, \"crlf_count\": 0, \"lf_count\": 75}, \"code/working/matrix_multiplication.c\": {\"git_blob_sha1\": \"746e4158b5089881e42feebdaf14e3b6e62d6402\", \"executed_sha256\": \"d92870e97464b83935d77d5e087fcbd822c6abc0af244d806d024310720647ba\", \"git_content_sha256\": \"d92870e97464b83935d77d5e087fcbd822c6abc0af244d806d024310720647ba\", \"byte_count\": 10865, \"crlf_count\": 0, \"lf_count\": 329}, \"code/working/reference_generator.c\": {\"git_blob_sha1\": \"c3684bcedb4a5c7a85da01927de57da3a7babdf5\", \"executed_sha256\": \"e8014c3d91ca1fe40f5ef962e0c401e28e8719b19a3664c8322ce14716d4cfb5\", \"git_content_sha256\": \"e8014c3d91ca1fe40f5ef962e0c401e28e8719b19a3664c8322ce14716d4cfb5\", \"byte_count\": 9985, \"crlf_count\": 0, \"lf_count\": 292}, \"code/original/matrix_multiplication.c\": {\"git_blob_sha1\": \"1f6625cf5258ebe386c6ca616a2d098140fe5702\", \"executed_sha256\": \"188d011109c4470e1f41829216e8677a5c2d8f2b7c8a44215652320dbdf6de15\", \"git_content_sha256\": \"188d011109c4470e1f41829216e8677a5c2d8f2b7c8a44215652320dbdf6de15\", \"byte_count\": 1357, \"crlf_count\": 47, \"lf_count\": 47}, \"scripts/resume_p3_first_seed.ps1\": {\"git_blob_sha1\": \"a6e421378d72bbbcb51c337f40ea83dc40a22bd0\", \"executed_sha256\": \"37e5255483afb4fee2d7790d07cdf8a2b7ebf7443e489cb242a2d0bb140d506e\", \"git_content_sha256\": \"afdbcfbaddc8296b60e15c889068288b1fdd39f6bfe5b097e81c90bdb0f60da6\", \"byte_count\": 1712, \"crlf_count\": 29, \"lf_count\": 29}, \"scripts/record_p3_first_seed_checks.py\": {\"git_blob_sha1\": \"60fc322a656e96e904805c3b225ad2e2cde630eb\", \"executed_sha256\": \"35ca2d7bad5cd91d7f828e5070562f9c71fe12b9261d024e8ff2a5c66bf430e1\", \"git_content_sha256\": \"35ca2d7bad5cd91d7f828e5070562f9c71fe12b9261d024e8ff2a5c66bf430e1\", \"byte_count\": 10181, \"crlf_count\": 0, \"lf_count\": 159}, \"scripts/audit_p3_first_seed.py\": {\"git_blob_sha1\": \"533d1abc1228fa303fdde402169ab6cb95f7ddb4\", \"executed_sha256\": \"a0a0d94678e4568214dc3935065c902fcd4ba8bff68989b7ca8a67fe290cf002\", \"git_content_sha256\": \"a0a0d94678e4568214dc3935065c902fcd4ba8bff68989b7ca8a67fe290cf002\", \"byte_count\": 19510, \"crlf_count\": 0, \"lf_count\": 297}, \"tests/test_first_seed_audit.py\": {\"git_blob_sha1\": \"d819a1f9b141bb9dbdb247134612b08deddf7847\", \"executed_sha256\": \"a109f589aadc0aca08730f834d382f7205f73ce2e04bd9b5497b7b19b8fb26b3\", \"git_content_sha256\": \"a109f589aadc0aca08730f834d382f7205f73ce2e04bd9b5497b7b19b8fb26b3\", \"byte_count\": 7107, \"crlf_count\": 0, \"lf_count\": 128}, \"scripts/p3_clock_contract.py\": {\"git_blob_sha1\": \"33e5f2038012804aa7a968f0bcdda27516314ead\", \"executed_sha256\": \"10df779b7b0c79562acc3dec8f2249ab806c42df6b4b6ca06f27d131b97fbb8a\", \"git_content_sha256\": \"10df779b7b0c79562acc3dec8f2249ab806c42df6b4b6ca06f27d131b97fbb8a\", \"byte_count\": 28073, \"crlf_count\": 0, \"lf_count\": 451}, \"scripts/start_p3_first_seed.py\": {\"git_blob_sha1\": \"53a27a979f972a9605c9eebbe47a3c2560274edf\", \"executed_sha256\": \"adb96c509583c6402a00a81e456e2c593954971ba4c71f8b05345173cebe3c41\", \"git_content_sha256\": \"adb96c509583c6402a00a81e456e2c593954971ba4c71f8b05345173cebe3c41\", \"byte_count\": 19003, \"crlf_count\": 0, \"lf_count\": 311}, \"tests/test_p3_clock_contract.py\": {\"git_blob_sha1\": \"ba22d54259d32e09b7f886e5e6471062b39cc3a8\", \"executed_sha256\": \"ab5c0a3ade65a157a63ceeb75290924c516d0f57636a56cfaabd421bb6ce4176\", \"git_content_sha256\": \"ab5c0a3ade65a157a63ceeb75290924c516d0f57636a56cfaabd421bb6ce4176\", \"byte_count\": 25093, \"crlf_count\": 0, \"lf_count\": 399}}\n"
+  },
+  {
+    "command": [
+      "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_first_seed_audit.py",
+      "-v"
+    ],
+    "cwd": "E:\\software_system\\project01\\build\\p3_aux_clean\\fa597017c2317772a0f7f34faa75194ffecec8f2",
+    "ended_at": "2026-10-09T11:02:13.729034+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.8815126999998029,
+    "returncode": 0,
+    "started_at": "2026-10-09T11:02:12.843324+00:00",
+    "stderr": "test_content_changes_and_original_newline_conversion_are_rejected (test_first_seed_audit.FirstSeedArchiveIdentityTests.test_content_changes_and_original_newline_conversion_are_rejected) ... ok\ntest_line_endings_have_distinct_runtime_but_equal_git_identity (test_first_seed_audit.FirstSeedArchiveIdentityTests.test_line_endings_have_distinct_runtime_but_equal_git_identity) ... ok\ntest_expected_count_and_unchanged_boundary (test_first_seed_audit.FirstSeedClockTests.test_expected_count_and_unchanged_boundary) ... ok\ntest_invalid_or_divergent_clocks_cannot_pass (test_first_seed_audit.FirstSeedClockTests.test_invalid_or_divergent_clocks_cannot_pass) ... ok\ntest_campaign_activity_and_retests_remain_separate_from_search (test_first_seed_audit.FirstSeedCostTests.test_campaign_activity_and_retests_remain_separate_from_search) ... ok\ntest_git_line_ending_conversion_is_explicit_but_content_changes_fail (test_first_seed_audit.FirstSeedPrefixTests.test_git_line_ending_conversion_is_explicit_but_content_changes_fail) ... ok\ntest_missing_normalized_identity_cannot_bless_different_runtime_bytes (test_first_seed_audit.FirstSeedPrefixTests.test_missing_normalized_identity_cannot_bless_different_runtime_bytes) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.083s\n\nOK\n",
+    "stdout": ""
+  },
+  {
+    "command": [
+      "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_p3_clock_contract.py",
+      "-v"
+    ],
+    "cwd": "E:\\software_system\\project01\\build\\p3_aux_clean\\fa597017c2317772a0f7f34faa75194ffecec8f2",
+    "ended_at": "2026-10-09T11:02:26.275082+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 12.538561100000152,
+    "returncode": 0,
+    "started_at": "2026-10-09T11:02:13.732420+00:00",
+    "stderr": "test_actual_windows_module_entry_and_abnormal_probe_refusal (test_p3_clock_contract.AcceptanceTests.test_actual_windows_module_entry_and_abnormal_probe_refusal) ... ok\ntest_clock_identity_and_resource_failures_are_not_mislabeled (test_p3_clock_contract.AcceptanceTests.test_clock_identity_and_resource_failures_are_not_mislabeled) ... ok\ntest_completed_two_trajectories_need_all_six_retested_prefixes (test_p3_clock_contract.AcceptanceTests.test_completed_two_trajectories_need_all_six_retested_prefixes) ... ok\ntest_criteria_path_is_auxiliary_not_original_formal_archive (test_p3_clock_contract.AcceptanceTests.test_criteria_path_is_auxiliary_not_original_formal_archive) ... ok\ntest_incomplete_and_complete_exit_states (test_p3_clock_contract.AcceptanceTests.test_incomplete_and_complete_exit_states) ... ok\ntest_pre_rejection_reason_survives_post_failure (test_p3_clock_contract.AcceptanceTests.test_pre_rejection_reason_survives_post_failure) ... ok\ntest_recorder_summaries_are_actual_in_both_modes (test_p3_clock_contract.AcceptanceTests.test_recorder_summaries_are_actual_in_both_modes) ... ok\ntest_recovery_never_substitutes_for_actual_campaign_boundaries (test_p3_clock_contract.AcceptanceTests.test_recovery_never_substitutes_for_actual_campaign_boundaries) ... ok\ntest_actual_call_binding_requires_matching_command_and_clock_order (test_p3_clock_contract.ClockEvidenceTests.test_actual_call_binding_requires_matching_command_and_clock_order) ... ok\ntest_archived_eol_conversion_is_distinct_from_stream_content_mutation (test_p3_clock_contract.ClockEvidenceTests.test_archived_eol_conversion_is_distinct_from_stream_content_mutation) ... ok\ntest_bad_criteria_probe_operation_and_stale_batch (test_p3_clock_contract.ClockEvidenceTests.test_bad_criteria_probe_operation_and_stale_batch) ... ok\ntest_batch_checkpoint_binding_rejects_newer_records (test_p3_clock_contract.ClockEvidenceTests.test_batch_checkpoint_binding_rejects_newer_records) ... ok\ntest_raw_output_mutation_is_rejected_not_just_saved_pass (test_p3_clock_contract.ClockEvidenceTests.test_raw_output_mutation_is_rejected_not_just_saved_pass) ... ok\ntest_recovery_requires_twenty_intervals_and_current_checkpoint (test_p3_clock_contract.ClockEvidenceTests.test_recovery_requires_twenty_intervals_and_current_checkpoint) ... ok\ntest_single_bad_interval_rejects_whole_recovery_without_filtering (test_p3_clock_contract.ClockEvidenceTests.test_single_bad_interval_rejects_whole_recovery_without_filtering) ... ok\ntest_success_and_saved_pass_contradiction (test_p3_clock_contract.ClockEvidenceTests.test_success_and_saved_pass_contradiction) ... ok\ntest_empty_missing_wrong_schema_or_count_rejected (test_p3_clock_contract.StrictClockTests.test_empty_missing_wrong_schema_or_count_rejected) ... ok\ntest_integer_ns_precision_and_float_endpoint_rejection (test_p3_clock_contract.StrictClockTests.test_integer_ns_precision_and_float_endpoint_rejection) ... ok\ntest_nonfinite_duplicate_json_is_not_accepted (test_p3_clock_contract.StrictClockTests.test_nonfinite_duplicate_json_is_not_accepted) ... ok\ntest_nonfinite_zero_negative_wrong_types_rejected (test_p3_clock_contract.StrictClockTests.test_nonfinite_zero_negative_wrong_types_rejected) ... ok\ntest_saved_delta_and_source_tolerances_must_match (test_p3_clock_contract.StrictClockTests.test_saved_delta_and_source_tolerances_must_match) ... ok\n\n----------------------------------------------------------------------\nRan 21 tests in 11.472s\n\nOK\n",
+    "stdout": ""
+  }
+]

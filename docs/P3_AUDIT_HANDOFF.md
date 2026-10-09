@@ -15,6 +15,18 @@
 [当前状态/成本/后续约束](P3_FIRST_SEED_STATUS.md)、[辅助版本迁移](P3_CLOCK_CONTRACT.md)。
 以下e46b96c及更早段落仅为历史，不作为本轮通过证明；等待外部复核，不再自动探测。
 
+最终辅助内容为`fa597017c2317772a0f7f34faa75194ffecec8f2`，含恢复-only不能冒充
+campaign边界证书的回归。其[双干净归档](../evidence/p3_clock_contract/20261009-180810-0491a4ec/clean-fa59701/summary.json)
+74项全套（WSL跳过1项）、Windows7+21项、CLI/20配置及源码身份通过。
+真实复核使用0c6ee7e内容，来源不替换；bb17720为中间路径修复，日志全部保留。
+最终源码与fa59701一致，后续提交只含文档及证据。
+[当前真实复核验收](../evidence/p3_clock_contract/20261009-180810-0491a4ec/final_recovery_acceptance.json)
+整体integrity=false源于保留的旧错误路径，不是丢失20条端点；raw窗口完整性=true、
+计时=false、比较=false。干净验证检查的旧未完成模式不能作为此次通过证明。
+[最终进程与保护](../evidence/p3_clock_contract/20261009-180810-0491a4ec/final_state.json)、
+[独立辅助成本](../evidence/p3_clock_contract/20261009-180810-0491a4ec/auxiliary_cost_index.json)。
+下一步只读复算命令及需要外部裁决的时钟/环境处理见首种子状态；不自动再启动探针。
+
 **最新授权与状态（e46b96c之后）**：用户要求沿用原e308bfb归档、固定身份及原
 campaign，只恢复seed=20261008随机/贪心两条12配置轨迹及其前缀候选独立复测。
 16:38用户要求继续后，原主控批前时钟检查失败，限定30秒复核也未通过，未启动目标。

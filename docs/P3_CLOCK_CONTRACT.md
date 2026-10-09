@@ -75,6 +75,16 @@ v2.1最终验收另显式禁止“仅恢复探针通过”认证实际campaign�
 该调用绑定的两个边界检查，恢复-only即使面对已完整检查点也不能comparison_ready。
 此前bb17720是路径修复中间内容，最终辅助内容另提交后独立验证，未再采真实探针。
 
+最终辅助内容为`fa597017c2317772a0f7f34faa75194ffecec8f2`。
+[准确提交的双归档验证](../evidence/p3_clock_contract/20261009-180810-0491a4ec/clean-fa59701/summary.json)：
+74项WSL单测（1项Windows专用跳过），Windows旧7/新21项、CLI帮助、20唯一配置、
+历史证据和25文件身份通过。后续仅补文档/证据，执行源码与该提交一致。
+干净验证的历史未完成模式审计退出2；当前真实复核的
+[独立验收](../evidence/p3_clock_contract/20261009-180810-0491a4ec/final_recovery_acceptance.json)
+因原始manifest缺失路径而退出1，不能把历史模式的integrity=true移用给本次复核。
+本次原始窗口各自的raw integrity=true；整体原始身份拒绝、时钟失败与comparison=false
+均据实保留，补充哈希不是覆盖旧判定。
+
 ## 验收与成本
 
 验收分为evidence_integrity_pass、execution_complete、timing_checks_pass、comparison_ready。
