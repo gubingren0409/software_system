@@ -1,0 +1,67 @@
+{
+  "purpose": "Final readonly verification for resource-paused P3 progress; no new formal target executions",
+  "formal_content_commit": "e308bfb873e6811c50ad685a979af345302fda8d",
+  "audit_command": "wsl.exe -d Ubuntu-24.04 --cd /var/tmp/matrix-autotuner-p2-content-e308bfb873e6811c50ad685a979af345302fda8d -- env -u PYTHONPATH PYTHONDONTWRITEBYTECODE=1 python3 scripts/audit_p3_evidence.py --campaign /mnt/e/software_system/project01/evidence/p3/campaign-e308bfb --grid /mnt/e/software_system/project01/evidence/p2/grid-session-0d3dd52 --output /mnt/e/software_system/project01/evidence/p3/resource-paused-audit",
+  "audit_tool_result": {
+    "chunk_id": "c35d15",
+    "wall_time_seconds": 9.6962094,
+    "exit_code": 0,
+    "original_token_count": 38,
+    "output": "{\"status\": \"PASS\", \"campaign_status\": \"resource_paused\", \"completed_trajectory_count\": 0, \"unique_configuration_count\": 2, \"raw_execution_count\": 12}\n"
+  },
+  "checks": [
+    {
+      "cmd": "git diff --name-only",
+      "chunk_id": "432cbd",
+      "wall_time_seconds": 1.3401737,
+      "exit_code": 0,
+      "original_token_count": 353,
+      "output": "warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/P3_AUDIT_HANDOFF.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/WORK_LOG.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'evidence/p3/campaign-e308bfb/trajectories/00_random_20261008/runs/search_dd044b945ab646cdbd742e94d4c579a1_2_9c965458db4e4a2ab388bd612207b381/resource.txt', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'evidence/p3/campaign-e308bfb/trajectories/00_random_20261008/samples.jsonl', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'report.md', LF will be replaced by CRLF the next time Git touches it\nREADME.md\ndocs/P3_AUDIT_HANDOFF.md\ndocs/WORK_LOG.md\nevidence/p3/campaign-e308bfb/checkpoint.json\nevidence/p3/campaign-e308bfb/trajectories/00_random_20261008/checkpoint.json\nevidence/p3/campaign-e308bfb/trajectories/00_random_20261008/configurations/search_dd044b945ab646cdbd742e94d4c579a1.json\nevidence/p3/campaign-e308bfb/trajectories/00_random_20261008/runs/search_dd044b945ab646cdbd742e94d4c579a1_2_9c965458db4e4a2ab388bd612207b381/resource.txt\nevidence/p3/campaign-e308bfb/trajectories/00_random_20261008/samples.jsonl\nevidence/p3/formal_controller.json\nreport.md\n"
+    },
+    {
+      "cmd": "git diff e308bfb873e6811c50ad685a979af345302fda8d -- autotuner code configs tests scripts/check_p2_resources.ps1 scripts/prepare_p2_content.ps1 scripts/audit_p3_evidence.py scripts/run_p3_clean_validation.py",
+      "chunk_id": "4feb75",
+      "wall_time_seconds": 1.2748485,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "cmd": "git ls-files autotuner/core.py autotuner/campaign.py scripts/plot_p3_results.py scripts/release_p3_reference_pages.py",
+      "chunk_id": "769c93",
+      "wall_time_seconds": 1.2296345,
+      "exit_code": 0,
+      "original_token_count": 27,
+      "output": "autotuner/campaign.py\nautotuner/core.py\nscripts/plot_p3_results.py\nscripts/release_p3_reference_pages.py\n"
+    },
+    {
+      "cmd": "git diff --check",
+      "chunk_id": "54fbe4",
+      "wall_time_seconds": 1.3653637,
+      "exit_code": 0,
+      "original_token_count": 211,
+      "output": "warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/P3_AUDIT_HANDOFF.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/WORK_LOG.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'evidence/p3/campaign-e308bfb/trajectories/00_random_20261008/runs/search_dd044b945ab646cdbd742e94d4c579a1_2_9c965458db4e4a2ab388bd612207b381/resource.txt', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'evidence/p3/campaign-e308bfb/trajectories/00_random_20261008/samples.jsonl', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'report.md', LF will be replaced by CRLF the next time Git touches it\n"
+    },
+    {
+      "cmd": "rg -n -i --hidden -g '!*.png' -g '!*.svg' 'ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|-----BEGIN (RSA |OPENSSH |EC )?PRIVATE KEY-----|Bearer [A-Za-z0-9._-]{24,}' evidence/p3 docs/P3_PROTOCOL.md docs/P3_AUDIT_HANDOFF.md autotuner/campaign.py scripts/audit_p3_evidence.py scripts/run_p3_clean_validation.py",
+      "chunk_id": "2602c4",
+      "wall_time_seconds": 2.4620798,
+      "exit_code": 1,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ],
+  "known_failure_before_audit_retry": {
+    "command_grid_argument": "/mnt/e/software_system/project01/evidence/p2/formal-0d3dd52",
+    "observed_exit_code": 1,
+    "observed_exception": "FileNotFoundError: /mnt/e/software_system/project01/evidence/p2/formal-0d3dd52/checkpoint.json",
+    "correction": "Located existing grid-session-0d3dd52 with rg; reran same readonly audit with correct argument",
+    "formal_data_changed": false
+  },
+  "secret_scan_expected_exit_code": 1,
+  "notes": [
+    "Changed auxiliary scripts are not included in the immutable formal content archive; frozen runtime source/CLI/config/tests diff is empty.",
+    "Tool process output is merged stdout/stderr; per-target and resource gate files retain separate streams.",
+    "No new ASan or default-scale repetitions in this delivery; full clean e308bfb validation remains applicable to identical runtime code."
+  ]
+}
