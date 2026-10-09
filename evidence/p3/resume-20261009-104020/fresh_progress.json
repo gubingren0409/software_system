@@ -1,0 +1,79 @@
+{
+  "command": "$p3Before = (Get-Content evidence/p3/resume-20261009-104020/preflight.json -Raw | ConvertFrom-Json).pre_resume_state; $p3Rows = @(Get-Content evidence/p3/campaign-e308bfb/trajectories/00_random_20261008/samples.jsonl | ForEach-Object { $_ | ConvertFrom-Json }); $p3Ids = @($p3Rows | ForEach-Object { $_.run_id }); $p3Child = Get-Content evidence/p3/campaign-e308bfb/trajectories/00_random_20261008/checkpoint.json -Raw | ConvertFrom-Json; $p3Root = Get-Content evidence/p3/campaign-e308bfb/checkpoint.json -Raw | ConvertFrom-Json; [pscustomobject]@{captured_at_local=(Get-Date -Format o);root_status=$p3Root.status;session_id=$p3Root.session_id;completed_config_count=$p3Child.observations.Count;active=$p3Child.active;raw_execution_count=$p3Ids.Count;all_previous_runs_preserved=(@($p3Before.run_ids | Where-Object { $_ -notin $p3Ids }).Count -eq 0);all_run_ids_unique=($p3Ids.Count -eq @($p3Ids | Sort-Object -Unique).Count);new_samples=@($p3Rows | Where-Object { $_.run_id -notin $p3Before.run_ids } | ForEach-Object { [pscustomobject]@{run_id=$_.run_id;role=$_.role;config=$_.config;classification=$_.classification;returncode=$_.returncode;force_remeasure=$_.context.force_remeasure;source=$_.source;checked_entries=$_.target_result.checked_entries;mismatch_count=$_.target_result.mismatch_count;compute_seconds=$_.score_seconds} })} | ConvertTo-Json -Depth 7",
+  "tool_result": {
+    "chunk_id": "355c1c",
+    "wall_time_seconds": 1.5177991,
+    "exit_code": 0,
+    "original_token_count": 439,
+    "output": "{\r\n  \"captured_at_local\": \"2026-10-09T10:47:49.7864009+08:00\",\r\n  \"root_status\": \"running\",\r\n  \"session_id\": \"dc1c292900654d44b36a72548b95a610\",\r\n  \"completed_config_count\": 2,\r\n  \"active\": {\r\n    \"attempt_id\": \"d3698a3b90b04797802edb81457bfba7\",\r\n    \"config\": {\r\n      \"block_size\": 16,\r\n      \"optimization\": \"O3\"\r\n    },\r\n    \"purpose\": \"search\",\r\n    \"sample_count\": 3\r\n  },\r\n  \"raw_execution_count\": 15,\r\n  \"all_previous_runs_preserved\": true,\r\n  \"all_run_ids_unique\": true,\r\n  \"new_samples\": [\r\n    {\r\n      \"run_id\": \"be3d19627c9a4acea7ebbe37f9fa290e\",\r\n      \"role\": \"warmup\",\r\n      \"config\": {\r\n        \"block_size\": 16,\r\n        \"optimization\": \"O3\"\r\n      },\r\n      \"classification\": \"success\",\r\n      \"returncode\": 0,\r\n      \"force_remeasure\": true,\r\n      \"source\": \"fresh_measurement\",\r\n      \"checked_entries\": 16777216,\r\n      \"mismatch_count\": 0,\r\n      \"compute_seconds\": 84.61476533\r\n    },\r\n    {\r\n      \"run_id\": \"60bcec85f3d949e6b82996eadce39229\",\r\n      \"role\": \"measurement\",\r\n      \"config\": {\r\n        \"block_size\": 16,\r\n        \"optimization\": \"O3\"\r\n      },\r\n      \"classification\": \"success\",\r\n      \"returncode\": 0,\r\n      \"force_remeasure\": true,\r\n      \"source\": \"fresh_measurement\",\r\n      \"checked_entries\": 16777216,\r\n      \"mismatch_count\": 0,\r\n      \"compute_seconds\": 84.80523012\r\n    },\r\n    {\r\n      \"run_id\": \"de047163c08b483b9a33de7ac00a4e80\",\r\n      \"role\": \"measurement\",\r\n      \"config\": {\r\n        \"block_size\": 16,\r\n        \"optimization\": \"O3\"\r\n      },\r\n      \"classification\": \"success\",\r\n      \"returncode\": 0,\r\n      \"force_remeasure\": true,\r\n      \"source\": \"fresh_measurement\",\r\n      \"checked_entries\": 16777216,\r\n      \"mismatch_count\": 0,\r\n      \"compute_seconds\": 80.217486883\r\n    }\r\n  ]\r\n}\r\n"
+  },
+  "parsed": {
+    "captured_at_local": "2026-10-09T10:47:49.7864009+08:00",
+    "root_status": "running",
+    "session_id": "dc1c292900654d44b36a72548b95a610",
+    "completed_config_count": 2,
+    "active": {
+      "attempt_id": "d3698a3b90b04797802edb81457bfba7",
+      "config": {
+        "block_size": 16,
+        "optimization": "O3"
+      },
+      "purpose": "search",
+      "sample_count": 3
+    },
+    "raw_execution_count": 15,
+    "all_previous_runs_preserved": true,
+    "all_run_ids_unique": true,
+    "new_samples": [
+      {
+        "run_id": "be3d19627c9a4acea7ebbe37f9fa290e",
+        "role": "warmup",
+        "config": {
+          "block_size": 16,
+          "optimization": "O3"
+        },
+        "classification": "success",
+        "returncode": 0,
+        "force_remeasure": true,
+        "source": "fresh_measurement",
+        "checked_entries": 16777216,
+        "mismatch_count": 0,
+        "compute_seconds": 84.61476533
+      },
+      {
+        "run_id": "60bcec85f3d949e6b82996eadce39229",
+        "role": "measurement",
+        "config": {
+          "block_size": 16,
+          "optimization": "O3"
+        },
+        "classification": "success",
+        "returncode": 0,
+        "force_remeasure": true,
+        "source": "fresh_measurement",
+        "checked_entries": 16777216,
+        "mismatch_count": 0,
+        "compute_seconds": 84.80523012
+      },
+      {
+        "run_id": "de047163c08b483b9a33de7ac00a4e80",
+        "role": "measurement",
+        "config": {
+          "block_size": 16,
+          "optimization": "O3"
+        },
+        "classification": "success",
+        "returncode": 0,
+        "force_remeasure": true,
+        "source": "fresh_measurement",
+        "checked_entries": 16777216,
+        "mismatch_count": 0,
+        "compute_seconds": 80.217486883
+      }
+    ]
+  },
+  "notes": [
+    "Snapshot only. Two complete old configurations retained; partial new configuration cannot score.",
+    "Projection verified against actual source and target_result fields; not inferred from returncode only."
+  ]
+}
