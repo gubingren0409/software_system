@@ -1,0 +1,324 @@
+[
+  {
+    "command": [
+      "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "--version"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T09:14:05.985958+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.04969039998832159,
+    "returncode": 0,
+    "started_at": "2026-10-09T09:14:05.937707+00:00",
+    "stderr": "",
+    "stdout": "Python 3.12.6\n"
+  },
+  {
+    "command": [
+      "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+      "-NoProfile",
+      "-File",
+      "E:\\software_system\\project01\\scripts\\check_p2_resources.ps1",
+      "-Mode",
+      "Formal"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T09:14:19.252247+00:00",
+    "expected_returncodes": [
+      0,
+      2
+    ],
+    "host_perf_counter_seconds": 13.261483200010844,
+    "returncode": 0,
+    "started_at": "2026-10-09T09:14:05.991781+00:00",
+    "stderr": "",
+    "stdout": "{\"schema\":\"p2-resource-gate-v2\",\"captured_at_local\":\"2026-10-09T17:14:18.4501052+08:00\",\"mode\":\"Formal\",\"host_total_visible_bytes\":16340406272,\"host_samples\":[{\"timestamp\":\"2026-10-09T17:14:11.9216066+08:00\",\"cpu_percent\":1,\"available_memory_bytes\":2493804544,\"committed_bytes\":34318749696,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":63,\"pages_per_second\":0,\"page_reads_per_second\":0,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T17:14:13.5726001+08:00\",\"cpu_percent\":5,\"available_memory_bytes\":2494951424,\"committed_bytes\":34318163968,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":63,\"pages_per_second\":0,\"page_reads_per_second\":0,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T17:14:15.1958825+08:00\",\"cpu_percent\":4,\"available_memory_bytes\":2493648896,\"committed_bytes\":34319900672,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":63,\"pages_per_second\":7,\"page_reads_per_second\":7,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T17:14:16.8315629+08:00\",\"cpu_percent\":0,\"available_memory_bytes\":2493517824,\"committed_bytes\":34320646144,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":63,\"pages_per_second\":0,\"page_reads_per_second\":0,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T17:14:18.4460906+08:00\",\"cpu_percent\":12,\"available_memory_bytes\":2488647680,\"committed_bytes\":34321879040,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":63,\"pages_per_second\":0,\"page_reads_per_second\":0,\"memory_temperature_or_throttling\":\"unknown\"}],\"host_minimum_available_bytes\":2488647680,\"host_cpu_average_percent\":4.4,\"host_cpu_maximum_percent\":12,\"minimum_memory_bytes\":2147483648,\"minimum_disk_bytes\":1073741824,\"wsl_available_bytes\":4215164928,\"wsl_total_bytes\":7908261888,\"wsl_swap_total_bytes\":2147483648,\"wsl_swap_free_bytes\":2147483648,\"wsl_root_free_bytes\":224533573632,\"formal_gate\":\"PASS\"}\n"
+  },
+  {
+    "command": [
+      "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_first_seed_audit.py",
+      "-v"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T09:14:19.878347+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.6122789000073681,
+    "returncode": 0,
+    "started_at": "2026-10-09T09:14:19.264890+00:00",
+    "stderr": "test_expected_count_and_unchanged_boundary (test_first_seed_audit.FirstSeedClockTests.test_expected_count_and_unchanged_boundary) ... ok\ntest_invalid_or_divergent_clocks_cannot_pass (test_first_seed_audit.FirstSeedClockTests.test_invalid_or_divergent_clocks_cannot_pass) ... ok\ntest_campaign_activity_and_retests_remain_separate_from_search (test_first_seed_audit.FirstSeedCostTests.test_campaign_activity_and_retests_remain_separate_from_search) ... ok\ntest_git_line_ending_conversion_is_explicit_but_content_changes_fail (test_first_seed_audit.FirstSeedPrefixTests.test_git_line_ending_conversion_is_explicit_but_content_changes_fail) ... ok\ntest_missing_normalized_identity_cannot_bless_different_runtime_bytes (test_first_seed_audit.FirstSeedPrefixTests.test_missing_normalized_identity_cannot_bless_different_runtime_bytes) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.040s\n\nOK\n",
+    "stdout": ""
+  },
+  {
+    "command": [
+      "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "scripts/audit_p3_first_seed.py",
+      "--batch",
+      "evidence\\p3\\first-seed-e46b96c-resume-20261009-1643",
+      "--clock-recovery",
+      "evidence\\p3\\clock-recovery-20261009-1646",
+      "--output",
+      "evidence\\p3\\first-seed-clean-45f990d\\first_seed_status.json",
+      "--require-two"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T09:14:22.163347+00:00",
+    "expected_returncodes": [
+      2
+    ],
+    "host_perf_counter_seconds": 2.2816594000032637,
+    "returncode": 2,
+    "started_at": "2026-10-09T09:14:19.882875+00:00",
+    "stderr": "",
+    "stdout": "{\"formal_first_seed_complete\": false, \"old_complete_observations_unchanged\": 3, \"old_raw_sample_prefix_unchanged\": true, \"old_partial_samples_preserved\": 3, \"old_partial_marked_abandoned\": true}\n"
+  },
+  {
+    "command": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "--cd",
+      "/var/tmp/matrix-autotuner-p2-content-45f990de42341d61d93a9f5b7023784584969d53",
+      "--",
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "python3",
+      "-c",
+      "import json,pathlib; p=pathlib.Path('.'); print(json.dumps({'has_git':(p/'.git').exists(),'pycache':list(map(str,p.rglob('__pycache__')))}))"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T09:14:25.941103+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.4440704000007827,
+    "returncode": 0,
+    "started_at": "2026-10-09T09:14:25.498048+00:00",
+    "stderr": "",
+    "stdout": "{\"has_git\": false, \"pycache\": []}\n"
+  },
+  {
+    "command": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "--cd",
+      "/var/tmp/matrix-autotuner-p2-content-45f990de42341d61d93a9f5b7023784584969d53",
+      "--",
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "python3",
+      "--version"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T09:14:26.294667+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.3493828999926336,
+    "returncode": 0,
+    "started_at": "2026-10-09T09:14:25.948143+00:00",
+    "stderr": "",
+    "stdout": "Python 3.12.3\n"
+  },
+  {
+    "command": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "--cd",
+      "/var/tmp/matrix-autotuner-p2-content-45f990de42341d61d93a9f5b7023784584969d53",
+      "--",
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "/usr/bin/gcc",
+      "--version"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T09:14:26.660772+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.3561610000033397,
+    "returncode": 0,
+    "started_at": "2026-10-09T09:14:26.306109+00:00",
+    "stderr": "",
+    "stdout": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n"
+  },
+  {
+    "command": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "--cd",
+      "/var/tmp/matrix-autotuner-p2-content-45f990de42341d61d93a9f5b7023784584969d53",
+      "--",
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "python3",
+      "-m",
+      "autotuner",
+      "--help"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T09:14:27.012584+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.3420227999886265,
+    "returncode": 0,
+    "started_at": "2026-10-09T09:14:26.669449+00:00",
+    "stderr": "",
+    "stdout": "usage: __main__.py [-h] [--target TARGET] [--space SPACE]\n                   [--evidence-root EVIDENCE_ROOT]\n                   {list-configs,build,reference,evaluate,grid,campaign} ...\n\nMatrix multiplication P1 runner\n\npositional arguments:\n  {list-configs,build,reference,evaluate,grid,campaign}\n    grid                Run or resume the formal 20-configuration Grid session\n    campaign            Run or resume the private P3 search trajectories\n\noptions:\n  -h, --help            show this help message and exit\n  --target TARGET\n  --space SPACE\n  --evidence-root EVIDENCE_ROOT\n"
+  },
+  {
+    "command": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "--cd",
+      "/var/tmp/matrix-autotuner-p2-content-45f990de42341d61d93a9f5b7023784584969d53",
+      "--",
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "python3",
+      "-m",
+      "autotuner",
+      "list-configs"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T09:14:27.377043+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.3597252999898046,
+    "returncode": 0,
+    "started_at": "2026-10-09T09:14:27.018860+00:00",
+    "stderr": "",
+    "stdout": "[\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 8\n  },\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 16\n  },\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 24\n  },\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 64\n  },\n  {\n    \"optimization\": \"O0\",\n    \"block_size\": 128\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 8\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 16\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 24\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 64\n  },\n  {\n    \"optimization\": \"O1\",\n    \"block_size\": 128\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 8\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 16\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 24\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 64\n  },\n  {\n    \"optimization\": \"O2\",\n    \"block_size\": 128\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 8\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 16\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 24\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 64\n  },\n  {\n    \"optimization\": \"O3\",\n    \"block_size\": 128\n  }\n]\n"
+  },
+  {
+    "command": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "--cd",
+      "/var/tmp/matrix-autotuner-p2-content-45f990de42341d61d93a9f5b7023784584969d53",
+      "--",
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T09:14:35.874004+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 8.488174099999014,
+    "returncode": 0,
+    "started_at": "2026-10-09T09:14:27.385536+00:00",
+    "stderr": "test_campaign_pairs_frozen_seeds_and_keeps_original_measurement (test_campaign.CampaignTests.test_campaign_pairs_frozen_seeds_and_keeps_original_measurement) ... ok\ntest_equal_scores_choose_canonical_configuration_without_extra_observations (test_campaign.CampaignTests.test_equal_scores_choose_canonical_configuration_without_extra_observations) ... ok\ntest_failed_configuration_consumes_unique_budget_and_does_not_score (test_campaign.CampaignTests.test_failed_configuration_consumes_unique_budget_and_does_not_score) ... ok\ntest_foreign_trajectory_order_cannot_be_restored_as_own (test_campaign.CampaignTests.test_foreign_trajectory_order_cannot_be_restored_as_own) ... ok\ntest_modified_statistics_partial_groups_and_performance_cache_are_rejected (test_campaign.CampaignTests.test_modified_statistics_partial_groups_and_performance_cache_are_rejected) ... ok\ntest_prefixes_use_only_own_successes (test_campaign.CampaignTests.test_prefixes_use_only_own_successes) ... ok\ntest_rejected_setup_saves_identity_and_resumes_without_building_or_measuring (test_campaign.CampaignTests.test_rejected_setup_saves_identity_and_resumes_without_building_or_measuring) ... ok\ntest_replay_preserves_own_decisions_and_rng_for_both_algorithms (test_campaign.CampaignTests.test_replay_preserves_own_decisions_and_rng_for_both_algorithms) ... ok\ntest_terminal_failures_cannot_fabricate_score_or_success (test_campaign.CampaignTests.test_terminal_failures_cannot_fabricate_score_or_success) ... ok\ntest_failed_configuration_gate_pause_then_success_preserves_session_cost_not_prefix (test_campaign_costs.CostRegressionTests.test_failed_configuration_gate_pause_then_success_preserves_session_cost_not_prefix) ... ok\ntest_expected_count_and_unchanged_boundary (test_first_seed_audit.FirstSeedClockTests.test_expected_count_and_unchanged_boundary) ... ok\ntest_invalid_or_divergent_clocks_cannot_pass (test_first_seed_audit.FirstSeedClockTests.test_invalid_or_divergent_clocks_cannot_pass) ... ok\ntest_campaign_activity_and_retests_remain_separate_from_search (test_first_seed_audit.FirstSeedCostTests.test_campaign_activity_and_retests_remain_separate_from_search) ... ok\ntest_git_line_ending_conversion_is_explicit_but_content_changes_fail (test_first_seed_audit.FirstSeedPrefixTests.test_git_line_ending_conversion_is_explicit_but_content_changes_fail) ... ok\ntest_missing_normalized_identity_cannot_bless_different_runtime_bytes (test_first_seed_audit.FirstSeedPrefixTests.test_missing_normalized_identity_cannot_bless_different_runtime_bytes) ... ok\ntest_actual_gcc_failure_is_classified_without_score (test_runner.BuildCacheTests.test_actual_gcc_failure_is_classified_without_score) ... ok\ntest_build_key_covers_size_optimization_and_fault_mode (test_runner.BuildCacheTests.test_build_key_covers_size_optimization_and_fault_mode) ... ok\ntest_performance_cache_requires_explicit_reuse (test_runner.BuildCacheTests.test_performance_cache_requires_explicit_reuse) ... ok\ntest_reference_request_rejects_seed_above_uint64 (test_runner.BuildCacheTests.test_reference_request_rejects_seed_above_uint64) ... ok\ntest_crash_timeout_and_parse_failure_are_distinct (test_runner.ClassificationTests.test_crash_timeout_and_parse_failure_are_distinct) ... ok\ntest_error_classification_requires_schema (test_runner.ClassificationTests.test_error_classification_requires_schema) ... ok\ntest_nonfinite_success_cannot_score (test_runner.ClassificationTests.test_nonfinite_success_cannot_score) ... ok\ntest_parameter_rejection_requires_contract (test_runner.ClassificationTests.test_parameter_rejection_requires_contract) ... ok\ntest_request_identity_and_tolerance_are_required (test_runner.ClassificationTests.test_request_identity_and_tolerance_are_required) ... ok\ntest_success (test_runner.ClassificationTests.test_success) ... ok\ntest_success_json_with_nonzero_exit_is_never_success (test_runner.ClassificationTests.test_success_json_with_nonzero_exit_is_never_success) ... ok\ntest_validation_failure (test_runner.ClassificationTests.test_validation_failure) ... ok\ntest_external_space_has_twenty_unique_configs_in_canonical_order (test_runner.ConfigSpaceTests.test_external_space_has_twenty_unique_configs_in_canonical_order) ... ok\ntest_search_protocol_is_frozen_with_requested_budgets_and_seeds (test_runner.ConfigSpaceTests.test_search_protocol_is_frozen_with_requested_budgets_and_seeds) ... ok\ntest_actual_crash_has_no_score (test_runner.EvaluatorFailurePathTests.test_actual_crash_has_no_score) ... ok\ntest_actual_output_parse_failure_has_no_score (test_runner.EvaluatorFailurePathTests.test_actual_output_parse_failure_has_no_score) ... ok\ntest_actual_timeout_has_no_score (test_runner.EvaluatorFailurePathTests.test_actual_timeout_has_no_score) ... ok\ntest_compile_failure_has_no_score (test_runner.EvaluatorFailurePathTests.test_compile_failure_has_no_score) ... ok\ntest_evaluator_binds_success_output_to_request (test_runner.EvaluatorFailurePathTests.test_evaluator_binds_success_output_to_request) ... ok\ntest_evaluator_never_scores_success_json_on_exit_64_65 (test_runner.EvaluatorFailurePathTests.test_evaluator_never_scores_success_json_on_exit_64_65) ... ok\ntest_rejects_duplicate_key (test_runner.StrictJsonTests.test_rejects_duplicate_key) ... ok\ntest_rejects_multiple_lines (test_runner.StrictJsonTests.test_rejects_multiple_lines) ... ok\ntest_rejects_nan_constant (test_runner.StrictJsonTests.test_rejects_nan_constant) ... ok\ntest_checkpoint_rejects_partial_and_cache_and_modified_raw_output (test_search_measurement.MeasurementTests.test_checkpoint_rejects_partial_and_cache_and_modified_raw_output) ... ok\ntest_complete_group_is_five_fresh_samples_after_warmup (test_search_measurement.MeasurementTests.test_complete_group_is_five_fresh_samples_after_warmup) ... ok\ntest_failure_never_scores_successful_subset (test_search_measurement.MeasurementTests.test_failure_never_scores_successful_subset) ... ok\ntest_formal_gate_is_not_inferred_from_exit_status (test_search_measurement.MeasurementTests.test_formal_gate_is_not_inferred_from_exit_status) ... ok\ntest_resource_blocked_checkpoint_has_identity_before_setup_and_resumes (test_search_measurement.MeasurementTests.test_resource_blocked_checkpoint_has_identity_before_setup_and_resumes) ... ok\ntest_failed_observations_consume_budget_but_never_win (test_search_measurement.StrategyTests.test_failed_observations_consume_budget_but_never_win) ... ok\ntest_greedy_has_all_seven_single_parameter_neighbors (test_search_measurement.StrategyTests.test_greedy_has_all_seven_single_parameter_neighbors) ... ok\ntest_unique_budget_reproducibility_and_prefixes (test_search_measurement.StrategyTests.test_unique_budget_reproducibility_and_prefixes) ... ok\ntest_changed_windows_resource_script_is_rejected (test_timing_audit.TimingAuditTests.test_changed_windows_resource_script_is_rejected) ... ok\ntest_local_windows_resource_script_requires_matching_archive_bytes (test_timing_audit.TimingAuditTests.test_local_windows_resource_script_requires_matching_archive_bytes) ... ok\ntest_nonfinite_negative_and_clock_divergence_are_not_agreement (test_timing_audit.TimingAuditTests.test_nonfinite_negative_and_clock_divergence_are_not_agreement) ... ok\ntest_predeclared_relative_and_absolute_boundaries (test_timing_audit.TimingAuditTests.test_predeclared_relative_and_absolute_boundaries) ... ok\ntest_retains_nanosecond_precision_without_float_endpoints (test_timing_audit.TimingAuditTests.test_retains_nanosecond_precision_without_float_endpoints) ... ok\n\n----------------------------------------------------------------------\nRan 51 tests in 8.090s\n\nOK\n",
+    "stdout": ""
+  },
+  {
+    "command": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "--cd",
+      "/var/tmp/matrix-autotuner-p2-content-45f990de42341d61d93a9f5b7023784584969d53",
+      "--",
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "python3",
+      "scripts/verify_p1.py"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T09:14:36.363704+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.4843447000021115,
+    "returncode": 0,
+    "started_at": "2026-10-09T09:14:35.880028+00:00",
+    "stderr": "",
+    "stdout": "p1_verification=PASS\noriginal_sha256=188d011109c4470e1f41829216e8677a5c2d8f2b7c8a44215652320dbdf6de15\ncore_sha256=d63f8bc9ff479c77508948ad51ae4254daf9e3f7483416df90a31b01cf9959f4\ncore_import=PASS cli_start=PASS unique_configs=20/20\nsmall_cases=160/160 faults=7/7 strict_cli=6/6\nmedium_optimization_levels=4/4 default_optimization_levels=4/4 repeats=5/5\n"
+  },
+  {
+    "command": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "--cd",
+      "/var/tmp/matrix-autotuner-p2-content-45f990de42341d61d93a9f5b7023784584969d53",
+      "--",
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "sha256sum",
+      "autotuner/__init__.py",
+      "autotuner/__main__.py",
+      "autotuner/campaign.py",
+      "autotuner/cli.py",
+      "autotuner/core.py",
+      "autotuner/measurement.py",
+      "autotuner/search.py",
+      "autotuner/session.py",
+      "configs/config_space.json",
+      "configs/measurement_protocol.json",
+      "configs/p3_campaign_protocol.json",
+      "configs/search_protocol.json",
+      "configs/target.json",
+      "configs/timing_audit_protocol.json",
+      "code/working/matrix_input.h",
+      "code/working/matrix_multiplication.c",
+      "code/working/reference_generator.c",
+      "code/original/matrix_multiplication.c",
+      "scripts/resume_p3_first_seed.ps1",
+      "scripts/record_p3_first_seed_checks.py",
+      "scripts/audit_p3_first_seed.py",
+      "tests/test_first_seed_audit.py"
+    ],
+    "cwd": "E:\\software_system\\project01",
+    "ended_at": "2026-10-09T09:14:36.727834+00:00",
+    "expected_returncodes": [
+      0
+    ],
+    "host_perf_counter_seconds": 0.35620220001146663,
+    "returncode": 0,
+    "started_at": "2026-10-09T09:14:36.369893+00:00",
+    "stderr": "",
+    "stdout": "8bf89ddfd5cd348fab4ffd079b0be3343bcb923fd372228ba2c1b2e31353831c  autotuner/__init__.py\n935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d  autotuner/__main__.py\nc725688c9fe95e1f59d404784003ccc0d0348bca567505a6ace768b2079ef9c5  autotuner/campaign.py\nd1c963bc2774947d2f36af2888248f881eb939a13275c199b9d5170336d7bca1  autotuner/cli.py\nd63f8bc9ff479c77508948ad51ae4254daf9e3f7483416df90a31b01cf9959f4  autotuner/core.py\n81b2b43744482cfd85ee63e66cc7e93626b973d3bdc7b8226d1cc5d7edd0bd7a  autotuner/measurement.py\nf90daeb53292304a73383c8adc5f80a0f5e7647289d45c7f5d0c4e1bb8e08553  autotuner/search.py\nff1b44563e67f9cac7e2f8e8895bd9b08dfc600d669ea0c5cd45712db5017438  autotuner/session.py\n2a8ef5e178536a9f217f6eb0dac071600a18d084500b93098d2221ca979e30cd  configs/config_space.json\nc02cbf718cda049dc621c807df9b68acc539a8e06aa5918f7cb0376456515ab4  configs/measurement_protocol.json\n43f0d5aadf183a09f44df66969926a4256347147a48933a7ca40c06a191b923f  configs/p3_campaign_protocol.json\n3a0451f0e84ef272e603100719e44a0af8c9fc1afa197ccfbb54ce5a2bfae468  configs/search_protocol.json\n26301aad3ab0f78ac7c1e9f91330ee7f448482a640dd41305f07f1fb3c59461c  configs/target.json\n720c91efdf26f6e435629d2638781cca1d79ebc49f49d203a7dcdaa398311b9f  configs/timing_audit_protocol.json\n6ad1cfc920e5d1920c955a116b5e82ebb3cb9bc2d7b88f4fb5fa217610a44379  code/working/matrix_input.h\nd92870e97464b83935d77d5e087fcbd822c6abc0af244d806d024310720647ba  code/working/matrix_multiplication.c\ne8014c3d91ca1fe40f5ef962e0c401e28e8719b19a3664c8322ce14716d4cfb5  code/working/reference_generator.c\n188d011109c4470e1f41829216e8677a5c2d8f2b7c8a44215652320dbdf6de15  code/original/matrix_multiplication.c\n4f0c264b17559a74750b933792938eb9af4c5ca0612e48393f149b436fe65fdd  scripts/resume_p3_first_seed.ps1\na4f980e1f60b278b95283bc77a799cc6e9f0371c7deb125ebb0446c603091b97  scripts/record_p3_first_seed_checks.py\n4cb813db732870b986e21027ffbb65d9ae6adf28f4fce12b92961dbdb669f589  scripts/audit_p3_first_seed.py\n6dfcbd585a916b4a66330a2c2803a3db7eaf83d848f14de47a02efab86a64b50  tests/test_first_seed_audit.py\n"
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "content_commit": "45f990de42341d61d93a9f5b7023784584969d53",
+  "overall_returncode": 1,
+  "overall_pass": false,
+  "error": "ValueError: Archive/working runtime bytes differ",
+  "scope": "All child commands recorded in commands.json completed with their expected exit codes. The recorder then rejected the PowerShell file byte difference; no formal target was started.",
+  "working_file": {
+    "path": "scripts/resume_p3_first_seed.ps1",
+    "sha256": "b7d980723d829cbe064658990a73ee130f61ca076fd4bbe0526cfeecd360d964",
+    "byte_count": 8141,
+    "lf_count": 109,
+    "crlf_count": 0
+  },
+  "archive_file": {
+    "sha256": "4f0c264b17559a74750b933792938eb9af4c5ca0612e48393f149b436fe65fdd",
+    "byte_count": 8250,
+    "lf_count": 109,
+    "crlf_count": 109,
+    "crlf_to_lf_sha256": "b7d980723d829cbe064658990a73ee130f61ca076fd4bbe0526cfeecd360d964"
+  },
+  "git_blob_sha1": "0e5b045f01b43f2b84f56ecacf320126a0d83d0d",
+  "cause": ".gitattributes declares *.ps1 text eol=crlf. Git archive applies that rule; the working file had LF. The old recorder incorrectly required the actual byte SHA-256 to be identical.",
+  "fix": "Reuse the unchanged autotuner.session.source_identity validator. Bind selected files to the content commit's Git blobs, record working and archive actual hashes separately, and allow only verified CRLF-to-LF conversion. Original teacher files remain strictly byte-identical.",
+  "historical_logs_preserved": true,
+  "formal_runtime_or_protocol_modified": false
+}

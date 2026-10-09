@@ -6,6 +6,7 @@ from pathlib import Path
 import tempfile
 
 from scripts.audit_p3_first_seed import activity_costs, check_clock_intervals, verify_sample_prefix
+from autotuner.session import source_identity
 
 
 class FirstSeedCostTests(unittest.TestCase):
@@ -73,6 +74,43 @@ class FirstSeedPrefixTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "raw sample prefix differs"):
                 verify_sample_prefix(sample, {"bytes": 1, "sha256": "0" * 64},
                                      Path(temporary) / "identity.json")
+
+
+class FirstSeedArchiveIdentityTests(unittest.TestCase):
+    @staticmethod
+    def blob(data):
+        return hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest()
+
+    def test_line_endings_have_distinct_runtime_but_equal_git_identity(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            path = root / "controller.ps1"
+            data = b"Write-Output 'test'\n"
+            identity = {path.name: self.blob(data)}
+            path.write_bytes(data)
+            original = source_identity(root, identity)[path.name]
+            path.write_bytes(data.replace(b"\n", b"\r\n"))
+            archived = source_identity(root, identity)[path.name]
+            self.assertNotEqual(original["executed_sha256"], archived["executed_sha256"])
+            self.assertEqual(original["git_content_sha256"], archived["git_content_sha256"])
+            self.assertEqual(archived["crlf_count"], 1)
+            path.write_bytes(b"changed\r\n")
+            with self.assertRaisesRegex(ValueError, "executed bytes differ"):
+                source_identity(root, identity)
+
+    def test_content_changes_and_original_newline_conversion_are_rejected(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            path = root / "code/original/matrix.c"
+            path.parent.mkdir(parents=True)
+            data = b"original\n"
+            identity = {"code/original/matrix.c": self.blob(data)}
+            path.write_bytes(data)
+            source_identity(root, identity)
+            for changed in (b"changed\n", b"original\r\n"):
+                path.write_bytes(changed)
+                with self.assertRaisesRegex(ValueError, "executed bytes differ"):
+                    source_identity(root, identity)
 
 
 if __name__ == "__main__":

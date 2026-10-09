@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import os
 from pathlib import Path
@@ -13,7 +12,7 @@ import time
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from autotuner.core import atomic_write_json, sha256_file, utc_now
-from autotuner.session import valid_formal_gate
+from autotuner.session import source_identity, valid_formal_gate
 
 
 def main():
@@ -64,19 +63,24 @@ def main():
              *sorted((ROOT / "code/working").glob("*.[ch]")), ROOT / "code/original/matrix_multiplication.c",
              ROOT / "scripts/resume_p3_first_seed.ps1", Path(__file__),
              ROOT / "scripts/audit_p3_first_seed.py", ROOT / "tests/test_first_seed_audit.py"]
-    sources = {}
+    git_blobs = {}
     for path in files:
-        data = path.read_bytes()
         relative = path.relative_to(ROOT).as_posix()
         git_hash = subprocess.check_output(["git", "hash-object", "--path=" + relative, str(path)],
                                            cwd=ROOT, env=env, text=True).strip()
-        sources[relative] = {"executed_sha256": hashlib.sha256(data).hexdigest(),
-            "git_normalized_blob_sha1": git_hash, "byte_count": len(data),
-            "lf_count": data.count(b"\n"), "crlf_count": data.count(b"\r\n")}
-    atomic_write_json(args.output / "sources.json", sources)
+        git_blobs[relative] = git_hash
     if args.archive_root:
         if not args.archive_commit:
             raise ValueError("Archive commit identity is required")
+        tree = subprocess.check_output(["git", "ls-tree", "-r", "--format=%(objectname)%x09%(path)",
+                                       args.archive_commit, "--", *git_blobs], cwd=ROOT, env=env, text=True)
+        committed_blobs = dict((path, blob) for blob, path in
+                               (line.split("\t", 1) for line in tree.splitlines()))
+        if committed_blobs != git_blobs:
+            raise ValueError("Working sources differ from the requested content commit")
+    sources = source_identity(ROOT, git_blobs)
+    atomic_write_json(args.output / "sources.json", sources)
+    if args.archive_root:
         prefix = ["wsl.exe", "-d", "Ubuntu-24.04", "--cd", args.archive_root, "--", "env",
                   "-u", "PYTHONPATH", "PYTHONDONTWRITEBYTECODE=1"]
         clean = run([*prefix, "python3", "-c", "import json,pathlib; p=pathlib.Path('.'); "
@@ -91,11 +95,21 @@ def main():
             raise ValueError("Configuration space differs")
         run([*prefix, "python3", "-m", "unittest", "discover", "-s", "tests", "-v"])
         run([*prefix, "python3", "scripts/verify_p1.py"])
-        archive_sources = run([*prefix, "sha256sum", *sources])
-        actual = {line.split(maxsplit=1)[1].strip(): line.split()[0]
-                  for line in archive_sources.stdout.splitlines()}
-        if any(actual[path] != record["executed_sha256"] for path, record in sources.items()):
-            raise ValueError("Archive/working runtime bytes differ")
+        archived = run([*prefix, "python3", "-c",
+            "import json,sys; from pathlib import Path; from autotuner.session import source_identity; "
+            "print(json.dumps(source_identity(Path('.'),json.loads(sys.argv[1]))))", json.dumps(git_blobs)])
+        actual = json.loads(archived.stdout)
+        atomic_write_json(args.output / "archive_sources.json", actual)
+        if set(actual) != set(sources) or any(
+                actual[path]["git_content_sha256"] != record["git_content_sha256"]
+                for path, record in sources.items()):
+            raise ValueError("Archive/working Git content differs")
+        atomic_write_json(args.output / "archive_identity_check.json", {
+            "content_commit": args.archive_commit, "git_content_match": True,
+            "actual_byte_differences": [path for path, record in sources.items()
+                if actual[path]["executed_sha256"] != record["executed_sha256"]],
+            "rule": "Each actual file must match its committed Git blob, either byte-for-byte "
+                "or solely after CRLF-to-LF conversion; code/original must be byte-for-byte."})
     atomic_write_json(args.output / "summary.json", {"review_checks_pass": True,
         "formal_first_seed_complete": False, "formal_resource_gate_pass": gate_pass,
         "formal_blocker": "Failed unchanged MONOTONIC/RAW clock criteria; no formal resume",
