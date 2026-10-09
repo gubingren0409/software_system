@@ -1,0 +1,35 @@
+{
+  "command": "$root='evidence/p3_audit_0023ceed/session-0d57f8c'; $records=@(foreach($file in Get-ChildItem (Join-Path $root 'groups') -Filter final.json -Recurse){(Get-Content $file.FullName -Raw | ConvertFrom-Json).evaluation}); $samples=@($records | ForEach-Object {$_.samples}); $old=(Get-Content evidence/p3/campaign-e308bfb/checkpoint.json -Raw | ConvertFrom-Json).fingerprint; $identity=Get-Content (Join-Path $root 'session.json') -Raw | ConvertFrom-Json; $gridHash=(Get-FileHash evidence/p2/grid-session-0d3dd52/grid_summary.csv -Algorithm SHA256).Hash.ToLower(); $checkpointHash=(Get-FileHash evidence/p2/grid-session-0d3dd52/checkpoint.json -Algorithm SHA256).Hash.ToLower(); if($gridHash -ne 'd2b36a23ccf179e85eba194ede35408144da6298a3c8a695412d8629d2ae6158' -or $checkpointHash -ne '4947bd9e3081feb1121a8287530ad134b45d6c01387faab60c3eddb07a780eea'){throw 'Old Grid bytes changed'}; git diff --quiet e308bfb873e6811c50ad685a979af345302fda8d HEAD -- autotuner code configs/measurement_protocol.json configs/search_protocol.json configs/p3_campaign_protocol.json; $sourceDiff=$LASTEXITCODE; [ordered]@{captured_at=[DateTimeOffset]::Now.ToString('o'); group_count=$records.Count; all_samples=$samples.Count; all_core_seconds=($samples | Measure-Object -Property score_seconds -Sum).Sum; warmup_values=@($records | ForEach-Object {$_.samples[0].score_seconds}); all_unique_run_ids=(@($samples.run_id | Sort-Object -Unique).Count); reference_identical=($old.reference_sha256 -eq $identity.reference_sha256); binary_identical=@{O1=($old.binary_hashes.O1 -eq $identity.binary_hashes.O1); O2=($old.binary_hashes.O2 -eq $identity.binary_hashes.O2); O3=($old.binary_hashes.O3 -eq $identity.binary_hashes.O3)}; unchanged_source_git_diff_returncode=$sourceDiff; grid_summary_sha256=$gridHash; grid_checkpoint_sha256=$checkpointHash; original_sha256=(Get-FileHash code/original/matrix_multiplication.c -Algorithm SHA256).Hash.ToLower()} | ConvertTo-Json -Depth 6; if($sourceDiff -ne 0){exit 1}",
+  "tool_result": {
+    "chunk_id": "5e6918",
+    "wall_time_seconds": 2.0141444,
+    "exit_code": 0,
+    "original_token_count": 189,
+    "output": "{\r\n  \"captured_at\": \"2026-10-09T12:34:32.3907331+08:00\",\r\n  \"group_count\": 6,\r\n  \"all_samples\": 36,\r\n  \"all_core_seconds\": 1866.5086599920003,\r\n  \"warmup_values\": [\r\n    52.376695877,\r\n    52.088739123,\r\n    51.65856185,\r\n    50.630630851,\r\n    53.498089785,\r\n    52.396450902\r\n  ],\r\n  \"all_unique_run_ids\": 36,\r\n  \"reference_identical\": true,\r\n  \"binary_identical\": {\r\n    \"O1\": true,\r\n    \"O3\": true,\r\n    \"O2\": true\r\n  },\r\n  \"unchanged_source_git_diff_returncode\": 0,\r\n  \"grid_summary_sha256\": \"d2b36a23ccf179e85eba194ede35408144da6298a3c8a695412d8629d2ae6158\",\r\n  \"grid_checkpoint_sha256\": \"4947bd9e3081feb1121a8287530ad134b45d6c01387faab60c3eddb07a780eea\",\r\n  \"original_sha256\": \"188d011109c4470e1f41829216e8677a5c2d8f2b7c8a44215652320dbdf6de15\"\r\n}\r\n"
+  },
+  "parsed": {
+    "captured_at": "2026-10-09T12:34:32.3907331+08:00",
+    "group_count": 6,
+    "all_samples": 36,
+    "all_core_seconds": 1866.5086599920003,
+    "warmup_values": [
+      52.376695877,
+      52.088739123,
+      51.65856185,
+      50.630630851,
+      53.498089785,
+      52.396450902
+    ],
+    "all_unique_run_ids": 36,
+    "reference_identical": true,
+    "binary_identical": {
+      "O1": true,
+      "O3": true,
+      "O2": true
+    },
+    "unchanged_source_git_diff_returncode": 0,
+    "grid_summary_sha256": "d2b36a23ccf179e85eba194ede35408144da6298a3c8a695412d8629d2ae6158",
+    "grid_checkpoint_sha256": "4947bd9e3081feb1121a8287530ad134b45d6c01387faab60c3eddb07a780eea",
+    "original_sha256": "188d011109c4470e1f41829216e8677a5c2d8f2b7c8a44215652320dbdf6de15"
+  }
+}

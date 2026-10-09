@@ -1,0 +1,58 @@
+{
+  "captured_after_all_36_runs": true,
+  "commands": [
+    {
+      "key": "reference_manifest",
+      "command": "Get-Content evidence\\p3_audit_0023ceed\\session-0d57f8c\\manifests\\reference.json -Raw; Get-Content evidence\\p3_audit_0023ceed\\session-0d57f8c\\setup\\references\\*\\*.json -Raw -ErrorAction SilentlyContinue; Get-ChildItem evidence\\p3_audit_0023ceed\\session-0d57f8c\\setup -Recurse -File | Select-Object FullName,Length",
+      "result": {
+        "chunk_id": "9242bb",
+        "wall_time_seconds": 1.5540552,
+        "exit_code": 0,
+        "original_token_count": 910,
+        "output": "{\n  \"accumulator\": \"double\",\n  \"analytic_mismatch_count\": 0,\n  \"byte_count\": 134217728,\n  \"checksum\": 17181902562.027435,\n  \"complete\": true,\n  \"created_at\": \"2026-10-09T03:53:15.118695+00:00\",\n  \"data_sha256\": \"cc476da46f43613ef67dad7841b73d7f2d70b7f1d636a9f23d7d7124b8b499f5\",\n  \"element_count\": 16777216,\n  \"element_type\": \"float64-native-le\",\n  \"generation_seconds\": 35.876636807,\n  \"generator_command\": [\n    \"/var/tmp/matrix-autotuner-audit-0023ceed-0d57f8c53a14/cache/build/2a640804325dffa702a228b5116ae608c40b500682d71a13c33b92917e1ad779/reference_generator\",\n    \"--seed\",\n    \"20261008\",\n    \"--input\",\n    \"random\",\n    \"--output\",\n    \"/var/tmp/matrix-autotuner-audit-0023ceed-0d57f8c53a14/cache/reference/81faf0af13593c26842bb72e1625c3b4ad6142d1337a4967142ab64def84ee27/reference.19ea708f83fc4821a2e90d468b191ae6.tmp\",\n    \"--accumulator\",\n    \"double\"\n  ],\n  \"generator_returncode\": 0,\n  \"generator_stderr\": \"\",\n  \"generator_stdout\": \"{\\\"schema\\\":\\\"matrix-reference-v1\\\",\\\"status\\\":\\\"ok\\\",\\\"n\\\":4096,\\\"seed\\\":20261008,\\\"input\\\":\\\"random\\\",\\\"input_generator\\\":\\\"splitmix64-interleaved-v1\\\",\\\"accumulator\\\":\\\"double\\\",\\\"element_type\\\":\\\"float64-native-le\\\",\\\"element_count\\\":16777216,\\\"byte_count\\\":134217728,\\\"generation_seconds\\\":35.876636806999997,\\\"checksum\\\":17181902562.027436398,\\\"nonfinite_count\\\":0,\\\"analytic_mismatch_count\\\":0,\\\"sample_rule\\\":\\\"fixed-coordinates-v1\\\",\\\"sample_count\\\":16,\\\"sample_mismatch_count\\\":0,\\\"sample_max_abs_error\\\":3.96005450653547086404e-12,\\\"sample_max_rel_error\\\":3.94879231333693715928e-15}\\n\",\n  \"input\": \"random\",\n  \"input_generator\": \"splitmix64-interleaved-v1\",\n  \"matrix_n\": 4096,\n  \"n\": 4096,\n  \"nonfinite_count\": 0,\n  \"process_wall_seconds\": 36.726809061001404,\n  \"reference_binary_sha256\": \"dcb71d7650f866f663fcdee8570008d14105f5d9e6d5677341e47935265a22e0\",\n  \"reference_build_key\": \"2a640804325dffa702a228b5116ae608c40b500682d71a13c33b92917e1ad779\",\n  \"reference_key\": \"81faf0af13593c26842bb72e1625c3b4ad6142d1337a4967142ab64def84ee27\",\n  \"resource_after\": {\n    \"captured_at\": \"2026-10-09T03:53:14.906028+00:00\",\n    \"cpus_allowed_list\": \"0-31\",\n    \"loadavg\": \"0.68 0.38 0.31 1/1290 36486\",\n    \"mem_available_bytes\": 4112404480,\n    \"mem_total_bytes\": 7908261888,\n    \"memory_pressure\": \"some avg10=0.00 avg60=0.00 avg300=0.00 total=0\\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\",\n    \"root_disk_free_bytes\": 224761360384,\n    \"swap_free_bytes\": 2147483648,\n    \"swap_total_bytes\": 2147483648,\n    \"vmstat\": {\n      \"pgmajfault\": 40344,\n      \"pswpin\": 0,\n      \"pswpout\": 0\n    }\n  },\n  \"resource_before\": {\n    \"captured_at\": \"2026-10-09T03:52:38.180999+00:00\",\n    \"cpus_allowed_list\": \"0-31\",\n    \"loadavg\": \"0.43 0.30 0.29 1/1309 36482\",\n    \"mem_available_bytes\": 4105367552,\n    \"mem_total_bytes\": 7908261888,\n    \"memory_pressure\": \"some avg10=0.00 avg60=0.00 avg300=0.00 total=0\\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\",\n    \"root_disk_free_bytes\": 224895479808,\n    \"swap_free_bytes\": 2147483648,\n    \"swap_total_bytes\": 2147483648,\n    \"vmstat\": {\n      \"pgmajfault\": 40299,\n      \"pswpin\": 0,\n      \"pswpout\": 0\n    }\n  },\n  \"sample_count\": 16,\n  \"sample_max_abs_error\": 3.960054506535471e-12,\n  \"sample_max_rel_error\": 3.948792313336937e-15,\n  \"sample_mismatch_count\": 0,\n  \"sample_rule\": \"fixed-coordinates-v1\",\n  \"schema\": \"matrix-reference-v1\",\n  \"seed\": 20261008,\n  \"status\": \"ok\"\n}\n\r\n\r\nFullName\r\n--------                                                                                                               \r\nE:\\software_system\\project01\\evidence\\p3_audit_0023ceed\\session-0d57f8c\\setup\\references\\81faf0af13593c26842bb72e1625c…\r\n\r\n"
+      }
+    },
+    {
+      "key": "post_gate",
+      "command": "powershell.exe -NoProfile -File build\\p3audit\\windows-content-0d57f8c53a14a8c1d02dfd91263b038fac710ee4\\scripts\\check_p2_resources.ps1 -Mode Formal",
+      "result": {
+        "chunk_id": "82c456",
+        "wall_time_seconds": 10.0040817,
+        "session_id": 94607,
+        "original_token_count": 0,
+        "output": ""
+      },
+      "final": {
+        "chunk_id": "eb6ebe",
+        "wall_time_seconds": 0.0000129,
+        "exit_code": 0,
+        "original_token_count": 496,
+        "output": "{\"schema\":\"p2-resource-gate-v2\",\"captured_at_local\":\"2026-10-09T12:32:45.0832882+08:00\",\"mode\":\"Formal\",\"host_total_visible_bytes\":16340406272,\"host_samples\":[{\"timestamp\":\"2026-10-09T12:32:38.6154868+08:00\",\"cpu_percent\":5,\"available_memory_bytes\":2161041408,\"committed_bytes\":30883450880,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":56,\"pages_per_second\":0,\"page_reads_per_second\":0,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T12:32:40.2560195+08:00\",\"cpu_percent\":1,\"available_memory_bytes\":2159128576,\"committed_bytes\":30882066432,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":56,\"pages_per_second\":122,\"page_reads_per_second\":7,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T12:32:41.8730151+08:00\",\"cpu_percent\":0,\"available_memory_bytes\":2159865856,\"committed_bytes\":30881251328,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":56,\"pages_per_second\":0,\"page_reads_per_second\":0,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T12:32:43.4599591+08:00\",\"cpu_percent\":2,\"available_memory_bytes\":2157977600,\"committed_bytes\":30886195200,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":56,\"pages_per_second\":0,\"page_reads_per_second\":0,\"memory_temperature_or_throttling\":\"unknown\"},{\"timestamp\":\"2026-10-09T12:32:45.0832882+08:00\",\"cpu_percent\":0,\"available_memory_bytes\":2159910912,\"committed_bytes\":30883901440,\"commit_limit_bytes\":54425735168,\"percent_committed_bytes_in_use\":56,\"pages_per_second\":3,\"page_reads_per_second\":3,\"memory_temperature_or_throttling\":\"unknown\"}],\"host_minimum_available_bytes\":2157977600,\"host_cpu_average_percent\":1.6,\"host_cpu_maximum_percent\":5,\"minimum_memory_bytes\":2147483648,\"minimum_disk_bytes\":1073741824,\"wsl_available_bytes\":4178104320,\"wsl_total_bytes\":7908261888,\"wsl_swap_total_bytes\":2147483648,\"wsl_swap_free_bytes\":2147483648,\"wsl_root_free_bytes\":224760881152,\"formal_gate\":\"PASS\"}\r\n"
+      }
+    },
+    {
+      "key": "post_clocks",
+      "command": "wsl.exe -d Ubuntu-24.04 -- bash -c 'date --iso-8601=ns; uname -a; cat /sys/devices/system/clocksource/clocksource0/current_clocksource; timedatectl show --property=Timezone --property=NTP --property=NTPSynchronized; timedatectl timesync-status; cat /proc/pressure/memory; free -b'",
+      "result": {
+        "chunk_id": "0ef3d2",
+        "wall_time_seconds": 1.5633143999999999,
+        "exit_code": 0,
+        "original_token_count": 219,
+        "output": "2026-10-09T12:32:33,233709704+08:00\nLinux localhost 6.18.40.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Fri Jul 31 22:12:15 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux\ntsc\nTimezone=Asia/Shanghai\nNTP=yes\nNTPSynchronized=yes\n       Server: 185.125.190.57 (ntp.ubuntu.com)\nPoll interval: 32s (min: 32s; max 34min 8s)\n         Leap: normal\n      Version: 4\n      Stratum: 2\n    Reference: 1D586304\n    Precision: 1us (-25)\nRoot distance: 4.691ms (max: 5s)\n       Offset: -131.926ms\n        Delay: 343.825ms\n       Jitter: 29.997ms\n Packet count: 2116\n    Frequency: +18.966ppm\nsome avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n               total        used        free      shared  buff/cache   available\nMem:      7908261888  3726606336  3359576064    20361216  1139318784  4181655552\nSwap:     2147483648           0  2147483648\n"
+      }
+    },
+    {
+      "key": "scope_and_hash",
+      "command": "git diff --exit-code e308bfb873e6811c50ad685a979af345302fda8d HEAD -- autotuner code configs/measurement_protocol.json configs/search_protocol.json configs/p3_campaign_protocol.json; Get-FileHash code\\original\\matrix_multiplication.c; Get-FileHash evidence\\p2\\session-0d3dd524\\configuration_summary.csv -ErrorAction SilentlyContinue",
+      "result": {
+        "chunk_id": "10bb66",
+        "wall_time_seconds": 1.5077481000000001,
+        "exit_code": 1,
+        "original_token_count": 79,
+        "output": "\r\nAlgorithm       Hash                                                                   Path\r\n---------       ----                                                                   ----\r\nSHA256          188D011109C4470E1F41829216E8677A5C2D8F2B7C8A44215652320DBDF6DE15       E:\\software_system\\project01\\co…\r\n\r\n"
+      }
+    }
+  ],
+  "scope_failure_note": "Last hash check used a non-existing P2 shorthand path, rc=1; this did not change any file. Correct path resolved and separately rechecked.",
+  "stdout_and_stderr": "The terminal tool merges streams for these diagnostic-only commands; formal target/host operations retain separate streams."
+}

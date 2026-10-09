@@ -52,8 +52,8 @@ def main() -> None:
     axes[0].set_yscale("log")
     axes[0].set_ylabel("Selected / full Grid time in P2 table (log scale)")
     axes[0].set_title("Configuration selection quality (post-hoc)")
-    axes[1].set_ylabel("Configuration evaluator wall time (hours)")
-    axes[1].set_title("Search cost (gates, setup and retests excluded)")
+    axes[1].set_ylabel("Terminal evaluator call total (hours)")
+    axes[1].set_title("Terminal configuration evaluation cost")
     for axis in axes:
         axis.set_xlabel("Unique configuration evaluations")
         axis.set_xticks(budgets)
@@ -62,7 +62,8 @@ def main() -> None:
     partial = audit["completed_trajectory_count"] != 10
     figure.suptitle("P3 partial batch" if partial else "P3 five-seed comparison", fontsize=12)
     figure.text(0.5, 0.015,
-        "P2 table is not a strategy oracle. Grid prefixes have order bias. Uncalibrated clock; cross-session cost."
+        "P2 table is not a strategy oracle. Grid prefixes have order bias. Uncalibrated clock; cross-session cost.\n"
+        "Cost excludes gates, setup, abandoned attempts, retests and offline pauses."
         + (" Seed stability remains incomplete." if partial else ""), ha="center", fontsize=8)
     figure.tight_layout(rect=(0, 0.055, 1, 0.96))
     args.output.parent.mkdir(parents=True, exist_ok=True)

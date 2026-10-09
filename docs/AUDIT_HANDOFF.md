@@ -1,7 +1,9 @@
 # 审计交接入口
 
-当前阶段入口：[`P2_AUDIT_HANDOFF.md`](P2_AUDIT_HANDOFF.md)。P1 与 P1-R1 入口保留在
-[`P1_AUDIT_HANDOFF.md`](P1_AUDIT_HANDOFF.md)。以下是原 P0 历史交接，未改标为 P2。
+当前入口为0023ceed独立审计修订：[`P3_TIMING_AUDIT.md`](P3_TIMING_AUDIT.md)、
+[`P3_AUDIT_HANDOFF.md`](P3_AUDIT_HANDOFF.md)；P3正式比较尚未完成，长实验仍暂停。
+P2历史入口保留在[`P2_AUDIT_HANDOFF.md`](P2_AUDIT_HANDOFF.md)，P1/P1-R1在
+[`P1_AUDIT_HANDOFF.md`](P1_AUDIT_HANDOFF.md)。以下仍是原P0历史交接。
 
 ## P0 交接（历史）
 

@@ -1,0 +1,72 @@
+[
+  {
+    "command": "git diff --check",
+    "result": {
+      "chunk_id": "8a0811",
+      "wall_time_seconds": 1.3112367,
+      "exit_code": 0,
+      "original_token_count": 194,
+      "output": "warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/AUDIT_HANDOFF.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/P3_AUDIT_HANDOFF.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/P3_COST_SCOPE.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/P3_TIMING_AUDIT.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/WORK_LOG.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'report.md', LF will be replaced by CRLF the next time Git touches it\n"
+    }
+  },
+  {
+    "command": "git ls-files autotuner/core.py scripts/timing_audit.py scripts/run_timing_audit.ps1 configs/timing_audit_protocol.json tests/test_campaign_costs.py",
+    "result": {
+      "chunk_id": "229f70",
+      "wall_time_seconds": 1.3110911,
+      "exit_code": 0,
+      "original_token_count": 34,
+      "output": "autotuner/core.py\nconfigs/timing_audit_protocol.json\nscripts/run_timing_audit.ps1\nscripts/timing_audit.py\ntests/test_campaign_costs.py\n"
+    }
+  },
+  {
+    "command": "git ls-tree -r 0d57f8c53a14a8c1d02dfd91263b038fac710ee4 autotuner/core.py scripts/timing_audit.py scripts/run_timing_audit.ps1 configs/timing_audit_protocol.json",
+    "result": {
+      "chunk_id": "1e3f22",
+      "wall_time_seconds": 1.2899346,
+      "exit_code": 0,
+      "original_token_count": 80,
+      "output": "100644 blob dfab2b590e3f0063b84eaad0e1e3ff5801e50273\tautotuner/core.py\n100644 blob f4c35edc30c698325ef32c559e5f2bfc6c5ace38\tconfigs/timing_audit_protocol.json\n100644 blob 14d968577bdf6e4052d724d1cd3f79017f8d351b\tscripts/run_timing_audit.ps1\n100644 blob 54c4950935e60fff8220c23672a1b018d178c01f\tscripts/timing_audit.py\n"
+    }
+  },
+  {
+    "command": "wsl.exe -d Ubuntu-24.04 -- flock -n /var/tmp/matrix-autotuner-p3-10245102457.runner.lock true",
+    "result": {
+      "chunk_id": "37ca95",
+      "wall_time_seconds": 8.892998,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  },
+  {
+    "command": "$tokens=$null; $parseErrors=$null; [System.Management.Automation.Language.Parser]::ParseFile((Join-Path (Get-Location) 'scripts/run_timing_audit.ps1'),[ref]$tokens,[ref]$parseErrors) | Out-Null; if($parseErrors.Count){$parseErrors; exit 1}; wsl.exe -d Ubuntu-24.04 --cd /mnt/e/software_system/project01 -- env -u PYTHONPATH PYTHONDONTWRITEBYTECODE=1 python3 -c 'import ast; from pathlib import Path; files=[Path(\"scripts/plot_p3_results.py\"),Path(\"scripts/timing_audit.py\"),Path(\"tests/test_campaign_costs.py\"),Path(\"tests/test_timing_audit.py\")]; [ast.parse(p.read_text(), filename=str(p)) for p in files]; print(\"Current auxiliary Python AST and PowerShell parser: PASS\")'",
+    "result": {
+      "chunk_id": "8d69e8",
+      "wall_time_seconds": 1.7762993,
+      "exit_code": 0,
+      "original_token_count": 15,
+      "output": "Current auxiliary Python AST and PowerShell parser: PASS\n"
+    }
+  },
+  {
+    "command": "$matches=rg -l --hidden --glob '!*.tar' 'gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{30,}|-----BEGIN (RSA |OPENSSH |EC )?PRIVATE KEY-----' evidence/p3_audit_0023ceed scripts/timing_audit.py scripts/run_timing_audit.ps1 tests/test_campaign_costs.py tests/test_timing_audit.py; if($LASTEXITCODE -eq 1){'Credential-pattern scan: no matches'; exit 0}; if($LASTEXITCODE -eq 0){$matches; exit 1}; exit $LASTEXITCODE",
+    "result": {
+      "chunk_id": "267186",
+      "wall_time_seconds": 1.5116682,
+      "exit_code": 0,
+      "original_token_count": 10,
+      "output": "Credential-pattern scan: no matches\r\n"
+    }
+  },
+  {
+    "command": "$files=Get-ChildItem evidence/p3_audit_0023ceed -Recurse -File; [ordered]@{file_count=$files.Count; total_bytes=($files | Measure-Object Length -Sum).Sum; files_over_5MiB=@($files | Where-Object Length -gt 5MB | Select-Object FullName,Length); largest=@($files | Sort-Object Length -Descending | Select-Object -First 5 FullName,Length)} | ConvertTo-Json -Depth 5",
+    "result": {
+      "chunk_id": "60c53f",
+      "wall_time_seconds": 1.8061335,
+      "exit_code": 0,
+      "original_token_count": 232,
+      "output": "{\r\n  \"file_count\": 330,\r\n  \"total_bytes\": 2536857.0,\r\n  \"files_over_5MiB\": [],\r\n  \"largest\": [\r\n    {\r\n      \"FullName\": \"E:\\\\software_system\\\\project01\\\\evidence\\\\p3_audit_0023ceed\\\\session-0d57f8c\\\\groups\\\\r2_O1\\\\final.json\",\r\n      \"Length\": 100898\r\n    },\r\n    {\r\n      \"FullName\": \"E:\\\\software_system\\\\project01\\\\evidence\\\\p3_audit_0023ceed\\\\session-0d57f8c\\\\groups\\\\r1_O1\\\\final.json\",\r\n      \"Length\": 100894\r\n    },\r\n    {\r\n      \"FullName\": \"E:\\\\software_system\\\\project01\\\\evidence\\\\p3_audit_0023ceed\\\\session-0d57f8c\\\\groups\\\\r2_O3\\\\final.json\",\r\n      \"Length\": 100874\r\n    },\r\n    {\r\n      \"FullName\": \"E:\\\\software_system\\\\project01\\\\evidence\\\\p3_audit_0023ceed\\\\session-0d57f8c\\\\groups\\\\r1_O3\\\\final.json\",\r\n      \"Length\": 100866\r\n    },\r\n    {\r\n      \"FullName\": \"E:\\\\software_system\\\\project01\\\\evidence\\\\p3_audit_0023ceed\\\\session-0d57f8c\\\\groups\\\\r2_O2\\\\final.json\",\r\n      \"Length\": 100244\r\n    }\r\n  ]\r\n}\r\n"
+    }
+  }
+]

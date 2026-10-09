@@ -1,0 +1,38 @@
+{
+  "command": "$root='evidence/p3_audit_0023ceed/session-0d57f8c'; $points=@(foreach($file in Get-ChildItem (Join-Path $root 'groups') -Filter final.json -Recurse){$result=Get-Content $file.FullName -Raw | ConvertFrom-Json; foreach($sample in $result.evaluation.samples){foreach($point in @($sample.resource_before)+@($sample.resource_samples)+@($sample.resource_after)){[pscustomobject]@{group=$result.job.id; run_id=$sample.run_id; point=$point}}}}); $hostPoints=@(foreach($item in $points){foreach($hostPoint in $item.point.host.host_samples){[pscustomobject]@{group=$item.group; run_id=$item.run_id; timestamp=$hostPoint.timestamp; cpu=$hostPoint.cpu_percent; available_bytes=$hostPoint.available_memory_bytes}}}); $uniqueHost=@($hostPoints | Sort-Object timestamp -Unique); [ordered]@{host_unique_timestamp_count=$uniqueHost.Count; host_cpu_gt20=@($uniqueHost | Where-Object cpu -gt 20); host_memory_lt2GiB_count=@($uniqueHost | Where-Object available_bytes -lt 2147483648).Count; minimum_host_sample=@($uniqueHost | Sort-Object available_bytes | Select-Object -First 1); wsl_pgmajfault_min=($points.point.vmstat.pgmajfault | Measure-Object -Minimum).Minimum; wsl_pgmajfault_max=($points.point.vmstat.pgmajfault | Measure-Object -Maximum).Maximum; wsl_pressure_unique=(@($points.point.memory_pressure | Sort-Object -Unique)); scope='Observed host timestamps deduplicated; Linux counters cover the whole WSL, not only this target'} | ConvertTo-Json -Depth 6",
+  "tool_result": {
+    "chunk_id": "fb1b88",
+    "wall_time_seconds": 1.9066026,
+    "exit_code": 0,
+    "original_token_count": 216,
+    "output": "{\r\n  \"host_unique_timestamp_count\": 72,\r\n  \"host_cpu_gt20\": [\r\n    {\r\n      \"group\": \"r1_O1\",\r\n      \"run_id\": \"3504c04606a8440eb84a51696718634e\",\r\n      \"timestamp\": \"2026-10-09T11:58:59.8470144+08:00\",\r\n      \"cpu\": 21,\r\n      \"available_bytes\": 2285600768\r\n    }\r\n  ],\r\n  \"host_memory_lt2GiB_count\": 44,\r\n  \"minimum_host_sample\": [\r\n    {\r\n      \"group\": \"r2_O2\",\r\n      \"run_id\": \"eb29e4ecbad544e98c2040240713f58f\",\r\n      \"timestamp\": \"2026-10-09T12:21:29.8433946+08:00\",\r\n      \"cpu\": 8,\r\n      \"available_bytes\": 1961046016\r\n    }\r\n  ],\r\n  \"wsl_pgmajfault_min\": 40359.0,\r\n  \"wsl_pgmajfault_max\": 40583.0,\r\n  \"wsl_pressure_unique\": [\r\n    \"some avg10=0.00 avg60=0.00 avg300=0.00 total=0\\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\"\r\n  ],\r\n  \"scope\": \"Observed host timestamps deduplicated; Linux counters cover the whole WSL, not only this target\"\r\n}\r\n"
+  },
+  "parsed": {
+    "host_unique_timestamp_count": 72,
+    "host_cpu_gt20": [
+      {
+        "group": "r1_O1",
+        "run_id": "3504c04606a8440eb84a51696718634e",
+        "timestamp": "2026-10-09T11:58:59.8470144+08:00",
+        "cpu": 21,
+        "available_bytes": 2285600768
+      }
+    ],
+    "host_memory_lt2GiB_count": 44,
+    "minimum_host_sample": [
+      {
+        "group": "r2_O2",
+        "run_id": "eb29e4ecbad544e98c2040240713f58f",
+        "timestamp": "2026-10-09T12:21:29.8433946+08:00",
+        "cpu": 8,
+        "available_bytes": 1961046016
+      }
+    ],
+    "wsl_pgmajfault_min": 40359,
+    "wsl_pgmajfault_max": 40583,
+    "wsl_pressure_unique": [
+      "some avg10=0.00 avg60=0.00 avg300=0.00 total=0\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0"
+    ],
+    "scope": "Observed host timestamps deduplicated; Linux counters cover the whole WSL, not only this target"
+  }
+}

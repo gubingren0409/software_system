@@ -1,0 +1,44 @@
+{
+  "content_commit": "0d57f8c53a14a8c1d02dfd91263b038fac710ee4",
+  "scope": "Diagnosis only; main-loop host cost excludes initial path/hash checks, clean exports, regression tests, documentation and Git. Nested core/process/evaluator/host scopes must not all be added.",
+  "sources": [
+    "session-0d57f8c/checkpoint.json",
+    "session-0d57f8c/analysis.json",
+    "session-0d57f8c/host_operations/*.json",
+    "post_integrity_cost.json"
+  ],
+  "host_main_loop_seconds": 2369.4009297,
+  "gate_sampling_and_wait_seconds": 280.44257519999996,
+  "terminal_evaluation_seconds": 1918.0891734389952,
+  "process_wall_seconds": 1899.8476891859755,
+  "measured_core_seconds": 1553.8594916040001,
+  "warmup_included": false,
+  "interval_count": 12,
+  "all_36_core_seconds": 1866.5086599920003,
+  "host_operations": {
+    "operation_count": 26,
+    "successful_gate_count": 7,
+    "rejected_gate_count": 5,
+    "setup_host_seconds": 41.6176271,
+    "six_probes_host_seconds": 123.62821019999998,
+    "six_groups_host_seconds": 1920.3417405999999,
+    "gate_invocations_host_seconds": 130.1095617,
+    "analyze_host_seconds": 2.8794817999999998,
+    "target_executions_stopped": true
+  },
+  "derivation_command": "$root='evidence/p3_audit_0023ceed/session-0d57f8c/host_operations'; $records=@(Get-ChildItem $root -Filter '*.json' | ForEach-Object {Get-Content $_.FullName -Raw | ConvertFrom-Json}); $gates=@($records | Where-Object id -like 'gate_*'); [ordered]@{operation_count=$records.Count; successful_gate_count=@($gates | Where-Object returncode -eq 0).Count; rejected_gate_count=@($gates | Where-Object returncode -eq 2).Count; setup_host_seconds=($records | Where-Object id -eq setup).stopwatch_seconds; six_probes_host_seconds=($records | Where-Object {$_.id -match '^(before|after)\\d$'} | Measure-Object stopwatch_seconds -Sum).Sum; six_groups_host_seconds=($records | Where-Object {$_.id -match '^r[12]_O[123]$'} | Measure-Object stopwatch_seconds -Sum).Sum; gate_invocations_host_seconds=($gates | Measure-Object stopwatch_seconds -Sum).Sum; analyze_host_seconds=($records | Where-Object id -eq analyze).stopwatch_seconds; target_executions_stopped=$true} | ConvertTo-Json",
+  "derivation_result": {
+    "chunk_id": "9a4270",
+    "wall_time_seconds": 1.586579,
+    "exit_code": 0,
+    "original_token_count": 91,
+    "output": "{\r\n  \"operation_count\": 26,\r\n  \"successful_gate_count\": 7,\r\n  \"rejected_gate_count\": 5,\r\n  \"setup_host_seconds\": 41.6176271,\r\n  \"six_probes_host_seconds\": 123.62821019999998,\r\n  \"six_groups_host_seconds\": 1920.3417405999999,\r\n  \"gate_invocations_host_seconds\": 130.1095617,\r\n  \"analyze_host_seconds\": 2.8794817999999998,\r\n  \"target_executions_stopped\": true\r\n}\r\n"
+  },
+  "clock_summaries": {
+    "interval_max_mono_raw_difference_seconds": 0.521036448000018,
+    "interval_max_host_raw_difference_seconds": 0.8452748309999834,
+    "probe_max_mono_raw_relative_difference": 0.00397157875430687
+  },
+  "calibration_applied": false,
+  "search_feedback": false
+}

@@ -1,0 +1,11 @@
+{
+  "command": "$root='evidence\\p3_audit_0023ceed\\session-0d57f8c'; $rows=@(foreach ($item in Get-ChildItem (Join-Path $root 'probes') -Filter 'before*.json') { $probe=Get-Content $item.FullName -Raw | ConvertFrom-Json; $hostReading=Get-Content (Join-Path $root ('host_operations/'+$probe.id+'.json')) -Raw | ConvertFrom-Json; [pscustomobject]@{id=$probe.id; mono=$probe.interval.monotonic_seconds; raw=$probe.interval.raw_seconds; realtime=$probe.interval.realtime_seconds; host=$hostReading.stopwatch_seconds; mono_raw_pass=([math]::Abs($probe.interval.monotonic_seconds-$probe.interval.raw_seconds) -le .005+.01*$probe.interval.raw_seconds); host_raw_pass=([math]::Abs($hostReading.stopwatch_seconds-$probe.interval.raw_seconds) -le 1+.01*$probe.interval.raw_seconds)} }); $rows | ConvertTo-Json",
+  "result": {
+    "chunk_id": "d4d2d4",
+    "wall_time_seconds": 1.507684,
+    "exit_code": 0,
+    "original_token_count": 149,
+    "output": "[\r\n  {\r\n    \"id\": \"before0\",\r\n    \"mono\": 20.000710163,\r\n    \"raw\": 20.008712049,\r\n    \"realtime\": 19.953105763,\r\n    \"host\": 20.6539246,\r\n    \"mono_raw_pass\": true,\r\n    \"host_raw_pass\": true\r\n  },\r\n  {\r\n    \"id\": \"before1\",\r\n    \"mono\": 20.000229627,\r\n    \"raw\": 19.970415609,\r\n    \"realtime\": 19.970701781,\r\n    \"host\": 20.6149494,\r\n    \"mono_raw_pass\": true,\r\n    \"host_raw_pass\": true\r\n  },\r\n  {\r\n    \"id\": \"before2\",\r\n    \"mono\": 20.000167466,\r\n    \"raw\": 19.932767006,\r\n    \"realtime\": 20.000169508,\r\n    \"host\": 20.5757147,\r\n    \"mono_raw_pass\": true,\r\n    \"host_raw_pass\": true\r\n  }\r\n]\r\n"
+  },
+  "preceding_shell_parse_failure": "PowerShell foreach statement cannot directly precede a pipeline; wrapped results in @(...). rc=1 ParserError 'An empty pipe element is not allowed'; no targets or files changed."
+}

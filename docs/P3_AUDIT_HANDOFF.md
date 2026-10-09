@@ -9,6 +9,26 @@
 [P3_TIMING_AUDIT](P3_TIMING_AUDIT.md)、[成本口径v1](P3_COST_SCOPE.md)。本轮不启动
 完整P3；诊断不反馈策略，既有内容e308bfb/测量schema 2保持不变。
 
+本轮诊断实际内容提交`0d57f8c53a14a8c1d02dfd91263b038fac710ee4`；主控v3通过
+同提交Windows本地/WSL双干净归档执行，保留v1/v2启动失败，不改系统安全策略。
+[干净46项回归/CLI/导入/配置检查](../evidence/p3_audit_0023ceed/clean_validation-0d57f8c.json)、
+[旧P3停止后只读审计](../evidence/p3_audit_0023ceed/preserved_p3_audit.json)（3完整配置、
+21条原始执行一致），以及[独立session及来源哈希](../evidence/p3_audit_0023ceed/session-0d57f8c/session.json)。
+这些PASS仅证明契约/完整性，不证明正式P3算法比较完成。下文旧续跑命令**仅在
+外部复核允许沿用协议后**执行；原`--resume`会留存并清除PAUSE_REQUEST，本轮不运行。
+
+**本轮已完成**：六组各1预热+5fresh，共36条n4096/random/20261008/s128执行，
+全部完整契约/正确性通过；[完整诊断分析](../evidence/p3_audit_0023ceed/session-0d57f8c/analysis.json)。
+两轮中位数（秒）：O1 50.963140880→51.435436694，O2 52.042876327→52.626460105，
+O3 51.308399075→52.122370106；漂移+0.9267%/+1.1214%/+1.5864%。观察排名相同
+O1<O3<O2，但相邻差距全部<2%，宿主44/72前后快照低于2GiB、一次21%CPU，
+故robust判据未通过。时钟12个整组/探针+36个Evaluator区间对照通过，不能追认
+旧时间已校准。PS主循环2369.4009297s，门禁采集/等待280.4425752s；五次拒绝
+均留档并恢复成功。[成本范围/复算](../evidence/p3_audit_0023ceed/cost_and_clock_summary.json)。
+之后干净归档重分析和46项回归PASS，[复验日志](../evidence/p3_audit_0023ceed/post_clean_validation.json)。
+待裁决：是否需要更充裕/稳定环境下重新建匹配Grid及P3；若改计时协议必须新版本/
+session并先重建Grid。完整P3长实验本轮未恢复，诊断没有进入策略或替换原Grid。
+
 当前新增 P3 独立轨迹、私有观测恢复、预算前缀和各候选独立复测，C 核心与 P2 测量/
 搜索 schema 2 不变。[冻结规则](P3_PROTOCOL.md)、[campaign 配置](../configs/p3_campaign_protocol.json)、
 [运行器](../autotuner/campaign.py)、[只读后处理](../scripts/audit_p3_evidence.py)、

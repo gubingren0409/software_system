@@ -1,0 +1,41 @@
+{
+  "command": "Timestamped Windows PowerShell versions, read-only policies and Stopwatch properties",
+  "actual_command": "[ordered]@{ captured_at_local=[DateTimeOffset]::Now.ToString('o'); parent_powershell=$PSVersionTable.PSVersion.ToString(); diagnostic_powershell=(powershell.exe -NoProfile -Command '$PSVersionTable.PSVersion.ToString()'); execution_policies=(Get-ExecutionPolicy -List | Select-Object Scope,ExecutionPolicy); native_archive='E:\\software_system\\project01\\build\\p3audit\\windows-content-0d57f8c53a14a8c1d02dfd91263b038fac710ee4'; host_stopwatch_high_resolution=[Diagnostics.Stopwatch]::IsHighResolution; host_stopwatch_frequency=[string][Diagnostics.Stopwatch]::Frequency } | ConvertTo-Json -Depth 5",
+  "tool_result": {
+    "chunk_id": "95f87c",
+    "wall_time_seconds": 3.1130867,
+    "exit_code": 0,
+    "original_token_count": 176,
+    "output": "{\r\n  \"captured_at_local\": \"2026-10-09T11:53:31.7999575+08:00\",\r\n  \"parent_powershell\": \"7.6.5\",\r\n  \"diagnostic_powershell\": \"5.1.26100.9444\",\r\n  \"execution_policies\": [\r\n    {\r\n      \"Scope\": 4,\r\n      \"ExecutionPolicy\": 5\r\n    },\r\n    {\r\n      \"Scope\": 3,\r\n      \"ExecutionPolicy\": 5\r\n    },\r\n    {\r\n      \"Scope\": 0,\r\n      \"ExecutionPolicy\": 5\r\n    },\r\n    {\r\n      \"Scope\": 1,\r\n      \"ExecutionPolicy\": 5\r\n    },\r\n    {\r\n      \"Scope\": 2,\r\n      \"ExecutionPolicy\": 1\r\n    }\r\n  ],\r\n  \"native_archive\": \"E:\\\\software_system\\\\project01\\\\build\\\\p3audit\\\\windows-content-0d57f8c53a14a8c1d02dfd91263b038fac710ee4\",\r\n  \"host_stopwatch_high_resolution\": true,\r\n  \"host_stopwatch_frequency\": \"10000000\"\r\n}\r\n"
+  },
+  "parsed": {
+    "captured_at_local": "2026-10-09T11:53:31.7999575+08:00",
+    "parent_powershell": "7.6.5",
+    "diagnostic_powershell": "5.1.26100.9444",
+    "execution_policies": [
+      {
+        "Scope": 4,
+        "ExecutionPolicy": 5
+      },
+      {
+        "Scope": 3,
+        "ExecutionPolicy": 5
+      },
+      {
+        "Scope": 0,
+        "ExecutionPolicy": 5
+      },
+      {
+        "Scope": 1,
+        "ExecutionPolicy": 5
+      },
+      {
+        "Scope": 2,
+        "ExecutionPolicy": 1
+      }
+    ],
+    "native_archive": "E:\\software_system\\project01\\build\\p3audit\\windows-content-0d57f8c53a14a8c1d02dfd91263b038fac710ee4",
+    "host_stopwatch_high_resolution": true,
+    "host_stopwatch_frequency": "10000000"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "command": "$docs=@('README.md','report.md','docs/AUDIT_HANDOFF.md','docs/P3_AUDIT_HANDOFF.md','docs/P3_TIMING_AUDIT.md','docs/P3_COST_SCOPE.md','docs/WORK_LOG.md'); $missing=@(); $checked=0; foreach($doc in $docs){$absolute=(Resolve-Path $doc).Path; $directory=Split-Path $absolute -Parent; $body=Get-Content -LiteralPath $absolute -Raw; foreach($link in [regex]::Matches($body,'!?\\[[^\\]]*\\]\\(([^)]+)\\)')){$target=$link.Groups[1].Value.Trim('<','>').Split('#')[0]; if(-not $target -or $target -match '^(https?://|mailto:)'){continue}; $target=[uri]::UnescapeDataString($target); $checked++; if(-not (Test-Path -LiteralPath (Join-Path $directory $target))){$missing += [pscustomobject]@{document=$doc;target=$target}}}}; [ordered]@{status=$(if($missing.Count){'FAIL'}else{'PASS'}); checked_local_links=$checked; missing=$missing} | ConvertTo-Json -Depth 5; if($missing.Count){exit 1}",
+  "tool_result": {
+    "chunk_id": "ab00c2",
+    "wall_time_seconds": 1.6557035,
+    "exit_code": 0,
+    "original_token_count": 19,
+    "output": "{\r\n  \"status\": \"PASS\",\r\n  \"checked_local_links\": 109,\r\n  \"missing\": []\r\n}\r\n"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "command": "wsl.exe -d Ubuntu-24.04 --cd /var/tmp/matrix-autotuner-p2-content-0d57f8c53a14a8c1d02dfd91263b038fac710ee4 -- env -u PYTHONPATH PYTHONDONTWRITEBYTECODE=1 python3 -c 'import json; from pathlib import Path; from scripts.audit_p3_evidence import audit; from autotuner.core import atomic_write_json; result=audit(Path(\"/mnt/e/software_system/project01/evidence/p3/campaign-e308bfb\")); atomic_write_json(Path(\"/mnt/e/software_system/project01/evidence/p3_audit_0023ceed/preserved_p3_audit.json\"), result); print(json.dumps({key:result[key] for key in (\"status\",\"campaign_status\",\"unique_configuration_count\",\"raw_execution_count\",\"completed_trajectory_count\",\"cost_seconds\")}))'",
+  "tool_result": {
+    "chunk_id": "0f843d",
+    "wall_time_seconds": 2.8191977,
+    "exit_code": 0,
+    "original_token_count": 127,
+    "output": "{\"status\": \"PASS\", \"campaign_status\": \"user_paused\", \"unique_configuration_count\": 3, \"raw_execution_count\": 21, \"completed_trajectory_count\": 0, \"cost_seconds\": {\"campaign_active_wall\": 6031.6506602429945, \"resource_gate_and_wait\": 979.5004072100055, \"setup\": 42.3517586520029, \"candidate_build_setup\": 3.757940970001073, \"reference_setup\": 38.46878848299821, \"resume_setup\": 0.6579441170033533, \"all_complete_process_wall\": 4994.6764811280045, \"all_terminal_configuration_evaluation\": 3668.358618804996}}\n"
+  },
+  "scope": "Read-only audit of old campaign; JSON output only, no spreadsheet generation or target execution."
+}
