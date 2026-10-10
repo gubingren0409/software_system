@@ -1,0 +1,75 @@
+{
+  "batch_policy": "A trajectory limit only checkpoints the predeclared schedule; it does not change 12-evaluation trajectories, prefixes, seeds, scoring or retests. Resume can increase the limit without changing experiment identity.",
+  "compiler_sha256": "1b99826121ae6682a634e5efe09bd3e3df58ce58e0b28f849114ab5b89139c26",
+  "expected_reference_data_sha256": "cc476da46f43613ef67dad7841b73d7f2d70b7f1d636a9f23d7d7124b8b499f5",
+  "failure_policy": "A terminal failed configuration consumes one unique budget and never scores; no automatic retry of terminal observations. Interrupted attempts are abandoned and re-evaluated as a complete warmup plus five measurements before becoming observations.",
+  "legacy_content_commit": "e308bfb873e6811c50ad685a979af345302fda8d",
+  "legacy_session_id": "dc1c292900654d44b36a72548b95a610",
+  "measurement_protocol_hash": "03783dfa48ba277d693631b8c8cac11941fac19b45d5137205d7ce9b7cb0beb6",
+  "observation_policy": "Each strategy receives only the space and its own ordered terminal observations. Grid and other trajectories are readable only by separate postprocessing after decisions have been persisted.",
+  "p2_delivery_commit": "37b10327909d9d4134a2d4d68aae0e27b4fc483c",
+  "reported_prefix_budgets": [
+    4,
+    8,
+    12
+  ],
+  "resource_and_clock_policy": "Resource admission policy 2026-10-10-memory-admission-v2: host available and commit headroom >=512 MiB; below 2 GiB host available warns. Recovery WSL >=256 MiB, CPU warning-only; Formal WSL >=2 GiB, CPU average <=30 and maximum <=60; disk >=1 GiB. Formal wait including collection/retries <=120 seconds. No Vmmem addition, paging-based new rejection, filtering, calibration or timer/tolerance changes. Admission does not guarantee performance quality.",
+  "resource_policy_hash": "38e073716eafc5356d775509414018415bba05ac6e87e4e29be93663b90da9d9",
+  "retest_policy": "After each 12-evaluation trajectory, independently retest the distinct best valid configurations of its 4/8/12 prefixes. Equal candidates within that trajectory share one fresh warmup-plus-five group; different trajectories never share measurements. Retests are outside the unique search budget and never change the trajectory or original scores.",
+  "revision_reason": "User authorized memory admission change after ac33d9d. New content/session only; host physical/commit and purpose-specific WSL bounds are separate. Preserve legacy REJECT and observations without importing scores. C, input, search, timing and scoring unchanged.",
+  "schedule": [
+    {
+      "algorithm": "random",
+      "seed": 20261008
+    },
+    {
+      "algorithm": "greedy",
+      "seed": 20261008
+    },
+    {
+      "algorithm": "greedy",
+      "seed": 20261009
+    },
+    {
+      "algorithm": "random",
+      "seed": 20261009
+    },
+    {
+      "algorithm": "random",
+      "seed": 20261010
+    },
+    {
+      "algorithm": "greedy",
+      "seed": 20261010
+    },
+    {
+      "algorithm": "greedy",
+      "seed": 20261011
+    },
+    {
+      "algorithm": "random",
+      "seed": 20261011
+    },
+    {
+      "algorithm": "random",
+      "seed": 20261012
+    },
+    {
+      "algorithm": "greedy",
+      "seed": 20261012
+    }
+  ],
+  "schedule_reason": "Predeclare seed-major execution with alternating algorithm order to reduce, not eliminate, time-order confounding. No formal P3 scores were observed when this schedule was chosen.",
+  "schema_version": 3,
+  "search_protocol_hash": "dde9c06145eb8b830d12eae64ecc5dd2f31e247235a9d71a9731dcff9e1f4447",
+  "status": "new-session-memory-admission-2026-10-10",
+  "unchanged_source_sha256": {
+    "autotuner/core.py": "d63f8bc9ff479c77508948ad51ae4254daf9e3f7483416df90a31b01cf9959f4",
+    "autotuner/measurement.py": "81b2b43744482cfd85ee63e66cc7e93626b973d3bdc7b8226d1cc5d7edd0bd7a",
+    "autotuner/search.py": "f90daeb53292304a73383c8adc5f80a0f5e7647289d45c7f5d0c4e1bb8e08553",
+    "code/working/matrix_input.h": "6ad1cfc920e5d1920c955a116b5e82ebb3cb9bc2d7b88f4fb5fa217610a44379",
+    "code/working/matrix_multiplication.c": "d92870e97464b83935d77d5e087fcbd822c6abc0af244d806d024310720647ba",
+    "code/working/reference_generator.c": "e8014c3d91ca1fe40f5ef962e0c401e28e8719b19a3664c8322ce14716d4cfb5"
+  },
+  "unique_budget_per_trajectory": 12
+}

@@ -1,6 +1,42 @@
-# 首种子正式比较：P3_RESOURCE_BLOCKED（更新于 2026-10-10 16:19）
+# 首种子正式比较：P3_CLOCK_BLOCKED（更新于 2026-10-10，本轮内存准入v2）
 
-## 当前：b19e6cd 后7405fcc3的唯一新恢复调用
+## 当前：ac33d9d后内存准入v2及唯一新恢复
+
+用户授权将宿主物理可用与提交额度余量独立设置为512MiB底线，宿主低于2GiB仅警告；
+Recovery WSL至少256MiB，Formal仍2GiB。CPU/磁盘/120秒等待及测量、C、搜索均不变。
+新策略、真实读数、缺失项和成本见[P3_MEMORY_POLICY](P3_MEMORY_POLICY.md)。
+
+实际内容 `d6811cadda8ecd7b46225ebe65c51831278694a0`，干净归档
+`/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0`，
+新空session `2c270825458a4857a5ac9df5aadf597b`，
+campaign位于`evidence/p3_memory_policy/20261010-174802-11f7775c/campaign-d6811cad/`。
+51项运行来源通过；干净归档28项相关单测（1跳过）、CLI/20唯一配置、n17 fresh/289元素通过。
+没有导入旧完整组或部分样本，原7405fcc3和e308bfb封存。
+
+17:55初始真实采集host最低434728960 bytes不足新512MiB，仍REJECT；18:06唯一recovery
+自己的资源采集host最低3927523328、提交余量26103156736、WSL6210179072 bytes，PASS。
+CPU24.2%/31%只警告，分页计数原样保留。两次不同窗口不能用于确认内存回收原因。
+A/B原始20区间全部保存，MONOTONIC/RAW有6项失败（零起点A3/6/8、B1/8/9），
+REALTIME/RAW20项及Windows同调用UTC/QPC两项均通过。原容差未放宽、无筛选或校准。
+入口和独立审计真实退出均2，`recovery_eligible=false`；不调用resume、不重复探测。
+
+| 独立验收 | 结果 |
+|---|---|
+| evidence_integrity_pass | true：实际新批次来源、整数端点及完整20区间 |
+| execution_complete | false：0/2完整轨迹 |
+| timing_checks_pass | false：6个MONOTONIC/RAW区间失败 |
+| comparison_ready | false |
+
+Formal门禁**未执行**，不是失败或PASS；4096目标0、配置0/24、前缀结果0/6、独立复测0，
+新部分组/放弃组均0。新检查点仍initialized。n17是独立诊断数据，不是正式配置分数。
+本轮到此停止，等待外审及有依据的时钟处理方案；不结束用户进程、不调整系统设置。
+下一轮若源码不变，可保留此空session，但须新授权和新唯一recovery目录，不得复用失败证书。
+历史Grid仍是带时钟/资源限制的旁列参考，不是新条件下全局最优证明。
+
+独立验收：[independent_recovery.json](../evidence/p3_memory_policy/20261010-174802-11f7775c/independent_recovery.json)；
+完整摘要：[delivery_summary.json](../evidence/p3_memory_policy/20261010-174802-11f7775c/delivery_summary.json)。
+
+## 历史：b19e6cd 后7405fcc3的唯一新恢复调用
 
 用户本轮新授权一次recovery，并在全部条件通过后直接恢复首种子。实际内容仍为
 7405fcc37074ab815294ba401d5cf5e8280f3d5f、既有session3768a29ade69408da4c5d0c4404ba44e，

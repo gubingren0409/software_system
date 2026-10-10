@@ -1,6 +1,28 @@
 # 审计交接入口
 
-当前入口为b19e6cd后7405fcc3首种子恢复：
+当前入口为ac33d9d后内存准入v2及一次有限恢复：
+[`P3_MEMORY_POLICY.md`](P3_MEMORY_POLICY.md)、[`P3_FIRST_SEED_STATUS.md`](P3_FIRST_SEED_STATUS.md)。
+运行内容`d6811cadda8ecd7b46225ebe65c51831278694a0`，新空session
+`2c270825458a4857a5ac9df5aadf597b`，未继承7405fcc3/e308bfb的任何成绩。
+Windows物理可用/提交余量各512MiB底线、<2GiB物理余量警告；Recovery WSL256MiB/
+Formal2GiB。旧协议与REJECT保留原判定，CPU/测量/搜索不变。
+
+本轮唯一Recovery资源PASS，但时钟20区间中6个MONOTONIC/RAW失败，停止而未调用Formal
+或4096目标。当前P3_CLOCK_BLOCKED，配置0/24、轨迹0/2、前缀0/6、复测0；
+独立四项验收为true/false/false/false。Windows18项资源回归（实际PS入口）、干净归档
+28项相关单测（1跳过）、CLI/20配置/n17 fresh正确性通过，不代表正式比较完成。
+
+证据根：[`20261010-174802-11f7775c`](../evidence/p3_memory_policy/20261010-174802-11f7775c/)；
+优先查看[`session_plan.json`](../evidence/p3_memory_policy/20261010-174802-11f7775c/session_plan.json)、
+[`独立验收`](../evidence/p3_memory_policy/20261010-174802-11f7775c/independent_recovery.json)、
+[`时钟全部读数与失败索引`](../evidence/p3_memory_policy/20261010-174802-11f7775c/clock_analysis.json)、
+[`结构化交付`](../evidence/p3_memory_policy/20261010-174802-11f7775c/delivery_summary.json)、
+[`历史保护`](../evidence/p3_memory_policy/20261010-174802-11f7775c/history_protection_after.json)、
+[`成本范围`](../evidence/p3_memory_policy/20261010-174802-11f7775c/costs.json)。
+独立诊断120秒超时/空输出也保留，没有重复该诊断；真实资源入口记录同窗口跨接口、
+Vmmem/full meminfo，不推断未经证实的WSL预占原因。旧时钟与资源限制不因新策略消失。
+
+历史入口为b19e6cd后7405fcc3首种子恢复：
 [`P3_FIRST_SEED_7405FCC3.md`](P3_FIRST_SEED_7405FCC3.md)、[`P3_FIRST_SEED_STATUS.md`](P3_FIRST_SEED_STATUS.md)。
 50项来源匹配，既有session3768a29a保持；唯一新recovery入口退出2，宿主内存最低0.722GiB
 不足2GiB，CPU14.6%/27%只警告。A/B时钟、Formal门禁与正式目标均未开始，0/24配置、

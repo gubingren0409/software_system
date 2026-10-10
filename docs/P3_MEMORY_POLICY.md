@@ -93,3 +93,92 @@ Formal新门禁及批前/批后检查不可由Recovery代替。
 O0按自身超时与进程/日志判断，不因慢而判卡死；OOM/退出/校验失败保留整组且无分数。
 正式运行前后内存/交换及内存警告入报告；门禁通过仍不能证明稳定性，不删慢样本。
 任何资源/时钟拒绝后停止并提交，不扩展种子/算法/Grid。费用按P3_COST_SCOPE分列，嵌套不相加。
+
+## 实际冻结、唯一recovery与停止结果
+
+内容提交：`d6811cadda8ecd7b46225ebe65c51831278694a0`（运行代码与协议）；
+归档：`/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0`；
+新session：`2c270825458a4857a5ac9df5aadf597b`。详情和实际入口参数见
+[session_plan.json](../evidence/p3_memory_policy/20261010-174802-11f7775c/session_plan.json)。
+campaign协议规范化SHA `f7403433c47fbb718974e4b5991fcd4f7b03a9884a716a23e862abaa0b89e522`。
+
+准确内容的干净归档没有.git/__pycache__，移除PYTHONPATH，51项源码身份通过。
+8条实际命令包含工具版本、CLI、20唯一配置、资源18/campaign9/成本1项单测（总28，
+1个Windows专用跳过）以及独立空缓存n17/O2/s8。
+n17候选为fresh_measurement，289元素/long double reference通过，最大RSS1636KiB，
+进程墙钟0.019452985秒；前后WSL可用4950609920→4951207936 bytes，swap使用0，
+pswpin/out均0。不将小矩阵计时/RSS推作4096性能或整机峰值。
+[干净验证命令/原流](../evidence/p3_memory_policy/20261010-174802-11f7775c/clean/commands.json)、
+[身份与行尾](../evidence/p3_memory_policy/20261010-174802-11f7775c/clean/executed_source_identity.json)。
+
+唯一recovery先保存policy/manifest，再由原入口执行。它自己的资源窗口为
+18:06:09.4768257—18:06:42.4125082（+08:00），host最低3927523328 bytes（3.658GiB），
+最低提交余量26103156736（24.311GiB）、WSL6210179072（5.784GiB）、根盘223631409152
+bytes，均通过。CPU23/21/31/22/24%，平均24.2%、最高31%，Recovery仅两项CPU警告。
+host低于2GiB的警告在本窗口未触发，但此前17:55实际REJECT和历史回放的警告均保留。
+宿主pages/sec=6517/6039/3421/1320/75，page_reads/sec=1254/1115/520/466/23；
+不据此新增拒绝，也不能把资源PASS当作无分页/稳定性能的证明。
+
+WSL元数据显示启动时间18:04:44、clocksource=tsc、NTPSynchronized=yes，Windows原始
+NTP状态仍Leap=3/未同步；NTP不是本轮recovery的额外硬门槛，也不据此断定时钟根因。
+后窗口VmmemWSL PID86960/WorkingSet3090911232 bytes，与17:55窗口不同；没有捕获
+冷启动前状态，未主动重启WSL。两窗口变化原因unknown，不把预占/回收推测写成事实。
+
+A/B各10×3秒共20个区间全部保存；MONOTONIC/RAW **14通过、6失败**，
+REALTIME/RAW20/20通过，Windows同一次完整子调用的UTC/QPC2/2通过。
+原判据`abs(MONO-RAW)<=0.005+0.01*RAW`不变。失败项（零起点索引）：
+
+| 窗口/索引 | MONO秒 | RAW秒 | 差值秒 | 容许秒 |
+|---|---:|---:|---:|---:|
+| A/3 | 3.000202571 | 2.950362332 | 0.049840239 | 0.034503623 |
+| A/6 | 3.001034557 | 2.964914178 | 0.036120379 | 0.034649142 |
+| A/8 | 3.000142545 | 3.059576720 | 0.059434175 | 0.035595767 |
+| B/1 | 3.000144575 | 2.948058888 | 0.052085687 | 0.034480589 |
+| B/8 | 3.000084361 | 3.043269373 | 0.043185012 | 0.035432694 |
+| B/9 | 3.000096890 | 3.057292118 | 0.057195228 | 0.035572921 |
+
+全部整数端点及未舍入复算在[独立验收](../evidence/p3_memory_policy/20261010-174802-11f7775c/independent_recovery.json)
+和[20区间汇总](../evidence/p3_memory_policy/20261010-174802-11f7775c/clock_analysis.json)。
+入口及独立审计的可靠原生退出码均2；后者表示证据完整但本轮验收未通过，不是源码损坏。
+`evidence_integrity_pass=true`、`execution_complete=false`、`timing_checks_pass=false`、
+`comparison_ready=false`，`recovery_eligible=false`。正式门禁**not_performed**，
+没有调用resume，无4096运行、配置/复测/部分组/放弃组均0。n17候选1次及其reference
+生成只属诊断。20个新检查不校准历史Grid，也不反馈搜索策略。
+
+10456项历史文件原字节保护通过，包括教师原件、P2/P3、失败manifest/check/summary、
+旧23条记录/ID/完整观测及PAUSE_REQUEST；新检查点不变且initialized。
+[历史保护摘要](../evidence/p3_memory_policy/20261010-174802-11f7775c/history_protection_after.json)。
+正式进程为空，runner锁可获取。辅助before脚本的预先哈希在declaration中，随后追加了
+prevalidate阶段但未单独保存其初始源码全文；此溯源局限不影响已完整保存的诊断PS脚本
+及冻结的51项运行源码身份，详见delivery_summary中的说明。
+
+成本口径：[costs.json](../evidence/p3_memory_policy/20261010-174802-11f7775c/costs.json)。
+截至汇总时已完成的Windows操作QPC区间并集376.655117秒；包含失败诊断120.148205秒、
+干净验证10.629986秒、唯一recovery入口127.450873秒、独立审计0.822526秒。
+recovery内部资源35.582438秒、两窗口子调用合计61.440254秒是入口的子范围，不相加。
+finalize父包络41.638032秒在此并集范围外（内部少量命令已被计入），也不能直接累加。
+编辑/未包裹的哈希与分析/离线间隔/后续核验和推送不在上述范围，完整端到端成本unknown。
+新campaign累计0.100855773秒仅初始化；正式执行、配置终态调用、复测、放弃、
+Formal门禁/等待增量各0。没有把辅助诊断成本算为搜索预算。
+
+## 下一轮入口（先外审，不在本轮执行）
+
+本轮一次recovery额度已用，不重复探测到通过；需要外审裁决有依据的时钟处理与下一次
+有限验证。源码/编译器/协议不变时可保留此空session；若更换这些身份，建立新session，
+需要同条件Grid时另提方案，不能复用旧Grid作同协议全局最优基线。
+下列模板仅在下一轮新授权后执行一次，新目录不得已存在；不再调用本批已用的固定输出入口：
+
+```powershell
+$plan = Get-Content -Raw -Encoding UTF8 evidence/p3_memory_policy/20261010-174802-11f7775c/session_plan.json | ConvertFrom-Json
+$identityArgs = @('--content-sha', $plan.content_commit, '--auxiliary-sha', $plan.content_commit,
+  '--archive-directory', $plan.archive_directory, '--campaign-directory', $plan.campaign_directory,
+  '--git-identity', $plan.git_identity, '--session-id', $plan.session_id)
+$tag = (Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [Guid]::NewGuid().ToString('N').Substring(0,8)
+$recovery = "evidence/p3_memory_policy/$tag-recovery-d6811cad"
+python -X utf8 scripts/start_p3_first_seed.py --mode recover @identityArgs --output $recovery
+$recoveryExit = $LASTEXITCODE
+python -X utf8 scripts/audit_p3_first_seed.py --batch $recovery --output "$recovery-independent.json" --require-two
+```
+
+真实退出码和独立复算的eligible/完整性/计时均满足后，才允许新目录的resume与Formal门禁；
+本批失败证书不能resume。计划仍只限seed20261008两条12配置及去重候选复测，不扩展Grid。

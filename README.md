@@ -1,10 +1,18 @@
 # Matrix Multiplication Autotuner (P1)
 
-《软件系统优化》实践项目 P1。**P2 历史Grid已保存；P3首种子正式比较尚未完成（P3_RESOURCE_BLOCKED）。**
+《软件系统优化》实践项目 P1。**P2 历史Grid已保存；P3首种子正式比较尚未完成（P3_CLOCK_BLOCKED）。**
 
 当前ac33d9d后用户授权内存准入v2：宿主可用与提交余量各512MiB，宿主低于2GiB警告，
 Recovery WSL至少256MiB，Formal仍2GiB；CPU与测量/搜索不变。针对性验证、实际采集及
 新内容/新session有限恢复见[P3_MEMORY_POLICY](docs/P3_MEMORY_POLICY.md)。不迁入旧分数或重跑Grid。
+
+本轮实际运行内容为 `d6811cadda8ecd7b46225ebe65c51831278694a0`，新空session
+`2c270825458a4857a5ac9df5aadf597b`。干净归档28项相关单测（1跳过）、CLI/20配置及
+n17/O2/s8 fresh逐元素校验通过。唯一recovery资源PASS，但MONOTONIC/RAW **6/20区间失败**，
+两个宿主同调用检查通过；来源完整性通过，不具备恢复资格。**Formal未执行、4096执行0、
+配置0/24、完整轨迹0/2、候选复测0**。没有第二次recovery，旧成绩不迁移或校准。
+[实际独立验收](evidence/p3_memory_policy/20261010-174802-11f7775c/independent_recovery.json)、
+[交付摘要](evidence/p3_memory_policy/20261010-174802-11f7775c/delivery_summary.json)。
 
 历史（2026-10-10 16:19，b19e6cd后）：运行内容7405fcc3、既有session3768a29a不变。
 唯一一次新recovery调用退出2，宿主内存最低0.722GiB<2GiB，CPU14.6%/27%仅警告。
