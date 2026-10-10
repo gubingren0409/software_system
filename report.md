@@ -600,3 +600,16 @@ Windows QPC负责外层预算；候选进程看门狗及核心为RAW，旧refere
 完整源码/协议/二进制身份、原始端点、命令/退出码、保护及成本范围见
 [RAW候选说明](docs/P3_RAW_CLOCK_CANDIDATE.md)与
 [交付摘要](evidence/p3_raw_candidate/20261010-234702-fixed-work/delivery_summary.json)。
+
+### 8.9 正式RAW Grid v1（3755c4a外审后，采集前）
+
+22区间候选已获外审接受；本轮用户授权修复正式衔接、新协议、新空session、一次fresh恢复，
+通过后运行20配置fresh Grid，不运行Random/Greedy。候选协议和旧数据不改标。
+主计时仍RAW/schema2/整数相减；MONOTONIC仅辅助，不作相等门槛，不追查其根因。
+恢复是默认libc/unbound的10个固定十亿次短区间及第5/10短后各百亿次长区间，
+共12区间；沿用宿主QPC有界公式、20ms不确定性/读取跨度、5ms+1%U容差。
+恢复资源+采集240秒，恢复起总预算8小时QPC；Formal v2、120秒等待、1+5fresh中位数不变。
+逐组前后各一短区间fresh检查在矩阵计时外串行，全部通过才接纳该组。
+可信成本用RAW或宿主QPC；旧MONOTONIC成本只元数据，嵌套范围不重复相加。
+执行SHA、恢复结果和20配置结果在实际运行后补充；Grid与整个P3比较验收分开。
+预声明与证据入口见[正式RAW Grid](docs/P3_RAW_GRID.md)。

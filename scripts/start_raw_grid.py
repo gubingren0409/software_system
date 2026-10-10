@@ -139,6 +139,9 @@ def run_grid(plan,plan_path):
     validate_plan(plan); output=local_path(plan['session_directory']); recovery_dir=local_path(plan['recovery_directory'])
     require_certificate(recovery_dir,plan,output/'initial_checkpoint.json')
     start=load(recovery_dir/'recovery_operation.json'); frequency=start['qpc_frequency']; start_ticks=start['qpc_start']
+    current_ticks,current_frequency=qpc()
+    if current_frequency!=frequency or current_ticks<start_ticks:
+        raise ValueError('Host QPC epoch/frequency changed; old recovery budget cannot be resumed')
     def remaining(): return 28800-(qpc()[0]-start_ticks)/frequency
     status={'schema':'raw-grid-controller-v1','status':'running','started_qpc':start_ticks,'qpc_frequency':frequency,
             'budget_seconds':28800,'formal_target_invoked':False,'failure_reason':None,'phase':'preflight'}

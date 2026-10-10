@@ -116,6 +116,10 @@ def validate():
 
 
 if __name__=='__main__':
+    # A superseded preflight export is preserved, never overwritten by a new content freeze.
+    if sys.argv[1]=='export' and len(sys.argv)>3: HERE=Path(sys.argv[3]).resolve()
+    elif sys.argv[1]=='validate' and len(sys.argv)>2: HERE=Path(sys.argv[2]).resolve()
+    HERE.mkdir(parents=True,exist_ok=True)
     if sys.argv[1]=='export': export(sys.argv[2])
     elif sys.argv[1]=='validate': validate()
     else: raise ValueError('Unknown action')

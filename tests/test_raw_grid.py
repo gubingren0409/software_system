@@ -160,5 +160,17 @@ class RawGridTests(unittest.TestCase):
             self.assertEqual(state['completed'],[]); self.assertEqual(state['target_executions'],0)
             self.assertEqual(state['reference_generation_calls'],0)
 
+    def test_unaccepted_after_check_is_independently_recomputed(self):
+        from scripts.audit_raw_grid import audit_group_clock_inventory
+        with tempfile.TemporaryDirectory() as directory:
+            output=Path(directory); clock=output/'group_checks/attempt/after'; clock.mkdir(parents=True)
+            (clock/'manifest.json').write_text(json.dumps({'context':{'config_index':0}}))
+            measured=output/'configurations/grid_attempt.json'; measured.parent.mkdir(); measured.write_text('{}')
+            plan={'content_commit':'a'*40,'session_id':'b'*32}
+            with patch('scripts.audit_raw_grid.audit_clock',return_value={'evidence_integrity_pass':True,'raw_reference_pass':False}) as checked:
+                batches=audit_group_clock_inventory(plan,output)
+            self.assertEqual(len(batches),1); self.assertFalse(batches[0]['audit']['raw_reference_pass'])
+            self.assertEqual(checked.call_args.args[1]['group_sha256'],sha256_file(measured))
+
 
 if __name__=='__main__': unittest.main()
