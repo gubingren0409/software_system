@@ -1,0 +1,81 @@
+{
+  "adjtimex_freq_ppm": [
+    -45.499252319336,
+    -28.636947631836,
+    -18.93994140625,
+    -9.746215820312,
+    -0.002517700195,
+    -0.000610351562,
+    -1.5258789e-05,
+    0.959671020508,
+    2.014938354492,
+    2.257537841797,
+    6.556762695312,
+    18.505905151367,
+    36.147583007812,
+    42.298522949219,
+    48.605316162109
+  ],
+  "boot_ids": [
+    "3c4731eb-1b38-40ac-9b9b-3992292fc3b7"
+  ],
+  "clocksource": [
+    "tsc"
+  ],
+  "conditions": {
+    "LP": {
+      "boottime_pass": 3,
+      "count": 5,
+      "monotonic_pass": 3,
+      "raw_pass": 5,
+      "raw_unpadded_pass": 5,
+      "realtime_pass": 3
+    },
+    "LU": {
+      "boottime_pass": 3,
+      "count": 5,
+      "monotonic_pass": 3,
+      "raw_pass": 5,
+      "raw_unpadded_pass": 5,
+      "realtime_pass": 2
+    },
+    "LU-long": {
+      "boottime_pass": 1,
+      "count": 2,
+      "monotonic_pass": 1,
+      "raw_pass": 2,
+      "raw_unpadded_pass": 2,
+      "realtime_pass": 2
+    },
+    "SP": {
+      "boottime_pass": 5,
+      "count": 5,
+      "monotonic_pass": 5,
+      "raw_pass": 5,
+      "raw_unpadded_pass": 5,
+      "realtime_pass": 5
+    },
+    "SU": {
+      "boottime_pass": 5,
+      "count": 5,
+      "monotonic_pass": 5,
+      "raw_pass": 5,
+      "raw_unpadded_pass": 5,
+      "realtime_pass": 5
+    }
+  },
+  "inference": "Path-associated intermittent MONOTONIC differences are plausible; endpoint adjtimex observations alone cannot identify the root cause or explain the much larger mismatches.",
+  "maximum_raw_read_span_ns": 1303,
+  "maximum_uncertainty_seconds": 0.0180578,
+  "monotonic_failure_indices": [
+    0,
+    2,
+    7,
+    11,
+    21
+  ],
+  "observation": "RAW all22 including default libc/unbound 5 short+2 long match host, even unpadded. MONOTONIC mismatches retained. syscall busy 10/10 match in THIS round; pinning alone does not fix libc.",
+  "raw_failure_indices": [],
+  "raw_unpadded_failure_indices": [],
+  "unknown": "Physical accuracy and underlying virtualization/vDSO/timekeeping cause; no old-data calibration or official precision claim."
+}

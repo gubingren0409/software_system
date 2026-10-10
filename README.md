@@ -1,8 +1,21 @@
 # Matrix Multiplication Autotuner (P1)
 
-《软件系统优化》实践项目 P1。**P2 历史Grid已保存；P3首种子正式比较尚未完成（P3_CLOCK_BLOCKED）。**
+《软件系统优化》实践项目 P1。**P2 历史Grid已保存；P3首种子正式比较尚未完成。**
 
-当前50cd24e后唯一原生C/宿主QPC参照诊断已完成30区间：默认A空闲10/10、B忙工作8/10，
+当前：**P3_RAW_CLOCK_CANDIDATE_READY**（da0afd87后，2026-10-10/11）。
+唯一固定工作量诊断22区间/90响应完整，RAW22/22通过且均落在未加容差的宿主QPC边界内。
+MONOTONIC失败索引0/2/7/11/21原样保留。RAW候选运行内容
+`3c7a4ab11f7e753936ab8735e03364b44b4dd1ef`，双干净归档80项关联测试（各2项平台跳过）、
+CLI/20唯一配置、一次n=17 fresh/289元素及严格整数计时契约通过。
+候选协议明确禁止恢复/正式运行；本轮recovery/Formal/4096/Grid/搜索均0，旧session保持空。
+这不是正式计时认证或算法比较完成；以后正式比较须同一新协议的fresh Grid。
+[候选、身份与成本边界](docs/P3_RAW_CLOCK_CANDIDATE.md)、
+[交付摘要](evidence/p3_raw_candidate/20261010-234702-fixed-work/delivery_summary.json)、
+[干净验证](evidence/p3_raw_candidate/20261010-234702-fixed-work/clean_validation.json)。
+
+## 历史状态（不以新候选追认旧成绩或失败）
+
+历史50cd24e后唯一原生C/宿主QPC参照诊断已完成30区间：默认A空闲10/10、B忙工作8/10，
 syscall空闲及临时绑核空闲各5/5；RAW全部30匹配宿主。B1/B2（零起点）MONOTONIC
 真实失配，通信不确定性均≤1.2861ms，不启用新时钟准入，不启动recovery/4096/搜索。
 诊断执行内容`7950a8a533f5c60dd8fb7a0d26cb90a3e3d2b32d`；正式d6811cad及空session

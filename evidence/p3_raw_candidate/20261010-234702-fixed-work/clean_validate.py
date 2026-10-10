@@ -26,7 +26,8 @@ if sys.argv[1]=='prepare':
     tar=Path(tempfile.gettempdir())/('matrix-raw-candidate-'+commit+'.tar')
     if windows.exists() or tar.exists(): raise ValueError('No existing clean destination allowed')
     tree=subprocess.check_output(['git','ls-tree','-r','--format=%(objectname)%x09%(path)',commit,'--',
-        'autotuner','configs','code','scripts','tests','.gitattributes'],cwd=ROOT,text=True)
+        'autotuner','configs','code/working','code/diagnostics','code/original/matrix_multiplication.c',
+        'scripts','tests','.gitattributes'],cwd=ROOT,text=True)
     files={p:b for b,p in (line.split('\t',1) for line in tree.splitlines())}
     assert 'autotuner/core.py' in files and 'autotuner/timing.py' in files
     atomic_write_json(HERE/'candidate_git_identity.json',{'content_sha':commit,'files':files})
@@ -49,26 +50,41 @@ if sys.argv[1]=='prepare':
         'measurement_protocol_hash':sha256_json(load(ROOT/'configs/measurement_protocol.json')),
         'matrix_executions_requested':1,'matrix_n':17,'formal_executions_requested':0,
         'validation_scope':'No .git, PYTHONPATH or preexisting pycache/cache; candidate-only, not recovery or a formal score'})
-elif sys.argv[1]=='run':
+elif sys.argv[1] in ('run','finish-identity-correction'):
     plan=load(HERE/'clean_plan.json'); archive=plan['archive_directory']
-    run('clean_tools',linux(['python3','--version']))
-    run('clean_cli_help',linux(['python3','-B','-X','utf8','-m','autotuner','--help'],archive))
-    run('clean_configs',linux(['python3','-B','-X','utf8','-m','autotuner','list-configs'],archive))
-    configs=load(HERE/'clean_configs.stdout.txt')
-    assert len(configs)==len({(c['optimization'],c['block_size']) for c in configs})==20
-    run('clean_tests_wsl',linux(['python3','-B','-X','utf8','scripts/verify_raw_candidate_code.py'],archive))
-    run('clean_tests_windows',[sys.executable,'-B','-X','utf8',str(Path(plan['windows_archive_directory'])/'scripts/verify_raw_candidate_code.py')])
-    clean_check="from pathlib import Path; import os; assert not Path('.git').exists(); assert not list(Path('.').rglob('__pycache__')); assert 'PYTHONPATH' not in os.environ; print('clean archive has no Git metadata, pycache or PYTHONPATH')"
-    run('clean_isolation',linux(['python3','-B','-c',clean_check],archive))
-    run('clean_n17_evaluate',linux(['python3','-B','-X','utf8','-m','autotuner','--target',wsl_path(HERE/'candidate_target.json'),
-        '--evidence-root',wsl_path(HERE/'small_evaluation'),'evaluate','--size','17','--optimization','O2',
-        '--block-size','8','--seed','20261008','--input','random','--timeout','30','--label','raw-candidate-n17',
-        '--protocol-hash',plan['measurement_protocol_hash']],archive),90)
+    corrected=sys.argv[1]=='finish-identity-correction'
+    if not corrected:
+        run('clean_tools',linux(['python3','--version']))
+        run('clean_cli_help',linux(['python3','-B','-X','utf8','-m','autotuner','--help'],archive))
+        run('clean_configs',linux(['python3','-B','-X','utf8','-m','autotuner','list-configs'],archive))
+        configs=load(HERE/'clean_configs.stdout.txt')
+        assert len(configs)==len({(c['optimization'],c['block_size']) for c in configs})==20
+        run('clean_tests_wsl',linux(['python3','-B','-X','utf8','scripts/verify_raw_candidate_code.py'],archive))
+        run('clean_tests_windows',[sys.executable,'-B','-X','utf8',str(Path(plan['windows_archive_directory'])/'scripts/verify_raw_candidate_code.py')])
+        clean_check="from pathlib import Path; import os; assert not Path('.git').exists(); assert not list(Path('.').rglob('__pycache__')); assert 'PYTHONPATH' not in os.environ; print('clean archive has no Git metadata, pycache or PYTHONPATH')"
+        run('clean_isolation',linux(['python3','-B','-c',clean_check],archive))
+        run('clean_n17_evaluate',linux(['python3','-B','-X','utf8','-m','autotuner','--target',wsl_path(HERE/'candidate_target.json'),
+            '--evidence-root',wsl_path(HERE/'small_evaluation'),'evaluate','--size','17','--optimization','O2',
+            '--block-size','8','--seed','20261008','--input','random','--timeout','30','--label','raw-candidate-n17',
+            '--protocol-hash',plan['measurement_protocol_hash']],archive),90)
     results=list((HERE/'small_evaluation/runs').glob('*/result.json')); assert len(results)==1
     result=load(results[0]); assert result['source']=='fresh_measurement' and result['classification']=='success'
-    run('clean_n17_independent_audit',linux(['python3','-B','-X','utf8','scripts/audit_raw_candidate.py',
+    identity_path=HERE/'candidate_git_identity.json'
+    if corrected:
+        identity=load(identity_path)
+        omitted=[p for p in identity['files'] if p.startswith('code/original/') and p!='code/original/matrix_multiplication.c']
+        identity['files']={p:b for p,b in identity['files'].items() if p not in omitted}
+        assert 'code/original/matrix_multiplication.c' in identity['files']
+        identity_path=HERE/'candidate_runtime_git_identity.json'
+        atomic_write_json(identity_path,identity)
+        atomic_write_json(HERE/'identity_selection_correction.json',{'reason':'Non-runtime SHA256SUMS metadata was exported with EOL conversion and accidentally included under the byte-exact original-C rule. Exclude metadata from execution identity, not the teacher C; history bytes remain protected separately.',
+            'omitted_non_runtime_metadata':omitted,'original_identity_sha256':sha256_file(HERE/'candidate_git_identity.json'),
+            'corrected_identity_sha256':sha256_file(identity_path),'content_commit_unchanged':plan['content_commit'],
+            'runtime_source_modified':False,'matrix_rerun':False,'old_rejected_audit_preserved':True,
+            'postprocessing_helper_sha256':sha256_file(Path(__file__))})
+    run('clean_n17_independent_audit_corrected_identity' if corrected else 'clean_n17_independent_audit',linux(['python3','-B','-X','utf8','scripts/audit_raw_candidate.py',
         '--result',wsl_path(results[0]),'--target',wsl_path(HERE/'candidate_target.json'),
-        '--git-identity',wsl_path(HERE/'candidate_git_identity.json'),'--output',wsl_path(HERE/'candidate_validation.json')],archive))
+        '--git-identity',wsl_path(identity_path),'--output',wsl_path(HERE/'candidate_validation.json')],archive))
     # Copy only small JSON manifests, never binary/reference/performance cache data.
     copy_code="import json,shutil;from pathlib import Path;p=Path("+repr(plan['cache_directory'])+");out=Path("+repr(wsl_path(HERE/'cache_manifests'))+");out.mkdir();files=list(p.glob('build/*/manifest.json'))+list(p.glob('reference/*/manifest.json'));[(shutil.copyfile(f,out/(f.parent.name+'.json'))) for f in files];print(json.dumps([str(f) for f in files]))"
     run('clean_cache_manifests',linux(['python3','-B','-c',copy_code],archive))

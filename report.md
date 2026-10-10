@@ -4,10 +4,10 @@
 姓名：谷秉仁
 
 > P2 已完成运行契约修复、统一测量、三策略诊断、20/20 正式 Grid 和候选独立复测，
-> 等待外部审计；P3首种子比较尚未完成。当前默认C/宿主参照诊断失配，保持P3_CLOCK_BLOCKED，见8.7。
+> 等待外部审计；P3首种子比较尚未完成。当前已验证并实现RAW候选，P3_RAW_CLOCK_CANDIDATE_READY，见8.8；正式恢复仍禁用。
 > 历史 pilot 不追认为 Grid，P2 不因开始 P3 而视为审计通过。
 > 管理员处理、e0353bf/7405fcc3及内存v2恢复均保留为8.3–8.6历史记录，不移用旧证书。
-> 50cd24e后唯一30区间诊断的默认忙工作有2项MONOTONIC/QPC失配，
+> 历史50cd24e后唯一30区间诊断的默认忙工作有2项MONOTONIC/QPC失配，
 > 内存/CPU策略及正式内容不改，不启动新recovery或目标。完整性通过不等于计时或比较通过。
 
 ## 1. 框架设计
@@ -47,7 +47,8 @@ P1-R1 修复了初次提交中 `.gitignore` 误忽略 `autotuner/core.py` 的交
 `MATRIX_N=4096`，诊断构建才覆盖尺寸；块大小严格限制为 `1 <= s <= n`。
 
 输入由固定的 `splitmix64-interleaved-v1` 规则生成，默认种子 20261008。核心计算
-用 `CLOCK_MONOTONIC` 与 `double` 计时；初始化、reference 读取、逐元素验证、结果
+历史正式内容用 `CLOCK_MONOTONIC` 与 `double` 计时；本轮仅准备RAW候选（见8.8），
+不改写历史分数。初始化、reference 读取、逐元素验证、结果
 checksum 和输出均在计时区外。输出是单行 JSON。每个结果和 reference 元素、误差、
 checksum 与时间必须有限；判据在运行前固定为
 `abs_error <= 1e-12 + 1e-12 * abs(reference)`。
@@ -551,4 +552,51 @@ timesyncd已同步与内核tsc消息是环境观测，不证明底层原因，�
 编辑/后续核验/推送不在该统计内，完整端到端unknown。详见
 [方案/实际环境/决策及复算命令](docs/P3_CLOCK_REFERENCE.md)、
 [独立30区间复算](evidence/p3_clock_reference/20261010-190645-1375f246/independent_diagnostic.json)、
-[成本范围](evidence/p3_clock_reference/20261010-190645-1375f246/costs.json)。本轮停止等待外审。
+[成本范围](evidence/p3_clock_reference/20261010-190645-1375f246/costs.json)。该轮停止等待外审。
+
+### 8.8 固定工作量RAW候选（da0afd87后，2026-10-10/11）
+
+先提交探针/判据a4982632ae9640001876c45dcba1cee581e07754，固定5轮正反交错四条件，
+每短区间十亿次volatile uint64更新；第2/5轮后各加一百亿次默认libc/unbound长区间。
+忙工作结束不依赖时钟或sleep；一个持续原生PID、递增序号、真实Windows QPC整数边界、
+逐条flush。唯一22区间/90响应完整，共400亿次更新，无补采、筛选或第二轮。
+
+| 条件 | 区间数 | RAW通过（且全部未加容差边界内） | MONOTONIC通过 |
+| --- | ---: | ---: | ---: |
+| libc/unbound短 | 5 | 5 | 3 |
+| syscall/unbound短 | 5 | 5 | 5 |
+| libc/CPU17短 | 5 | 5 | 3 |
+| syscall/CPU17短 | 5 | 5 | 5 |
+| libc/unbound长 | 2 | 2 | 1 |
+
+RAW保守范围 `[RAW1_end-RAW2_start,RAW2_end-RAW1_start]` 全部落在实际宿主 `[L,U]` 内。
+固定门槛仍为通信不确定性/读取跨度≤20ms，容差5ms+1%U；最大实际不确定性18.0578ms，
+RAW读取跨度最大1303ns，无无法判定或回退。MONOTONIC失败索引0/2/7/11/21全部保留；
+绑核并未消除libc失配，本轮syscall忙工作通过也不证明底层根因已找到。
+逐端点adjtimex modes=0等元数据仅观测；物理准确性、虚拟化/vDSO具体原因未知。
+这是当前条件的跨域一致性证据，不是官方精度保证，不按比例校准旧Grid/P3。
+
+按预声明决策准备RAW候选，运行内容
+`3c7a4ab11f7e753936ab8735e03364b44b4dd1ef`。所有配置主计时器统一RAW，输出v2 JSON
+和RAW整数起止，elapsed须与整数差的double除法精确round-trip一致；错误时钟/版本、无效端点、
+非正/非有限/不一致时间不得计分。MONOTONIC辅助端点和差异保留，不再要求等于RAW。
+原核心循环、输入/容差/reference、20配置/Random/Greedy、资源v2及1预热+5fresh中位数不变；
+构建/性能缓存增加协议哈希，旧记录仍走旧契约。
+
+双干净归档各80项相关回归（各2项平台专用跳过），CLI/20配置检查通过。空缓存只运行一次
+n17/O2/s8 random seed20261008，289元素正确，RAW5991ns与输出5.991e-6s一致。
+首次独立身份审计因非运行原件元数据行尾拒绝；原记录保留，另建运行清单后只重新审计，
+教师C字节规则不放宽、不重跑小矩阵。该微秒结果不用于性能或最优配置结论。
+
+状态P3_RAW_CLOCK_CANDIDATE_READY，证据/候选验证通过；正式execution_complete、
+timing_checks_pass、comparison_ready均false（未执行）。本轮恢复/正式门禁/4096/Grid/搜索0，
+不生成恢复证书或新session，d6811cad空session及旧3完整/23执行/部分组/暂停标记不动。
+候选协议明确禁止正式入口启动；以后须外审及新版本准入、fresh宿主/RAW恢复证据、新session，
+并用同协议fresh Grid建立正式比较基线，不自动开始Grid或Random/Greedy。
+
+诊断外层151.5732249秒包含原生128.7020971秒、元数据和启动，不能重复相加。
+Windows QPC负责外层预算；候选进程看门狗及核心为RAW，旧reference/setup/campaign MONO成本
+仅未校准元数据，不能据其校准RAW。正式/复测/门禁等待/放弃尝试成本本轮增量均0。
+完整源码/协议/二进制身份、原始端点、命令/退出码、保护及成本范围见
+[RAW候选说明](docs/P3_RAW_CLOCK_CANDIDATE.md)与
+[交付摘要](evidence/p3_raw_candidate/20261010-234702-fixed-work/delivery_summary.json)。

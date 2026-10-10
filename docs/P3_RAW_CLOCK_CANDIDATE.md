@@ -91,6 +91,17 @@ duration及差异，不把与RAW相等作为硬门槛，也不逐样本选择计
 
 仅关联回归和干净归档的n=17/O2/s8 fresh正确性/契约验证，20唯一配置检查。
 历史受控v1夹具显式绑定旧协议，不用新版RAW记录冒充旧计时。
-干净验证结果将由 `clean_validation.json` 与 `candidate_validation.json` 记录实际内容提交。
+最终运行内容 `3c7a4ab11f7e753936ab8735e03364b44b4dd1ef`，干净归档
+`/var/tmp/matrix-raw-candidate-3c7a4ab11f7e753936ab8735e03364b44b4dd1ef`。
+Windows/WSL各80项相关回归（各2项平台跳过）、CLI帮助/20配置/隔离条件通过。
+一次n17/O2/s8 random seed20261008 fresh运行，289元素通过、最大绝对误差1.7764e-15；
+RAW差5991ns与输出5.991e-6s精确一致。这是契约/正确性诊断，不是性能比较。
+[clean_validation.json](../evidence/p3_raw_candidate/20261010-234702-fixed-work/clean_validation.json)
+与[candidate_validation.json](../evidence/p3_raw_candidate/20261010-234702-fixed-work/candidate_validation.json)
+记录实际内容、Git/执行字节、二进制/reference及协议身份。
+首次独立审计因原件目录非运行元数据行尾拒绝，原退出1/清单保留；另建运行身份清单只排除
+SHA256SUMS和SOURCE_PROVENANCE.md（仍在10760项历史原字节保护中），教师C绝不排除或
+允许行尾变换。仅重新审计同一结果通过，没有再跑矩阵或修改3c7a4ab运行内容。
+收尾辅助脚本的实际来源SHA单列，不冒充候选归档中的执行源码。
 本轮正式 execution_complete / timing_checks_pass / comparison_ready 均为 false；
 recovery、Formal门禁、4096、Grid、搜索执行均为0，不生成新session或恢复证书。

@@ -1,6 +1,31 @@
-# 首种子正式比较：P3_CLOCK_BLOCKED（2026-10-10，原生C/宿主参照诊断）
+# 首种子正式比较尚未完成：RAW候选待外审（2026-10-11）
 
-## 当前：50cd24e后唯一30区间有界诊断
+## 当前：P3_RAW_CLOCK_CANDIDATE_READY，未恢复正式实验
+
+审计基点da0afd87。预提交a498263后一次固定工作量诊断22/22完整、90响应一致；
+RAW22/22通过且保守范围均在未加容差宿主[L,U]内，MONOTONIC失败0/2/7/11/21保留。
+通过后冻结RAW候选 `3c7a4ab11f7e753936ab8735e03364b44b4dd1ef`，协议
+`2026-10-10-raw-candidate-v1`；工作副本主时钟及严格整数端点契约改为RAW。
+原始C、核心循环、输入/容差/reference、20空间/搜索、资源v2未改。
+双干净归档80项相关测试（各跳过2项）、CLI、20配置、n17 fresh/289元素和独立审计通过。
+原件目录非运行元数据CRLF/LF造成首次身份拒绝，原失败保留；修正身份选择后仅重新审计，
+不重跑小矩阵，不改变执行源码或教师C字节规则。
+
+正式content d6811cad/session `2c270825458a4857a5ac9df5aadf597b`仍为空；不创建新正式session，
+不生成恢复证书。本轮recovery区间0、Formal门禁未执行、4096目标0、搜索配置/轨迹/复测均0。
+evidence_integrity_pass=true；候选参考/验证通过；正式execution_complete、timing_checks_pass、
+comparison_ready均false（未执行，不是将RAW诊断标为失败）。
+10760项旧文件字节、51项原正式归档、三个campaign检查点及旧23条执行/部分组/暂停标记保护通过。
+未自动调整系统或重启WSL；本任务拥有的实验进程0。
+
+[本轮完整说明](P3_RAW_CLOCK_CANDIDATE.md)、
+[独立诊断](../evidence/p3_raw_candidate/20261010-234702-fixed-work/final_independent_diagnostic.json)、
+[交付/成本/历史保护入口](../evidence/p3_raw_candidate/20261010-234702-fixed-work/delivery_summary.json)。
+当前入口显式禁止candidate-only协议启动recovery/Grid/campaign，避免套用旧MONO/RAW相等门槛。
+下一轮先外审候选，再授权版本化RAW准入、fresh宿主/来宾恢复证据、新session及匹配fresh Grid。
+旧Grid继续只是有限历史参照，不自动重新搜索或扩展种子。
+
+## 历史：50cd24e后唯一30区间有界诊断
 
 先提交方案/源码7950a8a533f5c60dd8fb7a0d26cb90a3e3d2b32d，再冻结编译/二进制/manifest，
 一个持续原生PID收集A10空闲、B10忙工作、C5系统调用空闲、D5临时绑核空闲。

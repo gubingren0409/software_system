@@ -1,6 +1,33 @@
 # 审计交接入口
 
-当前入口为50cd24e后的**唯一原生C/宿主QPC有界参照诊断**：
+当前：**P3_RAW_CLOCK_CANDIDATE_READY**，基于da0afd87，完成唯一22区间固定工作量诊断及
+最小RAW候选，不执行恢复或正式实验。预声明内容a4982632ae9640001876c45dcba1cee581e07754；
+候选执行内容 `3c7a4ab11f7e753936ab8735e03364b44b4dd1ef`，最终交付提交只补证据、文档
+及收尾验证辅助脚本，不替换候选归档或写入旧session。
+RAW22/22匹配（连未加容差边界也全部通过），MONOTONIC失败索引0/2/7/11/21保留。
+双干净归档80项关联回归（各2项跳过）、CLI/20配置、一次n17 fresh及289元素/整数契约通过。
+
+优先审计：
+
+- [方案、候选协议、超时/成本时钟清单与范围](P3_RAW_CLOCK_CANDIDATE.md)
+- [采集前manifest/源码/编译/二进制身份](../evidence/p3_raw_candidate/20261010-234702-fixed-work/manifest.json)
+- [全部22区间](../evidence/p3_raw_candidate/20261010-234702-fixed-work/intervals.jsonl)、[90响应/宿主整数QPC](../evidence/p3_raw_candidate/20261010-234702-fixed-work/messages.jsonl)
+- [独立复算](../evidence/p3_raw_candidate/20261010-234702-fixed-work/final_independent_diagnostic.json)、[分条件分析/未知原因](../evidence/p3_raw_candidate/20261010-234702-fixed-work/diagnostic_analysis.json)
+- [干净内容计划](../evidence/p3_raw_candidate/20261010-234702-fixed-work/clean_plan.json)、[源码Git/执行字节与小矩阵独立审计](../evidence/p3_raw_candidate/20261010-234702-fixed-work/candidate_validation.json)
+- [首次拒绝及身份清单修正（未改源码或重跑）](../evidence/p3_raw_candidate/20261010-234702-fixed-work/identity_selection_correction.json)
+- [10760项历史保护](../evidence/p3_raw_candidate/20261010-234702-fixed-work/history_protection_after.json)、[三个campaign保护](../evidence/p3_raw_candidate/20261010-234702-fixed-work/campaign_protection.json)
+- [实际操作退出码和流哈希](../evidence/p3_raw_candidate/20261010-234702-fixed-work/operation_verification.json)、[成本包含关系](../evidence/p3_raw_candidate/20261010-234702-fixed-work/costs.json)、[交付计数/状态](../evidence/p3_raw_candidate/20261010-234702-fixed-work/delivery_summary.json)
+
+证据完整性true、候选参考匹配true、候选验证true；正式执行/时钟检查/比较就绪均false。
+recovery/Formal/4096/Grid/搜索0；d6811cad/session2c270825458a4857a5ac9df5aadf597b保持空，
+旧e308bfb的3完整/23原始及5部分执行状态不动，无任务拥有的实验进程。
+待裁决：仅认证本轮RAW跨域一致性，尚非物理精度保证/正式准入；candidate-only恢复入口
+当前明确拒绝。未来新准入需独立授权、fresh宿主/RAW证据、新session及同协议fresh Grid。
+根因未知不应虚构解释；旧失败仍失败，不筛选、不比例校准，不移用旧证书。
+
+## 历史交接（原结论及失败完整保留）
+
+历史入口为50cd24e后的**唯一原生C/宿主QPC有界参照诊断**：
 [P3_CLOCK_REFERENCE](P3_CLOCK_REFERENCE.md)、[首种子状态](P3_FIRST_SEED_STATUS.md)。
 执行源码先提交为7950a8a533f5c60dd8fb7a0d26cb90a3e3d2b32d，30区间/96响应完整；
 A默认空闲10/10、B默认忙工作8/10、C/D各5/5匹配宿主，RAW30/30匹配。

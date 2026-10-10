@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/var/tmp/matrix-raw-candidate-3c7a4ab11f7e753936ab8735e03364b44b4dd1ef/scripts/audit_raw_candidate.py", line 52, in <module>
+    args=parser.parse_args(); result=audit(args.result,args.target,args.git_identity)
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/tmp/matrix-raw-candidate-3c7a4ab11f7e753936ab8735e03364b44b4dd1ef/scripts/audit_raw_candidate.py", line 17, in audit
+    identity=json.loads(identity_path.read_text()); files=source_identity(ROOT,identity['files'])
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/tmp/matrix-raw-candidate-3c7a4ab11f7e753936ab8735e03364b44b4dd1ef/autotuner/session.py", line 34, in source_identity
+    raise ValueError(f"executed bytes differ from content commit: {relative}")
+ValueError: executed bytes differ from content commit: code/original/SHA256SUMS
