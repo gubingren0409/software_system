@@ -1,13 +1,32 @@
 # 首种子正式比较尚未完成（2026-10-11）
 
-## 当前：正式RAW Grid v1准备，尚未执行
+## 当前：正式RAW Grid部分完成，资源门禁停止
 
-3755c4a外审已接受22区间候选。用户授权新正式RAW协议、新空Grid session、一次fresh恢复，
-恢复全部通过后执行20配置fresh Grid。修复协议路径重定位、按schema强制binding、
-QPC发送戳与发送紧贴；旧候选文件和所有历史原始记录保留。
-本阶段不运行Random/Greedy，不向旧d6811cad空session写观测。
-采集前计划见[P3_RAW_GRID](P3_RAW_GRID.md)，实际SHA/session/计数在冻结后据实更新。
-Grid验收与P3比较验收独立，后者仍未完成。
+状态 **RAW_GRID_RESOURCE_BLOCKED / PARTIAL**。运行内容
+`3cc9e0d03ba682569fca0e91f28d364f2dab73fa`，新Grid session
+`f705a488d7b442789973381e2190c944`，正式RAW协议`2026-10-11-raw-formal-v1`。
+唯一fresh恢复12/12通过，5配置两侧10/10 RAW检查通过，所有22区间连未加容差边界也通过。
+O0/s8、16、24、64、128完成：5/20有效配置、30条唯一fresh执行（5预热+25测量）。
+无部分执行、放弃组、独立复测或搜索轨迹；O1/O2/O3的15配置未执行。
+已测最低中位数O0/s128为416.593961898秒、CV0.254%、MAD0.557350426秒；不是全Grid最优。
+
+O1/s8前Formal v2门禁三次因host_memory拒绝，最低可用分别521515008、437022720、
+189259776 bytes；CPU、commit余量和WSL容量不是这三次拒绝原因。第四次采集超时无JSON。
+120秒预算耗尽后停止，实测门禁QPC120.5548004秒（轮询/终止收尾约0.555秒超出预算边界），
+不重采recovery、不自动再启门禁、未结束用户应用或改系统设置。
+检查点`ready`表示五组已接纳、无活动组，不表示Grid完成；控制器为`blocked_or_partial`。
+总预算从恢复开始计，停止时QPC13883.0691008秒，未用完的预算不重置或转作新恢复。
+
+验收：证据完整性true；唯一恢复eligible及已采RAW检查true；Grid完成/全Grid计时验收false。
+P3的execution_complete、timing_checks_pass、comparison_ready仍全false（未运行两算法）。
+旧d6811cad与7405fcc3仍空、旧e308bfb的3完整/23执行/5部分执行和暂停标记均不变。
+双干净归档110项相关测试分别2/3平台跳过、一次n17 fresh校验通过，不能代替未执行的15配置。
+
+[完整结果、成本、来源及只读入口](P3_RAW_GRID.md)、
+[独立审计](../evidence/p3_raw_grid/20261011-021601/final-content/grid_audit_archive.json)、
+[20槽状态表](../evidence/p3_raw_grid/20261011-021601/final-content/grid_status_20.csv)、
+[历史保护](../evidence/p3_raw_grid/20261011-021601/history_protection_after.json)。
+本阶段停止等待外审；不自动运行Random/Greedy或重置8小时预算。
 
 ## 历史：P3_RAW_CLOCK_CANDIDATE_READY，未恢复正式实验
 

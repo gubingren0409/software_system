@@ -514,7 +514,7 @@ Formal门禁未执行，4096执行0、配置0/24、轨迹0/2、复测0，没有�
 [实际独立验收](evidence/p3_memory_policy/20261010-174802-11f7775c/independent_recovery.json)和
 [成本原始范围](evidence/p3_memory_policy/20261010-174802-11f7775c/costs.json)。
 
-### 8.7 10-10 原生C与宿主QPC有界参照诊断（当前）
+### 8.7 历史：10-10 原生C与宿主QPC有界参照诊断
 
 先声明方案并提交源码7950a8a533f5c60dd8fb7a0d26cb90a3e3d2b32d，再编译和保存manifest，
 一次固定顺序执行A默认空闲10、B默认忙工作10、C直接syscall空闲5、D默认临时绑核空闲5。
@@ -601,7 +601,7 @@ Windows QPC负责外层预算；候选进程看门狗及核心为RAW，旧refere
 [RAW候选说明](docs/P3_RAW_CLOCK_CANDIDATE.md)与
 [交付摘要](evidence/p3_raw_candidate/20261010-234702-fixed-work/delivery_summary.json)。
 
-### 8.9 正式RAW Grid v1（3755c4a外审后，采集前）
+### 8.9 正式RAW Grid v1（3755c4a外审后，部分结果）
 
 22区间候选已获外审接受；本轮用户授权修复正式衔接、新协议、新空session、一次fresh恢复，
 通过后运行20配置fresh Grid，不运行Random/Greedy。候选协议和旧数据不改标。
@@ -611,5 +611,48 @@ Windows QPC负责外层预算；候选进程看门狗及核心为RAW，旧refere
 恢复资源+采集240秒，恢复起总预算8小时QPC；Formal v2、120秒等待、1+5fresh中位数不变。
 逐组前后各一短区间fresh检查在矩阵计时外串行，全部通过才接纳该组。
 可信成本用RAW或宿主QPC；旧MONOTONIC成本只元数据，嵌套范围不重复相加。
-执行SHA、恢复结果和20配置结果在实际运行后补充；Grid与整个P3比较验收分开。
-预声明与证据入口见[正式RAW Grid](docs/P3_RAW_GRID.md)。
+实际运行内容`3cc9e0d03ba682569fca0e91f28d364f2dab73fa`，新Grid session
+`f705a488d7b442789973381e2190c944`，正式协议`2026-10-11-raw-formal-v1`。
+唯一12区间恢复通过，五组前后10区间也通过；22/22 RAW保守范围均在未加容差宿主边界内。
+最大通信不确定性13.591ms、读取跨度160ns；MONOTONIC9项辅助警告保存，不校准旧成绩。
+三项衔接修复与双干净归档110项相关回归通过（Windows/WSL分别2/3平台跳过），
+一次n17 fresh、289元素/RAW端点契约通过；小诊断与正式4096计数分开。
+
+实际完成O0的5/20个配置、30/120次fresh执行（5预热+25测量）。每条完整校验16777216元素、
+最大绝对/相对误差0；五组两侧RAW通过才接纳。以下不是完整Grid结果：
+
+| 配置 | 五重复中位数/RAW秒 | CV | MAD/RAW秒 |
+| --- | ---: | ---: | ---: |
+| O0/s8 | 445.151418584 | 0.5110% | 1.159226646 |
+| O0/s16 | 458.686277198 | 0.1134% | 0.369688772 |
+| O0/s24 | 439.467950311 | 0.6709% | 2.900536455 |
+| O0/s64 | 422.557072653 | 0.2796% | 0.216587803 |
+| O0/s128 | 416.593961898 | 0.2536% | 0.557350426 |
+
+**已测五配置**最低中位数O0/s128416.593961898秒；O1/O2/O3的15项未执行，不能宣称
+20配置最优、优化级别排名或因果性硬件机制。没有独立候选复测，没有新算法比较。
+[20槽状态表](evidence/p3_raw_grid/20261011-021601/final-content/grid_status_20.csv)明确未执行项，
+不以旧Grid或零填表/热力图；旧Grid只作带原限制的历史资料。
+
+O1/s8启动前Formal资源门禁三次仅host_memory拒绝，最低宿主可用521515008、437022720、
+189259776B均低于512MiB；同次WSL可用4.45–5.99GiB和commit余量充足不能抵销宿主余量。
+CPU各次均在新规则内，第四次采集超时/无JSON；120秒预算耗尽后停止，实测QPC120.5548004秒
+包含约0.555秒轮询/终止收尾越界，不继续测量。内存下降原因未知，不据此宣称WSL预占机制。
+运行中目标最高RSS394852KiB是单进程而非系统峰值；保存的目标major faults/swaps及WSL
+pswpin/pswpout均0，但间隔采样不能证明全程无扰动，host低内存警告全部保留、不删慢样本。
+
+恢复开始至停止QPC13883.0691008秒（约3小时51分23秒），含辅助审计入口排错间隔；
+Formal调用QPC13543.6365919秒内含setup、门禁/等待、时钟检查及五组评估。
+五组评估RAW13182.402289135秒内含核心13091.892078813秒及验证45.03772941秒；
+setup RAW43.698116229秒内含build4.109816197秒/reference39.588301114秒。
+Formal门禁含等待QPC248.3801606秒；所有原生探针QPC132.7716517秒；这些嵌套范围不可全加。
+reference自报MONOTONIC生成时间仍仅元数据，不作为可信总成本。搜索/复测/放弃目标成本本轮0。
+
+状态RAW_GRID_RESOURCE_BLOCKED/PARTIAL；证据完整性true、恢复eligible及已采RAW检查通过，
+grid_complete/grid_timing_checks_pass false（15配置未执行）。P3 execution_complete、
+timing_checks_pass、comparison_ready仍false：新Grid基线和两算法比较都未完成。
+历史11017文件、53个原归档文件、旧campaign/23原始/部分组/暂停标记保护通过；不迁移成绩。
+本轮停止等待外审，不再recovery、搜索或增加测量。准确身份、原始端点/样本/命令/退出码、
+两次辅助CLI/cwd失败和一次收尾助手失败保留，见[正式RAW Grid完整记录](docs/P3_RAW_GRID.md)、
+[独立审计](evidence/p3_raw_grid/20261011-021601/final-content/grid_audit_archive.json)与
+[成本](evidence/p3_raw_grid/20261011-021601/final-content/costs.json)。

@@ -1,0 +1,82 @@
+{
+  "additional_recovery_invocations": 0,
+  "archive_bytes_still_match_manifest": true,
+  "authoritative_recompute": "recovery_recomputed_archive.json",
+  "captured_at": "2026-10-10T22:34:35.007712+00:00",
+  "corrected_invocation": "Capture imported from exact archive; module CLI cwd is archive; no PYTHONPATH and no byte normalization bypass.",
+  "first_failure": "Absolute direct script CLI lacked package root: ModuleNotFoundError autotuner; original stderr retained.",
+  "formal_content_changed": false,
+  "helper_sha256": {
+    "continue_after_audit_invocation.py": "c12bee2cd9e52ce3e82f26aa1d7ae317d9b9314f9aefb7683cb3b506bc260cb2",
+    "execute_stage.py": "a711fa333b44707e83e87a48619ff79358df07b80a9682c0f5f9bbe5c1f6375b",
+    "run_from_frozen_archive.py": "bc20bfa67a39e732b21f95e5fa07031efd74c556a64e9707d1d1151beffa3808"
+  },
+  "postprocessing_correction": {
+    "current_source_sha256": "0f93cc6204450ccec32a06889e6b293225dab55791d0d0ed17ddfad741fbc71b",
+    "initial_failed_operation": "finalize.operation.json",
+    "initial_source_sha256": "4e84d778476bc0d4e6369da749ab560769e915a3b9dbc17fb7eec0032b478ef2",
+    "reason": "The initial finisher included its own still-open parent capture, which has no stdout_path yet.",
+    "scope": "Derived artifact helper only; no formal source edits, target calls, recovery, or resampling."
+  },
+  "prior_failed_launch_records": [
+    "launch_result.json",
+    "continuation_result.json"
+  ],
+  "second_failure": "Auxiliary capture has module ROOT cwd, so -m imported worktree, not archive. Strict byte check correctly rejected.",
+  "worktree_byte_differences": [
+    {
+      "archive_sha256": "8ed42d974e87493c539055e4f508c9af786946abb7d9cfae6c7b9b75d4035cd4",
+      "path": ".gitattributes",
+      "same_git_blob": true,
+      "worktree_sha256": "36b2567246e2b5eabf8a5361d7a6cd51af2bb6261257850691e9a456dc8b51ac"
+    },
+    {
+      "archive_sha256": "9a9e6fdf507e71fafeb23fbce0e5f87119db5af5f913c8c0b91657b361fb2ee5",
+      "path": "scripts/check_p1_resources.ps1",
+      "same_git_blob": true,
+      "worktree_sha256": "cc7c4c72c5e5dcae7a612d5e7b8d8adc0f2075a5784529e0942d0ddecfce4426"
+    },
+    {
+      "archive_sha256": "1b1a3b6a702eb59d7889ed8a57268306c49b9da12d2ef5fc0d3aee6b9fd76d22",
+      "path": "scripts/check_p2_host_clock.ps1",
+      "same_git_blob": true,
+      "worktree_sha256": "7781be9871686d92fab94a5205658489855c51e53d60f9b4d848fbd97f125ed7"
+    },
+    {
+      "archive_sha256": "7bfae0626bd16576d76b355274f08fe4e2d7397b5926230ee5ac1f12e82ffb2e",
+      "path": "scripts/check_p2_resources.ps1",
+      "same_git_blob": true,
+      "worktree_sha256": "0299f4e129b85baa8e7a310180ca2e7e3c0f55f4b11fbd0af78908f15809e970"
+    },
+    {
+      "archive_sha256": "4e0cd53d77cde80e006907433bae9b8d7fd7b28132068fe3db3fe11f14ae42da",
+      "path": "scripts/collect_p0_host.ps1",
+      "same_git_blob": true,
+      "worktree_sha256": "c12cd000ad2c3add5c2c4ef422407981d83808baa221ddd1db0159c0109e8de0"
+    },
+    {
+      "archive_sha256": "58fee6138822a8fd92ab1e2524a21398e1f50e415c4c6f4def60927a2de38253",
+      "path": "scripts/prepare_p2_content.ps1",
+      "same_git_blob": true,
+      "worktree_sha256": "69658fc086d90bba93f639a89052555560cae2ff4905e78e4a8999315d1c3aa4"
+    },
+    {
+      "archive_sha256": "d177a8f1193c4fb4e983eed6d9b745bf178ea14cc3d6407d12b1d08ea3489f38",
+      "path": "scripts/resume_p3_first_seed.ps1",
+      "same_git_blob": true,
+      "worktree_sha256": "3057e889d5adab550869d370de0d09b0617ad4aba67b7c7bd93579f75173c538"
+    },
+    {
+      "archive_sha256": "e9810e79e58e196d3c53b5c0385e5b1deb78173bcfbafa5a4b6e99463259bae9",
+      "path": "scripts/run_timing_audit.ps1",
+      "same_git_blob": true,
+      "worktree_sha256": "95e79071eac862691616593d17125cbce933f41d3cc1daefb58860df434d38ee"
+    },
+    {
+      "archive_sha256": "7a047753da82dbad63932a0da21aa51e237076f8b56d6b3328c60729d2901ad1",
+      "path": "scripts/verify_p0.ps1",
+      "same_git_blob": true,
+      "worktree_sha256": "50819c03deb571c73d4e218974aff640db7a4ed29cc302f042b4b58383973205"
+    }
+  ]
+}

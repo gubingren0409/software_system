@@ -1,16 +1,40 @@
 # 审计交接入口
 
-当前（3755c4a外审后）：正式RAW Grid v1衔接修复和采集前冻结；尚未执行recovery/4096。
-本轮只授权一次fresh恢复及新20配置Grid，不运行Random/Greedy。
-[新阶段方案](P3_RAW_GRID.md)、[本轮原始操作入口](../evidence/p3_raw_grid/20261011-021601/)。
-最终结果、内容SHA、新空session和独立验收在实际执行后更新。
+当前（3755c4a外审后）：**RAW_GRID_RESOURCE_BLOCKED / PARTIAL**。
+修复协议路径重定位、schema严格binding和QPC发送戳顺序，新增正式RAW协议与独立恢复证书。
+运行内容`3cc9e0d03ba682569fca0e91f28d364f2dab73fa`，新Grid session
+`f705a488d7b442789973381e2190c944`；候选协议、资源v2、教师C/核心/输入/reference/容差/搜索不改。
+唯一恢复12/12、五组前后10/10 RAW均通过，22区间均在未加容差宿主边界内；MONO9项警告保留。
+完成5/20配置（仅O0全部块大小）、30/120目标执行，均fresh/全矩阵/RAW契约通过。
+O1/s8之前三次host_memory拒绝、第四次采集超时，120秒门禁预算耗尽后停止；余15配置未执行。
+已测五配置最低中位数O0/s128为416.593961898秒，不能称20配置最优。
 
-已冻结运行内容 `3cc9e0d03ba682569fca0e91f28d364f2dab73fa`，
-空Grid session `f705a488d7b442789973381e2190c944`；
-[精确身份/归档](../evidence/p3_raw_grid/20261011-021601/final-content/plan.json)、
-[110项双干净回归/一次n17/20配置/空初始化](../evidence/p3_raw_grid/20261011-021601/final-content/clean_validation.json)。
-110测试各适用项通过，Windows/WSL分别2/3平台跳过。n17实际矩阵1/reference1，初始化二者0；
-目前恢复/4096/正式搜索仍0，下一步唯一一次fresh恢复。
+优先核验：
+
+- [完整说明/停止原因/成本/复核入口](P3_RAW_GRID.md)
+- [精确内容、协议和双归档Git/执行字节/换行身份](../evidence/p3_raw_grid/20261011-021601/final-content/plan.json)
+- [110项双干净回归、一次n17 fresh、20唯一配置及空初始化](../evidence/p3_raw_grid/20261011-021601/final-content/clean_validation.json)
+- [原恢复证书](../evidence/p3_raw_grid/20261011-021601/final-content/recovery/certificate.json)、[从原端点独立复算](../evidence/p3_raw_grid/20261011-021601/final-content/recovery_recomputed_archive.json)
+- [Grid独立审计](../evidence/p3_raw_grid/20261011-021601/final-content/grid_audit_archive.json)、[原始30条样本](../evidence/p3_raw_grid/20261011-021601/final-content/grid-f705a488/samples.jsonl)
+- [检查点](../evidence/p3_raw_grid/20261011-021601/final-content/grid-f705a488/checkpoint.json)、[停止控制器](../evidence/p3_raw_grid/20261011-021601/final-content/grid-f705a488/controller.json)
+- [五行有效表](../evidence/p3_raw_grid/20261011-021601/final-content/grid-f705a488/grid_summary.csv)、[20槽完整/未执行状态](../evidence/p3_raw_grid/20261011-021601/final-content/grid_status_20.csv)
+- [拒绝门禁及全部原始输出](../evidence/p3_raw_grid/20261011-021601/final-content/grid-f705a488/group_checks/4361ea9b921f4f668e6eaa6952757169/resources/)、[资源质量/RSS/交换](../evidence/p3_raw_grid/20261011-021601/final-content/resource_quality.json)
+- [实际Formal终端stdout](../evidence/p3_raw_grid/20261011-021601/final-content/formal_grid.stdout.txt)、[stderr](../evidence/p3_raw_grid/20261011-021601/final-content/formal_grid.stderr.txt)
+- [闭合调用命令/退出码/流哈希](../evidence/p3_raw_grid/20261011-021601/closed_operation_verification.json)、[成本包含关系](../evidence/p3_raw_grid/20261011-021601/final-content/costs.json)
+- [辅助调用失败与精确归档cwd修正](../evidence/p3_raw_grid/20261011-021601/final-content/auxiliary_invocation_correction.json)、[历史保护](../evidence/p3_raw_grid/20261011-021601/history_protection_after.json)
+- [交付计数/独立状态](../evidence/p3_raw_grid/20261011-021601/final-content/delivery_summary.json)
+- [提交前运行源码/原件/流哈希/相对链接/凭据模式/进程退出检查](../evidence/p3_raw_grid/20261011-021601/delivery_verification.json)
+
+完整性true；恢复eligible=true、已采RAW检查通过；Grid complete及Grid timing false（15配置未执行）。
+P3 execution_complete/timing_checks_pass/comparison_ready均false；Random/Greedy/独立复测本轮均0。
+Windows/WSL各110项相关测试分别2/3平台跳过、适用项通过。小矩阵1/reference1，正式reference1；
+初始化矩阵/reference为0，恢复与分组探针另计22区间/110响应/11原生进程，不混入目标计数。
+11017个旧文件字节、53个原d681归档文件、三campaign及原23条执行/暂停标记保护通过。
+原两次辅助CLI/cwd失败及一次收尾自调用记录缺陷完整保留；仅后处理修正，没有重采或冻结源码改动。
+本轮停止等待外审。资源通过不是性能稳定性证明；旧Grid不混表、不校准，8小时预算不能静默重置。
+提交前85条已闭合operation的流哈希、QPC差和退出码均合法；收尾自身父调用在子退出后另行闭合。
+585个本轮证据文件当时约14.4MB，单文件均小于10MiB，无高置信凭据模式或新证据坏链；
+准确归档/缓存下的WSL实验进程与Windows主控/启动助手均已退出。无真实终端截图，保留真实终端流。
 
 ## 历史RAW候选交付（已获本轮外审接受）
 

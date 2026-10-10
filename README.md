@@ -2,10 +2,15 @@
 
 《软件系统优化》实践项目 P1。**P2 历史Grid已保存；P3首种子正式比较尚未完成。**
 
-当前（2026-10-11，3755c4a外审之后）：正在建立正式RAW Grid v1。
-候选证据已获外审接受；新协议/新空session/一次fresh恢复通过后才运行20配置、120次fresh目标。
-本轮不运行Random/Greedy；P3首种子正式比较仍未完成。
-[采集前协议、停止规则与入口](docs/P3_RAW_GRID.md)。实际结果在本轮结束后补充。
+当前（2026-10-11，3755c4a外审之后）：**RAW_GRID_RESOURCE_BLOCKED / PARTIAL**。
+正式RAW内容`3cc9e0d03ba682569fca0e91f28d364f2dab73fa`、新Grid session
+`f705a488d7b442789973381e2190c944`。唯一恢复12/12与5组前后10/10 RAW检查通过；
+O0五配置完成、30/120次fresh执行有效。O1/s8前宿主内存门禁等待耗尽，停止；余15配置未执行。
+已测五项中最低中位数为O0/s128的416.593961898秒，**不是20配置最优**。
+未运行Random/Greedy或独立候选复测，P3比较仍未完成；旧成绩不迁移、不校准。
+[协议、实际结果、停止原因和只读复核入口](docs/P3_RAW_GRID.md)、
+[独立审计](evidence/p3_raw_grid/20261011-021601/final-content/grid_audit_archive.json)、
+[交付计数](evidence/p3_raw_grid/20261011-021601/final-content/delivery_summary.json)。
 
 上一轮：**P3_RAW_CLOCK_CANDIDATE_READY**（da0afd87后，2026-10-10/11）。
 唯一固定工作量诊断22区间/90响应完整，RAW22/22通过且均落在未加容差的宿主QPC边界内。
@@ -34,7 +39,7 @@ syscall空闲及临时绑核空闲各5/5；RAW全部30匹配宿主。B1/B2（零
 Recovery WSL至少256MiB，Formal仍2GiB；CPU与测量/搜索不变。针对性验证、实际采集及
 新内容/新session有限恢复见[P3_MEMORY_POLICY](docs/P3_MEMORY_POLICY.md)。不迁入旧分数或重跑Grid。
 
-本轮实际运行内容为 `d6811cadda8ecd7b46225ebe65c51831278694a0`，新空session
+该历史轮实际运行内容为 `d6811cadda8ecd7b46225ebe65c51831278694a0`，当时新空session
 `2c270825458a4857a5ac9df5aadf597b`。干净归档28项相关单测（1跳过）、CLI/20配置及
 n17/O2/s8 fresh逐元素校验通过。唯一recovery资源PASS，但MONOTONIC/RAW **6/20区间失败**，
 两个宿主同调用检查通过；来源完整性通过，不具备恢复资格。**Formal未执行、4096执行0、
