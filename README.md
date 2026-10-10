@@ -2,7 +2,11 @@
 
 《软件系统优化》实践项目 P1。**P2 历史Grid已保存；P3首种子正式比较尚未完成（P3_RESOURCE_BLOCKED）。**
 
-最新（2026-10-10 16:19，b19e6cd后）：运行内容7405fcc3、既有session3768a29a不变。
+当前ac33d9d后用户授权内存准入v2：宿主可用与提交余量各512MiB，宿主低于2GiB警告，
+Recovery WSL至少256MiB，Formal仍2GiB；CPU与测量/搜索不变。针对性验证、实际采集及
+新内容/新session有限恢复见[P3_MEMORY_POLICY](docs/P3_MEMORY_POLICY.md)。不迁入旧分数或重跑Grid。
+
+历史（2026-10-10 16:19，b19e6cd后）：运行内容7405fcc3、既有session3768a29a不变。
 唯一一次新recovery调用退出2，宿主内存最低0.722GiB<2GiB，CPU14.6%/27%仅警告。
 50项身份通过；时钟区间、Formal门禁、矩阵执行均未开始，新配置0/24、轨迹0/2、复测0。
 四项独立验收均false（完整性字段因未生成两个时钟窗口，不是源码哈希损坏）。

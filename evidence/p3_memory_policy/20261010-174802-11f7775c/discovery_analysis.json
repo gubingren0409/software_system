@@ -1,0 +1,190 @@
+{
+  "actual_recovery_decision": "REJECT",
+  "actual_rejection_reasons": [
+    "host_memory"
+  ],
+  "actual_resource_raw_sha256": "2276012ea265c25d2596b86021691463c1a19621b0ca14a6f589ddd6eb574706",
+  "actual_warnings": [
+    "cpu_average exceeds warning threshold",
+    "cpu_maximum exceeds warning threshold",
+    "host_memory below warning threshold"
+  ],
+  "analysis_source_sha256": "bfaae49d6e5888179e600489f49343983fc8dd5da2b298979847f5b0c501acc3",
+  "causal_status": "Observed concurrent headroom, Vmmem working set and WSL meminfo only; reservation/reclaim explanation unproven. Do not sum Windows available plus Vmmem.",
+  "cold_start_before_state": "unknown; not captured; WSL not shut down",
+  "completed_real_resource_collections": 1,
+  "diagnostic_attempt_timed_out": true,
+  "diagnostic_attempts": 1,
+  "diagnostic_retry_count": 0,
+  "existing_wslconfig": {
+    "relevant_lines": [
+      {
+        "PSChildName": ".wslconfig",
+        "PSDrive": "C",
+        "PSParentPath": "C:\\Users\\28489",
+        "PSPath": "C:\\Users\\28489\\.wslconfig",
+        "PSProvider": "Microsoft.PowerShell.Core\\FileSystem",
+        "ReadCount": 1,
+        "value": "[wsl2]"
+      },
+      {
+        "PSChildName": ".wslconfig",
+        "PSDrive": "C",
+        "PSParentPath": "C:\\Users\\28489",
+        "PSPath": "C:\\Users\\28489\\.wslconfig",
+        "PSProvider": "Microsoft.PowerShell.Core\\FileSystem",
+        "ReadCount": 4,
+        "value": "[experimental]"
+      }
+    ],
+    "sha256": "71431C28A4516E8CCB1A067358972ECA6C724C7EDBAF14561D3389B15DA186CF"
+  },
+  "host_os_crosscheck": {
+    "available_memory_bytes": 604827648,
+    "captured_at": "2026-10-10T17:55:30.9811568+08:00",
+    "interface": "Win32_OperatingSystem.FreePhysicalMemory"
+  },
+  "host_samples": [
+    {
+      "available_memory_bytes": 606744576,
+      "commit_limit_bytes": 54425735168,
+      "committed_bytes": 24509485056,
+      "cpu_percent": 4,
+      "memory_temperature_or_throttling": "unknown",
+      "page_reads_per_second": 0,
+      "pages_per_second": 0,
+      "percent_committed_bytes_in_use": 45,
+      "timestamp": "2026-10-10T17:55:34.4409556+08:00"
+    },
+    {
+      "available_memory_bytes": 578449408,
+      "commit_limit_bytes": 54425735168,
+      "committed_bytes": 24527126528,
+      "cpu_percent": 12,
+      "memory_temperature_or_throttling": "unknown",
+      "page_reads_per_second": 0,
+      "pages_per_second": 0,
+      "percent_committed_bytes_in_use": 45,
+      "timestamp": "2026-10-10T17:55:36.0857537+08:00"
+    },
+    {
+      "available_memory_bytes": 555909120,
+      "commit_limit_bytes": 54425735168,
+      "committed_bytes": 24548376576,
+      "cpu_percent": 14,
+      "memory_temperature_or_throttling": "unknown",
+      "page_reads_per_second": 0,
+      "pages_per_second": 0,
+      "percent_committed_bytes_in_use": 45,
+      "timestamp": "2026-10-10T17:55:37.6897437+08:00"
+    },
+    {
+      "available_memory_bytes": 529063936,
+      "commit_limit_bytes": 54425735168,
+      "committed_bytes": 24590811136,
+      "cpu_percent": 51,
+      "memory_temperature_or_throttling": "unknown",
+      "page_reads_per_second": 0,
+      "pages_per_second": 0,
+      "percent_committed_bytes_in_use": 45,
+      "timestamp": "2026-10-10T17:55:39.2900141+08:00"
+    },
+    {
+      "available_memory_bytes": 434728960,
+      "commit_limit_bytes": 54425735168,
+      "committed_bytes": 24689364992,
+      "cpu_percent": 9,
+      "memory_temperature_or_throttling": "unknown",
+      "page_reads_per_second": 2907,
+      "pages_per_second": 21206,
+      "percent_committed_bytes_in_use": 45,
+      "timestamp": "2026-10-10T17:55:40.8970860+08:00"
+    }
+  ],
+  "memory_estimate": {
+    "candidate_static_A_B_C_bytes": 402653184,
+    "candidate_validation_row_bytes": 32768,
+    "execution_order": "Python parent remains resident; candidate builds then reference generation then serial targets; reference generator and candidate are not simultaneous",
+    "n": 4096,
+    "not_in_estimate": "Python/compiler/loader/stdio, Windows/WSL kernel/services, allocator/page tables and file caches; not an exact RSS or system peak",
+    "one_double_matrix_bytes": 134217728,
+    "reference_A_B_output_bytes": 402653184,
+    "reference_disk_data_bytes": 134217728,
+    "source_locations": [
+      "code/working/matrix_multiplication.c:32-34,188",
+      "code/working/reference_generator.c:30-31,154",
+      "autotuner/campaign.py:343-365",
+      "autotuner/core.py:530-554,632"
+    ]
+  },
+  "policy_canonical_sha256": "38e073716eafc5356d775509414018415bba05ac6e87e4e29be93663b90da9d9",
+  "sampling_window": [
+    "2026-10-10T17:55:30.2085913+08:00",
+    "2026-10-10T17:55:41.8076159+08:00"
+  ],
+  "schema": "p3-memory-discovery-analysis-v1",
+  "vmmem": [
+    {
+      "name": "vmmemWSL",
+      "pid": 82464,
+      "private_bytes": 5414944768,
+      "working_set_bytes": 5335613440
+    }
+  ],
+  "wsl_meminfo_bytes": {
+    "Active": 408104960,
+    "Active(anon)": 4075520,
+    "Active(file)": 404029440,
+    "AnonHugePages": 0,
+    "AnonPages": 1788116992,
+    "Balloon": 0,
+    "Bounce": 0,
+    "Buffers": 56844288,
+    "Cached": 2208256000,
+    "CommitLimit": 6101606400,
+    "Committed_AS": 5663100928,
+    "DirectMap1G": 10737418240,
+    "DirectMap2M": 5913968640,
+    "DirectMap4k": 105906176,
+    "Dirty": 618496,
+    "FileHugePages": 90177536,
+    "FilePmdMapped": 0,
+    "HardwareCorrupted": 0,
+    "HugePages_Free": 0,
+    "HugePages_Rsvd": 0,
+    "HugePages_Surp": 0,
+    "HugePages_Total": 0,
+    "Hugepagesize": 2097152,
+    "Hugetlb": 0,
+    "Inactive": 2492461056,
+    "Inactive(anon)": 787263488,
+    "Inactive(file)": 1705197568,
+    "KReclaimable": 57577472,
+    "KernelStack": 14794752,
+    "Mapped": 564461568,
+    "MemAvailable": 4742434816,
+    "MemFree": 2750656512,
+    "MemTotal": 7908249600,
+    "Mlocked": 1151889408,
+    "NFS_Unstable": 0,
+    "PageTables": 18554880,
+    "Percpu": 17039360,
+    "SReclaimable": 57577472,
+    "SUnreclaim": 234782720,
+    "SecPageTables": 0,
+    "Shmem": 5038080,
+    "ShmemHugePages": 0,
+    "ShmemPmdMapped": 0,
+    "Slab": 292360192,
+    "SwapCached": 0,
+    "SwapFree": 2147483648,
+    "SwapTotal": 2147483648,
+    "Unevictable": 1151889408,
+    "VmallocChunk": 0,
+    "VmallocTotal": 35184372087808,
+    "VmallocUsed": 247549952,
+    "Writeback": 4096,
+    "WritebackTmp": 0
+  },
+  "wsl_version_decoded_derived": "WSL 版本: 3.0.1.0\r\n内核版本: 6.18.40.1-1\r\nWSLg 版本: 1.0.79\r\nMSRDC 版本: 1.2.7214\r\nDirect3D 版本: 1.611.1-81528511\r\nDXCore 版本: 10.0.26100.1-240331-1435.ge-release\r\nWindows 版本: 10.0.26200.9457\r\n"
+}

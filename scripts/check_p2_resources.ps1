@@ -23,7 +23,9 @@ try {
         Write-Output $answer
         exit $answerExit
     }
+    $windowStart = [DateTimeOffset]::Now.ToString('o')
     $hostOs = Get-CimInstance Win32_OperatingSystem
+    $hostOsCaptured = [DateTimeOffset]::Now.ToString('o')
     $samples = @()
     $sampleCount = $(if ($Mode -eq 'Snapshot') { 1 } else { [int]$policy.sample_count })
     for ($index = 0; $index -lt $sampleCount; $index++) {
@@ -52,8 +54,10 @@ try {
         host_minimum_available_bytes = [int64](($samples | ForEach-Object { $_.available_memory_bytes } | Measure-Object -Minimum).Minimum)
         host_cpu_average_percent = [double](($samples | ForEach-Object { $_.cpu_percent } | Measure-Object -Average).Average)
         host_cpu_maximum_percent = [double](($samples | ForEach-Object { $_.cpu_percent } | Measure-Object -Maximum).Maximum)
-        minimum_memory_bytes = 2GB
-        minimum_disk_bytes = 1GB
+        minimum_memory_bytes = [int64]$policy.host_minimum_available_bytes
+        minimum_disk_bytes = [int64]$policy.wsl_root_minimum_free_bytes
+        sampling_window_start = $windowStart
+        host_os_crosscheck = [ordered]@{captured_at=$hostOsCaptured; available_memory_bytes=[int64]$hostOs.FreePhysicalMemory * 1KB; interface='Win32_OperatingSystem.FreePhysicalMemory'}
     }
     if ($Mode -ne 'Snapshot') {
         $meminfo = wsl.exe -d Ubuntu-24.04 -- cat /proc/meminfo
@@ -69,7 +73,16 @@ try {
         $result.wsl_swap_total_bytes = [int64]$wslMemory.SwapTotal
         $result.wsl_swap_free_bytes = [int64]$wslMemory.SwapFree
         $result.wsl_root_free_bytes = [int64]($disk[-1].Trim())
-        $result.schema = 'p3-resource-snapshot-v1'
+        $result.wsl_meminfo = @($meminfo)
+        $result.vmmem = 'unknown: no readable VmmemWSL/Vmmem process'
+        try {
+            $vmProcesses = @(Get-Process -Name VmmemWSL,Vmmem -ErrorAction SilentlyContinue | ForEach-Object {
+                [ordered]@{pid=$_.Id; name=$_.ProcessName; working_set_bytes=$_.WorkingSet64; private_bytes=$_.PrivateMemorySize64}
+            })
+            if ($vmProcesses.Count) { $result.vmmem = $vmProcesses }
+        } catch { $result.vmmem = 'unknown: Vmmem query unavailable' }
+        $result.sampling_window_end = [DateTimeOffset]::Now.ToString('o')
+        $result.schema = 'p3-resource-snapshot-v2'
         $result.collector_sha256 = (Get-FileHash -LiteralPath $PSCommandPath -Algorithm SHA256).Hash.ToLower()
         $collectorText = [IO.File]::ReadAllText($PSCommandPath).Replace("`r`n", "`n")
         $collectorHash = [Security.Cryptography.SHA256]::Create()
@@ -87,6 +100,6 @@ try {
     if ($OutputPath) { [IO.File]::WriteAllText([IO.Path]::GetFullPath($OutputPath), $json + [Environment]::NewLine, [Text.UTF8Encoding]::new($false)) }
     Write-Output $json
 } catch {
-    [ordered]@{schema='p3-resource-gate-v3'; mode=$Mode; purpose=$Mode; decision='ERROR'; formal_gate='ERROR'; recovery_gate='ERROR'; rejection_reasons=@($_.Exception.Message); captured_at_local=[DateTimeOffset]::Now.ToString('o')} | ConvertTo-Json -Compress
+    [ordered]@{schema='p3-resource-gate-v4'; mode=$Mode; purpose=$Mode; decision='ERROR'; formal_gate='ERROR'; recovery_gate='ERROR'; rejection_reasons=@($_.Exception.Message); captured_at_local=[DateTimeOffset]::Now.ToString('o')} | ConvertTo-Json -Compress
     exit 3
 }

@@ -12,7 +12,7 @@ import unittest
 from unittest.mock import patch
 
 from autotuner.core import sha256_file, sha256_json
-from autotuner.resources import ROOT, judge, load_policy, valid_gate, wait_formal
+from autotuner.resources import ROOT, judge, load_policy, valid_gate, wait_formal, protocol_policy
 from autotuner.session import valid_formal_gate
 
 POLICY = load_policy(ROOT / "configs/resource_policy.json")
@@ -21,11 +21,12 @@ PROTOCOL = json.loads((ROOT / "configs/measurement_protocol.json").read_text(enc
 
 def snapshot(cpus=(13, 9, 16, 18, 15)):
     collector = ROOT / "scripts/check_p2_resources.ps1"
-    return {"schema": "p3-resource-snapshot-v1", "collector_sha256": sha256_file(collector),
+    return {"schema": "p3-resource-snapshot-v2", "collector_sha256": sha256_file(collector),
         "collector_lf_sha256": hashlib.sha256(collector.read_bytes().replace(b"\r\n", b"\n")).hexdigest(),
         "host_total_visible_bytes": 16 * 2**30,
         "host_samples": [{"timestamp": f"2026-10-10T14:00:0{i}+08:00", "cpu_percent": cpu,
-                          "available_memory_bytes": 3 * 2**30} for i, cpu in enumerate(cpus)],
+                          "available_memory_bytes": 3 * 2**30, "committed_bytes": 4 * 2**30,
+                          "commit_limit_bytes": 16 * 2**30} for i, cpu in enumerate(cpus)],
         "wsl_total_bytes": 8 * 2**30, "wsl_available_bytes": 4 * 2**30,
         "wsl_swap_total_bytes": 2**30, "wsl_swap_free_bytes": 2**30, "wsl_root_free_bytes": 5 * 2**30}
 
@@ -35,6 +36,82 @@ def record(value=None, purpose="Formal"):
 
 
 class ResourcePolicyTests(unittest.TestCase):
+    def test_historical_replay_warns_and_passes_new_policy_without_relabeling_old(self):
+        fixture = json.loads((ROOT / "tests/fixtures/ac33d9d_resource_replay.json").read_text())
+        original = fixture["record"]
+        self.assertEqual(original["decision"], "REJECT")
+        self.assertEqual(original["rejection_reasons"], ["host_memory"])
+        legacy_policy = load_policy(ROOT / "configs/resource_policy_cpu_v1.json")
+        old = judge(original, legacy_policy, "Recovery", sha256_file(ROOT / "configs/resource_policy_cpu_v1.json"))
+        self.assertEqual(old, original)
+        raw = snapshot()
+        for key in ("host_samples", "host_total_visible_bytes", "wsl_total_bytes", "wsl_available_bytes",
+                    "wsl_swap_total_bytes", "wsl_swap_free_bytes", "wsl_root_free_bytes"):
+            raw[key] = copy.deepcopy(original[key])
+        for purpose in ("Recovery", "Formal"):
+            result = record(raw, purpose)
+            self.assertEqual(result["decision"], "PASS")
+            self.assertIn("host_memory below warning threshold", result["warnings"])
+            self.assertEqual(result["host_minimum_available_bytes"], 775036928)
+            self.assertTrue(valid_gate(result, PROTOCOL, purpose))
+        self.assertEqual(fixture["record"]["decision"], "REJECT")
+
+    def test_physical_and_commit_headroom_bounds_are_independent_and_inclusive(self):
+        for purpose in ("Recovery", "Formal"):
+            raw = snapshot()
+            raw["host_samples"][2]["available_memory_bytes"] = 512 * 2**20
+            raw["host_samples"][3]["commit_limit_bytes"] = raw["host_samples"][3]["committed_bytes"] + 512 * 2**20
+            self.assertEqual(record(raw, purpose)["decision"], "PASS")
+            raw["host_samples"][2]["available_memory_bytes"] -= 1
+            self.assertEqual(record(raw, purpose)["rejection_reasons"], ["host_memory"])
+            raw["host_samples"][2]["available_memory_bytes"] += 1
+            raw["host_samples"][3]["commit_limit_bytes"] -= 1
+            self.assertEqual(record(raw, purpose)["rejection_reasons"], ["host_commit_headroom"])
+
+    def test_wsl_capacity_has_distinct_purpose_bounds(self):
+        for available, recovery_pass, formal_pass in ((256*2**20-1,False,False),
+                (256*2**20,True,False),(2*2**30-1,True,False),(2*2**30,True,True)):
+            raw=snapshot(); raw["wsl_available_bytes"]=available
+            self.assertEqual(record(raw,"Recovery")["decision"]=="PASS", recovery_pass)
+            self.assertEqual(record(raw,"Formal")["decision"]=="PASS", formal_pass)
+
+    def test_missing_invalid_or_impossible_commit_counters_are_errors(self):
+        for field in ("committed_bytes", "commit_limit_bytes"):
+            for value in (None, 0, -1, True, "123", 1.5, math.nan, math.inf, 2**63):
+                raw=snapshot(); raw["host_samples"][1][field]=value
+                with self.assertRaises(ValueError): record(raw)
+            raw=snapshot(); del raw["host_samples"][1][field]
+            with self.assertRaises(ValueError): record(raw)
+        raw=snapshot(); raw["host_samples"][1]["committed_bytes"]=17*2**30
+        with self.assertRaises(ValueError): record(raw)
+
+    def test_saved_commit_headroom_and_duplicate_limits_cannot_be_forged(self):
+        value=record(); value["host_minimum_commit_headroom_bytes"]=10**12
+        self.assertFalse(valid_formal_gate(value,PROTOCOL))
+        for field in ("functional_host_minimum_available_bytes", "formal_host_minimum_available_bytes",
+                      "host_minimum_commit_headroom_bytes", "functional_wsl_minimum_available_bytes"):
+            protocol=copy.deepcopy(PROTOCOL); protocol["resource_gate"][field]=1
+            self.assertFalse(valid_formal_gate(record(),protocol))
+
+    def test_legacy_v3_frozen_policy_remains_auditable(self):
+        legacy_policy=load_policy(ROOT/"configs/resource_policy_cpu_v1.json")
+        protocol=copy.deepcopy(PROTOCOL)
+        protocol["resource_gate"]={"policy_file":"configs/resource_policy.json",
+            "policy_version":legacy_policy["version"],"policy_hash":sha256_json(legacy_policy),
+            "functional_host_minimum_available_bytes":2*2**30,"formal_host_minimum_available_bytes":2*2**30,
+            "functional_wsl_minimum_available_bytes":2*2**30,"formal_wsl_minimum_available_bytes":2*2**30,
+            "functional_wsl_root_minimum_free_bytes":2**30,"formal_wsl_root_minimum_free_bytes":2**30,
+            "formal_host_cpu_average_maximum_percent":30,"formal_host_cpu_single_sample_maximum_percent":60}
+        from autotuner.resources import LEGACY_COLLECTOR_LF_SHA256
+        raw=snapshot(); raw["schema"]="p3-resource-snapshot-v1"
+        raw["collector_lf_sha256"]=LEGACY_COLLECTOR_LF_SHA256
+        result=judge(raw,legacy_policy,"Formal",sha256_file(ROOT/"configs/resource_policy_cpu_v1.json"))
+        self.assertTrue(valid_formal_gate(result,protocol))
+        raw["host_samples"][0]["available_memory_bytes"]=775036928
+        rejected=judge(raw,legacy_policy,"Formal",sha256_file(ROOT/"configs/resource_policy_cpu_v1.json"))
+        self.assertEqual(rejected["rejection_reasons"],["host_memory"])
+        self.assertFalse(valid_formal_gate(rejected,protocol))
+
     def test_actual_prior_cpu_samples_pass_new_formal(self):
         result = record()
         self.assertEqual(result["host_cpu_average_percent"], 14.2)
@@ -154,6 +231,12 @@ class ResourcePolicyTests(unittest.TestCase):
         cases.extend(((low, "Formal", 2), (low, "Recovery", 2)))
         empty = snapshot(); empty["host_samples"] = []
         cases.append((empty, "Recovery", 3))
+        low_host = snapshot(); low_host["host_samples"][0]["available_memory_bytes"] = 775036928
+        cases.extend(((low_host,"Formal",0),(low_host,"Recovery",0)))
+        low_commit = snapshot(); low_commit["host_samples"][0]["commit_limit_bytes"] = low_commit["host_samples"][0]["committed_bytes"] + 1
+        cases.append((low_commit,"Formal",2))
+        invalid_commit = snapshot(); del invalid_commit["host_samples"][0]["committed_bytes"]
+        cases.append((invalid_commit,"Recovery",3))
         with tempfile.TemporaryDirectory() as temporary:
             for index, (raw, purpose, code) in enumerate(cases):
                 path = Path(temporary) / f"{index}.json"

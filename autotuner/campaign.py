@@ -191,8 +191,8 @@ def _run_campaign(root: Path, output: Path, content_sha: str, git_identity_path:
             sha256_json(search) != campaign["search_protocol_hash"]:
         raise ValueError("Campaign measurement/search protocol identity differs")
     if "policy_hash" in protocol["resource_gate"]:
-        from .resources import load_policy
-        policy = load_policy(root / protocol["resource_gate"]["policy_file"])
+        from .resources import protocol_policy
+        policy, _, _ = protocol_policy(protocol)
         if sha256_json(policy) != protocol["resource_gate"]["policy_hash"] or \
                 campaign.get("resource_policy_hash") != sha256_json(policy):
             raise ValueError("Campaign resource policy identity differs")

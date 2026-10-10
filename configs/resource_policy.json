@@ -1,18 +1,19 @@
 {
-  "schema": "p3-resource-policy-v1",
-  "version": "2026-10-10-cpu-admission-v1",
-  "authorization": "User instruction after audit aae4147 explicitly replaces the prior CPU limits; measurement, inputs, search and scoring remain unchanged.",
+  "schema": "p3-resource-policy-v2",
+  "version": "2026-10-10-memory-admission-v2",
+  "authorization": "Explicit user instruction after ac33d9d: distinguish host physical and commit headroom from WSL capacity; warn below 2 GiB host available, reject below 512 MiB physical/commit headroom, Recovery WSL >=256 MiB, Formal WSL >=2 GiB. CPU, measurement and scoring unchanged.",
   "sample_count": 5,
   "sample_interval_seconds": 1,
-  "host_minimum_available_bytes": 2147483648,
-  "wsl_minimum_available_bytes": 2147483648,
+  "host_minimum_available_bytes": 536870912,
+  "host_warning_available_bytes": 2147483648,
+  "host_minimum_commit_headroom_bytes": 536870912,
   "wsl_root_minimum_free_bytes": 1073741824,
   "purposes": {
-    "Recovery": {"cpu_reject": false, "cpu_average_limit_percent": 10, "cpu_maximum_limit_percent": 20},
-    "Formal": {"cpu_reject": true, "cpu_average_limit_percent": 30, "cpu_maximum_limit_percent": 60}
+    "Recovery": {"cpu_reject": false, "cpu_average_limit_percent": 10, "cpu_maximum_limit_percent": 20, "wsl_minimum_available_bytes": 268435456},
+    "Formal": {"cpu_reject": true, "cpu_average_limit_percent": 30, "cpu_maximum_limit_percent": 60, "wsl_minimum_available_bytes": 2147483648}
   },
   "formal_wait_budget_seconds": 120,
   "formal_retry_interval_seconds": 10,
   "collection_timeout_seconds": 60,
-  "scope": "Background admission before a configuration, never a limit on the target program's own runtime CPU usage. Preserve every raw reading; no filtering."
+  "scope": "Separate host physical/commit headroom and WSL internal availability checks; never add Vmmem working set to Windows available. Admission does not prove reliable performance. Preserve paging counters and all raw readings; no filtering or system changes."
 }

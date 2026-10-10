@@ -1,5 +1,8 @@
 # P3 资源准入迁移 v1（2026-10-10）
 
+最新：用户在ac33d9d后授权内存准入v2，见[P3_MEMORY_POLICY](P3_MEMORY_POLICY.md)。
+本文件的CPU迁移v1、宿主2GiB硬门槛及各批结论均为历史，不适用新版session，原证据保留。
+
 最新b19e6cd后7405fcc3有限恢复结果另见[P3_FIRST_SEED_7405FCC3](P3_FIRST_SEED_7405FCC3.md)：
 Recovery因宿主内存不足拒绝、未采集时钟或启动矩阵。下述“本轮”及e0353bf结果为迁移阶段历史，
 不作为7405fcc3/session3768a29a的通过证明；新旧原始证据均保留，策略本身未再修改。
