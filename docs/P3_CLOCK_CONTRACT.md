@@ -1,5 +1,10 @@
 # 辅助时钟与验收契约 v2.1（fdeed77 审计修复）
 
+2026-10-10 aae4147 后迁移说明：下面 v2/v2.1 身份和结论为历史，只读保留。
+用户授权新的资源准入策略；辅助批次 v3 显式绑定新内容/归档/session，不再固定旧身份。
+时钟探针、整数端点判定、原容差及一次 A/B 20 区间规则不变，NTP状态不为硬门槛。
+Recovery 门禁与 Formal 分开核验。新策略、入口及本轮结果见 [P3_RESOURCE_POLICY](P3_RESOURCE_POLICY.md)。
+
 2026-10-10 13:56补充：管理员resync日志报告无可用时间数据，操作后/当前Leap=3；
 内存恢复但原Formal门禁因CPU平均14.2%拒绝。本批没有运行recovery或resume。
 辅助源码仍fa59701，判据/契约未改；最新核验见[P3_CLOCK_REPAIR](P3_CLOCK_REPAIR.md)。

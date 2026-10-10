@@ -39,6 +39,9 @@ def source_identity(root: Path, git_identity: dict[str, str]) -> dict[str, Any]:
 
 
 def valid_formal_gate(record: dict[str, Any], protocol: dict[str, Any]) -> bool:
+    if "policy_hash" in protocol["resource_gate"]:
+        from .resources import valid_gate
+        return valid_gate(record, protocol, "Formal")
     limits = protocol["resource_gate"]
     requirements = {
         "host_minimum_available_bytes": limits["formal_host_minimum_available_bytes"],
@@ -92,7 +95,7 @@ def run_grid(root: Path, output: Path, content_sha: str, git_identity_path: Path
     powershell = "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
     script_windows = subprocess.run(["wslpath", "-w", str(root / "scripts/check_p2_resources.ps1")],
                                     text=True, capture_output=True, check=True).stdout.strip()
-    host_command = [powershell, "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", script_windows]
+    host_command = [powershell, "-NoProfile", "-File", script_windows]
     checkpoint_path = output / "checkpoint.json"
     checkpoint = json.loads(checkpoint_path.read_text()) if resume else {
         "session_id": uuid.uuid4().hex, "status": "created", "completed": [], "active": None,
@@ -117,6 +120,19 @@ def run_grid(root: Path, output: Path, content_sha: str, git_identity_path: Path
         atomic_write_json(checkpoint_path, checkpoint)
 
     def gate(config: Config, purpose: str) -> bool:
+        if "policy_hash" in protocol["resource_gate"]:
+            from .resources import wait_formal
+            def recorded(record):
+                record.update(config=asdict(config), purpose=purpose)
+                atomic_write_json(output / "gates" / f"{uuid.uuid4().hex}.json", record)
+                if not record["admission_pass"]:
+                    checkpoint["status"] = "resource_paused"
+                    save()
+                    print(json.dumps({"event": "resource_paused", **record}), flush=True)
+            passed, elapsed = wait_formal([*host_command, "-Mode", "Formal", "-RuntimeRoot", str(root)], protocol, recorded)
+            checkpoint["wait_seconds"] += elapsed
+            save()
+            return passed
         gate_started = time.monotonic()
         for retry in range(16):
             try:

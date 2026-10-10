@@ -5,6 +5,11 @@ param(
     [string]$RecoveryDirectory = '',
     [string]$AuxiliarySha = '',
     [string]$ProbeFile = '',
+    [string]$ContentSha = '',
+    [string]$ArchiveDirectory = '',
+    [string]$CampaignDirectory = '',
+    [string]$GitIdentity = '',
+    [string]$SessionId = '',
     [int]$Intervals = 10
 )
 $ErrorActionPreference = 'Stop'
@@ -24,6 +29,11 @@ $arguments = @($scriptPath,'--child','--output',$EvidenceDirectory,'--mode',$Mod
 if ($RecoveryDirectory) { $arguments += @('--recovery-directory',$RecoveryDirectory) }
 if ($AuxiliarySha) { $arguments += @('--auxiliary-sha',$AuxiliarySha) }
 if ($ProbeFile) { $arguments += @('--probe-file',$ProbeFile) }
+if ($ContentSha) { $arguments += @('--content-sha',$ContentSha) }
+if ($ArchiveDirectory) { $arguments += @('--archive-directory',$ArchiveDirectory) }
+if ($CampaignDirectory) { $arguments += @('--campaign-directory',$CampaignDirectory) }
+if ($GitIdentity) { $arguments += @('--git-identity',$GitIdentity) }
+if ($SessionId) { $arguments += @('--session-id',$SessionId) }
 & $PythonExecutable @arguments
 if ($null -eq $LASTEXITCODE) { throw 'Python child exit code unknown' }
 exit $LASTEXITCODE

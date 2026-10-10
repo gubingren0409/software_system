@@ -169,24 +169,33 @@ class CampaignPaused(Exception):
 
 def run_campaign(root: Path, output: Path, content_sha: str, git_identity_path: Path,
                  *, resume: bool = False, trajectory_limit: int = 2,
-                 diagnostic_size: int | None = None, cache_root: Path | None = None) -> int:
+                 diagnostic_size: int | None = None, cache_root: Path | None = None,
+                 initialize_only: bool = False, session_id: str | None = None) -> int:
     import fcntl
+    if session_id is not None and (len(session_id) != 32 or any(c not in "0123456789abcdef" for c in session_id)):
+        raise ValueError("Session ID must be 32 lower-case hexadecimal digits")
     lock_path = Path("/var/tmp/matrix-autotuner-p3-10245102457.runner.lock")
     with lock_path.open("a") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         return _run_campaign(root.resolve(), output.resolve(), content_sha, git_identity_path,
-                             resume, trajectory_limit, diagnostic_size, cache_root)
+                             resume, trajectory_limit, diagnostic_size, cache_root, initialize_only, session_id)
 
 
 def _run_campaign(root: Path, output: Path, content_sha: str, git_identity_path: Path,
                   resume: bool, trajectory_limit: int, diagnostic_size: int | None,
-                  cache_root: Path | None) -> int:
+                  cache_root: Path | None, initialize_only: bool = False, session_id: str | None = None) -> int:
     campaign = json.loads((root / "configs/p3_campaign_protocol.json").read_text())
     protocol = json.loads((root / "configs/measurement_protocol.json").read_text())
     search = json.loads((root / "configs/search_protocol.json").read_text())
     if sha256_json(protocol) != campaign["measurement_protocol_hash"] or \
             sha256_json(search) != campaign["search_protocol_hash"]:
-        raise ValueError("P2 frozen measurement/search protocol changed")
+        raise ValueError("Campaign measurement/search protocol identity differs")
+    if "policy_hash" in protocol["resource_gate"]:
+        from .resources import load_policy
+        policy = load_policy(root / protocol["resource_gate"]["policy_file"])
+        if sha256_json(policy) != protocol["resource_gate"]["policy_hash"] or \
+                campaign.get("resource_policy_hash") != sha256_json(policy):
+            raise ValueError("Campaign resource policy identity differs")
     if not 1 <= trajectory_limit <= len(campaign["schedule"]):
         raise ValueError("trajectory limit must be between 1 and schedule length")
     for relative, expected in campaign["unchanged_source_sha256"].items():
@@ -235,10 +244,12 @@ def _run_campaign(root: Path, output: Path, content_sha: str, git_identity_path:
                  "compiler_sha256": sha256_file(target.compiler), "compiler_version": target._compiler_version,
                  "diagnostic_only": diagnostic_size is not None}
     checkpoint = json.loads(checkpoint_path.read_text()) if resume else {
-        "session_id": uuid.uuid4().hex, "status": "created", "completed_trajectories": [],
+        "session_id": session_id or uuid.uuid4().hex, "status": "created", "completed_trajectories": [],
         "active_total_seconds": 0.0, "wait_seconds": 0.0, "created_at": utc_now()}
     if resume and checkpoint.get("preflight_identity") != preflight:
         raise ValueError("campaign resume preflight identity changed")
+    if session_id is not None and checkpoint["session_id"] != session_id:
+        raise ValueError("Requested session differs from campaign")
     if resume and (output / "PAUSE_REQUEST").exists():
         request = output / "PAUSE_REQUEST"
         atomic_write_json(output / "pause_requests" / f"{uuid.uuid4().hex}.json",
@@ -253,14 +264,44 @@ def _run_campaign(root: Path, output: Path, content_sha: str, git_identity_path:
         checkpoint["updated_at"] = utc_now()
         atomic_write_json(checkpoint_path, checkpoint)
 
+    if initialize_only:
+        if resume:
+            raise ValueError("Initialization cannot mutate an existing campaign")
+        checkpoint["status"] = "initialized"
+        atomic_write_json(output / "protocol.json", protocol)
+        atomic_write_json(output / "campaign_protocol.json", campaign)
+        atomic_write_json(output / "search_protocol.json", search)
+        save()
+        print(json.dumps({"event": "initialized", "session_id": checkpoint["session_id"],
+                          "content_commit": content_sha, "formal_executions": 0}), flush=True)
+        return 0
+
     host_command = None
     if diagnostic_size is None:
         windows_script = subprocess.run(["wslpath", "-w", str(root / "scripts/check_p2_resources.ps1")],
                                         capture_output=True, text=True, check=True).stdout.strip()
         host_command = ["/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
-                        "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", windows_script]
+                        "-NoProfile", "-File", windows_script]
 
     def gate(config: Config, purpose: str) -> bool:
+        if host_command is not None and "policy_hash" in protocol["resource_gate"]:
+            from .resources import wait_formal
+            def recorded(record):
+                record.update(config=asdict(config), purpose=purpose)
+                atomic_write_json(output / "gates" / f"{uuid.uuid4().hex}.json", record)
+                if not record["admission_pass"]:
+                    checkpoint["status"] = "resource_paused"
+                    save()
+                    print(json.dumps({"event": "resource_paused", "purpose": purpose,
+                        "reasons": record["parsed"].get("rejection_reasons", ["invalid gate"]),
+                        "elapsed_seconds": record["wait_elapsed_seconds"], "budget_seconds": record["wait_budget_seconds"]}), flush=True)
+            passed, elapsed = wait_formal([*host_command, "-Mode", "Formal", "-RuntimeRoot", str(root)],
+                protocol, recorded, lambda: (output / "PAUSE_REQUEST").exists())
+            checkpoint["wait_seconds"] += elapsed
+            if not passed:
+                checkpoint["status"] = "user_paused" if (output / "PAUSE_REQUEST").exists() else "resource_paused"
+            save()
+            return passed
         gate_started = time.monotonic()
         for retry in range(16):
             if (output / "PAUSE_REQUEST").exists():

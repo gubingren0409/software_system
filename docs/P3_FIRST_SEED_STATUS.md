@@ -1,6 +1,14 @@
 # 首种子正式比较：时钟阻塞（更新于 2026-10-10）
 
-## 当前：e4f93333后管理员处理核验，未同步/CPU门禁阻塞
+## 当前：aae4147 后资源策略迁移
+
+用户授权将 CPU 准入调整为 Recovery 仅警告、Formal 均值≤30%/最高≤60%。
+集中策略与来源、全新 session 的身份、一次有限 recovery 计划及实际结果见
+[P3_RESOURCE_POLICY](P3_RESOURCE_POLICY.md)。原 session 的3配置/23执行及部分组全部封存，
+新版从空观测开始，不能迁入旧分数。新源码已修改，不能继续声称执行身份为 fa59701。
+此段在内容冻结时尚未进行新的真实 recovery 或正式矩阵执行，正式比较未完成。
+
+## 历史：e4f93333后管理员处理核验，未同步/CPU门禁阻塞
 
 实际管理员日志为
 [`admin-20261010-135245/admin-session.txt`](../evidence/p3_clock_repair/admin-20261010-135245/admin-session.txt)。

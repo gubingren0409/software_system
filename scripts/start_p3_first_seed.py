@@ -12,8 +12,9 @@ import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from autotuner.core import sha256_file, utc_now
+from autotuner.core import sha256_file, sha256_json, utc_now
 from autotuner.session import valid_formal_gate, source_identity
+from autotuner.resources import valid_gate
 from scripts.p3_clock_contract import (ARCHIVE, CRITERIA_SHA, FORMAL_CONTENT, POWERSHELL,
     PROBE_SHA, SESSION, acceptance, atomic_write_json, campaign_command, capture, check_clock_intervals, load,
     probe_command, snapshot_campaign, verify_clock_evidence, verify_recovery, wsl_path)
@@ -67,7 +68,9 @@ def recovery_outcome(integrity, timing, resource):
     return "P3_RECOVERY_ELIGIBLE", None
 
 
-def make_manifest(output, mode, commit):
+def make_manifest(output, mode, commit, args=None):
+    if args is not None and args.content_sha:
+        return make_new_manifest(output, mode, commit, args)
     before = snapshot_campaign(CAMPAIGN)
     if before["checkpoint"]["session_id"] != SESSION or before["checkpoint"]["fingerprint"]["content_commit"] != FORMAL_CONTENT:
         raise ValueError("Original formal identity differs")
@@ -93,6 +96,59 @@ def make_manifest(output, mode, commit):
     manifest["frozen_files_expected"] = expected
     manifest["operations"]["frozen_files"] = {"command": ["wsl.exe", "-d", "Ubuntu-24.04", "--", "sha256sum", *expected],
                                                    "timeout_seconds": 90}
+    return manifest
+
+
+def make_new_manifest(output, mode, commit, args):
+    """New resource policy always binds a new real content/session, never e308bfb."""
+    from scripts.p3_clock_contract import batch_identity
+    identity = load(args.git_identity)
+    if identity["content_sha"] != args.content_sha or commit != args.content_sha:
+        raise ValueError("New auxiliary/archive/Git content identities differ")
+    tree = subprocess.check_output(["git", "ls-tree", "-r", "--format=%(objectname)%x09%(path)",
+                                   commit, "--", *identity["files"]], cwd=ROOT, text=True)
+    actual_blobs = {path: blob for blob, path in (line.split("\t", 1) for line in tree.splitlines())}
+    if actual_blobs != identity["files"]:
+        raise ValueError("Git identity is not the specified content tree")
+    before = snapshot_campaign(args.campaign_directory)
+    preflight = before["checkpoint"]["preflight_identity"]
+    if before["checkpoint"]["session_id"] != args.session_id or preflight["content_commit"] != args.content_sha or \
+            {key: item["git_blob_sha1"] for key, item in preflight["files"].items()} != identity["files"]:
+        raise ValueError("New session/archive source identity differs")
+    atomic_write_json(output / "campaign_before.json", before)
+    protocol = load(ROOT / "configs/measurement_protocol.json")
+    if preflight["measurement_protocol_hash"] != sha256_json(protocol):
+        raise ValueError("Initialized campaign uses a different protocol")
+    atomic_write_json(output / "measurement_protocol.json", protocol)
+    manifest = {"schema": "p3-clock-batch-v3", "auxiliary_controller_version": "3.0",
+        "batch_id": uuid.uuid4().hex, "purpose": mode, "declared_at": utc_now(),
+        "formal_content_commit": args.content_sha, "auxiliary_content_commit": commit,
+        "session_id": args.session_id, "archive_directory": args.archive_directory,
+        "git_identity_path": str(args.git_identity.resolve()), "git_identity_sha256": sha256_file(args.git_identity),
+        "campaign_directory": str(args.campaign_directory.resolve()), "repo_root_at_run": str(ROOT),
+        "evidence_directory_at_run": str(output.resolve()),
+        "auxiliary_files": source_identity(ROOT, identity["files"]),
+        "criteria_sha256": CRITERIA_SHA, "probe_script_sha256": PROBE_SHA,
+        "checker_sha256": sha256_file(ROOT / "scripts/p3_clock_contract.py"),
+        "measurement_protocol_hash": preflight["measurement_protocol_hash"],
+        "resource_policy_hash": protocol["resource_gate"]["policy_hash"],
+        "resource_gate_purpose": "Recovery" if mode == "recover" else "Formal",
+        "campaign_before_sha256": sha256_file(output / "campaign_before.json"), "operations": {}}
+    batch_identity(manifest)
+    for name in (("window_A", "window_B") if mode == "recover" else ("clock_before", "clock_after")):
+        count = 10 if mode == "recover" else 3
+        manifest["operations"][name] = {"command": probe_command(output / (name + ".wsl.json"), count, archive=args.archive_directory),
+            "intervals": count, "seconds": 3, "output_file": name + ".wsl.json", "timeout_seconds": 120}
+    manifest["operations"]["resources"] = {"command": [POWERSHELL, "-NoProfile", "-File",
+        str(ROOT / "scripts/check_p2_resources.ps1"), "-Mode", manifest["resource_gate_purpose"],
+        "-RuntimeRoot", args.archive_directory], "timeout_seconds": 90}
+    manifest["operations"]["campaign"] = {"command": campaign_command(ROOT, archive=args.archive_directory,
+        content_sha=args.content_sha, git_identity=args.git_identity, campaign=args.campaign_directory,
+        session_id=args.session_id), "timeout_seconds": None}
+    expected = {args.archive_directory + "/" + relative: item["executed_sha256"] for relative, item in preflight["files"].items()}
+    manifest["frozen_files_expected"] = expected
+    manifest["operations"]["frozen_files"] = {"command": ["wsl.exe", "-d", "Ubuntu-24.04", "--cd", "/tmp", "--",
+        "timeout", "60", "sha256sum", *expected], "timeout_seconds": 90}
     return manifest
 
 
@@ -124,7 +180,10 @@ def resources(output, manifest):
                         sha256_file(output / "manifest.json"), timeout=spec["timeout_seconds"])
     try:
         parsed = load(output / "resources.stdout.txt")
-        passed = operation["returncode"] == 0 and valid_formal_gate(parsed, load(ROOT / "configs/measurement_protocol.json"))
+        protocol = load(output / "measurement_protocol.json") if manifest["schema"] == "p3-clock-batch-v3" else load(CAMPAIGN / "protocol.json")
+        purpose = manifest.get("resource_gate_purpose", "Formal")
+        valid = valid_gate(parsed, protocol, purpose) if manifest["schema"] == "p3-clock-batch-v3" else valid_formal_gate(parsed, protocol)
+        passed = operation["returncode"] == 0 and not operation["timed_out"] and valid
         result = {"parsed": parsed, "pass": passed, "returncode": operation["returncode"]}
     except (ValueError, OSError) as error:
         result = {"pass": False, "error": str(error), "returncode": operation["returncode"]}
@@ -133,6 +192,8 @@ def resources(output, manifest):
 
 
 def metadata(output, manifest):
+    capture(["C:/Windows/System32/w32tm.exe", "/query", "/status", "/verbose"],
+            output, "windows_ntp_status", manifest["batch_id"], timeout=30)
     command = "$o=Get-CimInstance Win32_OperatingSystem; $events=@(); $eventError=$null; " \
         "try {$events=@(Get-WinEvent -FilterHashtable @{LogName='System';StartTime=(Get-Date).AddHours(-24);" \
         "ProviderName=@('Microsoft-Windows-Kernel-Power','Microsoft-Windows-Power-Troubleshooter'," \
@@ -154,34 +215,42 @@ def metadata(output, manifest):
 
 def recovery(args):
     output = args.output
-    manifest = make_manifest(output, "recover", args.auxiliary_sha)
-    policy = {"schema": "p3-clock-recovery-policy-v2", "declared_at": utc_now(), "batch_id": manifest["batch_id"],
+    manifest = make_manifest(output, "recover", args.auxiliary_sha, args)
+    is_new = manifest["schema"] == "p3-clock-batch-v3"
+    campaign = args.campaign_directory if is_new else CAMPAIGN
+    policy = {"schema": "p3-clock-recovery-policy-v3" if is_new else "p3-clock-recovery-policy-v2", "declared_at": utc_now(), "batch_id": manifest["batch_id"],
         "windows": 2, "intervals_per_window": 10, "seconds_per_interval": 3, "total_interval_count": 20,
         "total_sleep_budget_seconds": 60, "probe_timeout_seconds": 120, "inner_probe_timeout_seconds": 90,
         "criteria_sha256": CRITERIA_SHA, "rule": "abs(MONO-RAW)<=0.005+0.01*RAW; REALTIME allowance unchanged",
         "all_twenty_required": True, "stop_after_failure": True, "no_extra_recovery_attempts": True,
         "conditional_resume_boundary_probes": "Only after recovery passes: one pre and one post, each 3x3s, per batch",
-        "system_settings_modified": False, "calibration_applied": False}
+        "system_settings_modified": False, "calibration_applied": False,
+        "resource_policy_hash": manifest.get("resource_policy_hash"), "ntp_sync_required": False}
     atomic_write_json(output / "policy.json", policy)
     manifest["policy_sha256"] = sha256_file(output / "policy.json")
     atomic_write_json(output / "manifest.json", manifest)
     identity_pass = verify_frozen_files(output, manifest)
     metadata(output, manifest)
     resource_pass = resources(output, manifest)
-    checks = {name: run_probe(output, manifest, name) for name in ("window_A", "window_B")}
-    after = snapshot_campaign(CAMPAIGN)
+    checks = {name: run_probe(output, manifest, name) for name in ("window_A", "window_B")} if identity_pass and resource_pass else {}
+    after = snapshot_campaign(campaign)
     atomic_write_json(output / "campaign_after.json", after)
     recomputed = verify_recovery(output, after)
     integrity, timing = recomputed["evidence_integrity_pass"], recomputed["timing_checks_pass"]
     status, reason = recovery_outcome(integrity, timing, resource_pass)
-    result = {**acceptance(integrity, complete(after), timing), "schema": "p3-recovery-summary-v2",
-        "auxiliary_controller_version": "2.1", "pre_clock_pass": None, "post_clock_pass": None,
+    if not checks:
+        status, reason = ("P3_IDENTITY_BLOCKED", "Source identity rejected; clock probes not run") if not identity_pass else \
+                         ("P3_RESOURCE_BLOCKED", "Recovery memory/disk/data gate rejected; clock probes not run")
+    result = {**acceptance(integrity, complete(after), timing), "schema": "p3-recovery-summary-v3" if is_new else "p3-recovery-summary-v2",
+        "auxiliary_controller_version": "3.0" if is_new else "2.1", "pre_clock_pass": None, "post_clock_pass": None,
         "campaign_invoked": False, "campaign_returncode": "unknown", "failure_reason": reason,
         "boundary_scope": "No actual campaign batch invoked; pre/post boundary checks not performed",
         "recovery_eligible": recomputed["recovery_eligible"],
-        "formal_resource_gate_pass": resource_pass, "frozen_identity_pass": identity_pass,
+        "formal_resource_gate_pass": None if is_new else resource_pass,
+        "recovery_resource_gate_pass": resource_pass if is_new else None, "frozen_identity_pass": identity_pass,
+        "clock_check_status": "performed" if checks else "not_performed",
         "windows": checks, "status": status,
-        "auxiliary_content_commit": args.auxiliary_sha, "formal_content_commit": FORMAL_CONTENT, "session_id": SESSION,
+        "auxiliary_content_commit": args.auxiliary_sha, "formal_content_commit": manifest["formal_content_commit"], "session_id": manifest["session_id"],
         "campaign_after_sha256": sha256_file(output / "campaign_after.json"),
         "integrity_errors": recomputed["errors"],
         "policy_sha256": sha256_file(output / "policy.json"), "manifest_sha256": sha256_file(output / "manifest.json")}
@@ -196,10 +265,11 @@ def resume(args):
     output, recovery_path = args.output, args.recovery_directory
     if recovery_path is None:
         raise ValueError("A successful, current 20-interval recovery is required")
-    recomputed = verify_recovery(recovery_path, snapshot_campaign(CAMPAIGN))
+    campaign = args.campaign_directory if args.content_sha else CAMPAIGN
+    recomputed = verify_recovery(recovery_path, snapshot_campaign(campaign))
     if not recomputed["recovery_eligible"]:
         raise ValueError("Recovery not eligible or evidence changed")
-    manifest = make_manifest(output, "resume", args.auxiliary_sha)
+    manifest = make_manifest(output, "resume", args.auxiliary_sha, args)
     if load(output / "campaign_before.json")["checkpoint_sha256"] != load(recovery_path / "campaign_after.json")["checkpoint_sha256"]:
         raise ValueError("Recovery is stale for this campaign checkpoint")
     manifest.update(recovery_directory=str(recovery_path.resolve()), recovery_manifest_sha256=sha256_file(recovery_path / "manifest.json"))
@@ -210,18 +280,18 @@ def resume(args):
     last_progress = time.perf_counter()
     def progress():
         nonlocal last_progress
-        if time.perf_counter() - last_progress < 300:
+        if time.perf_counter() - last_progress < 60:
             return
         last_progress = time.perf_counter()
-        current = snapshot_campaign(CAMPAIGN)
+        current = snapshot_campaign(campaign)
         rows, observations = [], []
         for name, value in current["trajectories"].items():
             trajectory = value["checkpoint"]
             observations.extend(trajectory["observations"])
             active = trajectory["active"]
-            sample_count = None
+            sample_count = active.get("sample_count", 0) if active else None
             if active:
-                path = CAMPAIGN / "trajectories" / name / "configurations" / (active["purpose"] + "_" + active["attempt_id"] + ".json")
+                path = campaign / "trajectories" / name / "configurations" / (active["purpose"] + "_" + active["attempt_id"] + ".json")
                 if path.exists():
                     sample_count = len(load(path)["samples"])
             rows.append({"name": name, "complete_configs": len(trajectory["observations"]), "active": active,
@@ -229,7 +299,7 @@ def resume(args):
                          "next_execution": "warmup" if sample_count == 0 else
                             (f"measurement {sample_count}/5" if sample_count is not None and sample_count < 6 else "unknown"),
                          "last_saved": trajectory["updated_at"]})
-        payload = {"progress_at": utc_now(), "trajectories": rows, "process_state": "campaign child still running",
+        payload = {"progress_at": utc_now(), "campaign_status": current["checkpoint"]["status"], "trajectories": rows, "process_state": "campaign child still running",
             "rough_remaining_search_seconds": (24 - len(observations)) * sum(g["evaluation_wall_seconds"] for g in observations) / len(observations)
                                               if observations else None,
             "estimate_scope": "Observed terminal throughput only; composition-biased; excludes gates/retests; not experiment data"}
@@ -261,7 +331,7 @@ def resume(args):
                     first_failure(state, "Post-batch clock check rejected")
             except (ValueError, OSError) as error:
                 first_failure(state, "Post-batch clock error: " + str(error))
-        atomic_write_json(output / "campaign_after.json", snapshot_campaign(CAMPAIGN))
+        atomic_write_json(output / "campaign_after.json", snapshot_campaign(campaign))
         state["campaign_after_sha256"] = sha256_file(output / "campaign_after.json")
         state["status"] = "returned" if state["failure_reason"] is None else "blocked_or_partial"
         atomic_write_json(output / "controller.json", state)
@@ -276,6 +346,11 @@ def main():
     parser.add_argument("--mode", choices=("recover", "resume", "check"), required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--auxiliary-sha", default="")
+    parser.add_argument("--content-sha", default="")
+    parser.add_argument("--archive-directory")
+    parser.add_argument("--campaign-directory", type=Path)
+    parser.add_argument("--git-identity", type=Path)
+    parser.add_argument("--session-id")
     parser.add_argument("--recovery-directory", type=Path)
     parser.add_argument("--probe-file", type=Path)
     parser.add_argument("--intervals", type=int, default=10)
@@ -284,6 +359,10 @@ def main():
     args.output = args.output.resolve()
     if os.name != "nt":
         parser.error("Use the Windows entry point")
+    if args.mode != "check" and not all((args.content_sha, args.archive_directory, args.campaign_directory, args.git_identity, args.session_id)):
+        parser.error("New runs require explicit --content-sha, --archive-directory, --campaign-directory, --git-identity and --session-id; legacy batches are read-only")
+    if args.content_sha and not args.auxiliary_sha:
+        args.auxiliary_sha = args.content_sha
     if not args.child:
         if args.output.exists():
             raise ValueError("Use a unique, new output directory")
@@ -292,6 +371,10 @@ def main():
             "-EvidenceDirectory", str(args.output), "-PythonExecutable", sys.executable, "-Mode", args.mode,
             "-Intervals", str(args.intervals)]
         for option, value in (("-RecoveryDirectory", args.recovery_directory), ("-AuxiliarySha", args.auxiliary_sha), ("-ProbeFile", args.probe_file)):
+            if value:
+                command.extend((option, str(value)))
+        for option, value in (("-ContentSha", args.content_sha), ("-ArchiveDirectory", args.archive_directory),
+                              ("-CampaignDirectory", args.campaign_directory), ("-GitIdentity", args.git_identity), ("-SessionId", args.session_id)):
             if value:
                 command.extend((option, str(value)))
         record = capture(command, args.output, "windows_entry", uuid.uuid4().hex, timeout=None if args.mode == "resume" else 360)
@@ -304,6 +387,16 @@ def main():
             result = {"pass": False, "errors": [str(error)]}
         atomic_write_json(args.output / "check_only.json", result)
         return 0 if result["pass"] else 2
+    from scripts.p3_clock_contract import batch_identity
+    batch_identity({"schema": "p3-clock-batch-v3", "formal_content_commit": args.content_sha,
+                    "session_id": args.session_id, "archive_directory": args.archive_directory})
+    if args.mode == "recover" and not (args.campaign_directory / "checkpoint.json").exists():
+        command = campaign_command(ROOT, archive=args.archive_directory, content_sha=args.content_sha,
+            git_identity=args.git_identity, campaign=args.campaign_directory,
+            session_id=args.session_id, initialize_only=True)
+        initialized = capture(command, args.output, "initialize_new_campaign", uuid.uuid4().hex, timeout=90)
+        if initialized["returncode"] != 0:
+            raise ValueError("New campaign initialization failed; no clock probes run")
     return recovery(args) if args.mode == "recover" else resume(args)
 
 

@@ -55,7 +55,10 @@ def verify_sample_prefix(path, prefix, identity_path):
 
 
 def unchanged_original_files():
-    protected = ["autotuner", "code", "configs", "evidence/p2/grid-session-0d3dd52",
+    # Resource-policy/entry changes are authorized only in the NEW implementation;
+    # protect the unchanged computation/search and all actual historical evidence.
+    protected = ["autotuner/core.py", "autotuner/measurement.py", "autotuner/search.py", "code",
+                 "configs/config_space.json", "configs/search_protocol.json", "evidence/p2/grid-session-0d3dd52",
                  "evidence/p3/content-e308bfb", "evidence/p3_audit_0023ceed"]
     modified = subprocess.check_output(
         ["git", "-C", str(ROOT), "diff", "--name-only", BASELINE, "--", *protected], text=True)
@@ -115,7 +118,67 @@ def campaign_timing_certified(purpose, clocks, recovery, campaign_invoked):
         recovery is not None and recovery.get("recovery_eligible") is True
 
 
+def audit_new_first_seed(args):
+    """Same raw clock and trajectory checkers, with an explicit v3 session binding."""
+    from scripts.p3_clock_contract import batch_identity, snapshot_identity
+    manifest = load(args.batch / "manifest.json")
+    content, session, _ = batch_identity(manifest)
+    campaign = Path(manifest["campaign_directory"])
+    current = snapshot_campaign(campaign)
+    actual_session, identity = snapshot_identity(current)
+    if actual_session != session or identity.get("content_commit") != content:
+        raise ValueError("New session/content differs from batch")
+    if manifest["purpose"] == "recover":
+        reviewed = verify_recovery(args.batch, current)
+        status = acceptance(reviewed["evidence_integrity_pass"], False, reviewed["timing_checks_pass"])
+        status["comparison_ready"] = False
+        result = {**status, "schema": "p3-first-seed-acceptance-v3", "purpose": "recover",
+            "content_commit": content, "session_id": session, "campaign_directory": str(campaign),
+            "clock_recovery_reevaluation": reviewed, "formal_resource_gate_pass": None,
+            "formal_gate_status": "not_performed", "execution_status": "not_started",
+            "complete_configuration_count": sum(len(item["checkpoint"]["observations"]) for item in current["trajectories"].values()),
+            "raw_execution_count": sum(item["sample_count"] for item in current["trajectories"].values()),
+            "clock_check_status": "performed" if all((args.batch / (name + ".operation.json")).exists() for name in ("window_A", "window_B")) else "not_performed",
+            "historical_grid_scope": "Unchanged limited historical reference; no calibration or new-policy global optimum claim"}
+    else:
+        if "fingerprint" in current["checkpoint"]:
+            audited = audit(campaign)
+        else:
+            if current["trajectories"]:
+                raise ValueError("Uninitialized campaign cannot contain target observations")
+            audited = {"status": "initialized_without_target_execution", "completed_trajectory_count": 0,
+                "unique_configuration_count": 0, "raw_execution_count": 0, "trajectories": [], "prefix_rows": []}
+        binding = verify_batch_binding(args.batch, current)
+        setup = verify_setup_evidence(args.batch, manifest)
+        clocks = {name: verify_clock_evidence(args.batch, name) for name in ("clock_before", "clock_after")
+                  if (args.batch / (name + ".operation.json")).exists()}
+        reviewed = verify_recovery(args.clock_recovery) if args.clock_recovery else None
+        complete = first_seed_execution_complete(audited, current["checkpoint"])
+        integrity = setup["frozen_identity_pass"] and all(item["evidence_integrity_pass"] for item in clocks.values()) and \
+                    reviewed is not None and reviewed["evidence_integrity_pass"]
+        timing = campaign_timing_certified("resume", clocks, reviewed, binding["campaign_invoked"])
+        controller = load(args.batch / "controller.json")
+        for name, key in (("clock_before", "pre_clock_pass"), ("clock_after", "post_clock_pass")):
+            if name in clocks and controller[key] != clocks[name]["pass"]:
+                integrity = False
+        if binding["campaign_invoked"] and not setup["formal_resource_gate_pass"]:
+            raise ValueError("New campaign invoked without a valid Formal gate")
+        complete = complete and controller["campaign_returncode"] == 0
+        status = acceptance(integrity, complete, timing)
+        result = {**status, "schema": "p3-first-seed-acceptance-v3", "purpose": "resume",
+            "content_commit": content, "session_id": session, "campaign_audit": audited,
+            "boundary_clock_checks": clocks, "clock_recovery_reevaluation": reviewed,
+            "formal_resource_gate_pass": setup["formal_resource_gate_pass"], "batch_binding": binding,
+            "controller": controller, "cost_scope": "P3_COST_SCOPE terminal calls, retests, active campaign and gate/wait are nested; do not add them. Historical v2 observations are never imported.",
+            "historical_grid_scope": "Separate limited historical reference only, not a matched new-policy Grid baseline"}
+    atomic_write_json(args.output, result)
+    print(json.dumps({key: result[key] for key in ("evidence_integrity_pass", "execution_complete", "timing_checks_pass", "comparison_ready")}))
+    return acceptance_exit(result, args.require_two or args.acceptance_mode == "complete")
+
+
 def audit_first_seed(args):
+    if (args.batch / "manifest.json").exists() and load(args.batch / "manifest.json").get("schema") == "p3-clock-batch-v3":
+        return audit_new_first_seed(args)
     protection = unchanged_original_files()
     result = audit(CAMPAIGN, ROOT / "evidence/p2/grid-session-0d3dd52")
     checkpoint = read(CAMPAIGN / "checkpoint.json")

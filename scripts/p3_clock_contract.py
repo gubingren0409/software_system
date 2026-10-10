@@ -8,6 +8,7 @@ import json
 import math
 import os
 from pathlib import Path
+import re
 import subprocess
 import sys
 import time
@@ -15,7 +16,7 @@ import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from autotuner.core import sha256_file, utc_now
+from autotuner.core import sha256_file, sha256_json, utc_now
 
 FORMAL_CONTENT = "e308bfb873e6811c50ad685a979af345302fda8d"
 SESSION = "dc1c292900654d44b36a72548b95a610"
@@ -132,18 +133,52 @@ def wsl_path(path):
     return str(Path(path).resolve())
 
 
-def probe_command(output, count, seconds=3):
-    return ["wsl.exe", "-d", "Ubuntu-24.04", "--cd", ARCHIVE, "--", "env", "-u", "PYTHONPATH",
+def probe_command(output, count, seconds=3, archive=ARCHIVE):
+    return ["wsl.exe", "-d", "Ubuntu-24.04", "--cd", archive, "--", "env", "-u", "PYTHONPATH",
             "PYTHONDONTWRITEBYTECODE=1", "timeout", "90", "python3", "scripts/check_p2_clocks.py",
             "--intervals", str(count), "--seconds", str(seconds), "--skip-host", "--output", wsl_path(output)]
 
 
-def campaign_command(repo_root=ROOT):
+def campaign_command(repo_root=ROOT, *, archive=ARCHIVE, content_sha=FORMAL_CONTENT,
+                     git_identity=None, campaign=None, session_id=None, initialize_only=False):
     repo_root = str(repo_root).replace("\\", "/").rstrip("/")
-    return ["wsl.exe", "-d", "Ubuntu-24.04", "--cd", ARCHIVE, "--", "env", "-u", "PYTHONPATH",
-            "PYTHONDONTWRITEBYTECODE=1", "python3", "-m", "autotuner", "campaign", "--content-sha", FORMAL_CONTENT,
-            "--git-identity", wsl_path(repo_root + "/evidence/p3/content-e308bfb/git_identity.json"),
-            "--campaign-directory", wsl_path(repo_root + "/evidence/p3/campaign-e308bfb"), "--trajectory-limit", "2", "--resume"]
+    command = ["wsl.exe", "-d", "Ubuntu-24.04", "--cd", archive, "--", "env", "-u", "PYTHONPATH",
+            "PYTHONDONTWRITEBYTECODE=1", "python3", "-m", "autotuner", "campaign", "--content-sha", content_sha,
+            "--git-identity", wsl_path(git_identity or repo_root + "/evidence/p3/content-e308bfb/git_identity.json"),
+            "--campaign-directory", wsl_path(campaign or repo_root + "/evidence/p3/campaign-e308bfb"), "--trajectory-limit", "2",
+            "--initialize-only" if initialize_only else "--resume"]
+    if session_id is not None:
+        command.extend(("--session-id", session_id))
+    return command
+
+
+def batch_identity(manifest):
+    if manifest.get("schema") == "p3-clock-batch-v2":
+        expected = FORMAL_CONTENT, SESSION, ARCHIVE
+        if (manifest.get("formal_content_commit"), manifest.get("session_id")) != expected[:2]:
+            raise ValueError("Legacy batch identity differs")
+        return expected
+    if manifest.get("schema") != "p3-clock-batch-v3" or \
+            not re.fullmatch(r"[0-9a-f]{40}", manifest.get("formal_content_commit", "")) or \
+            not re.fullmatch(r"[0-9a-f]{32}", manifest.get("session_id", "")):
+        raise ValueError("Invalid new batch content/session identity")
+    content, session, archive = manifest["formal_content_commit"], manifest["session_id"], manifest["archive_directory"]
+    if content == FORMAL_CONTENT or session == SESSION or archive == ARCHIVE or not archive.startswith("/var/tmp/"):
+        raise ValueError("New policy cannot mutate the legacy campaign/archive")
+    return content, session, archive
+
+
+def manifest_campaign_command(manifest):
+    if manifest.get("schema") == "p3-clock-batch-v2":
+        return campaign_command(manifest["repo_root_at_run"])
+    content, session, archive = batch_identity(manifest)
+    return campaign_command(manifest["repo_root_at_run"], archive=archive, content_sha=content,
+                            git_identity=manifest["git_identity_path"], campaign=manifest["campaign_directory"], session_id=session)
+
+
+def snapshot_identity(snapshot):
+    checkpoint = snapshot["checkpoint"]
+    return checkpoint["session_id"], checkpoint.get("fingerprint", checkpoint.get("preflight_identity", {}))
 
 
 def qpc():
@@ -249,13 +284,14 @@ def verify_clock_evidence(directory, name, check_saved=True):
     answer = {"evidence_integrity_pass": False, "timing_checks_pass": False, "pass": False, "errors": []}
     try:
         manifest = load(directory / "manifest.json")
-        if manifest.get("schema") != "p3-clock-batch-v2" or manifest.get("formal_content_commit") != FORMAL_CONTENT or \
-                manifest.get("session_id") != SESSION:
-            raise ValueError("Batch schema/formal identity differs")
+        _, _, archive = batch_identity(manifest)
+        approved_checker = {sha256_file(Path(__file__))}
+        if manifest["schema"] == "p3-clock-batch-v2":
+            approved_checker.add("10df779b7b0c79562acc3dec8f2249ab806c42df6b4b6ca06f27d131b97fbb8a")
         if manifest.get("criteria_sha256") != CRITERIA_SHA or \
                 sha256_file(ROOT / "configs/timing_audit_protocol.json") != CRITERIA_SHA or \
                 manifest.get("probe_script_sha256") != PROBE_SHA or \
-                manifest.get("checker_sha256") != sha256_file(Path(__file__)):
+                manifest.get("checker_sha256") not in approved_checker:
             raise ValueError("Criteria/probe/checker source identity differs")
         expected = manifest["operations"][name]
         operation_path = directory / (name + ".operation.json")
@@ -267,7 +303,7 @@ def verify_clock_evidence(directory, name, check_saved=True):
         probe_path = directory / expected["output_file"]
         original_output = manifest["evidence_directory_at_run"].replace("\\", "/").rstrip("/") + "/" + name + ".wsl.json"
         if expected["output_file"] != name + ".wsl.json" or expected["command"] != \
-                probe_command(original_output, expected["intervals"], expected["seconds"]):
+                probe_command(original_output, expected["intervals"], expected["seconds"], archive):
             raise ValueError("Probe command/output/count binding differs")
         probe = load(probe_path)
         if probe != load(directory / operation["stdout_path"]):
@@ -279,7 +315,7 @@ def verify_clock_evidence(directory, name, check_saved=True):
                                        expected["intervals"])
         answer.update(host_check=host, operation_sha256=sha256_file(operation_path),
                       probe_sha256=sha256_file(probe_path), manifest_sha256=sha256_file(directory / "manifest.json"),
-                      checker_sha256=sha256_file(Path(__file__)))
+                      checker_sha256=manifest["checker_sha256"])
         answer["timing_checks_pass"] = answer["timing_checks_pass"] and host["pass"]
         answer["pass"] = answer["evidence_integrity_pass"] and answer["timing_checks_pass"]
         if check_saved and (directory / (name + ".check.json")).exists() and \
@@ -339,9 +375,27 @@ def verify_setup_evidence(directory, manifest):
     identity = source_op["returncode"] == 0 and source_op["timed_out"] is False and actual == manifest["frozen_files_expected"]
     from autotuner.session import valid_formal_gate
     resource_op = load(directory / "resources.operation.json")
-    gate = resource_op["returncode"] == 0 and resource_op["timed_out"] is False and valid_formal_gate(
-        load(directory / "resources.stdout.txt"), load(ROOT / "configs/measurement_protocol.json"))
-    return {"frozen_identity_pass": identity, "formal_resource_gate_pass": gate}
+    purpose = manifest.get("resource_gate_purpose", "Formal")
+    if manifest.get("schema") == "p3-clock-batch-v3":
+        from autotuner.resources import valid_gate
+        protocol = load(directory / "measurement_protocol.json")
+        if manifest["measurement_protocol_hash"] != sha256_json(protocol):
+            raise ValueError("Manifest measurement protocol differs")
+        if manifest["resource_policy_hash"] != protocol["resource_gate"]["policy_hash"]:
+            raise ValueError("Manifest resource policy hash differs")
+        if purpose != ("Recovery" if manifest["purpose"] == "recover" else "Formal"):
+            raise ValueError("Resource gate purpose differs from actual batch purpose")
+        valid = valid_gate(load(directory / "resources.stdout.txt"), protocol, purpose)
+        if load(directory / "resources.stdout.txt").get("collector_sha256") != \
+                manifest["auxiliary_files"]["scripts/check_p2_resources.ps1"]["executed_sha256"]:
+            raise ValueError("Actual resource collector byte identity differs")
+    else:
+        protocol = load(ROOT / "evidence/p3/campaign-e308bfb/protocol.json")
+        valid = valid_formal_gate(load(directory / "resources.stdout.txt"), protocol)
+    gate = resource_op["returncode"] == 0 and resource_op["timed_out"] is False and valid
+    return {"frozen_identity_pass": identity, "resource_gate_pass": gate, "resource_gate_purpose": purpose,
+            "formal_resource_gate_pass": gate if purpose == "Formal" else None,
+            "recovery_resource_gate_pass": gate if purpose == "Recovery" else None}
 
 
 def verify_recovery(directory, current_snapshot=None):
@@ -350,7 +404,9 @@ def verify_recovery(directory, current_snapshot=None):
               "recovery_eligible": False, "errors": []}
     try:
         manifest, policy = load(directory / "manifest.json"), load(directory / "policy.json")
-        if manifest.get("purpose") != "recover" or policy.get("schema") != "p3-clock-recovery-policy-v2" or \
+        content, session, _ = batch_identity(manifest)
+        expected_policy_schema = "p3-clock-recovery-policy-v3" if manifest["schema"] == "p3-clock-batch-v3" else "p3-clock-recovery-policy-v2"
+        if manifest.get("purpose") != "recover" or policy.get("schema") != expected_policy_schema or \
                 policy.get("batch_id") != manifest["batch_id"] or manifest.get("policy_sha256") != sha256_file(directory / "policy.json"):
             raise ValueError("Recovery policy/manifest binding differs")
         for key, expected in (("windows", 2), ("intervals_per_window", 10), ("seconds_per_interval", 3),
@@ -365,10 +421,12 @@ def verify_recovery(directory, current_snapshot=None):
         if policy.get("criteria_sha256") != CRITERIA_SHA or policy.get("all_twenty_required") is not True or \
                 policy.get("no_extra_recovery_attempts") is not True:
             raise ValueError("Recovery criteria/rules differ")
+        if manifest["schema"] == "p3-clock-batch-v3" and policy.get("resource_policy_hash") != manifest["resource_policy_hash"]:
+            raise ValueError("Recovery resource policy differs from manifest")
         checks = {name: verify_clock_evidence(directory, name) for name in ("window_A", "window_B")}
         before, after = load(directory / "campaign_before.json"), load(directory / "campaign_after.json")
-        if any(snapshot["checkpoint"]["session_id"] != SESSION or
-               snapshot["checkpoint"]["fingerprint"]["content_commit"] != FORMAL_CONTENT for snapshot in (before, after)):
+        if any(snapshot_identity(snapshot)[0] != session or
+               snapshot_identity(snapshot)[1].get("content_commit") != content for snapshot in (before, after)):
             raise ValueError("Recovery snapshot formal identity differs")
         if manifest["campaign_before_sha256"] != sha256_file(directory / "campaign_before.json") or \
                 before["checkpoint"] != after["checkpoint"] or before["trajectories"] != after["trajectories"]:
@@ -378,11 +436,13 @@ def verify_recovery(directory, current_snapshot=None):
                 {k: (v["checkpoint_lf_sha256"], v["samples_lf_sha256"]) for k, v in current_snapshot["trajectories"].items()}):
             raise ValueError("Recovery is stale for current campaign")
         setup = verify_setup_evidence(directory, manifest)
-        identity, gate = setup["frozen_identity_pass"], setup["formal_resource_gate_pass"]
+        identity, gate = setup["frozen_identity_pass"], setup["resource_gate_pass"]
         integrity = identity and all(item["evidence_integrity_pass"] for item in checks.values())
         timing = all(item["pass"] for item in checks.values())
         result.update(evidence_integrity_pass=integrity, timing_checks_pass=timing,
-                      recovery_eligible=integrity and timing and gate, formal_resource_gate_pass=gate,
+                      recovery_eligible=integrity and timing and gate,
+                      formal_resource_gate_pass=setup["formal_resource_gate_pass"],
+                      recovery_resource_gate_pass=setup["recovery_resource_gate_pass"],
                       frozen_identity_pass=identity, windows=checks,
                       policy_sha256=sha256_file(directory / "policy.json"),
                       manifest_sha256=sha256_file(directory / "manifest.json"))
@@ -395,6 +455,7 @@ def verify_batch_binding(directory, current_snapshot):
     """Bind new records/checkpoints and both clocks to this exact campaign call."""
     directory = Path(directory)
     manifest = load(directory / "manifest.json")
+    content, session, _ = batch_identity(manifest) if "schema" in manifest else (FORMAL_CONTENT, SESSION, ARCHIVE)
     controller = load(directory / "controller.json")
     before, after = load(directory / "campaign_before.json"), load(directory / "campaign_after.json")
     if manifest["campaign_before_sha256"] != sha256_file(directory / "campaign_before.json") or \
@@ -403,8 +464,10 @@ def verify_batch_binding(directory, current_snapshot):
         raise ValueError("Batch checkpoint/controller binding differs")
     for snapshot in (before, after, current_snapshot):
         checkpoint = snapshot["checkpoint"]
-        if checkpoint["session_id"] != SESSION or checkpoint["fingerprint"]["content_commit"] != FORMAL_CONTENT or \
-                checkpoint["fingerprint"] != before["checkpoint"]["fingerprint"]:
+        _, identity = snapshot_identity(snapshot)
+        _, previous_identity = snapshot_identity(before)
+        if checkpoint["session_id"] != session or identity.get("content_commit") != content or \
+                any(identity.get(key) != value for key, value in previous_identity.items()):
             raise ValueError("Batch frozen campaign identity differs")
     for name, previous in before["trajectories"].items():
         later = after["trajectories"][name]
@@ -425,7 +488,7 @@ def verify_batch_binding(directory, current_snapshot):
     if type(invoked) is not bool:
         raise ValueError("Invalid campaign_invoked type")
     if invoked:
-        if manifest["operations"]["campaign"]["command"] != campaign_command(manifest["repo_root_at_run"]):
+        if manifest["operations"]["campaign"]["command"] != manifest_campaign_command(manifest):
             raise ValueError("Formal campaign command differs")
         for phase in ("clock_before", "clock_after"):
             spec = manifest["operations"][phase]

@@ -1,12 +1,31 @@
 param(
-    [ValidateSet('Formal', 'Snapshot')][string]$Mode = 'Formal',
-    [string]$OutputPath = ''
+    [ValidateSet('Formal', 'Recovery', 'Snapshot')][string]$Mode = 'Formal',
+    [string]$OutputPath = '',
+    [string]$RuntimeRoot = '',
+    [string]$InputSnapshot = ''
 )
 $ErrorActionPreference = 'Stop'
 try {
+    # This child process only; no system/module/execution-policy setting is changed.
+    $env:PSModulePath = 'C:\Windows\System32\WindowsPowerShell\v1.0\Modules'
+    if (-not $RuntimeRoot) {
+        $RuntimeRoot = (wsl.exe -d Ubuntu-24.04 -- wslpath -u (Split-Path $PSScriptRoot -Parent)).Trim()
+        if ($LASTEXITCODE -ne 0) { throw 'Runtime root conversion failed' }
+    }
+    $policyPath = Join-Path (Split-Path $PSScriptRoot -Parent) 'configs\resource_policy.json'
+    $policy = Get-Content -LiteralPath $policyPath -Raw | ConvertFrom-Json
+    if ($InputSnapshot) {
+        if ($Mode -eq 'Snapshot') { throw 'Snapshot input requires an admission purpose' }
+        $rawJson = Get-Content -LiteralPath $InputSnapshot -Raw
+        $answer = $rawJson | wsl.exe -d Ubuntu-24.04 --cd $RuntimeRoot -- env -u PYTHONPATH PYTHONDONTWRITEBYTECODE=1 python3 -m autotuner.resources --policy configs/resource_policy.json --purpose $Mode
+        $answerExit = $LASTEXITCODE
+        if ($OutputPath) { [IO.File]::WriteAllText([IO.Path]::GetFullPath($OutputPath), ($answer -join "`n") + "`n", [Text.UTF8Encoding]::new($false)) }
+        Write-Output $answer
+        exit $answerExit
+    }
     $hostOs = Get-CimInstance Win32_OperatingSystem
     $samples = @()
-    $sampleCount = $(if ($Mode -eq 'Formal') { 5 } else { 1 })
+    $sampleCount = $(if ($Mode -eq 'Snapshot') { 1 } else { [int]$policy.sample_count })
     for ($index = 0; $index -lt $sampleCount; $index++) {
         $cpu = Get-CimInstance Win32_PerfFormattedData_PerfOS_Processor | Where-Object Name -eq '_Total'
         $memory = Get-CimInstance Win32_PerfFormattedData_PerfOS_Memory
@@ -22,7 +41,7 @@ try {
             page_reads_per_second = [int64]$memory.PageReadsPersec
             memory_temperature_or_throttling = 'unknown'
         }
-        if ($index + 1 -lt $sampleCount) { Start-Sleep -Seconds 1 }
+        if ($index + 1 -lt $sampleCount) { Start-Sleep -Seconds $policy.sample_interval_seconds }
     }
     $result = [ordered]@{
         schema = 'p2-resource-gate-v2'
@@ -36,7 +55,7 @@ try {
         minimum_memory_bytes = 2GB
         minimum_disk_bytes = 1GB
     }
-    if ($Mode -eq 'Formal') {
+    if ($Mode -ne 'Snapshot') {
         $meminfo = wsl.exe -d Ubuntu-24.04 -- cat /proc/meminfo
         if ($LASTEXITCODE -ne 0) { throw 'WSL memory query failed' }
         $wslMemory = @{}
@@ -50,16 +69,24 @@ try {
         $result.wsl_swap_total_bytes = [int64]$wslMemory.SwapTotal
         $result.wsl_swap_free_bytes = [int64]$wslMemory.SwapFree
         $result.wsl_root_free_bytes = [int64]($disk[-1].Trim())
-        $pass = $result.host_minimum_available_bytes -ge 2GB -and $result.wsl_available_bytes -ge 2GB -and `
-            $result.wsl_root_free_bytes -ge 1GB -and $result.host_cpu_average_percent -le 10 -and `
-            $result.host_cpu_maximum_percent -le 20
-        $result.formal_gate = $(if ($pass) { 'PASS' } else { 'REJECT' })
+        $result.schema = 'p3-resource-snapshot-v1'
+        $result.collector_sha256 = (Get-FileHash -LiteralPath $PSCommandPath -Algorithm SHA256).Hash.ToLower()
+        $collectorText = [IO.File]::ReadAllText($PSCommandPath).Replace("`r`n", "`n")
+        $collectorHash = [Security.Cryptography.SHA256]::Create()
+        try { $result.collector_lf_sha256 = ([BitConverter]::ToString($collectorHash.ComputeHash([Text.Encoding]::UTF8.GetBytes($collectorText)))).Replace('-', '').ToLower() }
+        finally { $collectorHash.Dispose() }
+        $rawJson = $result | ConvertTo-Json -Depth 8 -Compress
+        # PowerShell and Python deliberately use the SAME decision implementation.
+        $answer = $rawJson | wsl.exe -d Ubuntu-24.04 --cd $RuntimeRoot -- env -u PYTHONPATH PYTHONDONTWRITEBYTECODE=1 python3 -m autotuner.resources --policy configs/resource_policy.json --purpose $Mode
+        $answerExit = $LASTEXITCODE
+        if ($OutputPath) { [IO.File]::WriteAllText([IO.Path]::GetFullPath($OutputPath), ($answer -join "`n") + "`n", [Text.UTF8Encoding]::new($false)) }
+        Write-Output $answer
+        exit $answerExit
     } else { $result.formal_gate = 'NOT_APPLICABLE' }
     $json = $result | ConvertTo-Json -Depth 8 -Compress
     if ($OutputPath) { [IO.File]::WriteAllText([IO.Path]::GetFullPath($OutputPath), $json + [Environment]::NewLine, [Text.UTF8Encoding]::new($false)) }
     Write-Output $json
-    if ($Mode -eq 'Formal' -and -not $pass) { exit 2 }
 } catch {
-    [ordered]@{schema='p2-resource-gate-v2'; mode=$Mode; formal_gate='ERROR'; error=$_.Exception.Message; captured_at_local=[DateTimeOffset]::Now.ToString('o')} | ConvertTo-Json -Compress
+    [ordered]@{schema='p3-resource-gate-v3'; mode=$Mode; purpose=$Mode; decision='ERROR'; formal_gate='ERROR'; recovery_gate='ERROR'; rejection_reasons=@($_.Exception.Message); captured_at_local=[DateTimeOffset]::Now.ToString('o')} | ConvertTo-Json -Compress
     exit 3
 }

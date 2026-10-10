@@ -26,6 +26,9 @@ class CostRegressionTests(unittest.TestCase):
             root, output = work / "archive", work / "campaign"
             for name in ("configs", "autotuner", "code"):
                 shutil.copytree(ROOT / name, root / name, ignore=shutil.ignore_patterns("__pycache__"))
+            # This is the audited legacy accounting example, not the new 120s gate.
+            for saved, name in (("protocol.json", "measurement_protocol.json"), ("campaign_protocol.json", "p3_campaign_protocol.json")):
+                shutil.copyfile(ROOT / "evidence/p3/campaign-e308bfb" / saved, root / "configs" / name)
             files = {}
             for path in (root / "configs").glob("*.json"):
                 data = path.read_bytes()

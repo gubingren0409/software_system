@@ -1,7 +1,7 @@
 {
-  "schema_version": 2,
-  "status": "frozen-before-p2-grid",
-  "revision_reason": "P2 uses 2 GiB available on both host and WSL; the measured candidate peak RSS was about 386 MiB and reference generation needs about 384 MiB. This retains roughly fourfold memory headroom while preserving the host CPU gate.",
+  "schema_version": 3,
+  "status": "new-session-resource-admission-2026-10-10",
+  "revision_reason": "Explicit user authorization after aae4147: Recovery CPU is warning-only; Formal background CPU average <=30%, maximum <=60%. Other measurement, input, correctness and scoring rules unchanged. Old v2 data remains bound to its original protocol.",
   "target_matrix_n": 4096,
   "matrix_input_seed": 20261008,
   "input_pattern": "random",
@@ -16,14 +16,17 @@
     "generation_and_validation_inside_candidate_timer": false
   },
   "resource_gate": {
+    "policy_file": "configs/resource_policy.json",
+    "policy_version": "2026-10-10-cpu-admission-v1",
+    "policy_hash": "e191aee4348fa5501bb923dbf1be35741a188c738ebf6fdb4863bc91b0be5671",
     "functional_host_minimum_available_bytes": 2147483648,
     "functional_wsl_minimum_available_bytes": 2147483648,
     "functional_wsl_root_minimum_free_bytes": 1073741824,
     "formal_host_minimum_available_bytes": 2147483648,
     "formal_wsl_minimum_available_bytes": 2147483648,
     "formal_wsl_root_minimum_free_bytes": 1073741824,
-    "formal_host_cpu_average_maximum_percent": 10,
-    "formal_host_cpu_single_sample_maximum_percent": 20
+    "formal_host_cpu_average_maximum_percent": 30,
+    "formal_host_cpu_single_sample_maximum_percent": 60
   },
   "formal_timeout_seconds": {
     "O0": 1271,

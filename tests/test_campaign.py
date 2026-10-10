@@ -149,6 +149,9 @@ class CampaignTests(unittest.TestCase):
         root = Path(self.temporary.name) / "archive"
         for directory in ("configs", "autotuner", "code"):
             shutil.copytree(ROOT / directory, root / directory, ignore=shutil.ignore_patterns("__pycache__"))
+        # Keep this historical 16-attempt regression explicitly on its v2 protocol.
+        for saved, name in (("protocol.json", "measurement_protocol.json"), ("campaign_protocol.json", "p3_campaign_protocol.json")):
+            shutil.copyfile(ROOT / "evidence/p3/campaign-e308bfb" / saved, root / "configs" / name)
         identity_files = {}
         for path in (root / "configs").glob("*.json"):
             data = path.read_bytes()

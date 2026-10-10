@@ -52,6 +52,8 @@ def build_parser() -> argparse.ArgumentParser:
     campaign.add_argument("--campaign-directory", type=Path, required=True)
     campaign.add_argument("--trajectory-limit", type=int, default=2)
     campaign.add_argument("--resume", action="store_true")
+    campaign.add_argument("--initialize-only", action="store_true")
+    campaign.add_argument("--session-id")
     campaign.add_argument("--diagnostic-size", type=int, choices=(130,))
     campaign.add_argument("--diagnostic-cache", type=Path)
     campaign.set_defaults(action=command_campaign)
@@ -69,7 +71,8 @@ def command_campaign(args: argparse.Namespace) -> int:
     return run_campaign(Path(__file__).resolve().parents[1], args.campaign_directory,
                         args.content_sha, args.git_identity, resume=args.resume,
                         trajectory_limit=args.trajectory_limit, diagnostic_size=args.diagnostic_size,
-                        cache_root=args.diagnostic_cache)
+                        cache_root=args.diagnostic_cache, initialize_only=args.initialize_only,
+                        session_id=args.session_id)
 
 
 def load_runtime(args: argparse.Namespace) -> tuple[TargetAdapter, ConfigSpace]:
