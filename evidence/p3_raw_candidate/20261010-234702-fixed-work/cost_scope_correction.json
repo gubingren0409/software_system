@@ -1,0 +1,41 @@
+{
+  "clean_validation_operations": {
+    "candidate_archive.operation.json": 11.9114573,
+    "candidate_linux_empty_directories.operation.json": 17.8065896,
+    "candidate_linux_extract.operation.json": 18.084155,
+    "candidate_windows_extract.operation.json": 36.6653799,
+    "clean_cache_manifests.operation.json": 0.5178869,
+    "clean_cli_help.operation.json": 0.5467656,
+    "clean_configs.operation.json": 0.4946074,
+    "clean_isolation.operation.json": 12.087587,
+    "clean_n17_evaluate.operation.json": 3.0819984,
+    "clean_n17_independent_audit.operation.json": 1.6210304,
+    "clean_n17_independent_audit_corrected_identity.operation.json": 10.6502079,
+    "clean_tests_windows.operation.json": 28.1350948,
+    "clean_tests_wsl.operation.json": 6.7086144,
+    "clean_tools.operation.json": 11.6951577
+  },
+  "corrected_clean_validation_seconds": 160.0065323,
+  "excluded_operation": "candidate_tests_windows.operation.json",
+  "excluded_seconds": 25.1465696,
+  "helper_sha256": "e52b49a90bd2007d025779b58237f53adfb65cce3ce1dbde196e5a1dfe8e8dee",
+  "no_raw_record_or_source_change": true,
+  "original_costs": {
+    "clean_validation_outer_calls_seconds": 185.1531019,
+    "clock": "Windows QPC for outer operations; scope is not sum of nested ranges",
+    "diagnostic_collection_seconds": 151.5732249,
+    "formal_abandoned_attempt_seconds": 0,
+    "formal_execution_seconds": 0,
+    "formal_gate_wait_seconds": 0,
+    "formal_retest_seconds": 0,
+    "historical_campaign_cost_delta_seconds": 0,
+    "native_process_seconds_nested_in_collection": 128.7020971,
+    "probe_compile_call_seconds": 8.8941703,
+    "small_target_call_seconds_nested_in_clean_validation": 3.0819984,
+    "task_elapsed_from_first_saved_head_check_seconds": 1462.5654545,
+    "task_elapsed_scope": "Includes implementation, manual tests, inspection, exports and waiting; not pure diagnostic/benchmark cost. Nested components must not be added again.",
+    "wsl_metadata_seconds_nested_in_collection": 21.951911
+  },
+  "prior_delivery_commit": "b1a478e39b8f92b389e68e9e5ae20e853229fba0",
+  "reason": "candidate_ prefix included the separate pre-freeze regression; split that cost instead of mislabeling it clean validation"
+}

@@ -103,5 +103,8 @@ RAW差5991ns与输出5.991e-6s精确一致。这是契约/正确性诊断，不�
 SHA256SUMS和SOURCE_PROVENANCE.md（仍在10760项历史原字节保护中），教师C绝不排除或
 允许行尾变换。仅重新审计同一结果通过，没有再跑矩阵或修改3c7a4ab运行内容。
 收尾辅助脚本的实际来源SHA单列，不冒充候选归档中的执行源码。
+成本复算：双干净归档导出与验证160.0065323秒（含小矩阵调用3.0819984秒）；
+冻结前Windows相关回归25.1465696秒另列，含它的广义辅助集合185.1531019秒不是纯干净验证。
+两者为包含关系，不相加；原口径与逐操作更正见本批 `cost_scope_correction.json`。
 本轮正式 execution_complete / timing_checks_pass / comparison_ready 均为 false；
 recovery、Formal门禁、4096、Grid、搜索执行均为0，不生成新session或恢复证书。
