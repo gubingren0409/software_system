@@ -117,21 +117,32 @@ class ResourcePolicyTests(unittest.TestCase):
         self.assertTrue(all(not row["admission_pass"] for row in saved))
 
     def test_wait_pass_and_pause_paths(self):
-        with patch("autotuner.resources.subprocess.run", return_value=subprocess.CompletedProcess(["x"], 0, json.dumps(record()), "")) as run:
+        with patch("autotuner.resources.subprocess.run", return_value=subprocess.CompletedProcess(["x"], 0, json.dumps(record()).encode(), b"")) as run:
             self.assertTrue(wait_formal(["x"], PROTOCOL, lambda row: None)[0])
             self.assertFalse(wait_formal(["x"], PROTOCOL, lambda row: None, lambda: True)[0])
             self.assertEqual(run.call_count, 1)
 
     def test_invalid_collector_json_and_launch_error_are_saved_without_admission(self):
-        for response in (subprocess.CompletedProcess(["x"], 0, "[]", ""), OSError("missing collector")):
+        for response in (subprocess.CompletedProcess(["x"], 0, "[]", ""), OSError("missing collector"), ValueError("invalid command")):
             saved = []
-            with patch("autotuner.resources.subprocess.run", side_effect=response if isinstance(response, OSError) else None,
+            with patch("autotuner.resources.subprocess.run", side_effect=response if isinstance(response, Exception) else None,
                        return_value=response), \
                     patch("autotuner.resources.time.sleep"):
                 passed, _ = wait_formal(["x"], PROTOCOL, saved.append, lambda: bool(saved))
             self.assertFalse(passed)
             self.assertEqual(len(saved), 1)
             self.assertEqual(saved[0]["parsed"]["decision"], "ERROR")
+
+    def test_non_utf8_native_failure_preserves_exit_and_original_error_bytes(self):
+        saved = []
+        message = "无法加载文件：未进行数字签名".encode("gb18030")
+        with patch("autotuner.resources.subprocess.run", return_value=subprocess.CompletedProcess(["x"], 1, b"", message)), \
+                patch("autotuner.resources.time.sleep"):
+            passed, _ = wait_formal(["x"], PROTOCOL, saved.append, lambda: bool(saved))
+        self.assertFalse(passed)
+        self.assertEqual(saved[0]["returncode"], 1)
+        self.assertEqual(bytes.fromhex(saved[0]["stderr_raw_hex"]), message)
+        self.assertEqual(saved[0]["parsed"]["decision"], "ERROR")
 
     @unittest.skipUnless(os.name == "nt", "actual Windows entry regression")
     def test_actual_powershell_and_python_use_same_decision(self):

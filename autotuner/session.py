@@ -95,7 +95,7 @@ def run_grid(root: Path, output: Path, content_sha: str, git_identity_path: Path
     powershell = "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
     script_windows = subprocess.run(["wslpath", "-w", str(root / "scripts/check_p2_resources.ps1")],
                                     text=True, capture_output=True, check=True).stdout.strip()
-    host_command = [powershell, "-NoProfile", "-File", script_windows]
+    host_command = [powershell, "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", script_windows]
     checkpoint_path = output / "checkpoint.json"
     checkpoint = json.loads(checkpoint_path.read_text()) if resume else {
         "session_id": uuid.uuid4().hex, "status": "created", "completed": [], "active": None,

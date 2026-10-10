@@ -281,7 +281,7 @@ def _run_campaign(root: Path, output: Path, content_sha: str, git_identity_path:
         windows_script = subprocess.run(["wslpath", "-w", str(root / "scripts/check_p2_resources.ps1")],
                                         capture_output=True, text=True, check=True).stdout.strip()
         host_command = ["/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
-                        "-NoProfile", "-File", windows_script]
+                        "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", windows_script]
 
     def gate(config: Config, purpose: str) -> bool:
         if host_command is not None and "policy_hash" in protocol["resource_gate"]:

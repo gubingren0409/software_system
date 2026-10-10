@@ -69,4 +69,27 @@ campaign 活动、门禁等待、放弃尝试、辅助诊断分列，嵌套范�
 
 ## 当前交付结果
 
-待一次有限 recovery 与独立验收后据原始证据填写；此内容提交尚不声明时钟或正式比较通过。
+实际执行内容 `e0353bfdd20abb3bf9b33790b0d3558268621cea`，空 session
+`920aee4663ff44b084cd11d35eeeadbb`。唯一一次 recovery：20/20 MONO/RAW、
+20/20 REALTIME/RAW、2/2 Windows 同调用检查全部通过，冻结源码50/50匹配。
+Recovery 门禁宿主CPU均值6%/最高11%，内存/磁盘通过；没有因NTP未同步拒绝诊断。
+原始记录见 [recovery](../evidence/p3_resource_policy/20261010-143415/recovery/)，
+[独立复算](../evidence/p3_resource_policy/20261010-143415/independent_recovery.json)。
+
+随后新的 Formal 门禁和批前3区间通过，campaign确实被调用，**退出1、没有矩阵执行**。
+WSL归档的资源PS脚本为UNC路径；本轮错误移除了基线已有的子进程 `-ExecutionPolicy Bypass`，
+Windows因签名拒绝该脚本。中文GB18030 stderr触发UTF-8解码异常，资源函数又在异常
+分支访问未初始化的result，导致UnboundLocalError。原始失败和只读复现（含原字节hex）保留在
+[resume](../evidence/p3_resource_policy/20261010-143415/resume/)和
+[diagnosis](../evidence/p3_resource_policy/20261010-143415/diagnosis/)。批后3区间也通过。
+这不是CPU拒绝，也不是时钟失败。
+
+修复恢复**基线已有且仅对子进程生效**的启动参数，未调用Set-ExecutionPolicy、改注册表、
+系统策略或组织策略；资源采集改为先保留二进制流、再解析，非UTF-8错误留原字节hex、真实
+退出码，启动异常退出码未知而非补0。增加该错误回归及准确新归档的WSL→Windows UNC
+受控入口重放（仅合成资源数据，不冒充真实门禁）。修复提交和干净验证另绑新身份。
+
+本轮唯一recovery额度已用。e0353bf检查只能认证其当时的session和失败调用，**不能移用到
+修复后的新内容/session**，也不自行再采20区间。修复后仅验证/初始化新空session；新的正式
+恢复须外部审计后重新授权一次有限recovery。旧campaign及本次失败session均保留，不改写成绩。
+当前没有完整搜索轨迹、前缀结果或候选复测；后续交付根据新内容的实际干净验证补全。

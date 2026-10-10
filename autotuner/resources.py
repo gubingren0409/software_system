@@ -143,23 +143,37 @@ def wait_formal(command, protocol, on_record, pause_requested=lambda: False):
         remaining = budget - (time.monotonic() - started)
         if remaining <= 0:
             break
+        result, raw_hex = None, {}
         try:
-            result = subprocess.run(command, capture_output=True, text=True,
-                                    timeout=min(policy["collection_timeout_seconds"], remaining), check=False)
+            raw = subprocess.run(command, capture_output=True,
+                                 timeout=min(policy["collection_timeout_seconds"], remaining), check=False)
+            streams = {}
+            for field in ("stdout", "stderr"):
+                value = getattr(raw, field)
+                if isinstance(value, bytes):
+                    try:
+                        value = value.decode("utf-8")
+                    except UnicodeDecodeError:
+                        raw_hex[field + "_raw_hex"] = value.hex()
+                        value = value.decode("utf-8", errors="backslashreplace")
+                streams[field] = value
+            result = subprocess.CompletedProcess(command, raw.returncode, streams["stdout"], streams["stderr"])
             parsed = json.loads(result.stdout.lstrip("\ufeff"), parse_constant=reject_constant)
             if not isinstance(parsed, dict):
                 raise ValueError("Resource JSON must be an object")
         except subprocess.TimeoutExpired:
             result = subprocess.CompletedProcess(command, 124, "", "resource collection timeout")
             parsed = {"decision": "ERROR", "rejection_reasons": ["collection timeout"]}
-        except ValueError:
+        except ValueError as error:
+            if result is None:
+                result = subprocess.CompletedProcess(command, None, "", str(error))
             parsed = {"decision": "ERROR", "rejection_reasons": ["invalid resource JSON"]}
         except OSError as error:
             result = subprocess.CompletedProcess(command, None, "", str(error))
             parsed = {"decision": "ERROR", "rejection_reasons": ["resource collector could not start"]}
         elapsed = time.monotonic() - started
         passed = elapsed <= budget and result.returncode == 0 and valid_gate(parsed, protocol, "Formal")
-        on_record({"captured_at": utc_now(), "command": command, "returncode": result.returncode,
+        on_record({**raw_hex, "captured_at": utc_now(), "command": command, "returncode": result.returncode,
                    "stdout": result.stdout, "stderr": result.stderr, "parsed": parsed,
                    "admission_pass": passed, "wait_elapsed_seconds": elapsed, "wait_budget_seconds": budget})
         if passed:

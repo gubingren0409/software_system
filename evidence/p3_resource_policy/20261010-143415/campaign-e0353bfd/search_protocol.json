@@ -1,0 +1,50 @@
+{
+  "budget_unit": "unique configuration evaluations",
+  "budgets": [
+    4,
+    8,
+    12
+  ],
+  "canonical_order": {
+    "inner_dimension": "block_sizes in configs/config_space.json order",
+    "outer_dimension": "optimization_levels in configs/config_space.json order"
+  },
+  "fairness": {
+    "failed_evaluation_has_score": false,
+    "final_candidate_retest_counts_against_budget": false,
+    "same_target_input_and_measurement_protocol": true,
+    "search_trajectory_is_not_changed_by_final_retest": true
+  },
+  "grid": {
+    "comparison_reference": "The best valid result from the complete 20-configuration Grid is the quality reference for later algorithms.",
+    "early_stop": false,
+    "limited_budget_comparison": "If canonical Grid prefixes of 4, 8 and 12 are reported, label them as order-dependent; the optimization-level-outer and block-size-inner order can bias prefix quality.",
+    "rule": "Evaluate all 20 canonical configurations exactly once at the configuration level."
+  },
+  "prefix_rule": "For each seed, run one 12-evaluation trajectory; budgets 4 and 8 are prefixes of that same trajectory.",
+  "random_restart_greedy": {
+    "accept": "After the available neighborhood is evaluated, move to the strictly lower-score best neighbor; break equal scores by canonical order.",
+    "grid": "The two axes are the listed optimization levels and block sizes.",
+    "information_constraint": "It may reuse its own prior observations but may not read Grid, another algorithm, or another seed's results.",
+    "neighbor_order": "Shuffle the current point's unevaluated neighbors using the same seeded RNG, then evaluate them in that order.",
+    "neighbors": "Change exactly one parameter to any other legal value: three alternative optimization levels plus four alternative block sizes, for seven unique neighbors at every point.",
+    "restart": "If no strict improvement exists, restart uniformly from all unevaluated configurations.",
+    "start": "Choose uniformly from all unevaluated configurations using the search seed.",
+    "stop": "Stop when the unique-evaluation budget is exhausted or no unevaluated configuration remains."
+  },
+  "random_without_replacement": {
+    "information_constraint": "The strategy may use only measurements from its own evaluated prefix.",
+    "replacement": false,
+    "rule": "Apply a seeded Fisher-Yates shuffle to the 20 canonical configurations and evaluate in that order."
+  },
+  "revision_reason": "P1-R1 external review corrected the greedy neighborhood before any formal Grid or stochastic search was run.",
+  "schema_version": 2,
+  "search_seeds": [
+    20261008,
+    20261009,
+    20261010,
+    20261011,
+    20261012
+  ],
+  "status": "revised-p1-r1-before-formal-grid"
+}

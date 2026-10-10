@@ -1,0 +1,112 @@
+{
+  "captured_at": "2026-10-10T06:59:26.764339+00:00",
+  "clock_info": {
+    "monotonic": "namespace(implementation='clock_gettime(CLOCK_MONOTONIC)', monotonic=True, adjustable=False, resolution=1e-09)",
+    "time": "namespace(implementation='clock_gettime(CLOCK_REALTIME)', monotonic=False, adjustable=True, resolution=1e-09)"
+  },
+  "command": [
+    "/usr/bin/python3",
+    "scripts/check_p2_clocks.py",
+    "--intervals",
+    "3",
+    "--seconds",
+    "3",
+    "--skip-host",
+    "--output",
+    "/mnt/e/software_system/project01/evidence/p3_resource_policy/20261010-143415/resume/clock_after.wsl.json"
+  ],
+  "commands": [
+    {
+      "captured_at": "2026-10-10T06:59:26.750424+00:00",
+      "command": [
+        "cat",
+        "/sys/devices/system/clocksource/clocksource0/current_clocksource",
+        "/sys/devices/system/clocksource/clocksource0/available_clocksource"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "tsc\ntsc hyperv_clocksource_tsc_page hyperv_clocksource_msr acpi_pm \n"
+    },
+    {
+      "captured_at": "2026-10-10T06:59:26.764326+00:00",
+      "command": [
+        "timedatectl",
+        "show",
+        "-p",
+        "NTPSynchronized",
+        "-p",
+        "CanNTP",
+        "-p",
+        "NTP"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "CanNTP=yes\nNTP=yes\nNTPSynchronized=yes\n"
+    }
+  ],
+  "schema": "p2-clock-probe-v1",
+  "script_sha256": "1cf4217497f674520ce22f015c61067287051d5644af66f4b27d2df2720706aa",
+  "system_settings_modified": false,
+  "wsl_intervals": [
+    {
+      "after": {
+        "boottime_ns": 340362281102,
+        "monotonic_ns": 340362276900,
+        "raw_ns": 340190893229,
+        "realtime_ns": 1791615560745366637
+      },
+      "before": {
+        "boottime_ns": 337362089445,
+        "monotonic_ns": 337362087630,
+        "raw_ns": 337193444077,
+        "realtime_ns": 1791615557745178961
+      },
+      "delta": {
+        "boottime_seconds": 3.000191657,
+        "monotonic_seconds": 3.00018927,
+        "raw_seconds": 2.997449152,
+        "realtime_seconds": 3.000187676
+      }
+    },
+    {
+      "after": {
+        "boottime_ns": 343362718834,
+        "monotonic_ns": 343362708982,
+        "raw_ns": 343189176586,
+        "realtime_ns": 1791615563745798249
+      },
+      "before": {
+        "boottime_ns": 340362311108,
+        "monotonic_ns": 340362310536,
+        "raw_ns": 340190924689,
+        "realtime_ns": 1791615560745402649
+      },
+      "delta": {
+        "boottime_seconds": 3.000407726,
+        "monotonic_seconds": 3.000398446,
+        "raw_seconds": 2.998251897,
+        "realtime_seconds": 3.0003956
+      }
+    },
+    {
+      "after": {
+        "boottime_ns": 346363273227,
+        "monotonic_ns": 346363269249,
+        "raw_ns": 346188660954,
+        "realtime_ns": 1791615566746359157
+      },
+      "before": {
+        "boottime_ns": 343362743640,
+        "monotonic_ns": 343362742968,
+        "raw_ns": 343189205020,
+        "realtime_ns": 1791615563745835082
+      },
+      "delta": {
+        "boottime_seconds": 3.000529587,
+        "monotonic_seconds": 3.000526281,
+        "raw_seconds": 2.999455934,
+        "realtime_seconds": 3.000524075
+      }
+    }
+  ]
+}

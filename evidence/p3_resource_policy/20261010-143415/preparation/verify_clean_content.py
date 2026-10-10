@@ -102,6 +102,22 @@ def main():
     checkpoint = load(output / "initialized_campaign/checkpoint.json")
     assert checkpoint["session_id"] == diagnostic_session and checkpoint["completed_trajectories"] == []
     assert checkpoint["status"] == "initialized" and "fingerprint" not in checkpoint
+    # Exercise the exact WSL -> Windows UNC launch path without running targets
+    # or taking another real admission/clock sample. This is explicitly a replay.
+    source = load(output / "wsl_source_identity.stdout.txt")["scripts/check_p2_resources.ps1"]
+    replay = {"schema": "p3-resource-snapshot-v1", "collector_sha256": source["executed_sha256"],
+        "collector_lf_sha256": source["git_content_sha256"], "host_total_visible_bytes": 16 * 2**30,
+        "host_samples": [{"timestamp": f"2026-10-10T14:00:0{i}+08:00", "cpu_percent": cpu,
+                          "available_memory_bytes": 3 * 2**30} for i, cpu in enumerate((13,9,16,18,15))],
+        "wsl_total_bytes": 8 * 2**30, "wsl_available_bytes": 4 * 2**30,
+        "wsl_swap_total_bytes": 2**30, "wsl_swap_free_bytes": 2**30, "wsl_root_free_bytes": 5 * 2**30}
+    atomic_write_json(output / "controlled_replay_input.json", replay)
+    code = "from pathlib import Path; import json,subprocess; from autotuner.resources import wait_formal; " \
+        "root=Path.cwd(); script=subprocess.run(['wslpath','-w',str(root/'scripts/check_p2_resources.ps1')],capture_output=True,text=True,check=True).stdout.strip(); " \
+        "command=['/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',script,'-Mode','Formal','-RuntimeRoot',str(root),'-InputSnapshot'," + repr(str(output / "controlled_replay_input.json")) + "]; " \
+        "rows=[]; passed,elapsed=wait_formal(command,json.load(open('configs/measurement_protocol.json')),rows.append); " \
+        "print(json.dumps({'synthetic':True,'is_real_gate':False,'pass':passed,'elapsed_seconds':elapsed,'records':rows})); assert passed and len(rows)==1"
+    run("controlled_unc_resource_replay", [*prefix, "-c", code], 150)
     run("invariants", ["git", "diff", "--exit-code", "aae4147f1e246c5fb115060ef484df625b611e3d", content, "--",
         "code", "autotuner/core.py", "autotuner/measurement.py", "autotuner/search.py", "configs/config_space.json",
         "configs/search_protocol.json", "configs/target.json", "configs/timing_audit_protocol.json", "scripts/check_p2_clocks.py"])

@@ -1,0 +1,121 @@
+{
+  "parsed": {
+    "captured_at_local": "2026-10-10T14:56:46.3162240+08:00",
+    "checks": {
+      "cpu_average": true,
+      "cpu_maximum": true,
+      "host_memory": true,
+      "root_disk": true,
+      "wsl_memory": true
+    },
+    "collector_lf_sha256": "83c3ff713297ab58410834e2b514a8c3582de9c424212985e561b7b5117e4626",
+    "collector_sha256": "83c3ff713297ab58410834e2b514a8c3582de9c424212985e561b7b5117e4626",
+    "decision": "PASS",
+    "formal_gate": "NOT_APPLICABLE",
+    "host_cpu_average_percent": 6.0,
+    "host_cpu_maximum_percent": 11,
+    "host_minimum_available_bytes": 2953658368,
+    "host_samples": [
+      {
+        "available_memory_bytes": 2964344832,
+        "commit_limit_bytes": 54425735168,
+        "committed_bytes": 24711065600,
+        "cpu_percent": 6,
+        "memory_temperature_or_throttling": "unknown",
+        "page_reads_per_second": 1602,
+        "pages_per_second": 1775,
+        "percent_committed_bytes_in_use": 45,
+        "timestamp": "2026-10-10T14:56:39.8455599+08:00"
+      },
+      {
+        "available_memory_bytes": 2970357760,
+        "commit_limit_bytes": 54425735168,
+        "committed_bytes": 24692350976,
+        "cpu_percent": 6,
+        "memory_temperature_or_throttling": "unknown",
+        "page_reads_per_second": 19,
+        "pages_per_second": 84,
+        "percent_committed_bytes_in_use": 45,
+        "timestamp": "2026-10-10T14:56:41.5006583+08:00"
+      },
+      {
+        "available_memory_bytes": 2956861440,
+        "commit_limit_bytes": 54425735168,
+        "committed_bytes": 24694738944,
+        "cpu_percent": 5,
+        "memory_temperature_or_throttling": "unknown",
+        "page_reads_per_second": 0,
+        "pages_per_second": 0,
+        "percent_committed_bytes_in_use": 45,
+        "timestamp": "2026-10-10T14:56:43.1127614+08:00"
+      },
+      {
+        "available_memory_bytes": 2970750976,
+        "commit_limit_bytes": 54425735168,
+        "committed_bytes": 24694063104,
+        "cpu_percent": 2,
+        "memory_temperature_or_throttling": "unknown",
+        "page_reads_per_second": 0,
+        "pages_per_second": 0,
+        "percent_committed_bytes_in_use": 45,
+        "timestamp": "2026-10-10T14:56:44.7122944+08:00"
+      },
+      {
+        "available_memory_bytes": 2953658368,
+        "commit_limit_bytes": 54425735168,
+        "committed_bytes": 24708231168,
+        "cpu_percent": 11,
+        "memory_temperature_or_throttling": "unknown",
+        "page_reads_per_second": 0,
+        "pages_per_second": 0,
+        "percent_committed_bytes_in_use": 45,
+        "timestamp": "2026-10-10T14:56:46.3162240+08:00"
+      }
+    ],
+    "host_total_visible_bytes": 16340406272,
+    "minimum_disk_bytes": 1073741824,
+    "minimum_memory_bytes": 2147483648,
+    "mode": "Recovery",
+    "policy": {
+      "authorization": "User instruction after audit aae4147 explicitly replaces the prior CPU limits; measurement, inputs, search and scoring remain unchanged.",
+      "collection_timeout_seconds": 60,
+      "formal_retry_interval_seconds": 10,
+      "formal_wait_budget_seconds": 120,
+      "host_minimum_available_bytes": 2147483648,
+      "purposes": {
+        "Formal": {
+          "cpu_average_limit_percent": 30,
+          "cpu_maximum_limit_percent": 60,
+          "cpu_reject": true
+        },
+        "Recovery": {
+          "cpu_average_limit_percent": 10,
+          "cpu_maximum_limit_percent": 20,
+          "cpu_reject": false
+        }
+      },
+      "sample_count": 5,
+      "sample_interval_seconds": 1,
+      "schema": "p3-resource-policy-v1",
+      "scope": "Background admission before a configuration, never a limit on the target program's own runtime CPU usage. Preserve every raw reading; no filtering.",
+      "version": "2026-10-10-cpu-admission-v1",
+      "wsl_minimum_available_bytes": 2147483648,
+      "wsl_root_minimum_free_bytes": 1073741824
+    },
+    "policy_file_sha256": "0b423aab2e40b4bc65df5d3d3a3969d54d819eaf36ecaf7ad22bf95f0297ab5d",
+    "policy_hash": "e191aee4348fa5501bb923dbf1be35741a188c738ebf6fdb4863bc91b0be5671",
+    "policy_version": "2026-10-10-cpu-admission-v1",
+    "purpose": "Recovery",
+    "recovery_gate": "PASS",
+    "rejection_reasons": [],
+    "schema": "p3-resource-gate-v3",
+    "warnings": [],
+    "wsl_available_bytes": 4880781312,
+    "wsl_root_free_bytes": 223749046272,
+    "wsl_swap_free_bytes": 2147483648,
+    "wsl_swap_total_bytes": 2147483648,
+    "wsl_total_bytes": 7908257792
+  },
+  "pass": true,
+  "returncode": 0
+}
