@@ -1,8 +1,10 @@
 # 审计交接入口
 
-当前入口为aedf028a后集中只读诊断：[`P3_CLOCK_REPAIR.md`](P3_CLOCK_REPAIR.md)、
-[`P3_FIRST_SEED_STATUS.md`](P3_FIRST_SEED_STATUS.md)；权限/宿主低内存阻塞，没有新recovery
-或正式执行，P3比较仍未完成。新证据位于`evidence/p3_clock_repair/20261010-121004/`。
+当前入口为e4f93333后管理员处理/资源核验：[`P3_CLOCK_REPAIR.md`](P3_CLOCK_REPAIR.md)、
+[`P3_FIRST_SEED_STATUS.md`](P3_FIRST_SEED_STATUS.md)。管理员resync报告无可用时间数据，
+当前仍未同步；内存恢复但原Formal门禁因CPU均值14.2%拒绝，没有新recovery或正式执行。
+新证据位于`evidence/p3_clock_repair/20261010-135557/`，管理员原件在
+`evidence/p3_clock_repair/admin-20261010-135245/`；P3比较仍未完成。
 旧Grid、观测、部分组和失败记录均保留，辅助执行身份仍为fa59701。
 
 0023ceed历史独立审计修订：[`P3_TIMING_AUDIT.md`](P3_TIMING_AUDIT.md)、

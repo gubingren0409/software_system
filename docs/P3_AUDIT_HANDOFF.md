@@ -1,6 +1,18 @@
 # P3 审计入口（首种子时钟阻塞，正式比较未完成）
 
-## 最新：aedf028a后只读诊断（2026-10-10）
+## 最新：e4f93333后管理员处理/资源核验（13:56）
+
+[管理员原始日志](../evidence/p3_clock_repair/admin-20261010-135245/admin-session.txt)、
+[本批独立验收](../evidence/p3_clock_repair/20261010-135557/independent_acceptance.json)、
+[说明与下一步](P3_CLOCK_REPAIR.md)。管理员resync有输出但无可用时间数据，日志0
+不能确认成功；操作后/当前均Leap=3、stratum=0。配置仍为既有time.windows.com,0x9。
+内存恢复至宿主最低2.537GiB、WSL5.789GiB，但原Formal门禁CPU均值14.2%>10%，
+REJECT/退出2。新recovery/resume/矩阵均未执行，不能拿历史PASS替代。
+辅助七文件仍fa59701、32冻结SHA匹配；原3配置/23执行/0轨迹/0复测及部分组3/2未变。
+验收为true/false/false/false（第一项仅本批证据保护）；完成模式退出2，比较未完成。
+未重跑28项回归或扩大诊断；本阶段停止，先解决同步/资源条件再由审计安排下一轮。
+
+## 历史：aedf028a后只读诊断（2026-10-10）
 
 [集中诊断/处理决策/下一步](P3_CLOCK_REPAIR.md)；
 [独立后处理](../evidence/p3_clock_repair/20261010-121004/diagnosis_analysis.json)。

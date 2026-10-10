@@ -3,6 +3,41 @@
 历史从2026-10-08开始，后续操作按各段时间戳/时区记录（本地Asia/Shanghai）。
 本文保留P0--P3实际操作、失败与修复；正式报告只写证据支持并明确局限的结论。
 
+## e4f93333后管理员处理核验（2026-10-10 13:53起）
+
+- HEAD/分支为e4f93333/project01，基点是祖先。开始只有用户新增的管理员日志目录，
+  保留原件；WSL fetch github退出0，远端跟踪更新后与本地一致。不重试旧origin代理
+  故障，不改远程/TLS。依Karpathy技能限制为原有工具复用、证据和文档，无正式实现修改。
+- 实际日志`admin-20261010-135245/admin-session.txt`4097字节、UTF-8 BOM、原有352
+  个NUL，SHA-256为1cd69bb7…c61c947。原件按字节提交，另存仅去BOM/NUL的可读派生物。
+  configuration/source/peers有输出且仍time.windows.com,0x9，但各自原生退出码unknown。
+  resync执行输出明确无可用时间数据；日志记录0、上次成功时间更新不能证明成功，
+  操作后仍Leap3/stratum0/错误1。未提供调用脚本，精确flags/退出码可靠性unknown。
+- 仅再次只读查询当前status（退出0）仍未同步；不进行第二次resync或网络探测。
+  一次原Formal门禁退出2/REJECT：宿主内存最低2724028416字节，WSL6215512064字节，
+  根盘223818285056字节、swap0，内存恢复；CPU13/9/16/18/15%，均值14.2%>10%，
+  最大18%通过20%。本轮recovery/resume/矩阵执行均0，未重新采样直至通过。
+- 证据集中于20261010-135557；复用fa59701 capture、auxiliary_identity、snapshot、
+  valid_formal_gate和部分campaign审计。32项冻结实际SHA一致，七个审核辅助文件未改，
+  10213个历史保护文件及上一批177文件原始字节与已有清单/Git完全一致。
+- 一次性后处理有两项局部问题，原失败证据均保留：进程substring匹配将自己的
+  timeout父进程误标为目标，改为argv token检查；sha256_file传str报AttributeError，
+  改传Path。初版源码留为review_admin_result_initial.py，第一次后处理退出1及stderr
+  原样保留；最终后处理退出2符合两轨迹未完成。未改已审核辅助源码，未重跑28项回归。
+  一次文档patch因上下文笔误拒绝，未改变文件；随后正确patch通过。
+- 原始JSONL23条/run_id、根/子检查点、完整观测和PAUSE_REQUEST不变；18条属于完整组，
+  旧3条abandoned、新2条pending_restart均不计分。仍random3/12、greedy0/12、0/2轨迹，
+  六行预算结果/独立复测均0。无正式进程、runner锁可用。
+- 独立验收true/false/false/false，仅第一项认证本批证据与保护；新计时状态明确未执行。
+  历史活动/等待/终态/部分/复测成本不变，本轮正式增量0；前置门禁33.7389714秒属于
+  本批辅助核验，不追加campaign.wait。辅助成本按捕获QPC区间并集记账，不含未捕获的
+  初始浏览、编辑/模型/离线/提交/推送成本。具体范围/逐命令见auxiliary_cost_index.json。
+- 提交前检查原件及新证据Git blob与实际字节相等，检查相对链接/敏感模式/改动范围；
+  原部分审计器在Windows输出CRLF JSON/CRCRLF CSV，首次diff--check提示行尾空白；
+  不修改原始输出，仅此新批次对应捕获文件设局部-whitespace，源码/文档仍检查。
+  正常提交并推送project01，最终SHA/远端核验在终端交接，不制造自引用提交。
+  本阶段阻塞交付后停止；先明确同步状态并恢复CPU门禁，再由审计决定新一次有限验证。
+
 ## aedf028a后集中时钟诊断（2026-10-10）
 
 - project01/HEAD=aedf028a，初始工作区干净且祖先检查退出0。先保存根/子检查点、

@@ -1,6 +1,34 @@
 # 首种子正式比较：时钟阻塞（更新于 2026-10-10）
 
-## 当前：aedf028a 后集中诊断，权限/资源阻塞
+## 当前：e4f93333后管理员处理核验，未同步/CPU门禁阻塞
+
+实际管理员日志为
+[`admin-20261010-135245/admin-session.txt`](../evidence/p3_clock_repair/admin-20261010-135245/admin-session.txt)。
+W32Time Running，配置/源/peers有完整输出，仍是既有time.windows.com,0x9；这些查询
+没有各自的可靠原生退出码记录。resync有执行输出但报告无可用时间数据，记录的0与
+语义冲突，脚本来源未提供，不能确认该0是可靠原生退出码。操作后Leap=3/层次0，
+本轮13:56只读查询仍如此，最后同步错误为1。未再次resync，未修改配置或系统设置。
+
+新唯一目录为`evidence/p3_clock_repair/20261010-135557/`。原Formal门禁只执行一次：
+宿主最低2724028416字节（2.537GiB）、WSL6215512064字节（5.789GiB）、swap使用0，
+内存恢复并通过阈值；CPU五次13/9/16/18/15%，平均14.2%>10%，最大18%通过20%。
+因此门禁REJECT/退出2，未启动recovery或矩阵。新时钟区间0；状态是**未执行**，
+不是20项通过或新20项失败。也没有把旧检查的PASS移用给此批。
+
+正式content=e308bfb、session=dc1c292900654d44b36a72548b95a610和辅助fa59701不变。
+仍random 3/12、greedy 0/12，0/2轨迹、23执行（18完整组、3已放弃、2待重启），
+六行预算结果与候选复测均0。原检查点/JSONL/run_id/完整观测及PAUSE_REQUEST未改，
+32项冻结哈希匹配；本轮只做必要后处理，不重跑28项回归、4096或历史正确性案例。
+
+[本批独立验收](../evidence/p3_clock_repair/20261010-135557/independent_acceptance.json)：
+evidence_integrity_pass=true（管理员日志/门禁/来源/历史保护范围），execution_complete=false，
+timing_checks_pass=false（not_performed），comparison_ready=false；要求两轨迹完成的退出码2。
+没有正式实验进程，原runner锁可用。各项正式成本增量0；辅助命令及历史嵌套成本另列，
+见[P3_CLOCK_REPAIR](P3_CLOCK_REPAIR.md)。本阶段到此停止，等待审计；未消耗本轮一次
+recovery额度，也不在交付后自行重试。后续须明确同步处理结果并通过新Formal门禁，
+再获下一轮指令以新唯一目录执行有限验证；原运行器才可归档那2条未完成样本。
+
+## 历史：aedf028a 后集中诊断，权限/资源阻塞
 
 本轮完成只读环境诊断、旧20区间独立复算和28项针对性回归；没有有效环境处理，
 因此新 recovery/resume/矩阵执行均为0。W32Time Running但Leap=3未同步，当前token

@@ -1,0 +1,81 @@
+{
+  "administrator_historical_elapsed_seconds": "unknown (no QPC and wall-clock reversal)",
+  "cutoff": "after final independent postprocessing, before delivery/staging/commit/push",
+  "duration_sum_seconds": 134.2249109,
+  "formal_abandoned_delta_seconds": 0,
+  "formal_campaign_delta_seconds": 0,
+  "formal_gate_wait_delta_seconds": 0,
+  "formal_prerequisite_resource_gate_seconds": 33.7389714,
+  "formal_retest_delta_seconds": 0,
+  "history_scopes": {
+    "already_abandoned_process_seconds": 1336.5988659930008,
+    "campaign_active_seconds": 7120.7549151379935,
+    "formal_gate_wait_seconds": 1165.348474737002,
+    "independent_retest_seconds": 0,
+    "partial_process_seconds": 2236.427057095003,
+    "pending_restart_process_seconds": 899.8281911020022,
+    "terminal_configuration_call_seconds": 3668.358618804996
+  },
+  "legacy_auditor_field_note": "partial_campaign_audit.cost_seconds.all_complete_process_wall includes partial raw executions despite its legacy label; do not interpret it as complete-only or add it to terminal/partial costs.",
+  "operation_count": 9,
+  "operations": [
+    {
+      "file": "operations/formal_process_state.operation.json",
+      "qpc_seconds": 9.6947903,
+      "returncode": 0,
+      "sha256": "64aef3631c6d0a533e18453b824f128e848fa29839cc674c3cfd001f46ec3dfd"
+    },
+    {
+      "file": "operations/formal_process_state_tokens.operation.json",
+      "qpc_seconds": 16.3784122,
+      "returncode": 0,
+      "sha256": "b0cba168f29dcf143e392470b594346f7ea2d8e8f220436ad765e4f3d1f5fc88"
+    },
+    {
+      "file": "operations/formal_resources.operation.json",
+      "qpc_seconds": 33.7389714,
+      "returncode": 2,
+      "sha256": "59687701a475a7f950189876dc940bc0287028505f47f1cb91f1e98406664f69"
+    },
+    {
+      "file": "operations/frozen_files.operation.json",
+      "qpc_seconds": 20.1818471,
+      "returncode": 0,
+      "sha256": "0d7ec9597cf07fdcdb4f46184fa3fe7b7cae5a9d54719ba7cf86ac0554a85301"
+    },
+    {
+      "file": "operations/git_fetch_github.operation.json",
+      "qpc_seconds": 19.3955379,
+      "returncode": 0,
+      "sha256": "47a3875fb0875d701d44fb6f7ed2e19dc48ecfc5734cc8bd7c00d9d06bab0e14"
+    },
+    {
+      "file": "operations/partial_campaign_audit.operation.json",
+      "qpc_seconds": 0.8142861,
+      "returncode": 0,
+      "sha256": "3126bf7ae696e0ebc482f822cb00c47f648cb0e35659d1b0c8675ecdeddf1d8e"
+    },
+    {
+      "file": "operations/windows_time_status.operation.json",
+      "qpc_seconds": 0.1465499,
+      "returncode": 0,
+      "sha256": "e9207e2a881c632eef52a824dd06689f634b25bd6b23a7f5c78973b69a58993e"
+    },
+    {
+      "file": "postprocess_operation/independent_acceptance.operation.json",
+      "qpc_seconds": 17.9556896,
+      "returncode": 1,
+      "sha256": "74d9188a30ba91d49e5d20f59e980ac67117fb2f139138a0d0f1263180316369"
+    },
+    {
+      "file": "postprocess_operation/independent_acceptance_final.operation.json",
+      "qpc_seconds": 15.9188264,
+      "returncode": 2,
+      "sha256": "558d27ba030e400e40723e6d8e1504ccd8ec90278bf48e8363ac244461338dfc"
+    }
+  ],
+  "qpc_frequency": 10000000,
+  "qpc_interval_union_seconds": 134.2249109,
+  "schema": "p3-captured-auxiliary-cost-index-v1",
+  "scope": "Union of captured Windows QPC intervals only; gate and postprocessing included once. History categories overlap, do not sum. No editing/model/offline/uncaptured initial reads/commit/push or entire end-to-end cost claim."
+}

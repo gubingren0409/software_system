@@ -1,5 +1,9 @@
 # 辅助时钟与验收契约 v2.1（fdeed77 审计修复）
 
+2026-10-10 13:56补充：管理员resync日志报告无可用时间数据，操作后/当前Leap=3；
+内存恢复但原Formal门禁因CPU平均14.2%拒绝。本批没有运行recovery或resume。
+辅助源码仍fa59701，判据/契约未改；最新核验见[P3_CLOCK_REPAIR](P3_CLOCK_REPAIR.md)。
+
 2026-10-10补充：本文件下述真实20区间及“本轮”指10-09历史。aedf028a后的集中
 诊断未改变辅助源码/契约，因权限不足及资源拒绝没有进行新recovery或resume。
 最新决策及前置处理要求见[P3_CLOCK_REPAIR](P3_CLOCK_REPAIR.md)；不能把历史命令
