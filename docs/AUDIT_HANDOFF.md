@@ -5,6 +5,13 @@
 [新阶段方案](P3_RAW_GRID.md)、[本轮原始操作入口](../evidence/p3_raw_grid/20261011-021601/)。
 最终结果、内容SHA、新空session和独立验收在实际执行后更新。
 
+已冻结运行内容 `3cc9e0d03ba682569fca0e91f28d364f2dab73fa`，
+空Grid session `f705a488d7b442789973381e2190c944`；
+[精确身份/归档](../evidence/p3_raw_grid/20261011-021601/final-content/plan.json)、
+[110项双干净回归/一次n17/20配置/空初始化](../evidence/p3_raw_grid/20261011-021601/final-content/clean_validation.json)。
+110测试各适用项通过，Windows/WSL分别2/3平台跳过。n17实际矩阵1/reference1，初始化二者0；
+目前恢复/4096/正式搜索仍0，下一步唯一一次fresh恢复。
+
 ## 历史RAW候选交付（已获本轮外审接受）
 
 历史：**P3_RAW_CLOCK_CANDIDATE_READY**，基于da0afd87，完成唯一22区间固定工作量诊断及

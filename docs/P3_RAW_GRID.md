@@ -75,4 +75,14 @@ setup和每组前Formal v2：五样本CPU平均≤30%、峰值≤60%；宿主物
 旧Grid继续仅历史参考，不混表、不按比例校准。
 
 本轮证据根：[20261011-021601](../evidence/p3_raw_grid/20261011-021601/)。
-正式SHA、空session、真实计数和最终结果在冻结/实际执行后补充，不预写成功。
+最终运行内容 `3cc9e0d03ba682569fca0e91f28d364f2dab73fa`。
+WSL归档 `/var/tmp/matrix-raw-grid-content-3cc9e0d03ba682569fca0e91f28d364f2dab73fa`；
+Windows归档位于本机Temp同SHA目录，完整路径、Git/字节SHA见
+[final-content/plan.json](../evidence/p3_raw_grid/20261011-021601/final-content/plan.json)。
+新空Grid session `f705a488d7b442789973381e2190c944`，初始化执行矩阵/reference均0。
+双干净归档各110项相关测试，Windows跳过2项、WSL跳过3项，适用项均通过；
+CLI及20唯一配置通过。独立空缓存一次n17/O2/s8 fresh、289元素及RAW契约通过，
+该诊断矩阵1次/reference生成1次另计，不是4096或正式Grid观测。
+[干净验证记录](../evidence/p3_raw_grid/20261011-021601/final-content/clean_validation.json)。
+预冻结3e41eb5归档和计划保留，未初始化/采集/执行矩阵，已由最终3cc9e0d替代。
+唯一恢复和最终Grid结果在真实执行后补充，不预写成功。
