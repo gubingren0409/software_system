@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "E:\software_system\project01\build\clock-reference-clean-7950a8a5\autotuner\__main__.py", line 3, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "E:\software_system\project01\build\clock-reference-clean-7950a8a5\autotuner\cli.py", line 136, in main
+    return args.action(args)
+           ^^^^^^^^^^^^^^^^^
+  File "E:\software_system\project01\build\clock-reference-clean-7950a8a5\autotuner\cli.py", line 85, in command_list_configs
+    _, space = load_runtime(args)
+               ^^^^^^^^^^^^^^^^^^
+  File "E:\software_system\project01\build\clock-reference-clean-7950a8a5\autotuner\cli.py", line 79, in load_runtime
+    target = TargetAdapter.load(args.target, evidence_root=args.evidence_root)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\software_system\project01\build\clock-reference-clean-7950a8a5\autotuner\core.py", line 183, in load
+    return cls(path, evidence_root=evidence_root)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\software_system\project01\build\clock-reference-clean-7950a8a5\autotuner\core.py", line 169, in __init__
+    raise ConfigurationError(f"compiler not found: {self.compiler}")
+autotuner.core.ConfigurationError: compiler not found: E:\usr\bin\gcc

@@ -1,0 +1,130 @@
+{
+  "batch_id": "20261010-190645-1375f246",
+  "binary_sha256": "6665366ddabad468f3e6c86be6ab5fb263619a405033cab46619943501b0cde6",
+  "collection_budget_seconds": 480,
+  "compile_command": [
+    "wsl.exe",
+    "-d",
+    "Ubuntu-24.04",
+    "--cd",
+    "/tmp",
+    "--",
+    "env",
+    "-u",
+    "PYTHONPATH",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "/usr/bin/gcc",
+    "-std=c11",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "/mnt/e/software_system/project01/code/diagnostics/clock_reference_probe.c",
+    "-o",
+    "/var/tmp/matrix-clock-reference-20261010-190645-1375f246/clock_reference_probe"
+  ],
+  "conditions": [
+    {
+      "affinity": "unbound",
+      "count": 10,
+      "name": "A",
+      "path": "libc",
+      "workload": "idle"
+    },
+    {
+      "affinity": "unbound",
+      "count": 10,
+      "name": "B",
+      "path": "libc",
+      "workload": "busy"
+    },
+    {
+      "affinity": "unbound",
+      "count": 5,
+      "name": "C",
+      "path": "syscall",
+      "workload": "idle"
+    },
+    {
+      "affinity": "first_allowed",
+      "count": 5,
+      "name": "D",
+      "path": "libc",
+      "workload": "idle"
+    }
+  ],
+  "criteria": {
+    "absolute_allowance_ns": 5000000,
+    "maximum_read_span_ns": 20000000,
+    "maximum_uncertainty_ns": 20000000,
+    "relative_allowance_percent": 1,
+    "scope": "Current cross-domain duration consistency only; not absolute physical clock certification",
+    "version": "qpc-bounded-reference-diagnostic-v1"
+  },
+  "criteria_hash": "4d6a063d5c9542f6eda56dda404644633688a47b2aa4cd6109aa5460c7f55968",
+  "decision_table": {
+    "default_mono_all_pass_raw_mismatch": "May propose versioned host-bounded admission; RAW warning; new content/archive/empty session and independent recovery required",
+    "default_mono_mismatch_or_backwards_or_wide": "Stop formal execution and hand off exact evidence",
+    "probe_bug": "Minimal correction with before/after evidence, old failures unchanged"
+  },
+  "declared_at": "2026-10-10T11:16:35.055148+00:00",
+  "default_path_count": 20,
+  "interval_count": 30,
+  "matrix_target_execution_limit_during_diagnostic": 0,
+  "metadata_command": [
+    "wsl.exe",
+    "-d",
+    "Ubuntu-24.04",
+    "--cd",
+    "/tmp",
+    "--",
+    "env",
+    "-u",
+    "PYTHONPATH",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "python3",
+    "/mnt/e/software_system/project01/scripts/collect_clock_reference_environment.py"
+  ],
+  "no_system_changes": true,
+  "preparation_source_sha256": "298eb3e17fa220103e613c671a8f994ce9eb4b4e301a1f8fccd24a394f9930b9",
+  "probe_binary": "/var/tmp/matrix-clock-reference-20261010-190645-1375f246/clock_reference_probe",
+  "probe_command": [
+    "wsl.exe",
+    "-d",
+    "Ubuntu-24.04",
+    "--cd",
+    "/tmp",
+    "--",
+    "env",
+    "-u",
+    "PYTHONPATH",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "timeout",
+    "430",
+    "python3",
+    "-c",
+    "import hashlib,os; p='/var/tmp/matrix-clock-reference-20261010-190645-1375f246/clock_reference_probe'; assert hashlib.sha256(open(p,'rb').read()).hexdigest()=='6665366ddabad468f3e6c86be6ab5fb263619a405033cab46619943501b0cde6'; os.execv(p,[p])"
+  ],
+  "retained_formal_content": "d6811cadda8ecd7b46225ebe65c51831278694a0",
+  "retained_session": "2c270825458a4857a5ac9df5aadf597b",
+  "sample_policy": "Save every completed interval and all messages/raw streams with immediate flush; no filtering, replacement or second round",
+  "schema": "clock-reference-diagnostic-manifest-v1",
+  "seconds_per_interval": 3,
+  "sleep_is_not_accuracy_reference": true,
+  "source_commit": "7950a8a533f5c60dd8fb7a0d26cb90a3e3d2b32d",
+  "source_sha256": {
+    "autotuner/core.py": "d63f8bc9ff479c77508948ad51ae4254daf9e3f7483416df90a31b01cf9959f4",
+    "autotuner/measurement.py": "81b2b43744482cfd85ee63e66cc7e93626b973d3bdc7b8226d1cc5d7edd0bd7a",
+    "autotuner/search.py": "f90daeb53292304a73383c8adc5f80a0f5e7647289d45c7f5d0c4e1bb8e08553",
+    "code/diagnostics/clock_reference_probe.c": "520cf03336c3db90011a07248dc3763b850f89bcda558619932f265ee9fc40aa",
+    "code/working/matrix_input.h": "6ad1cfc920e5d1920c955a116b5e82ebb3cb9bc2d7b88f4fb5fa217610a44379",
+    "code/working/matrix_multiplication.c": "d92870e97464b83935d77d5e087fcbd822c6abc0af244d806d024310720647ba",
+    "code/working/reference_generator.c": "e8014c3d91ca1fe40f5ef962e0c401e28e8719b19a3664c8322ce14716d4cfb5",
+    "configs/resource_policy.json": "38a18cc4eef60473fbfa3316f7e9f6d0b72a8e9f582bdb6d14fc452ea59609e3",
+    "scripts/collect_clock_reference_environment.py": "8f7dc9e58cb7d414be030d030fd6f0a3fc5129dd464362bb93323ebedfecd05c",
+    "scripts/p3_clock_reference.py": "16340bfcc41dac53fba4fbfa38a0ffbbdb205d4407d225669a3bdef9f8b748a8",
+    "scripts/run_clock_reference.py": "6a71ea60c20957a9211c0fba505986a33568e86826149e993983924431006356",
+    "tests/test_clock_reference.py": "26ee3c2f7bd98c761702cbbe7b5246fd9ff6ab0a156c1b0aa3d2a16f57f9111b"
+  },
+  "stop_rule": "Collect fixed A/B/C/D once unless IO/process/timeout prevents completion. Default A/B must ALL match bounded host reference. Any wide boundary/backwards/invalid/default mismatch blocks certification. C/D never replace A/B."
+}

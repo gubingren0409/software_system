@@ -3,6 +3,41 @@
 历史从2026-10-08开始，后续操作按各段时间戳/时区记录（本地Asia/Shanghai）。
 本文保留P0--P3实际操作、失败与修复；正式报告只写证据支持并明确局限的结论。
 
+## 50cd24e后原生C/宿主参照诊断（2026-10-10 19:06起）
+
+- 初始project01/50cd24e干净；GitHub fetch成功、远端基点一致，另一个课程origin保留。
+  新批次20261010-190645-1375f246；先保存三个campaign检查点、旧JSONL/run_id/观测/哈希。
+  本轮使用Karpathy技能将改动限定为独立诊断、相关回归、证据和文档，未修改正式运行器。
+- 先提交诊断内容7950a8a533f5c60dd8fb7a0d26cb90a3e3d2b32d，11项相关回归通过；再编译
+  原生C、保存GCC13.3版本/完整命令/动态符号/源码及二进制SHA，落manifest后才采集。
+  一个持续原生PID2189，Windows请求/响应QPC整数包围，固定A10/B10/C5/D5，30条均flush；
+  判据20ms不确定性、5ms+1%U及停止规则先声明，无筛选/补采/校准/第二轮。
+- 只读tsc/可用源、boot_id/uptime、CPU/允许CPU、timesyncd/日志/内核消息及adjtimex modes0；
+  缺失chrony/ntp记录unknown。未主动重启WSL、改系统/时钟/电源或结束用户应用。
+  快照freq0ppm、offset4462008ns不证明区间内持续状态或根因，初始同步日志亦非准确性证据。
+- 一次诊断采完30区间/96响应，原生/采集退出0；独立完整性true、认证false/退出2。
+  默认A10/10、B8/10，C/D各5/5，RAW30/30；默认B1/B2（零起点）MONO约3.0015秒，
+  宿主边界约2.9200–2.9209、2.8349–2.8360秒。边界均清晰，无回退，最大跨度2326ns。
+  执行决策3保持P3_CLOCK_BLOCKED，不修改准入或正式内容/session，不启动recovery/4096。
+- 独立干净导出7950a8a；首次收尾助手错误在Windows使用Linux GCC配置，CLI stderr明确
+  compiler not found，os.execv包装器未可靠转交子退出，外层空输出解析退出1。原日志保留，
+  不能据包装器0宣称CLI通过。改收尾助手用subprocess.run传真实returncode，退出7负控
+  确实捕获7；Windows11项/帮助、WSL20配置、归档C复编相同二进制SHA均通过。
+  这是证据收尾修复，不改变诊断源码/原失败读数/正式运行器，不追加真实时钟样本。
+- 最终流哈希核验退出1，定位首轮4个execv包装器的子进程在父退出后继续写日志，
+  原operation流哈希与最终文件不一致；原记录原样保留且全部标拒绝，不追写哈希。
+  v2等待子进程的记录及真实30区间流哈希通过。明确完整性验收范围后最终核验退出0，
+  不把初次4条辅助失败记录用于验收，未筛选任何真实诊断区间。
+- 10623项历史文件原字节摘要、51项d6811cad归档、工作区Git身份及四冻结配置通过；
+  原教师C SHA188d0111...严格一致。三个session检查点/完整组、旧23条执行与PAUSE_REQUEST
+  不变，d6811cad仍initialized/空观测；当前无实验进程。旧6/20仍失败，旧Grid不校准。
+- 验收integrity=true、reference_match=false、execution_complete=false、timing=false、
+  comparison=false；新恢复/目标/配置/轨迹/复测/放弃均0，Formal未执行。原生90.1953194秒
+  包含于采集90.9342755及入口91.6706073；非嵌套已捕获辅助234.2932793秒，摘要父另
+  2.6291969秒，编辑/后续验证/推送在外，未知完整端到端成本。正式成本增量0。
+  详见[P3_CLOCK_REFERENCE](P3_CLOCK_REFERENCE.md)及本批delivery_summary/costs。整理后普通
+  提交推送project01并核对GitHub HEAD，固定交付SHA在最终消息给出，不自引用循环提交。
+
 ## ac33d9d 后内存准入v2（2026-10-10 17:48起）
 
 - project01/ac33d9d，初始干净；保存新旧session/checkpoint/run_id与历史原字节摘要。

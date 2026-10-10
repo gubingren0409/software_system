@@ -1,6 +1,29 @@
-# 首种子正式比较：P3_CLOCK_BLOCKED（更新于 2026-10-10，本轮内存准入v2）
+# 首种子正式比较：P3_CLOCK_BLOCKED（2026-10-10，原生C/宿主参照诊断）
 
-## 当前：ac33d9d后内存准入v2及唯一新恢复
+## 当前：50cd24e后唯一30区间有界诊断
+
+先提交方案/源码7950a8a533f5c60dd8fb7a0d26cb90a3e3d2b32d，再冻结编译/二进制/manifest，
+一个持续原生PID收集A10空闲、B10忙工作、C5系统调用空闲、D5临时绑核空闲。
+默认MONOTONIC A10/10、B8/10匹配宿主有界QPC，C/D各5/5；RAW30/30匹配宿主。
+零起点B1/B2分别超U+a至少46.355/132.330ms；全部边界不确定性≤1.2861ms，没有宽边界
+或回退。执行预声明第3项：不认证默认C计时路径，不修改时钟准入、不恢复正式实验。
+具体读数、环境、未知根因和下一步见[P3_CLOCK_REFERENCE](P3_CLOCK_REFERENCE.md)。
+
+本轮新recovery0、Formal门禁未执行、正式目标0、配置0/24、轨迹0/2、前缀0/6、复测0。
+四验收evidence_integrity_pass=true、execution_complete=false、timing_checks_pass=false、
+comparison_ready=false，另reference_match_pass=false。正式content d6811cad/session
+2c270825458a4857a5ac9df5aadf597b仍initialized/空观测，没有新session或成绩迁移。
+内存/CPUv2、矩阵C/输入/容差/计时/搜索/1+5fresh/中位数均不变；旧6/20仍失败。
+10623项历史字节及51项原正式归档身份、各session检查点和旧23条执行保护通过，无实验进程。
+11项相关回归及准确内容干净复验通过，测试通过与正式比较完成严格分开。
+
+[交付摘要](../evidence/p3_clock_reference/20261010-190645-1375f246/delivery_summary.json)、
+[独立复算](../evidence/p3_clock_reference/20261010-190645-1375f246/independent_diagnostic.json)、
+[成本](../evidence/p3_clock_reference/20261010-190645-1375f246/costs.json)。
+本轮停止等待外审，不追加诊断、不循环recovery、不启动原命令绕过失配；
+旧Grid只保留有限历史参照，不校准或声称同协议全局最优。
+
+## 历史：ac33d9d后内存准入v2及唯一新恢复
 
 用户授权将宿主物理可用与提交额度余量独立设置为512MiB底线，宿主低于2GiB仅警告；
 Recovery WSL至少256MiB，Formal仍2GiB。CPU/磁盘/120秒等待及测量、C、搜索均不变。

@@ -1,6 +1,35 @@
 # 审计交接入口
 
-当前入口为ac33d9d后内存准入v2及一次有限恢复：
+当前入口为50cd24e后的**唯一原生C/宿主QPC有界参照诊断**：
+[P3_CLOCK_REFERENCE](P3_CLOCK_REFERENCE.md)、[首种子状态](P3_FIRST_SEED_STATUS.md)。
+执行源码先提交为7950a8a533f5c60dd8fb7a0d26cb90a3e3d2b32d，30区间/96响应完整；
+A默认空闲10/10、B默认忙工作8/10、C/D各5/5匹配宿主，RAW30/30匹配。
+B1/B2（零起点）MONOTONIC失配且边界清晰，按第3决策阻塞，不启用新准入。
+Formal门禁/recovery/4096/搜索均未执行，不新增session或成绩。正式d6811cad/session
+2c270825458a4857a5ac9df5aadf597b仍为空；内存/CPUv2及正式C/测量/搜索协议不变。
+
+验收为evidence_integrity_pass=true、reference_match_pass=false、execution_complete=false、
+timing_checks_pass=false、comparison_ready=false。11项相关回归、准确提交干净复验/CLI/
+20唯一配置/探针二进制哈希通过；10623项旧文件、51项正式归档、旧23条执行/ID及暂停标记保护通过。
+测试通过不是正式比较完成，旧6失败保持，当前无实验进程。
+
+优先审查：
+
+- [先声明manifest/协议/来源](../evidence/p3_clock_reference/20261010-190645-1375f246/manifest.json)
+- [全部30原始区间](../evidence/p3_clock_reference/20261010-190645-1375f246/intervals.jsonl)、[96条原始通信](../evidence/p3_clock_reference/20261010-190645-1375f246/messages.jsonl)
+- [独立重算](../evidence/p3_clock_reference/20261010-190645-1375f246/independent_diagnostic.json)、[30行秒单位表](../evidence/p3_clock_reference/20261010-190645-1375f246/interval_summary.csv)
+- [交付计数/状态](../evidence/p3_clock_reference/20261010-190645-1375f246/delivery_summary.json)、[干净验证](../evidence/p3_clock_reference/20261010-190645-1375f246/clean_validation.json)
+- [最终流哈希/链接核验及4条被拒绝的初次辅助记录](../evidence/p3_clock_reference/20261010-190645-1375f246/delivery_verification.json)
+- [旧文件保护](../evidence/p3_clock_reference/20261010-190645-1375f246/history_protection_after.json)、[保留正式身份](../evidence/p3_clock_reference/20261010-190645-1375f246/retained_identity.json)、[成本与包含关系](../evidence/p3_clock_reference/20261010-190645-1375f246/costs.json)
+
+待裁决：默认C忙工作异常的下一轮受控定位/环境方案；当前不能以C/D空闲通过归因
+于vDSO或迁移，也不能将MONO/REALTIME一致当作证明。诊断参照仅跨域一致性，不保证
+物理准确。只读复算命令见上述文档；本轮不再采样或resume，等待外审。
+完整性true限实际诊断/来源/保护及可靠v2验证；首轮Windows execv辅助包装器发生
+退出/流哈希竞态，4条原记录明确拒绝且不改写，首次最终核验退出1保留，不作为通过证据。
+该问题不影响已独立复算的全部30条诊断区间，也没有筛掉B1/B2。
+
+历史入口为ac33d9d后内存准入v2及一次有限恢复：
 [`P3_MEMORY_POLICY.md`](P3_MEMORY_POLICY.md)、[`P3_FIRST_SEED_STATUS.md`](P3_FIRST_SEED_STATUS.md)。
 运行内容`d6811cadda8ecd7b46225ebe65c51831278694a0`，新空session
 `2c270825458a4857a5ac9df5aadf597b`，未继承7405fcc3/e308bfb的任何成绩。

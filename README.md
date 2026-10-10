@@ -2,7 +2,17 @@
 
 《软件系统优化》实践项目 P1。**P2 历史Grid已保存；P3首种子正式比较尚未完成（P3_CLOCK_BLOCKED）。**
 
-当前ac33d9d后用户授权内存准入v2：宿主可用与提交余量各512MiB，宿主低于2GiB警告，
+当前50cd24e后唯一原生C/宿主QPC参照诊断已完成30区间：默认A空闲10/10、B忙工作8/10，
+syscall空闲及临时绑核空闲各5/5；RAW全部30匹配宿主。B1/B2（零起点）MONOTONIC
+真实失配，通信不确定性均≤1.2861ms，不启用新时钟准入，不启动recovery/4096/搜索。
+诊断执行内容`7950a8a533f5c60dd8fb7a0d26cb90a3e3d2b32d`；正式d6811cad及空session
+2c270825458a4857a5ac9df5aadf597b不变。11项相关回归/干净归档、20配置、二进制复编
+身份和10623项历史保护通过，但不代表时钟或正式比较通过。
+[方案、全部读数、决定及只读复算入口](docs/P3_CLOCK_REFERENCE.md)、
+[本轮独立复算](evidence/p3_clock_reference/20261010-190645-1375f246/independent_diagnostic.json)、
+[交付摘要](evidence/p3_clock_reference/20261010-190645-1375f246/delivery_summary.json)。
+
+以下为历史ac33d9d后用户授权内存准入v2，策略本轮原样保留：宿主可用与提交余量各512MiB，宿主低于2GiB警告，
 Recovery WSL至少256MiB，Formal仍2GiB；CPU与测量/搜索不变。针对性验证、实际采集及
 新内容/新session有限恢复见[P3_MEMORY_POLICY](docs/P3_MEMORY_POLICY.md)。不迁入旧分数或重跑Grid。
 

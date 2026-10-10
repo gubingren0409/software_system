@@ -1,0 +1,663 @@
+{
+  "abandoned_attempt_increment_seconds": 0,
+  "candidate_retest_increment_seconds": 0,
+  "collection_qpc_seconds": 90.9342755,
+  "diagnostic_entry_qpc_seconds": 91.6706073,
+  "formal_execution_increment_seconds": 0,
+  "formal_gate_wait_increment_seconds": 0,
+  "native_probe_qpc_seconds": 90.1953194,
+  "non_nested_captured_operations_seconds": 234.2932793,
+  "operations": [
+    {
+      "command": [
+        "git",
+        "merge-base",
+        "--is-ancestor",
+        "50cd24e59d6a99304b604560a057a961d06bfb14",
+        "HEAD"
+      ],
+      "nested_in": null,
+      "operation": "ancestor.operation",
+      "qpc_seconds": 0.2016484,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu-24.04",
+        "--cd",
+        "/tmp",
+        "--",
+        "env",
+        "-u",
+        "PYTHONPATH",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "sha256sum",
+        "/var/tmp/matrix-clock-reference-20261010-190645-1375f246/clock_reference_probe",
+        "/usr/bin/x86_64-linux-gnu-gcc-13"
+      ],
+      "nested_in": null,
+      "operation": "binary_identity.operation",
+      "qpc_seconds": 0.5120802,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "git",
+        "branch",
+        "--show-current"
+      ],
+      "nested_in": null,
+      "operation": "branch_before.operation",
+      "qpc_seconds": 0.1875497,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu-24.04",
+        "--cd",
+        "/mnt/e/software_system/project01/build/clock-reference-clean-7950a8a5",
+        "--",
+        "env",
+        "-u",
+        "PYTHONPATH",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "timeout",
+        "45",
+        "sha256sum",
+        "/mnt/e/software_system/project01/build/clock-reference-clean-7950a8a5/clock_reference_probe"
+      ],
+      "nested_in": "clean_entry_v2",
+      "operation": "clean_binary_identity.operation",
+      "qpc_seconds": 0.4981943,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-c",
+        "import os,sys; os.chdir(sys.argv[1]); os.environ.pop(\"PYTHONPATH\",None); os.execv(sys.executable,[sys.executable,\"-B\",\"-X\",\"utf8\",*sys.argv[2:]])",
+        "E:\\software_system\\project01\\build\\clock-reference-clean-7950a8a5",
+        "-m",
+        "autotuner",
+        "--help"
+      ],
+      "nested_in": "clean_entry",
+      "operation": "clean_cli_help.operation",
+      "qpc_seconds": 0.2627588,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-c",
+        "import os,sys,subprocess; os.chdir(sys.argv[1]); os.environ.pop(\"PYTHONPATH\",None); sys.exit(subprocess.run([sys.executable,\"-B\",\"-X\",\"utf8\",*sys.argv[2:]]).returncode)",
+        "E:\\software_system\\project01\\build\\clock-reference-clean-7950a8a5",
+        "-m",
+        "autotuner",
+        "--help"
+      ],
+      "nested_in": "clean_entry_v2",
+      "operation": "clean_cli_help_v2.operation",
+      "qpc_seconds": 0.8745063,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu-24.04",
+        "--cd",
+        "/mnt/e/software_system/project01/build/clock-reference-clean-7950a8a5",
+        "--",
+        "env",
+        "-u",
+        "PYTHONPATH",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "timeout",
+        "45",
+        "/usr/bin/gcc",
+        "-std=c11",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "/mnt/e/software_system/project01/build/clock-reference-clean-7950a8a5/code/diagnostics/clock_reference_probe.c",
+        "-o",
+        "/mnt/e/software_system/project01/build/clock-reference-clean-7950a8a5/clock_reference_probe"
+      ],
+      "nested_in": "clean_entry_v2",
+      "operation": "clean_compile.operation",
+      "qpc_seconds": 1.8811198,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-c",
+        "import os,sys; os.chdir(sys.argv[1]); os.environ.pop(\"PYTHONPATH\",None); os.execv(sys.executable,[sys.executable,\"-B\",\"-X\",\"utf8\",*sys.argv[2:]])",
+        "E:\\software_system\\project01\\build\\clock-reference-clean-7950a8a5",
+        "-m",
+        "autotuner",
+        "list-configs"
+      ],
+      "nested_in": "clean_entry",
+      "operation": "clean_configs.operation",
+      "qpc_seconds": 0.2678324,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu-24.04",
+        "--cd",
+        "/mnt/e/software_system/project01/build/clock-reference-clean-7950a8a5",
+        "--",
+        "env",
+        "-u",
+        "PYTHONPATH",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "timeout",
+        "45",
+        "python3",
+        "-B",
+        "-m",
+        "autotuner",
+        "list-configs"
+      ],
+      "nested_in": "clean_entry_v2",
+      "operation": "clean_configs_wsl.operation",
+      "qpc_seconds": 18.7125003,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "evidence\\p3_clock_reference\\20261010-190645-1375f246\\finish.py",
+        "clean"
+      ],
+      "nested_in": null,
+      "operation": "clean_entry.operation",
+      "qpc_seconds": 7.2992108,
+      "returncode": 1
+    },
+    {
+      "command": [
+        "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "evidence\\p3_clock_reference\\20261010-190645-1375f246\\finish.py",
+        "clean_continue"
+      ],
+      "nested_in": null,
+      "operation": "clean_entry_v2.operation",
+      "qpc_seconds": 24.5886082,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-c",
+        "import os,sys; os.chdir(sys.argv[1]); os.environ.pop(\"PYTHONPATH\",None); os.execv(sys.executable,[sys.executable,\"-B\",\"-X\",\"utf8\",*sys.argv[2:]])",
+        "E:\\software_system\\project01\\build\\clock-reference-clean-7950a8a5",
+        "--version"
+      ],
+      "nested_in": "clean_entry",
+      "operation": "clean_python_version.operation",
+      "qpc_seconds": 0.2558079,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-c",
+        "import os,sys,subprocess; os.chdir(sys.argv[1]); os.environ.pop(\"PYTHONPATH\",None); sys.exit(subprocess.run([sys.executable,\"-B\",\"-X\",\"utf8\",*sys.argv[2:]]).returncode)",
+        "E:\\software_system\\project01\\build\\clock-reference-clean-7950a8a5",
+        "--version"
+      ],
+      "nested_in": "clean_entry_v2",
+      "operation": "clean_python_version_v2.operation",
+      "qpc_seconds": 0.3688544,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-c",
+        "import os,sys,subprocess; os.chdir(sys.argv[1]); os.environ.pop(\"PYTHONPATH\",None); sys.exit(subprocess.run([sys.executable,\"-B\",\"-X\",\"utf8\",*sys.argv[2:]]).returncode)",
+        "E:\\software_system\\project01\\build\\clock-reference-clean-7950a8a5",
+        "-c",
+        "raise SystemExit(7)"
+      ],
+      "nested_in": "clean_entry_v2",
+      "operation": "clean_returncode_negative_control.operation",
+      "qpc_seconds": 0.5208063,
+      "returncode": 7
+    },
+    {
+      "command": [
+        "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-c",
+        "import os,sys; os.chdir(sys.argv[1]); os.environ.pop(\"PYTHONPATH\",None); os.execv(sys.executable,[sys.executable,\"-B\",\"-X\",\"utf8\",*sys.argv[2:]])",
+        "E:\\software_system\\project01\\build\\clock-reference-clean-7950a8a5",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_clock_reference.py",
+        "-v"
+      ],
+      "nested_in": "clean_entry",
+      "operation": "clean_targeted_tests.operation",
+      "qpc_seconds": 0.2490108,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-c",
+        "import os,sys,subprocess; os.chdir(sys.argv[1]); os.environ.pop(\"PYTHONPATH\",None); sys.exit(subprocess.run([sys.executable,\"-B\",\"-X\",\"utf8\",*sys.argv[2:]]).returncode)",
+        "E:\\software_system\\project01\\build\\clock-reference-clean-7950a8a5",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_clock_reference.py",
+        "-v"
+      ],
+      "nested_in": "clean_entry_v2",
+      "operation": "clean_targeted_tests_v2.operation",
+      "qpc_seconds": 0.9914709,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu-24.04",
+        "--cd",
+        "/tmp",
+        "--",
+        "env",
+        "-u",
+        "PYTHONPATH",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "/usr/bin/gcc",
+        "-std=c11",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "/mnt/e/software_system/project01/code/diagnostics/clock_reference_probe.c",
+        "-o",
+        "/var/tmp/matrix-clock-reference-20261010-190645-1375f246/clock_reference_probe"
+      ],
+      "nested_in": null,
+      "operation": "compile_native.operation",
+      "qpc_seconds": 8.8302182,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu-24.04",
+        "--cd",
+        "/tmp",
+        "--",
+        "env",
+        "-u",
+        "PYTHONPATH",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "/usr/bin/gcc",
+        "--version"
+      ],
+      "nested_in": null,
+      "operation": "compiler_version.operation",
+      "qpc_seconds": 0.5449393,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu-24.04",
+        "--cd",
+        "/tmp",
+        "--",
+        "env",
+        "-u",
+        "PYTHONPATH",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "mkdir",
+        "--",
+        "/var/tmp/matrix-clock-reference-20261010-190645-1375f246"
+      ],
+      "nested_in": null,
+      "operation": "create_build_directory.operation",
+      "qpc_seconds": 18.9491556,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "scripts/run_clock_reference.py",
+        "--directory",
+        "evidence\\p3_clock_reference\\20261010-190645-1375f246"
+      ],
+      "nested_in": null,
+      "operation": "diagnostic_entry.operation",
+      "qpc_seconds": 91.6706073,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu-24.04",
+        "--cd",
+        "/tmp",
+        "--",
+        "env",
+        "-u",
+        "PYTHONPATH",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "nm",
+        "-D",
+        "/var/tmp/matrix-clock-reference-20261010-190645-1375f246/clock_reference_probe"
+      ],
+      "nested_in": null,
+      "operation": "dynamic_symbols.operation",
+      "qpc_seconds": 0.6145847,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu-24.04",
+        "--cd",
+        "/tmp",
+        "--",
+        "env",
+        "-u",
+        "PYTHONPATH",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "env",
+        "GIT_DIR=/mnt/e/software_system/course_repo/.git/worktrees/project01",
+        "GIT_WORK_TREE=/mnt/e/software_system/project01",
+        "timeout",
+        "90",
+        "git",
+        "-c",
+        "credential.helper=/mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe",
+        "fetch",
+        "github"
+      ],
+      "nested_in": null,
+      "operation": "fetch_github.operation",
+      "qpc_seconds": 22.3501517,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "git",
+        "--version"
+      ],
+      "nested_in": "protection_entry",
+      "operation": "git_tool_version.operation",
+      "qpc_seconds": 0.1997267,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "git",
+        "rev-parse",
+        "github/project01"
+      ],
+      "nested_in": null,
+      "operation": "github_branch.operation",
+      "qpc_seconds": 0.4591238,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "nested_in": null,
+      "operation": "head_before.operation",
+      "qpc_seconds": 0.2015163,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-c",
+        "import json,sys; from pathlib import Path; from scripts.p3_clock_reference import audit_diagnostic; from scripts.p3_clock_contract import atomic_write_json; p=Path(sys.argv[1]); r=audit_diagnostic(p); atomic_write_json(p/str(chr(105)+chr(110)+chr(100)+chr(101)+chr(112)+chr(101)+chr(110)+chr(100)+chr(101)+chr(110)+chr(116)+chr(95)+chr(100)+chr(105)+chr(97)+chr(103)+chr(110)+chr(111)+chr(115)+chr(116)+chr(105)+chr(99)+chr(46)+chr(106)+chr(115)+chr(111)+chr(110)),r); print(json.dumps({k:v for k,v in r.items() if k!=str(chr(99)+chr(104)+chr(101)+chr(99)+chr(107)+chr(115))})); sys.exit(0 if r.get(str(chr(100)+chr(105)+chr(97)+chr(103)+chr(110)+chr(111)+chr(115)+chr(116)+chr(105)+chr(99)+chr(95)+chr(99)+chr(101)+chr(114)+chr(116)+chr(105)+chr(102)+chr(105)+chr(97)+chr(98)+chr(108)+chr(101))) else 2)",
+        "evidence\\p3_clock_reference\\20261010-190645-1375f246"
+      ],
+      "nested_in": null,
+      "operation": "independent_audit.operation",
+      "qpc_seconds": 2.7254169,
+      "returncode": 2
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu-24.04",
+        "--cd",
+        "/tmp",
+        "--",
+        "timeout",
+        "20",
+        "python3",
+        "-c",
+        "import json,pathlib\nfound=[]\nfor p in pathlib.Path('/proc').iterdir():\n if not p.name.isdigit(): continue\n try:\n  args=[a.decode(errors='replace') for a in (p/'cmdline').read_bytes().split(bytes([0])) if a]\n  if ('autotuner' in args and 'campaign' in args) or any(a.startswith('/var/tmp/matrix-clock-reference-20261010-190645-1375f246/clock_reference_probe') or a.startswith('/var/tmp/matrix-autotuner-p3-10245102457/cache/') for a in args): found.append({'pid':int(p.name),'command':args})\n except OSError: pass\nprint(json.dumps({'matching_experiment_processes':found,'no_process_terminated':True}))\n"
+      ],
+      "nested_in": "protection_entry",
+      "operation": "process_inventory.operation",
+      "qpc_seconds": 13.1974095,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "evidence\\p3_clock_reference\\20261010-190645-1375f246\\finish.py",
+        "protect"
+      ],
+      "nested_in": null,
+      "operation": "protection_entry.operation",
+      "qpc_seconds": 53.8785645,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "git",
+        "remote",
+        "-v"
+      ],
+      "nested_in": null,
+      "operation": "remote_before.operation",
+      "qpc_seconds": 0.1887994,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu-24.04",
+        "--cd",
+        "/tmp",
+        "--",
+        "timeout",
+        "45",
+        "sha256sum",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/autotuner/__init__.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/autotuner/__main__.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/autotuner/campaign.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/autotuner/cli.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/autotuner/core.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/autotuner/measurement.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/autotuner/resources.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/autotuner/search.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/autotuner/session.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/code/original/matrix_multiplication.c",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/code/working/matrix_input.h",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/code/working/matrix_multiplication.c",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/code/working/reference_generator.c",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/configs/config_space.json",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/configs/measurement_protocol.json",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/configs/p3_campaign_protocol.json",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/configs/resource_policy.json",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/configs/resource_policy_cpu_v1.json",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/configs/search_protocol.json",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/configs/target.json",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/configs/timing_audit_protocol.json",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/audit_p2_evidence.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/audit_p3_evidence.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/audit_p3_first_seed.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/check_p1_resources.ps1",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/check_p2_clocks.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/check_p2_host_clock.ps1",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/check_p2_resources.ps1",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/collect_p0_environment.sh",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/collect_p0_host.ps1",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/finalize_p2_evidence.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/inspect_p2.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/p3_clock_contract.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/plot_p2_results.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/plot_p3_results.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/prepare_p2_content.ps1",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/record_p3_first_seed_checks.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/release_p3_reference_pages.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/resume_p3_first_seed.ps1",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/run_p0_preexperiment.sh",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/run_p1_correctness.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/run_p1_pilots.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/run_p1_revision1_clean_checks.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/run_p1_revision1_regressions.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/run_p2_clean_validation.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/run_p3_clean_validation.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/run_timing_audit.ps1",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/start_p3_first_seed.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/timing_audit.py",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/verify_p0.ps1",
+        "/var/tmp/matrix-autotuner-p3-memory-content-d6811cadda8ecd7b46225ebe65c51831278694a0/scripts/verify_p1.py"
+      ],
+      "nested_in": "protection_entry",
+      "operation": "retained_archive_hashes.operation",
+      "qpc_seconds": 19.166984,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "git",
+        "status",
+        "--short"
+      ],
+      "nested_in": null,
+      "operation": "status_before.operation",
+      "qpc_seconds": 0.3163175,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "C:\\Users\\28489\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_clock_reference.py",
+        "-v"
+      ],
+      "nested_in": null,
+      "operation": "targeted_tests.operation",
+      "qpc_seconds": 0.7747868,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu-24.04",
+        "--cd",
+        "/tmp",
+        "--",
+        "env",
+        "-u",
+        "PYTHONPATH",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "python3",
+        "/mnt/e/software_system/project01/scripts/collect_clock_reference_environment.py"
+      ],
+      "nested_in": "diagnostic_entry",
+      "operation": "wsl_environment.operation",
+      "qpc_seconds": 0.7244834,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "--version"
+      ],
+      "nested_in": "protection_entry",
+      "operation": "wsl_tool_version.operation",
+      "qpc_seconds": 0.2324117,
+      "returncode": 0
+    }
+  ],
+  "scope": "QPC operation durations only. Native/metadata and clean/protect subcommands are nested; do not add them again. Enclosing summarize capture, editing/model time and push excluded; not an end-to-end task total."
+}
