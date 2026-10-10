@@ -1,6 +1,25 @@
-# 首种子正式比较：时钟阻塞（2026-10-09）
+# 首种子正式比较：时钟阻塞（更新于 2026-10-10）
 
-## 本轮 fdeed77 修复：P3_CLOCK_BLOCKED
+## 当前：aedf028a 后集中诊断，权限/资源阻塞
+
+本轮完成只读环境诊断、旧20区间独立复算和28项针对性回归；没有有效环境处理，
+因此新 recovery/resume/矩阵执行均为0。W32Time Running但Leap=3未同步，当前token
+非管理员，source/configuration查询0x80070005；未越权或执行resync。原正式资源
+门禁也拒绝：宿主最低422170624字节，WSL4913426432字节，CPU均值2.8%/最高13%。
+辅助七文件与fa59701一致；正式e308bfb/session dc1c292900654d44b36a72548b95a610不变。
+
+当前验收为 evidence_integrity_pass=true（诊断及历史保护）、execution_complete=false、
+timing_checks_pass=false（新复核未执行）、comparison_ready=false。仍随机3/12、
+贪心0/12，23条原始执行，旧3条abandoned和新2条pending_restart均不计分，复测0。
+32项实际冻结哈希匹配，10213个历史/实现文件字节不变，PAUSE_REQUEST未动。
+旧20条仍20个MONO/RAW、2个REALTIME/RAW失败，根因未确认，不校准旧数据。
+
+详细结论、权限所需准确命令和下一阶段条件见[P3_CLOCK_REPAIR](P3_CLOCK_REPAIR.md)；
+[本批独立后处理](../evidence/p3_clock_repair/20261010-121004/diagnosis_analysis.json)。
+请先完成管理员只读配置核验及适当时的一次resync并返回证据；恢复资源后交外部
+复核，再在新批次进行限定验证。本轮到此停止，不直接再次recover/resume。
+
+## 历史：fdeed77 修复与 10-09 有限复核
 
 依据`fdeed77c43dcbbf74de46968055677f97fed8faf`继续，初始工作区干净；Windows fetch
 遇失效本机代理，WSL fetch origin成功，未改TLS/代理。正式3配置、23条记录及全部

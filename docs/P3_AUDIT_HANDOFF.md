@@ -1,6 +1,19 @@
 # P3 审计入口（首种子时钟阻塞，正式比较未完成）
 
-## 最新：fdeed77辅助修复与唯一次20区间复核
+## 最新：aedf028a后只读诊断（2026-10-10）
+
+[集中诊断/处理决策/下一步](P3_CLOCK_REPAIR.md)；
+[独立后处理](../evidence/p3_clock_repair/20261010-121004/diagnosis_analysis.json)。
+W32Time仍未同步，source/configuration查询权限拒绝，未执行resync；宿主约403MiB
+低于正式2GiB门禁。没有有效环境处理，按授权条件不重采recovery、不恢复campaign。
+旧20区间原始端点复算仍20个MONO/RAW及2个REALTIME/RAW失败，根因尚未证实。
+32/32冻结实际哈希匹配，10213个旧文件及PAUSE_REQUEST不变；21+7合成回归、CLI/20
+唯一配置通过。正式仍3配置/23执行/0完整轨迹、0复测，五条部分执行不计分。
+验收：诊断evidence_integrity=true，execution_complete/timing_checks/comparison_ready=false；
+新计时检查未执行而非新采集失败。需要管理员配置核验和适当时的一次同步处理证据，
+及恢复宿主资源后再交审计，不在本轮继续恢复。
+
+## 历史：fdeed77辅助修复与唯一次20区间复核
 
 辅助内容`0c6ee7e3726a01339d36e6ae7d19b0966dc043cd`先提交，再双干净归档验证。
 71项WSL全套测试（Windows专用1项跳过）、Windows旧7/新18项、CLI/20配置及25文件

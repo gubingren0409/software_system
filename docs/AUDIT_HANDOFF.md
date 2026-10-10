@@ -1,6 +1,11 @@
 # 审计交接入口
 
-当前入口为0023ceed独立审计修订：[`P3_TIMING_AUDIT.md`](P3_TIMING_AUDIT.md)、
+当前入口为aedf028a后集中只读诊断：[`P3_CLOCK_REPAIR.md`](P3_CLOCK_REPAIR.md)、
+[`P3_FIRST_SEED_STATUS.md`](P3_FIRST_SEED_STATUS.md)；权限/宿主低内存阻塞，没有新recovery
+或正式执行，P3比较仍未完成。新证据位于`evidence/p3_clock_repair/20261010-121004/`。
+旧Grid、观测、部分组和失败记录均保留，辅助执行身份仍为fa59701。
+
+0023ceed历史独立审计修订：[`P3_TIMING_AUDIT.md`](P3_TIMING_AUDIT.md)、
 [`P3_AUDIT_HANDOFF.md`](P3_AUDIT_HANDOFF.md)；P3正式比较尚未完成，长实验仍暂停。
 P2历史入口保留在[`P2_AUDIT_HANDOFF.md`](P2_AUDIT_HANDOFF.md)，P1/P1-R1在
 [`P1_AUDIT_HANDOFF.md`](P1_AUDIT_HANDOFF.md)。以下仍是原P0历史交接。
