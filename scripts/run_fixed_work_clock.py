@@ -9,17 +9,30 @@ from scripts.p3_clock_contract import atomic_write_json,load,qpc,capture
 from scripts.p3_fixed_work_clock import CRITERIA,SOURCE_FILES,schedule,check_interval
 
 
-def collect(directory):
+def send_request(child,command,write_progress):
+    write_progress()
+    sent,frequency=qpc()
+    child.stdin.write(command.encode('ascii')); child.stdin.flush()
+    return sent,frequency
+
+
+def collect(directory, *, formal=False, deadline=None):
     if os.name!='nt': raise ValueError('Real Windows QPC required')
     directory=Path(directory); manifest=load(directory/'manifest.json')
     if (directory/'intervals.jsonl').exists(): raise ValueError('No overwrite/repeated round')
-    if manifest['criteria']!=CRITERIA or manifest['schedule']!=schedule(manifest['cpu_selection']['selected_cpu']) or \
+    if formal:
+        from scripts.raw_clock_contract import validate_manifest
+        validate_manifest(manifest,ROOT)
+    elif manifest['criteria']!=CRITERIA or manifest['schedule']!=schedule(manifest['cpu_selection']['selected_cpu']) or \
             set(manifest['source_sha256'])!=set(SOURCE_FILES): raise ValueError('Declaration differs')
     for path,digest in manifest['source_sha256'].items():
         if sha256_file(ROOT/path)!=digest: raise ValueError('Actual source differs: '+path)
-    deadline=time.perf_counter()+480; collection_start,frequency=qpc()
-    capture(manifest['metadata_command'],directory,'wsl_environment',manifest['batch_id'],
-            sha256_file(directory/'manifest.json'),timeout=min(40,deadline-time.perf_counter()))
+    budget=manifest['collection_budget_seconds'] if formal else 480
+    deadline=min(deadline or float('inf'),time.perf_counter()+budget)
+    collection_start,frequency=qpc()
+    if not formal:
+        capture(manifest['metadata_command'],directory,'wsl_environment',manifest['batch_id'],
+                sha256_file(directory/'manifest.json'),timeout=min(40,deadline-time.perf_counter()))
     started,freq=qpc()
     if freq!=frequency: raise ValueError('QPC frequency changed')
     env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1'); env.pop('PYTHONPATH',None)
@@ -29,7 +42,7 @@ def collect(directory):
     operation={'schema':'fixed-work-clock-process-v1','command':manifest['probe_command'],'pid':'unknown',
         'started_at':utc_now(),'qpc_start':started,'qpc_frequency':frequency,'returncode':'unknown',
         'manifest_sha256':sha256_file(directory/'manifest.json'),'collection_start_qpc':collection_start,
-        'collection_budget_seconds':480}
+        'collection_budget_seconds':budget}
 
     def append(handle,value):
         handle.write((json.dumps(value,allow_nan=False)+'\n').encode()); handle.flush()
@@ -59,11 +72,11 @@ def collect(directory):
     def request(op,args=''):
         nonlocal seq
         if time.perf_counter()>=deadline: raise TimeoutError('480s collection budget exhausted')
-        seq+=1; command=f'{op} {seq}'+(' '+args if args else '')+'\n'; sent,freq=qpc()
+        seq+=1; command=f'{op} {seq}'+(' '+args if args else '')+'\n'
+        sent,freq=send_request(child,command,lambda: atomic_write_json(directory/'progress.json',
+            {'saved_intervals':count,'request':command.strip(),'sequence':seq,
+             'native_pid':hello['pid'],'updated_at':utc_now(),'host_child_pid':child.pid}))
         if freq!=frequency: raise ValueError('QPC frequency changed')
-        atomic_write_json(directory/'progress.json',{'saved_intervals':count,'request':command.strip(),
-            'sequence':seq,'native_pid':hello['pid'],'updated_at':utc_now(),'host_child_pid':child.pid})
-        child.stdin.write(command.encode('ascii')); child.stdin.flush()
         record=receive(sent,command); value=record['response']
         if value.get('schema')!='fixed-work-clock-endpoint-v1' or value.get('op')!=op or \
                 type(value.get('seq')) is not int or value['seq']!=seq or value.get('pid')!=hello['pid']:
@@ -90,6 +103,9 @@ def collect(directory):
             print(json.dumps({'saved_intervals':count,'condition':plan['condition'],'updates':plan['updates'],
                 'raw_pass':row['check']['raw_pass'],'monotonic_match':row['check'].get('within_host_with_allowance',{}).get('monotonic'),
                 'errors':row['check']['errors']}),flush=True)
+            if formal and not row['check']['raw_pass']:
+                errors.append('RAW interval failed/indeterminate: '+str(plan['index']))
+                break
         request('QUIT'); rc=child.wait(timeout=max(0.001,deadline-time.perf_counter()))
         if rc!=0: errors.append('Native exit not zero')
     except (ValueError,KeyError,TypeError,OSError,TimeoutError,queue.Empty,subprocess.TimeoutExpired) as error:
@@ -97,6 +113,14 @@ def collect(directory):
     finally:
         if child is not None and child.poll() is None:
             child.stdin.close()
+            if formal and hello is not None and type(hello.get('pid')) is int:
+                command=['wsl.exe','-d','Ubuntu-24.04','--','kill','-TERM',str(hello['pid'])]
+                try:
+                    cleanup=subprocess.run(command,capture_output=True,text=True,timeout=3,check=False)
+                    operation['owned_native_cleanup']={'command':command,'returncode':cleanup.returncode,
+                        'stdout':cleanup.stdout,'stderr':cleanup.stderr,'scope':'Only the persistent PID launched by this collection'}
+                except (OSError,subprocess.TimeoutExpired) as error:
+                    operation['owned_native_cleanup']={'command':command,'returncode':'unknown','error':str(error)}
             # Inner native timeout is also bounded. Only terminate the child started here.
             try: rc=child.wait(timeout=max(0.001,min(5,deadline-time.perf_counter())))
             except subprocess.TimeoutExpired:
@@ -116,7 +140,7 @@ def collect(directory):
             errors=errors,hello=hello,stream_sha256={name:sha256_file(directory/name) for name in
                 ('native.stdout.txt','native.stderr.txt','messages.jsonl','intervals.jsonl')})
         atomic_write_json(directory/'native_process.json',operation)
-    return 0 if count==22 and not errors else 2
+    return 0 if count==manifest['interval_count'] and not errors else 2
 
 
 if __name__=='__main__':

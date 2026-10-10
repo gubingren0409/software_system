@@ -366,6 +366,8 @@ def main():
         # Read the same versioned protocol as runner/audit before creating files,
         # querying resources, initializing sessions or launching any old probe.
         require_formal_activation(load(ROOT / "configs/measurement_protocol.json"), ROOT)
+        if load(ROOT / "configs/measurement_protocol.json")['schema_version']==6:
+            raise ValueError('Formal RAW Grid uses start_raw_grid.py; legacy MONOTONIC recovery/campaign is not supported')
     if args.content_sha and not args.auxiliary_sha:
         args.auxiliary_sha = args.content_sha
     if not args.child:

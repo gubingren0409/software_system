@@ -59,7 +59,7 @@ def isolated_target_config(root: Path, directory: Path) -> Path:
     data["shared_sources"] = [str((root / "code/working/matrix_input.h").resolve())]
     data["cache_root"] = str((directory / "cache").resolve())
     if "timing_protocol" in data:
-        data["timing_protocol"]["file"] = str((root / "configs/raw_timing_protocol.json").resolve())
+        data["timing_protocol"]["file"] = str((root / 'configs' / data['timing_protocol']['file']).resolve())
     path = directory / "target.json"
     path.write_text(json.dumps(data), encoding="utf-8")
     return path
@@ -248,7 +248,7 @@ class BuildCacheTests(unittest.TestCase):
             base_config["fixed_flags"] = ["-fdefinitely-not-a-real-p1-option"]
             base_config["cache_root"] = str((directory / "cache").resolve())
             if "timing_protocol" in base_config:
-                base_config["timing_protocol"]["file"] = str((root / "configs/raw_timing_protocol.json").resolve())
+                base_config["timing_protocol"]["file"] = str((root / 'configs' / base_config['timing_protocol']['file']).resolve())
             config_path = directory / "target.json"
             config_path.write_text(json.dumps(base_config), encoding="utf-8")
             target = TargetAdapter.load(config_path, evidence_root=directory / "evidence")

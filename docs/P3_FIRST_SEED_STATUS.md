@@ -1,6 +1,15 @@
-# 首种子正式比较尚未完成：RAW候选待外审（2026-10-11）
+# 首种子正式比较尚未完成（2026-10-11）
 
-## 当前：P3_RAW_CLOCK_CANDIDATE_READY，未恢复正式实验
+## 当前：正式RAW Grid v1准备，尚未执行
+
+3755c4a外审已接受22区间候选。用户授权新正式RAW协议、新空Grid session、一次fresh恢复，
+恢复全部通过后执行20配置fresh Grid。修复协议路径重定位、按schema强制binding、
+QPC发送戳与发送紧贴；旧候选文件和所有历史原始记录保留。
+本阶段不运行Random/Greedy，不向旧d6811cad空session写观测。
+采集前计划见[P3_RAW_GRID](P3_RAW_GRID.md)，实际SHA/session/计数在冻结后据实更新。
+Grid验收与P3比较验收独立，后者仍未完成。
+
+## 历史：P3_RAW_CLOCK_CANDIDATE_READY，未恢复正式实验
 
 审计基点da0afd87。预提交a498263后一次固定工作量诊断22/22完整、90响应一致；
 RAW22/22通过且保守范围均在未加容差宿主[L,U]内，MONOTONIC失败0/2/7/11/21保留。

@@ -1,6 +1,13 @@
 # 审计交接入口
 
-当前：**P3_RAW_CLOCK_CANDIDATE_READY**，基于da0afd87，完成唯一22区间固定工作量诊断及
+当前（3755c4a外审后）：正式RAW Grid v1衔接修复和采集前冻结；尚未执行recovery/4096。
+本轮只授权一次fresh恢复及新20配置Grid，不运行Random/Greedy。
+[新阶段方案](P3_RAW_GRID.md)、[本轮原始操作入口](../evidence/p3_raw_grid/20261011-021601/)。
+最终结果、内容SHA、新空session和独立验收在实际执行后更新。
+
+## 历史RAW候选交付（已获本轮外审接受）
+
+历史：**P3_RAW_CLOCK_CANDIDATE_READY**，基于da0afd87，完成唯一22区间固定工作量诊断及
 最小RAW候选，不执行恢复或正式实验。预声明内容a4982632ae9640001876c45dcba1cee581e07754；
 候选执行内容 `3c7a4ab11f7e753936ab8735e03364b44b4dd1ef`，最终交付提交只补证据、文档
 及收尾验证辅助脚本，不替换候选归档或写入旧session。

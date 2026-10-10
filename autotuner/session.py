@@ -16,7 +16,7 @@ from .core import (Config, ConfigSpace, Evaluator, TargetAdapter, atomic_write_j
                    atomic_write_text, classify_execution, sha256_file, sha256_json, utc_now)
 from .measurement import ConfigurationEvaluator, summarize_group
 from .search import GridSearch
-from .timing import RAW_RESULT_SCHEMA, measurement_timing, require_formal_activation
+from .timing import RAW_RESULT_SCHEMA, measurement_timing, require_formal_activation, relocate_target
 
 
 def source_identity(root: Path, git_identity: dict[str, str]) -> dict[str, Any]:
@@ -72,7 +72,9 @@ def restore_complete_group(group: dict[str, Any], protocol: dict[str, Any]) -> d
             raise ValueError("checkpoint contains invalid/mismatched raw samples")
     restored = summarize_group(config, group["attempt_id"], samples,
                                protocol["measurement"]["measured_runs"], group["evaluation_wall_seconds"])
-    if restored["classification"] != "success" or restored["score_seconds"] != group["score_seconds"]:
+    if restored["classification"] != "success" or any(restored[field] != group.get(field) for field in
+            ('score_seconds','statistics','measured_compute_seconds','process_wall_seconds',
+             'compute_total_seconds','validation_total_seconds')):
         raise ValueError("checkpoint group is incomplete or aggregate differs from raw samples")
     return group
 
@@ -81,6 +83,8 @@ def run_grid(root: Path, output: Path, content_sha: str, git_identity_path: Path
              *, resume: bool = False) -> int:
     protocol = json.loads((root / "configs/measurement_protocol.json").read_text())
     require_formal_activation(protocol, root)
+    if protocol['schema_version']==6:
+        raise ValueError('Formal RAW Grid requires scripts/start_raw_grid.py and a matching fresh recovery certificate')
     output.mkdir(parents=True, exist_ok=True)
     space = ConfigSpace.load(root / "configs/config_space.json")
     protocol_hash = sha256_json(protocol)
@@ -88,7 +92,7 @@ def run_grid(root: Path, output: Path, content_sha: str, git_identity_path: Path
     if identity["content_sha"] != content_sha:
         raise ValueError("Git identity belongs to a different commit")
     files = source_identity(root, identity["files"])
-    target_config = json.loads((root / "configs/target.json").read_text())
+    target_config = relocate_target(json.loads((root / "configs/target.json").read_text()), root / 'configs')
     target_config.update(candidate_source=str(root / "code/working/matrix_multiplication.c"),
                          reference_source=str(root / "code/working/reference_generator.c"),
                          shared_sources=[str(root / "code/working/matrix_input.h")],

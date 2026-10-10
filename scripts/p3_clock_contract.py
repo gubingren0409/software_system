@@ -408,6 +408,8 @@ def verify_recovery(directory, current_snapshot=None):
         if measurement_path.exists():
             from autotuner.timing import require_formal_activation
             require_formal_activation(load(measurement_path), ROOT)
+            if load(measurement_path)['schema_version']==6:
+                raise ValueError('RAW recovery requires raw_clock_contract, not legacy MONOTONIC/RAW equality')
         content, session, _ = batch_identity(manifest)
         expected_policy_schema = "p3-clock-recovery-policy-v3" if manifest["schema"] == "p3-clock-batch-v3" else "p3-clock-recovery-policy-v2"
         if manifest.get("purpose") != "recover" or policy.get("schema") != expected_policy_schema or \

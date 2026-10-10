@@ -1,5 +1,22 @@
 # 工作记录
 
+## 2026-10-11，3755c4a外审后：正式RAW Grid衔接与冻结（采集前）
+
+- 初始终端核验HEAD=3755c4a/project01，工作区干净；GitHub fetch成功，无reset/clean/强推。
+  本轮唯一证据根evidence/p3_raw_grid/20261011-021601。后续before快照在首批本任务代码编辑
+  后保存，其status包含本任务改动；不伪称该较晚快照是最初干净状态。历史哈希不涉及新源码。
+- 修复effective target的timing路径；按measurement schema强制RAW绑定，真实旧协议夹具
+  替代“新版删binding”。QPC进度写入移至send戳之前，recv仍立即读戳。
+- 新增正式RAW协议/证书/Windows QPC主控及WSL两阶段Grid组提交；candidate-only和旧入口
+  保持禁止新正式流程。资源v2、核心循环、输入/reference/容差、空间及搜索源码不变。
+- 初次受控108测试终端结果退出1（1 error/1 fail/2 skip）：Windows夹具缓存Linux路径不为
+  Windows绝对路径；campaign协议哈希尚未更新。已最小修复夹具及绑定，留存真实终端结果；
+  随后capture保存的targeted_after_fixture_fix退出0：108项、2平台跳过，未执行4096/真实搜索。
+- 一次辅助hash命令把str传给sha256_file而退出1，后改Path参数；一次rg glob在Windows
+  未展开导致退出2，改为目录+--glob。它们都未执行目标或改变冻结数据。
+- 计划先提交最终内容，再双干净归档/关联回归、CLI/20配置、一次n17 fresh，初始化新空Grid。
+  恢复预算240秒、外层8小时QPC、Formal等待120秒，失败不自动重试；最终计数按原始日志。
+
 历史从2026-10-08开始，后续操作按各段时间戳/时区记录（本地Asia/Shanghai）。
 本文保留P0--P3实际操作、失败与修复；正式报告只写证据支持并明确局限的结论。
 

@@ -496,9 +496,11 @@ class TargetAdapter:
 
 
 class Evaluator:
-    def __init__(self, target: TargetAdapter, host_snapshot_command: list[str] | None = None):
+    def __init__(self, target: TargetAdapter, host_snapshot_command: list[str] | None = None,
+                 stop_requested=lambda: False):
         self.target = target
         self.host_snapshot_command = host_snapshot_command
+        self.stop_requested = stop_requested
 
     def evaluate(self, config: Config, context: EvaluationContext) -> dict[str, Any]:
         label = sanitize_label(context.evidence_label)
@@ -513,8 +515,10 @@ class Evaluator:
         )
         run_directory.mkdir(parents=True, exist_ok=True)
 
-        overall_started = time.monotonic()
-        build_started = time.monotonic()
+        timing = getattr(self.target, "timing_protocol", None)
+        clock = lambda: execution_clock(timing is not None)
+        overall_started = clock()
+        build_started = clock()
 
         try:
             artifact = self.target.build_candidate(
@@ -534,8 +538,8 @@ class Evaluator:
             self._write_record(run_directory, record, error.stdout, error.stderr, "")
             return record
 
-        build_seconds = time.monotonic() - build_started
-        reference_started = time.monotonic()
+        build_seconds = clock() - build_started
+        reference_started = clock()
 
         try:
             reference = self.target.get_reference(
@@ -559,7 +563,7 @@ class Evaluator:
             self._write_record(run_directory, record, "", str(error), "")
             return record
 
-        reference_seconds = time.monotonic() - reference_started
+        reference_seconds = clock() - reference_started
         expected = {
             "n": context.matrix_n, "block_size": config.block_size,
             "seed": context.seed, "input": context.input_pattern,
@@ -642,6 +646,9 @@ class Evaluator:
             stderr=subprocess.PIPE,
             start_new_session=True,
         )
+        atomic_write_json(run_directory / 'process.json', {'pid': process.pid, 'command': timed_command,
+            'started_at': utc_now(), 'started_clock_seconds': started,
+            'clock': 'CLOCK_MONOTONIC_RAW' if timing else 'Python time.monotonic'})
         samples: list[dict[str, Any]] = []
         stopped = threading.Event()
 
@@ -649,8 +656,8 @@ class Evaluator:
             last_host = -30.0
             while not stopped.is_set():
                 sample = resource_snapshot()
-                if self.host_snapshot_command and time.monotonic() - last_host >= 30:
-                    last_host = time.monotonic()
+                if self.host_snapshot_command and clock() - last_host >= 30:
+                    last_host = clock()
                     try:
                         host = subprocess.run(self.host_snapshot_command, text=True,
                                               capture_output=True, timeout=20, check=False)
@@ -672,7 +679,7 @@ class Evaluator:
             draining.start()
             while draining.is_alive():
                 remaining = context.timeout_seconds - (clock() - started)
-                if remaining <= 0:
+                if remaining <= 0 or self.stop_requested():
                     timed_out = True
                     os.killpg(process.pid, signal.SIGKILL)
                     break
@@ -725,7 +732,8 @@ class Evaluator:
                 "resource_samples": samples,
                 "build_lookup_seconds": build_seconds,
                 "reference_lookup_seconds": reference_seconds,
-                "execution_total_seconds": time.monotonic() - overall_started,
+                "execution_total_seconds": clock() - overall_started,
+                "execution_cost_clock": "CLOCK_MONOTONIC_RAW" if timing else "Python time.monotonic (legacy uncalibrated)",
             }
         )
         self._write_record(run_directory, record, stdout, stderr, resource_text)

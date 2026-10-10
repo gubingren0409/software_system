@@ -17,8 +17,7 @@ from test_resource_policy import record, snapshot, PROTOCOL
 
 # Resource/session-only tests retain the preceding v2 resource implementation's
 # measurement schema. RAW candidate activation is tested in test_raw_timing.py.
-PROTOCOL = copy.deepcopy(PROTOCOL)
-PROTOCOL.pop("timing_protocol", None)
+PROTOCOL = load(ROOT / "evidence/p3_memory_policy/20261010-174802-11f7775c/campaign-d6811cad/protocol.json")
 
 
 def new_recovery_fixture(directory):

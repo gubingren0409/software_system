@@ -75,8 +75,10 @@ class RawTimingTests(unittest.TestCase):
         measurement=json.loads((ROOT/'configs/measurement_protocol.json').read_text())
         timing=measurement_timing(measurement,ROOT)
         self.assertEqual(timing['primary_clock'],'CLOCK_MONOTONIC_RAW')
-        with self.assertRaisesRegex(ValueError,'candidate only'): require_formal_activation(measurement,ROOT)
-        legacy=copy.deepcopy(measurement); legacy.pop('timing_protocol')
+        candidate={'schema_version':5,'timing_protocol':{'file':'configs/raw_timing_protocol.json',
+            'hash':sha256_json(json.loads((ROOT/'configs/raw_timing_protocol.json').read_text()))}}
+        with self.assertRaisesRegex(ValueError,'candidate only'): require_formal_activation(candidate,ROOT)
+        legacy=json.loads((ROOT/'evidence/p3/campaign-e308bfb/protocol.json').read_text())
         self.assertIsNone(require_formal_activation(legacy,ROOT))
         broken=copy.deepcopy(measurement['timing_protocol']); broken['hash']='0'*64
         with self.assertRaises(ValueError): load_timing_binding(broken,ROOT)
@@ -109,7 +111,7 @@ class RawTimingTests(unittest.TestCase):
                 '--archive-directory','/var/tmp/not-used','--campaign-directory',str(output/'campaign'),
                 '--git-identity',str(output/'identity.json'),'--session-id','b'*32,'--output',str(output)],
                 cwd=ROOT,capture_output=True,text=True,timeout=10)
-            self.assertNotEqual(result.returncode,0); self.assertIn('RAW candidate only',result.stderr)
+            self.assertNotEqual(result.returncode,0); self.assertIn('Formal RAW Grid uses',result.stderr)
             self.assertFalse(output.exists())
 
 

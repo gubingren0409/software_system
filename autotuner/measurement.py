@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from .core import Config, EvaluationContext, Evaluator, atomic_write_json, utc_now
-from .timing import measurement_timing
+from .timing import measurement_timing, execution_clock
 
 
 def statistics_for(values: list[float]) -> dict[str, float]:
@@ -56,12 +56,15 @@ class ConfigurationEvaluator:
     """The sole configuration measurement interface used by every search strategy."""
 
     def __init__(self, executor: Evaluator, protocol: dict[str, Any], protocol_hash: str,
-                 output: Path, on_sample: Callable[[dict[str, Any]], None] | None = None):
+                 output: Path, on_sample: Callable[[dict[str, Any]], None] | None = None,
+                 on_before_sample: Callable[[int], None] | None = None):
         self.executor, self.protocol, self.protocol_hash = executor, protocol, protocol_hash
         self.output, self.on_sample = output, on_sample
+        self.on_before_sample = on_before_sample
         if protocol["measurement"]["warmup_runs"] != 1:
             raise ValueError("this protocol requires one warmup")
         timing = measurement_timing(protocol, Path(__file__).resolve().parents[1])
+        self.raw_timing = timing is not None
         if timing is not None and getattr(executor.target, "timing_protocol", None) != timing:
             raise ValueError("configuration evaluator/target timing protocols differ")
 
@@ -69,9 +72,12 @@ class ConfigurationEvaluator:
                  purpose: str = "search") -> dict[str, Any]:
         attempt_id = attempt_id or uuid.uuid4().hex
         samples: list[dict[str, Any]] = []
-        started = time.monotonic()
+        clock = lambda: execution_clock(self.raw_timing)
+        started = clock()
         destination = self.output / "configurations" / f"{purpose}_{attempt_id}.json"
         for index in range(1 + self.protocol["measurement"]["measured_runs"]):
+            if self.on_before_sample:
+                self.on_before_sample(index)
             record = self.executor.evaluate(config, EvaluationContext(
                 matrix_n=self.protocol["target_matrix_n"],
                 seed=self.protocol["matrix_input_seed"],
@@ -99,7 +105,8 @@ class ConfigurationEvaluator:
             if record["classification"] != "success":
                 break
         result = summarize_group(config, attempt_id, samples,
-                                 self.protocol["measurement"]["measured_runs"], time.monotonic() - started)
+                                 self.protocol["measurement"]["measured_runs"], clock() - started)
         result["purpose"] = purpose
+        result['evaluation_wall_clock'] = 'CLOCK_MONOTONIC_RAW' if self.raw_timing else 'Python time.monotonic (legacy uncalibrated)'
         atomic_write_json(destination, result)
         return result

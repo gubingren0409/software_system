@@ -45,8 +45,7 @@ class SyntheticExecutor:
 class CampaignTests(unittest.TestCase):
     def setUp(self):
         self.space = ConfigSpace.load(ROOT / "configs/config_space.json")
-        self.protocol = json.loads((ROOT / "configs/measurement_protocol.json").read_text())
-        self.protocol.pop("timing_protocol", None) # Preserve the synthetic legacy result contract.
+        self.protocol = json.loads((ROOT / "evidence/p3/campaign-e308bfb/protocol.json").read_text())
         self.protocol["target_matrix_n"] = 130
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)

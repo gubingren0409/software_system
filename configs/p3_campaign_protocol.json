@@ -1,21 +1,21 @@
 {
-  "schema_version": 4,
-  "status": "raw-clock-candidate-only-no-formal-admission",
-  "revision_reason": "RAW candidate after da0afd87: same input, core loop, tolerance, space, search, resources and 1+5 median. Timing identity changes, so old sessions/caches/scores/certificates cannot be imported. No new formal campaign is created or authorized in this delivery.",
-  "timing_protocol": {"file": "configs/raw_timing_protocol.json", "hash": "3de408af7fc27a03c3169597fa50af4d7d42efc8f9946d2f1a434e65a0e39f49"},
+  "schema_version": 5,
+  "status": "formal-raw-grid-only-p3-campaign-disabled",
+  "revision_reason": "After accepted 3755c4a candidate: formal RAW Grid only is authorized in this stage. Bind the same formal timing protocol; Random/Greedy stay disabled. Historical sessions/scores/certificates are never imported.",
+  "timing_protocol": {"file": "configs/raw_formal_timing_protocol.json", "hash": "936591ac5303e832788dc5f35ecac4c7807f52c3662666f13ef35f187b320847"},
   "resource_policy_hash": "38e073716eafc5356d775509414018415bba05ac6e87e4e29be93663b90da9d9",
   "legacy_content_commit": "e308bfb873e6811c50ad685a979af345302fda8d",
   "legacy_session_id": "dc1c292900654d44b36a72548b95a610",
   "p2_delivery_commit": "37b10327909d9d4134a2d4d68aae0e27b4fc483c",
-  "measurement_protocol_hash": "574f35455b7d12a7ed7c80de2c4a8c14665239580530c6708a359a4e8f31ea06",
+  "measurement_protocol_hash": "df2f365aec3fbce2b195a739b452234d9789b4fea3be3b6a0211549f0de2fb61",
   "search_protocol_hash": "dde9c06145eb8b830d12eae64ecc5dd2f31e247235a9d71a9731dcff9e1f4447",
   "compiler_sha256": "1b99826121ae6682a634e5efe09bd3e3df58ce58e0b28f849114ab5b89139c26",
   "expected_reference_data_sha256": "cc476da46f43613ef67dad7841b73d7f2d70b7f1d636a9f23d7d7124b8b499f5",
   "unchanged_source_sha256": {
-    "autotuner/core.py": "dcc288b59e1e918fc52cafee725d0ff8574e1e560ec682ac3512a446b864589b",
-    "autotuner/measurement.py": "37b03bd12bb88cc1c9e062636c84de61f4d3c2b73d117367bb74218e045e0c00",
+    "autotuner/core.py": "c6f9fa80c51a6f4e8365cc71065083ba5d64d83f54de28fade8edceb6f1ae53e",
+    "autotuner/measurement.py": "c929418ada80a55d30a659602de5411db7b7ddfdb9cbc314a7b4a59420b63b4e",
     "autotuner/search.py": "f90daeb53292304a73383c8adc5f80a0f5e7647289d45c7f5d0c4e1bb8e08553",
-    "code/working/matrix_multiplication.c": "190004bfcc59b81f2d993f298539954d8822dc8a988375b69d6b158401bbc770",
+    "code/working/matrix_multiplication.c": "eda8461e3992e1a4a44737d29969ca24fddd3fba85035bb1b1e31559273110e1",
     "code/working/matrix_input.h": "6ad1cfc920e5d1920c955a116b5e82ebb3cb9bc2d7b88f4fb5fa217610a44379",
     "code/working/reference_generator.c": "e8014c3d91ca1fe40f5ef962e0c401e28e8719b19a3664c8322ce14716d4cfb5"
   },
@@ -38,6 +38,6 @@
   "retest_policy": "After each 12-evaluation trajectory, independently retest the distinct best valid configurations of its 4/8/12 prefixes. Equal candidates within that trajectory share one fresh warmup-plus-five group; different trajectories never share measurements. Retests are outside the unique search budget and never change the trajectory or original scores.",
   "observation_policy": "Each strategy receives only the space and its own ordered terminal observations. Grid and other trajectories are readable only by separate postprocessing after decisions have been persisted.",
   "source_pin_scope": "unchanged_source_sha256 is the existing field name for frozen CURRENT candidate bytes, not a claim of unchanged timer/runner versus P2. Original core loop, input, reference, search and resource v2 remain unchanged.",
-  "resource_and_clock_policy": "Resource v2 unchanged: host physical/commit headroom >=512 MiB, physical <2 GiB warns; Recovery WSL >=256 MiB/CPU warning only; Formal WSL >=2 GiB/CPU average <=30 and peak <=60; disk >=1 GiB; Formal wait <=120 seconds. RAW candidate timing protocol is hash-bound and NOT enabled for recovery/formal runs. No Vmmem addition, new paging rejection, filtering, calibration or tolerance change. Admission does not guarantee performance quality.",
+  "resource_and_clock_policy": "Resource v2 unchanged. Formal RAW Grid requires a fresh matching bounded QPC/RAW recovery and group checks; the legacy recovery controller and P3 campaign are disabled for this protocol. No Vmmem addition, paging rejection, filtering, calibration or tolerance change. Admission does not guarantee performance quality.",
   "batch_policy": "A trajectory limit only checkpoints the predeclared schedule; it does not change 12-evaluation trajectories, prefixes, seeds, scoring or retests. Resume can increase the limit without changing experiment identity."
 }

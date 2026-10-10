@@ -12,7 +12,7 @@
 #include "matrix_input.h"
 
 #define RESULT_SCHEMA "matrix-multiplication-result-v2"
-#define TIMING_PROTOCOL_VERSION "2026-10-10-raw-candidate-v1"
+#define TIMING_PROTOCOL_VERSION "2026-10-11-raw-formal-v1"
 
 #ifndef MATRIX_N
 #define MATRIX_N 4096

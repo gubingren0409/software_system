@@ -15,7 +15,7 @@ from .core import (Config, ConfigSpace, Evaluator, TargetAdapter, atomic_write_j
 from .measurement import ConfigurationEvaluator, summarize_group
 from .search import RandomSearch, RestartGreedySearch, SearchStrategy
 from .session import restore_complete_group, source_identity, valid_formal_gate
-from .timing import RAW_RESULT_SCHEMA, measurement_timing, require_formal_activation
+from .timing import RAW_RESULT_SCHEMA, measurement_timing, require_formal_activation, relocate_target
 
 
 def strategy_for(space: ConfigSpace, algorithm: str, budget: int, seed: int) -> SearchStrategy:
@@ -191,6 +191,8 @@ def _run_campaign(root: Path, output: Path, content_sha: str, git_identity_path:
     campaign = json.loads((root / "configs/p3_campaign_protocol.json").read_text())
     protocol = json.loads((root / "configs/measurement_protocol.json").read_text())
     require_formal_activation(protocol, root)
+    if protocol['schema_version']==6:
+        raise ValueError('Formal RAW v1 authorizes Grid only; Random/Greedy campaign is not enabled')
     search = json.loads((root / "configs/search_protocol.json").read_text())
     if sha256_json(protocol) != campaign["measurement_protocol_hash"] or \
             sha256_json(search) != campaign["search_protocol_hash"]:
@@ -238,6 +240,7 @@ def _run_campaign(root: Path, output: Path, content_sha: str, git_identity_path:
     if target_data["abs_tolerance"] != protocol["abs_tolerance"] or \
             target_data["rel_tolerance"] != protocol["rel_tolerance"]:
         raise ValueError("target/protocol tolerances differ")
+    target_data = relocate_target(target_data, root / 'configs')
     atomic_write_json(output / "effective_target.json", target_data)
     target = TargetAdapter.load(output / "effective_target.json", evidence_root=output / "setup")
     if sha256_file(target.compiler) != campaign["compiler_sha256"]:
