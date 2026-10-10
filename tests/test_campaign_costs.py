@@ -55,7 +55,9 @@ class CostRegressionTests(unittest.TestCase):
 
             def advance(seconds): clock.now += seconds
             def hash_file(path):
-                return campaign["compiler_sha256"] if path == target.compiler else sha256_file(path)
+                if path == target.compiler: return campaign["compiler_sha256"]
+                relative = str(path.relative_to(root)).replace(chr(92), "/")
+                return campaign["unchanged_source_sha256"].get(relative, sha256_file(path))
             def command_run(command, **kwargs):
                 if command[0] == "wslpath": return subprocess.CompletedProcess(command, 0, 'controlled.ps1\n', '')
                 advance(1)

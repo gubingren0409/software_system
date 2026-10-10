@@ -39,6 +39,8 @@ def build_parser() -> argparse.ArgumentParser:
     evaluate.add_argument("--label", required=True)
     evaluate.add_argument("--min-wsl-available-bytes", type=int, default=0)
     evaluate.add_argument("--fault-injection", type=int, choices=range(0, 8), default=0)
+    evaluate.add_argument("--protocol-hash", default="p1-diagnostic-v1",
+                          help="Explicit diagnostic measurement identity (does not authorize formal runs)")
     evaluate.set_defaults(action=command_evaluate)
     grid = subparsers.add_parser("grid", help="Run or resume the formal 20-configuration Grid session")
     grid.add_argument("--content-sha", required=True)
@@ -124,6 +126,7 @@ def command_evaluate(args: argparse.Namespace) -> int:
             evidence_label=args.label,
             min_wsl_available_bytes=args.min_wsl_available_bytes,
             fault_injection=args.fault_injection,
+            protocol_hash=args.protocol_hash,
         ),
     )
     print(json.dumps(record, sort_keys=True))

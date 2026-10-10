@@ -46,6 +46,7 @@ class CampaignTests(unittest.TestCase):
     def setUp(self):
         self.space = ConfigSpace.load(ROOT / "configs/config_space.json")
         self.protocol = json.loads((ROOT / "configs/measurement_protocol.json").read_text())
+        self.protocol.pop("timing_protocol", None) # Preserve the synthetic legacy result contract.
         self.protocol["target_matrix_n"] = 130
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)
@@ -166,7 +167,9 @@ class CampaignTests(unittest.TestCase):
         from autotuner.core import sha256_file
 
         def hash_file(path):
-            return campaign["compiler_sha256"] if path == target.compiler else sha256_file(path)
+            if path == target.compiler: return campaign["compiler_sha256"]
+            relative = str(path.relative_to(root)).replace(chr(92), "/")
+            return campaign["unchanged_source_sha256"].get(relative, sha256_file(path))
 
         def command_run(command, **kwargs):
             if command[0] == "wslpath":

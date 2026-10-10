@@ -45,8 +45,52 @@ RAW 保守范围是 `[RAW1_end-RAW2_start, RAW2_end-RAW1_start]`。
 先提交源码，再编译、保存源码/编译器/二进制身份和 manifest，最后才采集。
 审计入口：`python -m scripts.p3_fixed_work_clock --directory <批次> --output <新文件>`。
 
-## 待采集后的状态
+## 唯一采集的独立复算结果
 
-诊断尚未执行；候选实现和 n=17 验证待诊断决策。
-本轮正式 execution_complete / timing_checks_pass / comparison_ready 均为 false。
-未来正式比较需要相同新计时协议的 fresh Grid，本轮不会启动。
+探针/判据预提交 `a4982632ae9640001876c45dcba1cee581e07754`，
+实际C源码 SHA256 `1fc6777c1bf613c1afd9eb4c9a21b5d14574abadc60a1b9e88b8a69c19654e50`，
+GCC13.3.0编译二进制 `51170d65035e84f6a3345f6b2189f48c8b08e54e9f9195b0cd35a9baa93aa3bd`。
+先有 manifest，再采集；22区间/90响应完整，RAW22/22通过，且全部保守范围落在未加容差的宿主边界内。
+无宽边界/回退/补采；MONOTONIC零起点失败索引 `0,2,7,11,21`，原始数据全部保留。
+独立复算 [independent_diagnostic.json](../evidence/p3_raw_candidate/20261010-234702-fixed-work/independent_diagnostic.json)。
+原生进程QPC范围128.7020971秒；外层采集151.5732249秒包含只读元数据和启动，二者不能相加。
+
+## RAW 候选实现 v1（仅候选，不是恢复许可）
+
+主时钟为 `CLOCK_MONOTONIC_RAW`，结果schema升级v2，协议版本
+`2026-10-10-raw-candidate-v1`。协议独立保存在
+[`raw_timing_protocol.json`](../configs/raw_timing_protocol.json)，规范化SHA256
+`3de408af7fc27a03c3169597fa50af4d7d42efc8f9946d2f1a434e65a0e39f49`。
+target v2、measurement v5和campaign v4绑定同一协议。旧schema/旧协议仍原判据，不追认历史失败。
+
+所有配置统一 RAW 起止整数ns，先整数相减，按同一 double 除法得到 elapsed_seconds，
+解析后要求精确round-trip一致。拒绝错误时钟/版本、非整数/非正/溢出端点、非正时长、
+不一致delta或非有限辅助数值。MONOTONIC辅助读取在RAW核心范围外，保留整数端点、
+duration及差异，不把与RAW相等作为硬门槛，也不逐样本选择计时器。
+初始化、reference、逐元素正确性和输出在核心计时范围外；乘法核心循环字节不变。
+原始C、输入头、reference、搜索空间、随机/贪心源码及资源v2均不变。
+
+构建键和性能键新增时钟协议哈希；执行记录包含同一哈希和实际主时钟。
+正确性reference缓存身份独立、无需更换计时器；不得导入旧性能分数。
+`autotuner/timing.py`是运行器/恢复入口/独立小尺寸审计共同读取的绑定与契约实现。
+本候选协议 `formal_recovery_enabled=false`；恢复、正式Grid/campaign在启动前明确拒绝，
+独立恢复审计也不能把候选诊断包当恢复证书。旧记录缺少新绑定时走明确的旧契约。
+未来要启用正式运行，必须经外审授权、版本化准入实现、fresh宿主/RAW证据和新session；
+正式比较需要同一新协议下 fresh Grid，不在本轮自动启动。
+
+| 范围 | 时钟来源与限制 |
+| --- | --- |
+| 核心分数 | C RAW整数端点，统一计分，不校准 |
+| 工作副本验证耗时 | RAW，仍在核心计时范围外 |
+| 候选进程墙钟/看门狗 | Python CLOCK_MONOTONIC_RAW；排空管道线程，不用communicate的MONOTONIC deadline |
+| Windows采集/验证总预算与操作成本 | 真实QPC/perf_counter，包含子进程启动和等待 |
+| reference/setup/configuration/campaign旧成本字段 | 原Python MONOTONIC，未校准元数据；不能拿它校准RAW或当物理准确成本 |
+| /usr/bin/time资源报告 | GNU time单独原样保存，非核心评分来源 |
+
+## 有限验证范围与当前边界
+
+仅关联回归和干净归档的n=17/O2/s8 fresh正确性/契约验证，20唯一配置检查。
+历史受控v1夹具显式绑定旧协议，不用新版RAW记录冒充旧计时。
+干净验证结果将由 `clean_validation.json` 与 `candidate_validation.json` 记录实际内容提交。
+本轮正式 execution_complete / timing_checks_pass / comparison_ready 均为 false；
+recovery、Formal门禁、4096、Grid、搜索执行均为0，不生成新session或恢复证书。

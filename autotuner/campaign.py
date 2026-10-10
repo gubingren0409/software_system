@@ -15,6 +15,7 @@ from .core import (Config, ConfigSpace, Evaluator, TargetAdapter, atomic_write_j
 from .measurement import ConfigurationEvaluator, summarize_group
 from .search import RandomSearch, RestartGreedySearch, SearchStrategy
 from .session import restore_complete_group, source_identity, valid_formal_gate
+from .timing import RAW_RESULT_SCHEMA, measurement_timing, require_formal_activation
 
 
 def strategy_for(space: ConfigSpace, algorithm: str, budget: int, seed: int) -> SearchStrategy:
@@ -54,6 +55,9 @@ def validate_terminal(group: dict[str, Any], protocol: dict[str, Any]) -> None:
                 "seed": protocol["matrix_input_seed"], "input": protocol["input_pattern"],
                 "input_generator": protocol["input_generator"],
                 "abs_tol": protocol["abs_tolerance"], "rel_tol": protocol["rel_tolerance"]}
+    timing = measurement_timing(protocol, Path(__file__).resolve().parents[1])
+    if timing is not None:
+        expected.update(primary_clock=timing["primary_clock"], timing_protocol_version=timing["version"])
     for sample in samples:
         if sample["classification"] in ("compile_failure", "reference_failure", "resource_rejected"):
             if sample.get("score_seconds") is not None:
@@ -61,7 +65,7 @@ def validate_terminal(group: dict[str, Any], protocol: dict[str, Any]) -> None:
             continue
         classification, _, _ = classify_execution(sample.get("returncode", -1),
                                                   sample.get("timed_out", True),
-                                                  sample.get("raw_stdout", ""), expected=expected)
+            sample.get("raw_stdout", ""), expected_schema=RAW_RESULT_SCHEMA if timing else "matrix-multiplication-result-v1", expected=expected)
         if classification != sample["classification"]:
             raise ValueError("failed observation's raw contract differs")
 
@@ -186,6 +190,7 @@ def _run_campaign(root: Path, output: Path, content_sha: str, git_identity_path:
                   cache_root: Path | None, initialize_only: bool = False, session_id: str | None = None) -> int:
     campaign = json.loads((root / "configs/p3_campaign_protocol.json").read_text())
     protocol = json.loads((root / "configs/measurement_protocol.json").read_text())
+    require_formal_activation(protocol, root)
     search = json.loads((root / "configs/search_protocol.json").read_text())
     if sha256_json(protocol) != campaign["measurement_protocol_hash"] or \
             sha256_json(search) != campaign["search_protocol_hash"]:

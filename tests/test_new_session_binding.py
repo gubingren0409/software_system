@@ -15,6 +15,11 @@ from scripts.p3_clock_contract import (ROOT, atomic_write_json, batch_identity, 
 from test_p3_clock_contract import recovery_fixture, operation
 from test_resource_policy import record, snapshot, PROTOCOL
 
+# Resource/session-only tests retain the preceding v2 resource implementation's
+# measurement schema. RAW candidate activation is tested in test_raw_timing.py.
+PROTOCOL = copy.deepcopy(PROTOCOL)
+PROTOCOL.pop("timing_protocol", None)
+
 
 def new_recovery_fixture(directory):
     manifest, saved = recovery_fixture(directory)
@@ -77,6 +82,9 @@ class NewSessionTests(unittest.TestCase):
             work = Path(temporary); root, output = work / "archive", work / "new-campaign"
             for name in ("configs", "autotuner", "code"):
                 shutil.copytree(ROOT / name, root / name, ignore=shutil.ignore_patterns("__pycache__"))
+            previous = ROOT / "evidence/p3_memory_policy/20261010-174802-11f7775c/campaign-d6811cad"
+            for saved, name in (("protocol.json", "measurement_protocol.json"), ("campaign_protocol.json", "p3_campaign_protocol.json")):
+                shutil.copyfile(previous / saved, root / "configs" / name)
             files = {}
             for path in (root / "configs").glob("*.json"):
                 data = path.read_bytes()
@@ -86,7 +94,9 @@ class NewSessionTests(unittest.TestCase):
             target = MagicMock(); target.compiler = Path("/controlled/compiler"); target._compiler_version = "controlled"
             campaign = json.loads((root / "configs/p3_campaign_protocol.json").read_text(encoding="utf-8"))
             def file_hash(path):
-                return campaign["compiler_sha256"] if path == target.compiler else sha256_file(path)
+                if path == target.compiler: return campaign["compiler_sha256"]
+                relative = str(path.relative_to(root)).replace(chr(92), "/")
+                return campaign["unchanged_source_sha256"].get(relative, sha256_file(path))
             with patch("autotuner.campaign.TargetAdapter.load", return_value=target), \
                     patch("autotuner.campaign.sha256_file", side_effect=file_hash), \
                     patch("autotuner.campaign.subprocess.run") as run, patch("builtins.print"):

@@ -1,0 +1,29 @@
+{
+  "schema": "matrix-raw-timing-protocol-v1",
+  "version": "2026-10-10-raw-candidate-v1",
+  "status": "candidate-only-no-formal-admission",
+  "primary_clock": "CLOCK_MONOTONIC_RAW",
+  "result_schema": "matrix-multiplication-result-v2",
+  "elapsed_rule": "float(raw_end_ns - raw_start_ns) / 1000000000.0; positive int64 endpoints, subtract integers first, exact double round-trip equality",
+  "core_scope": "Only original blocked multiplication; input initialization, auxiliary MONOTONIC endpoints, reference, validation and output are outside RAW endpoints",
+  "validation_clock": "CLOCK_MONOTONIC_RAW",
+  "auxiliary_clock": "CLOCK_MONOTONIC",
+  "auxiliary_rule": "Preserve integer endpoints, derived duration and MONOTONIC minus RAW; no equality admission gate and no calibration",
+  "admission": {
+    "reference": "Windows QPC bounds on the same native READ messages",
+    "raw_duration_range": "[RAW1_end-RAW2_start, RAW2_end-RAW1_start]",
+    "host_duration_range": "[(He_send-Hs_recv)/Frequency, (He_recv-Hs_send)/Frequency]",
+    "maximum_uncertainty_ns": 20000000,
+    "maximum_read_span_ns": 20000000,
+    "absolute_allowance_ns": 5000000,
+    "relative_allowance_percent": 1,
+    "all_intervals_required": true,
+    "raw_monotonic_equality_required": false,
+    "formal_recovery_enabled": false,
+    "activation_note": "Candidate only. No recovery certificate/session from the 22-interval diagnostic. Future authorized recovery must collect fresh matching QPC/RAW evidence; same-protocol fresh Grid is required for formal comparison."
+  },
+  "outer_budget_clock": "Windows QueryPerformanceCounter",
+  "candidate_process_watchdog_clock": "CLOCK_MONOTONIC_RAW",
+  "legacy_cost_clock": "Python time.monotonic in reference/setup/campaign; uncalibrated metadata, never used to scale RAW scores",
+  "migration": "Old v1 results and historical clock schemas retain original MONOTONIC rules; no old score/cache/certificate is converted."
+}

@@ -16,6 +16,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
+from .timing import RAW_RESULT_SCHEMA, check_raw_result, execution_clock, load_timing_binding
+
 
 RESULT_SCHEMA = "matrix-multiplication-result-v1"
 REFERENCE_SCHEMA = "matrix-reference-v1"
@@ -148,17 +150,21 @@ class TargetAdapter:
     def __init__(self, config_path: Path, evidence_root: Path | None = None):
         config_path = config_path.resolve()
         data = _load_json_file(config_path)
-        if set(data) != self.REQUIRED_FIELDS:
-            missing = sorted(self.REQUIRED_FIELDS - set(data))
-            extra = sorted(set(data) - self.REQUIRED_FIELDS)
+        required = self.REQUIRED_FIELDS | ({"timing_protocol"} if data.get("schema_version") == 2 else set())
+        if set(data) != required:
+            missing = sorted(required - set(data))
+            extra = sorted(set(data) - required)
             raise ConfigurationError(f"target fields differ: missing={missing}, extra={extra}")
-        if data["schema_version"] != 1 or data["result_schema"] != RESULT_SCHEMA:
+        if (data["schema_version"], data["result_schema"]) not in ((1, RESULT_SCHEMA),(2, RAW_RESULT_SCHEMA)):
             raise ConfigurationError("unsupported target schema")
         if data["default_input"] not in VALID_INPUTS:
             raise ConfigurationError("unsupported default input")
         self.config_path = config_path
         self.config = data
         self.base_dir = config_path.parent
+        self.timing_protocol = load_timing_binding(data.get("timing_protocol"), self.base_dir)
+        if data["schema_version"] == 2 and self.timing_protocol is None:
+            raise ConfigurationError("RAW target requires a bound timing protocol")
         self.candidate_source = (self.base_dir / data["candidate_source"]).resolve()
         self.reference_source = (self.base_dir / data["reference_source"]).resolve()
         self.shared_sources = tuple(
@@ -231,6 +237,8 @@ class TargetAdapter:
             "optimization": optimization,
             "fault_injection": fault_injection,
         }
+        if self.timing_protocol is not None:
+            payload["timing_protocol_hash"] = self.config["timing_protocol"]["hash"]
         build_key = sha256_json(payload)
         directory = self.cache_root / "build" / build_key
         binary = directory / "candidate"
@@ -559,9 +567,11 @@ class Evaluator:
             "abs_tol": self.target.config.get("abs_tolerance", 1e-12),
             "rel_tol": self.target.config.get("rel_tolerance", 1e-12),
         }
+        timing = getattr(self.target, "timing_protocol", None)
+        if timing is not None:
+            expected.update(primary_clock=timing["primary_clock"], timing_protocol_version=timing["version"])
 
-        performance_key = sha256_json(
-            {
+        performance_identity = {
                 "schema": "performance-cache-key-v1",
                 "build_key": artifact.build_key,
                 "reference_key": reference.reference_key,
@@ -570,7 +580,9 @@ class Evaluator:
                 "input": context.input_pattern,
                 "protocol_hash": context.protocol_hash,
             }
-        )
+        if timing is not None:
+            performance_identity["timing_protocol_hash"] = self.target.config["timing_protocol"]["hash"]
+        performance_key = sha256_json(performance_identity)
         performance_path = self.target.cache_root / "performance" / f"{performance_key}.json"
         if (
             not context.force_remeasure
@@ -621,7 +633,8 @@ class Evaluator:
         ]
         time_output = run_directory / "resource.txt"
         timed_command = ["/usr/bin/time", "-v", "-o", str(time_output), *command]
-        started = time.monotonic()
+        clock = lambda: execution_clock(timing is not None)
+        started = clock()
         process = subprocess.Popen(
             timed_command,
             text=True,
@@ -651,13 +664,29 @@ class Evaluator:
         monitoring = threading.Thread(target=monitor, daemon=True)
         monitoring.start()
         timed_out = False
-        try:
-            stdout, stderr = process.communicate(timeout=context.timeout_seconds)
-        except subprocess.TimeoutExpired:
-            timed_out = True
-            os.killpg(process.pid, signal.SIGKILL)
-            stdout, stderr = process.communicate()
-        process_wall_seconds = time.monotonic() - started
+        if timing is not None:
+            # communicate(timeout) uses guest MONOTONIC internally. Drain pipes in a
+            # thread while a RAW watchdog enforces the candidate process deadline.
+            output: list[tuple[str, str]] = []
+            draining = threading.Thread(target=lambda: output.append(process.communicate()), daemon=True)
+            draining.start()
+            while draining.is_alive():
+                remaining = context.timeout_seconds - (clock() - started)
+                if remaining <= 0:
+                    timed_out = True
+                    os.killpg(process.pid, signal.SIGKILL)
+                    break
+                draining.join(timeout=min(0.1, remaining))
+            draining.join()
+            stdout, stderr = output[0]
+        else:
+            try:
+                stdout, stderr = process.communicate(timeout=context.timeout_seconds)
+            except subprocess.TimeoutExpired:
+                timed_out = True
+                os.killpg(process.pid, signal.SIGKILL)
+                stdout, stderr = process.communicate()
+        process_wall_seconds = clock() - started
         stopped.set()
         monitoring.join(timeout=21)
         after = resource_snapshot()
@@ -678,6 +707,8 @@ class Evaluator:
                 "signal": -process.returncode if process.returncode < 0 else None,
                 "timed_out": timed_out,
                 "process_wall_seconds": process_wall_seconds,
+                "process_wall_clock": "CLOCK_MONOTONIC_RAW" if timing is not None else "Python time.monotonic",
+                "timing_protocol_hash": self.target.config.get("timing_protocol", {}).get("hash"),
                 "stdout_sha256": sha256_text(stdout),
                 "stderr_sha256": sha256_text(stderr),
                 "build_key": artifact.build_key,
@@ -789,6 +820,11 @@ def classify_execution(
         return "validation_failure", parsed, "non-finite or missing numeric result field"
     if parsed["elapsed_seconds"] <= 0:
         return "validation_failure", parsed, "non-positive compute time"
+    if expected_schema == RAW_RESULT_SCHEMA:
+        try:
+            check_raw_result(parsed)
+        except (ValueError, TypeError, OverflowError) as error:
+            return "validation_failure", parsed, str(error)
     if (
         parsed["n"] < 1 or not 1 <= parsed["block_size"] <= parsed["n"]
         or not 0 <= parsed["seed"] <= (1 << 64) - 1

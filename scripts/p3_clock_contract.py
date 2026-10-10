@@ -404,6 +404,10 @@ def verify_recovery(directory, current_snapshot=None):
               "recovery_eligible": False, "errors": []}
     try:
         manifest, policy = load(directory / "manifest.json"), load(directory / "policy.json")
+        measurement_path = directory / "measurement_protocol.json"
+        if measurement_path.exists():
+            from autotuner.timing import require_formal_activation
+            require_formal_activation(load(measurement_path), ROOT)
         content, session, _ = batch_identity(manifest)
         expected_policy_schema = "p3-clock-recovery-policy-v3" if manifest["schema"] == "p3-clock-batch-v3" else "p3-clock-recovery-policy-v2"
         if manifest.get("purpose") != "recover" or policy.get("schema") != expected_policy_schema or \

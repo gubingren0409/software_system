@@ -83,11 +83,15 @@ class FixedWorkClockTests(unittest.TestCase):
 
     def test_old_rule_still_rejects_saved_failure(self):
         from pathlib import Path
-        from scripts.p3_clock_reference import audit_diagnostic
+        import json
+        from scripts.p3_clock_reference import check_interval,CONDITIONS
         # Existing frozen checker still judges MONOTONIC, not this new RAW decision.
-        result=audit_diagnostic(Path(__file__).resolve().parents[1]/'evidence/p3_clock_reference/20261010-190645-1375f246')
+        directory=Path(__file__).resolve().parents[1]/'evidence/p3_clock_reference/20261010-190645-1375f246'
+        row=json.loads((directory/'intervals.jsonl').read_text().splitlines()[11]) # Original B1.
+        op=json.loads((directory/'native_process.json').read_text()); hello=op['hello']
+        result=check_interval(row,op['qpc_frequency'],CONDITIONS[1],hello['pid'],row['start']['response']['seq'],hello['allowed_cpus'])
         self.assertTrue(result['evidence_integrity_pass'])
-        self.assertFalse(result['diagnostic_certifiable'])
+        self.assertFalse(result['reference_match_pass'])
 
 
 if __name__=='__main__': unittest.main()

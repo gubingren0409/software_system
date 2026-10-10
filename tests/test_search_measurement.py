@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import json
 import tempfile
+import os
 import unittest
 from unittest.mock import patch
 from pathlib import Path
@@ -78,7 +79,7 @@ class StubExecutor:
 
 class MeasurementTests(unittest.TestCase):
     def protocol(self):
-        data = json.loads((ROOT / "configs/measurement_protocol.json").read_text())
+        data = json.loads((ROOT / "evidence/p3/campaign-e308bfb/protocol.json").read_text())
         data["target_matrix_n"] = 130
         return data
 
@@ -125,11 +126,15 @@ class MeasurementTests(unittest.TestCase):
             altered = dict(valid, **{field: value})
             self.assertFalse(valid_formal_gate(altered, protocol))
 
+    @unittest.skipIf(os.name == "nt", "Legacy mocked Grid preflight uses the WSL compiler path")
     def test_resource_blocked_checkpoint_has_identity_before_setup_and_resumes(self):
         import subprocess
         from autotuner.session import run_grid
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
+            import shutil
+            shutil.copytree(ROOT / "configs", root / "configs")
+            shutil.copyfile(ROOT / "evidence/p3/campaign-e308bfb/protocol.json", root / "configs/measurement_protocol.json")
             identity = root / "identity.json"
             identity.write_text(json.dumps({"content_sha": "test", "files": {}}))
             output = root / "session"
@@ -139,11 +144,11 @@ class MeasurementTests(unittest.TestCase):
             with patch("autotuner.session.TargetAdapter.load", return_value=target), \
                  patch("autotuner.session.subprocess.run", return_value=fake), \
                  patch("autotuner.session.time.sleep"), patch("builtins.print"):
-                self.assertEqual(run_grid(ROOT, output, "test", identity), 2)
+                self.assertEqual(run_grid(root, output, "test", identity), 2)
                 checkpoint = json.loads((output / "checkpoint.json").read_text())
                 self.assertIn("preflight_identity", checkpoint)
                 self.assertNotIn("fingerprint", checkpoint)
-                self.assertEqual(run_grid(ROOT, output, "test", identity, resume=True), 2)
+                self.assertEqual(run_grid(root, output, "test", identity, resume=True), 2)
 
 
 if __name__ == "__main__":

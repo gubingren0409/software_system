@@ -15,6 +15,7 @@ sys.path.insert(0, str(ROOT))
 from autotuner.core import sha256_file, sha256_json, utc_now
 from autotuner.session import valid_formal_gate, source_identity
 from autotuner.resources import valid_gate
+from autotuner.timing import require_formal_activation
 from scripts.p3_clock_contract import (ARCHIVE, CRITERIA_SHA, FORMAL_CONTENT, POWERSHELL,
     PROBE_SHA, SESSION, acceptance, atomic_write_json, campaign_command, capture, check_clock_intervals, load,
     probe_command, snapshot_campaign, verify_clock_evidence, verify_recovery, wsl_path)
@@ -361,6 +362,10 @@ def main():
         parser.error("Use the Windows entry point")
     if args.mode != "check" and not all((args.content_sha, args.archive_directory, args.campaign_directory, args.git_identity, args.session_id)):
         parser.error("New runs require explicit --content-sha, --archive-directory, --campaign-directory, --git-identity and --session-id; legacy batches are read-only")
+    if args.mode != "check":
+        # Read the same versioned protocol as runner/audit before creating files,
+        # querying resources, initializing sessions or launching any old probe.
+        require_formal_activation(load(ROOT / "configs/measurement_protocol.json"), ROOT)
     if args.content_sha and not args.auxiliary_sha:
         args.auxiliary_sha = args.content_sha
     if not args.child:

@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from .core import Config, EvaluationContext, Evaluator, atomic_write_json, utc_now
+from .timing import measurement_timing
 
 
 def statistics_for(values: list[float]) -> dict[str, float]:
@@ -60,6 +61,9 @@ class ConfigurationEvaluator:
         self.output, self.on_sample = output, on_sample
         if protocol["measurement"]["warmup_runs"] != 1:
             raise ValueError("this protocol requires one warmup")
+        timing = measurement_timing(protocol, Path(__file__).resolve().parents[1])
+        if timing is not None and getattr(executor.target, "timing_protocol", None) != timing:
+            raise ValueError("configuration evaluator/target timing protocols differ")
 
     def evaluate(self, config: Config, *, attempt_id: str | None = None,
                  purpose: str = "search") -> dict[str, Any]:

@@ -11,6 +11,9 @@
 
 #include "matrix_input.h"
 
+#define RESULT_SCHEMA "matrix-multiplication-result-v2"
+#define TIMING_PROTOCOL_VERSION "2026-10-10-raw-candidate-v1"
+
 #ifndef MATRIX_N
 #define MATRIX_N 4096
 #endif
@@ -47,7 +50,7 @@ static void print_number_or_null(long double value) {
 }
 
 static int reject_argument(const char *code) {
-    printf("{\"schema\":\"matrix-multiplication-result-v1\","
+    printf("{\"schema\":\"" RESULT_SCHEMA "\","
            "\"status\":\"parameter_error\",\"error\":\"%s\"}\n",
            code);
     return 64;
@@ -131,6 +134,15 @@ static double seconds_between(const struct timespec *start,
            1e-9 * (double)(end->tv_nsec - start->tv_nsec);
 }
 
+static int integer_nanoseconds(const struct timespec *value, int64_t *result) {
+    if (value->tv_sec < 0 || value->tv_nsec < 0 || value->tv_nsec >= 1000000000 ||
+        (uint64_t)value->tv_sec > ((uint64_t)INT64_MAX - (uint64_t)value->tv_nsec) / 1000000000) {
+        return 0;
+    }
+    *result = (int64_t)value->tv_sec * INT64_C(1000000000) + value->tv_nsec;
+    return *result > 0;
+}
+
 int main(int argc, char **argv) {
     struct options options = {0};
     if (!parse_options(argc, argv, &options)) {
@@ -143,7 +155,10 @@ int main(int argc, char **argv) {
 
     struct timespec start;
     struct timespec end;
-    if (clock_gettime(CLOCK_MONOTONIC, &start) != 0) {
+    struct timespec monotonic_start;
+    struct timespec monotonic_end;
+    if (clock_gettime(CLOCK_MONOTONIC, &monotonic_start) != 0 ||
+        clock_gettime(CLOCK_MONOTONIC_RAW, &start) != 0) {
         perror("clock_gettime(start)");
         return 70;
     }
@@ -159,15 +174,25 @@ int main(int argc, char **argv) {
                             C[ih + il][jh + jl] +=
                                 A[ih + il][kh + kl] * B[kh + kl][jh + jl];
 
-    if (clock_gettime(CLOCK_MONOTONIC, &end) != 0) {
+    if (clock_gettime(CLOCK_MONOTONIC_RAW, &end) != 0 ||
+        clock_gettime(CLOCK_MONOTONIC, &monotonic_end) != 0) {
         perror("clock_gettime(end)");
         return 70;
     }
-    double elapsed_seconds = seconds_between(&start, &end);
+    int64_t raw_start_ns, raw_end_ns, monotonic_start_ns, monotonic_end_ns;
+    if (!integer_nanoseconds(&start, &raw_start_ns) || !integer_nanoseconds(&end, &raw_end_ns) ||
+        !integer_nanoseconds(&monotonic_start, &monotonic_start_ns) ||
+        !integer_nanoseconds(&monotonic_end, &monotonic_end_ns) || raw_end_ns <= raw_start_ns) {
+        fprintf(stderr, "invalid clock endpoints\n"); return 70;
+    }
+    double elapsed_seconds = (double)(raw_end_ns - raw_start_ns) / 1000000000.0;
+    const double monotonic_elapsed_seconds =
+        (double)(monotonic_end_ns - monotonic_start_ns) / 1000000000.0;
+    const double monotonic_minus_raw_seconds = monotonic_elapsed_seconds - elapsed_seconds;
 
     struct timespec validation_start;
     struct timespec validation_end;
-    if (clock_gettime(CLOCK_MONOTONIC, &validation_start) != 0) {
+    if (clock_gettime(CLOCK_MONOTONIC_RAW, &validation_start) != 0) {
         return 70;
     }
 
@@ -267,7 +292,7 @@ int main(int argc, char **argv) {
         return 70;
     }
 
-    if (clock_gettime(CLOCK_MONOTONIC, &validation_end) != 0) {
+    if (clock_gettime(CLOCK_MONOTONIC_RAW, &validation_end) != 0) {
         return 70;
     }
     const double validation_seconds = seconds_between(&validation_start, &validation_end);
@@ -292,7 +317,7 @@ int main(int argc, char **argv) {
                       nonfinite_error_count == 0 && isfinite(validation_seconds) &&
                       validation_seconds >= 0.0;
 
-    printf("{\"schema\":\"matrix-multiplication-result-v1\","
+    printf("{\"schema\":\"" RESULT_SCHEMA "\","
            "\"status\":\"%s\",\"n\":%d,\"block_size\":%d,"
            "\"seed\":%" PRIu64 ",\"input\":\"%s\","
            "\"input_generator\":\"%s\",\"elapsed_seconds\":",
@@ -300,6 +325,13 @@ int main(int argc, char **argv) {
            options.seed, input_pattern_name(options.input),
            INPUT_GENERATOR_VERSION);
     print_number_or_null((long double)elapsed_seconds);
+    printf(",\"primary_clock\":\"CLOCK_MONOTONIC_RAW\","
+           "\"timing_protocol_version\":\"" TIMING_PROTOCOL_VERSION "\","
+           "\"raw_start_ns\":%" PRId64 ",\"raw_end_ns\":%" PRId64 ","
+           "\"monotonic_start_ns\":%" PRId64 ",\"monotonic_end_ns\":%" PRId64 ","
+           "\"monotonic_elapsed_seconds\":%.17g,\"monotonic_minus_raw_seconds\":%.17g",
+           raw_start_ns, raw_end_ns, monotonic_start_ns, monotonic_end_ns,
+           monotonic_elapsed_seconds, monotonic_minus_raw_seconds);
     printf(",\"checksum\":");
     print_number_or_null(checksum);
     printf(",\"reference_checksum\":");

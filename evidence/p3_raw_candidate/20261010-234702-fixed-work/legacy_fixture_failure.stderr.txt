@@ -1,0 +1,28 @@
+test_formal_gate_is_not_inferred_from_exit_status (test_search_measurement.MeasurementTests.test_formal_gate_is_not_inferred_from_exit_status) ... FAIL
+test_resource_blocked_checkpoint_has_identity_before_setup_and_resumes (test_search_measurement.MeasurementTests.test_resource_blocked_checkpoint_has_identity_before_setup_and_resumes) ... ERROR
+
+======================================================================
+ERROR: test_resource_blocked_checkpoint_has_identity_before_setup_and_resumes (test_search_measurement.MeasurementTests.test_resource_blocked_checkpoint_has_identity_before_setup_and_resumes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\software_system\project01\tests\test_search_measurement.py", line 143, in test_resource_blocked_checkpoint_has_identity_before_setup_and_resumes
+    self.assertEqual(run_grid(ROOT, output, "test", identity), 2)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\software_system\project01\autotuner\session.py", line 83, in run_grid
+    require_formal_activation(protocol, root)
+  File "E:\software_system\project01\autotuner\timing.py", line 39, in require_formal_activation
+    raise ValueError('RAW candidate only: recovery/Formal/Grid/search are disabled pending external audit and a new matching session/Grid')
+ValueError: RAW candidate only: recovery/Formal/Grid/search are disabled pending external audit and a new matching session/Grid
+
+======================================================================
+FAIL: test_formal_gate_is_not_inferred_from_exit_status (test_search_measurement.MeasurementTests.test_formal_gate_is_not_inferred_from_exit_status)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\software_system\project01\tests\test_search_measurement.py", line 123, in test_formal_gate_is_not_inferred_from_exit_status
+    self.assertTrue(valid_formal_gate(valid, protocol))
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.025s
+
+FAILED (failures=1, errors=1)

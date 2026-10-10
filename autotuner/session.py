@@ -16,6 +16,7 @@ from .core import (Config, ConfigSpace, Evaluator, TargetAdapter, atomic_write_j
                    atomic_write_text, classify_execution, sha256_file, sha256_json, utc_now)
 from .measurement import ConfigurationEvaluator, summarize_group
 from .search import GridSearch
+from .timing import RAW_RESULT_SCHEMA, measurement_timing, require_formal_activation
 
 
 def source_identity(root: Path, git_identity: dict[str, str]) -> dict[str, Any]:
@@ -61,9 +62,12 @@ def restore_complete_group(group: dict[str, Any], protocol: dict[str, Any]) -> d
                 "seed": protocol["matrix_input_seed"], "input": protocol["input_pattern"],
                 "input_generator": protocol["input_generator"],
                 "abs_tol": protocol["abs_tolerance"], "rel_tol": protocol["rel_tolerance"]}
+    timing = measurement_timing(protocol, Path(__file__).resolve().parents[1])
+    if timing is not None:
+        expected.update(primary_clock=timing["primary_clock"], timing_protocol_version=timing["version"])
     for index, sample in enumerate(samples):
         classification, parsed, _ = classify_execution(sample.get("returncode", -1), sample.get("timed_out", True),
-                                                  sample.get("raw_stdout", ""), expected=expected)
+            sample.get("raw_stdout", ""), expected_schema=RAW_RESULT_SCHEMA if timing else "matrix-multiplication-result-v1", expected=expected)
         if classification != "success" or sample.get("sample_index") != index or sample.get("context", {}).get("protocol_hash") != sha256_json(protocol) or parsed != sample.get("target_result") or parsed.get("elapsed_seconds") != sample.get("score_seconds"):
             raise ValueError("checkpoint contains invalid/mismatched raw samples")
     restored = summarize_group(config, group["attempt_id"], samples,
@@ -75,8 +79,9 @@ def restore_complete_group(group: dict[str, Any], protocol: dict[str, Any]) -> d
 
 def run_grid(root: Path, output: Path, content_sha: str, git_identity_path: Path,
              *, resume: bool = False) -> int:
-    output.mkdir(parents=True, exist_ok=True)
     protocol = json.loads((root / "configs/measurement_protocol.json").read_text())
+    require_formal_activation(protocol, root)
+    output.mkdir(parents=True, exist_ok=True)
     space = ConfigSpace.load(root / "configs/config_space.json")
     protocol_hash = sha256_json(protocol)
     identity = json.loads(git_identity_path.read_text())
