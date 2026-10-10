@@ -43,7 +43,8 @@ def main():
         "from pathlib import Path; import tarfile; p=Path(" + repr(archive) + "); p.mkdir(); "
         "t=tarfile.open(" + repr(wsl_path(tar)) + "); t.extractall(p,filter='data'); t.close()"])
     tree = subprocess.check_output(["git", "ls-tree", "-r", "--format=%(objectname)%x09%(path)",
-                                   content, "--", "autotuner", "code", "configs", "scripts"], cwd=ROOT, text=True)
+                                   content, "--", "autotuner", "code/working", "code/original/matrix_multiplication.c",
+                                   "configs", "scripts"], cwd=ROOT, text=True)
     blobs = {path: blob for blob, path in (line.split("\t", 1) for line in tree.splitlines())}
     identity = {"content_sha": content, "files": blobs}
     atomic_write_json(output / "git_identity.json", identity)
