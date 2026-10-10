@@ -114,7 +114,7 @@ def main():
     atomic_write_json(output / "controlled_replay_input.json", replay)
     code = "from pathlib import Path; import json,subprocess; from autotuner.resources import wait_formal; " \
         "root=Path.cwd(); script=subprocess.run(['wslpath','-w',str(root/'scripts/check_p2_resources.ps1')],capture_output=True,text=True,check=True).stdout.strip(); " \
-        "command=['/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',script,'-Mode','Formal','-RuntimeRoot',str(root),'-InputSnapshot'," + repr(str(output / "controlled_replay_input.json")) + "]; " \
+        "command=['/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',script,'-Mode','Formal','-RuntimeRoot',str(root),'-InputSnapshot'," + repr((output / "controlled_replay_input.json").as_posix()) + "]; " \
         "rows=[]; passed,elapsed=wait_formal(command,json.load(open('configs/measurement_protocol.json')),rows.append); " \
         "print(json.dumps({'synthetic':True,'is_real_gate':False,'pass':passed,'elapsed_seconds':elapsed,'records':rows})); assert passed and len(rows)==1"
     run("controlled_unc_resource_replay", [*prefix, "-c", code], 150)
