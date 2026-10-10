@@ -1,12 +1,22 @@
 # Matrix Multiplication Autotuner (P1)
 
-《软件系统优化》实践项目 P1。**P2 完整Grid已保存；P3首种子恢复被时钟一致性检查拦住，正式比较尚未完成。**
+《软件系统优化》实践项目 P1。**P2 历史Grid已保存；P3首种子正式比较尚未完成（P3_PARTIAL）。**
 
 2026-10-10：用户明确授权新 CPU 准入策略：Recovery 超过旧 CPU 阈值只警告，Formal
 均值≤30%/单次≤60%；内存/磁盘不放宽，配置启动前门禁等待总预算120秒。
 新内容、新归档、新 session/campaign，不拼接旧成绩；C、搜索、输入、容差、计时和评分不变。
 策略、迁移、唯一一次20区间验证计划及当前结果见 [P3_RESOURCE_POLICY](docs/P3_RESOURCE_POLICY.md)。
 旧 Grid/P3 与以下管理员核验均保留为历史，不能用新门槛追认历史 REJECT。
+
+本轮唯一 recovery 的20区间、两个宿主检查以及随后批前/批后6区间全部通过，来源50/50
+匹配，实际新Formal门禁也通过（CPU均值11%）。但e0353bf的campaign内部UNC资源采集
+异常退出1，**4096执行0、搜索配置0、轨迹0/2、复测0**，不是CPU或时钟再次拒绝。
+已定位并修复进程启动及非UTF8错误处理；最终运行内容为
+`7405fcc37074ab815294ba401d5cf5e8280f3d5f`，
+[双干净归档验证](evidence/p3_resource_policy/20261010-143415/clean-7405fcc3/summary.json)通过。
+修复后的空session `3768a29ade69408da4c5d0c4404ba44e` 不继承旧恢复证明；本轮不再采第二次
+recovery。下一轮须外部复核及新的有限验证授权，命令见上述策略文档和
+[新session计划](evidence/p3_resource_policy/20261010-143415/corrected_session_plan.json)。
 
 历史 2026-10-10 13:56 管理员处理核验：已保留13:52管理员原始日志，resync有执行
 输出，但明确报告“没有可用的时间数据”，操作后及本轮查询仍Leap=3/层次0。

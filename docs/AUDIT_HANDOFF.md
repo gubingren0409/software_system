@@ -1,6 +1,15 @@
 # 审计交接入口
 
-当前入口为e4f93333后管理员处理/资源核验：[`P3_CLOCK_REPAIR.md`](P3_CLOCK_REPAIR.md)、
+当前入口为aae4147后资源准入迁移及运行器修复：
+[`P3_RESOURCE_POLICY.md`](P3_RESOURCE_POLICY.md)、[`P3_FIRST_SEED_STATUS.md`](P3_FIRST_SEED_STATUS.md)。
+Recovery CPU仅警告、Formal30%/60%，内存/磁盘不放宽，等待含采集最多120秒。
+唯一20区间及随后实际失败调用的6个边界区间全通过；新Formal门禁通过，campaign内部
+资源UNC签名/非UTF8错误导致退出1、目标执行0。最小修复和准确7405fcc双归档验证通过，
+新空session不移用原恢复证书；P3_PARTIAL，首种子比较尚未完成，待下一轮有限验证授权。
+证据根为[`本轮目录`](../evidence/p3_resource_policy/20261010-143415/)，
+原始失败、所有时钟、身份与成本均保留；不是CPU或新时钟失败。
+
+历史入口为e4f93333后管理员处理/资源核验：[`P3_CLOCK_REPAIR.md`](P3_CLOCK_REPAIR.md)、
 [`P3_FIRST_SEED_STATUS.md`](P3_FIRST_SEED_STATUS.md)。管理员resync报告无可用时间数据，
 当前仍未同步；内存恢复但原Formal门禁因CPU均值14.2%拒绝，没有新recovery或正式执行。
 新证据位于`evidence/p3_clock_repair/20261010-135557/`，管理员原件在

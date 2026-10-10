@@ -92,4 +92,64 @@ Windows因签名拒绝该脚本。中文GB18030 stderr触发UTF-8解码异常，
 本轮唯一recovery额度已用。e0353bf检查只能认证其当时的session和失败调用，**不能移用到
 修复后的新内容/session**，也不自行再采20区间。修复后仅验证/初始化新空session；新的正式
 恢复须外部审计后重新授权一次有限recovery。旧campaign及本次失败session均保留，不改写成绩。
-当前没有完整搜索轨迹、前缀结果或候选复测；后续交付根据新内容的实际干净验证补全。
+当前没有完整搜索轨迹、前缀结果或候选复测；修复后的实际验证与下一轮边界如下。
+
+### 修复后的准确内容与有限验证
+
+最终运行内容为 `7405fcc37074ab815294ba401d5cf5e8280f3d5f`，归档
+`/var/tmp/matrix-autotuner-p3-policy-content-7405fcc37074ab815294ba401d5cf5e8280f3d5f`。
+[干净验证](../evidence/p3_resource_policy/20261010-143415/clean-7405fcc3/summary.json)
+20个捕获命令全部退出0：53项WSL针对性测试（2项Windows专用跳过）、36项Windows
+测试、导入/CLI/20唯一配置、独立空缓存n17/O2/s8 fresh且289元素通过、实际初始化和
+真实UNC入口受控重放。教师原件严格字节相同；50个运行文件逐项记录Git blob、实际
+字节SHA及LF身份。重放为合成资源数据，不是正式资源采样或第二次时钟复核。
+
+期间验证辅助代码自身另有路径传递错误：0fbd3b2的最后重放失败，不掩盖该entry退出1。
+跨WSL Python-c字面量将Windows反斜杠加数字解释为转义；仅把测试路径改为正斜杠。
+其11条错误被新运行器保留原字节/RC3，120.000162秒安全结束，未崩溃或启动目标。
+随后准确7405fcc归档重放2.495秒通过。完整失败和修复证据均保留。
+
+修复后正式空session `3768a29ade69408da4c5d0c4404ba44e`，目录
+`evidence/p3_resource_policy/20261010-143415/campaign-7405fcc3/`，只初始化，0观测/0执行/0复测。
+它的时钟和正式门禁**未执行**。实际e0353bf批次独立验收为 true/false/true/false；
+修复后session为 true/false/false/false，其中第三项是未执行而非采样失败。
+两者comparison_ready均false，尚无6行预算结果。
+
+### 独立结论、历史保护与成本
+
+[交付独立汇总](../evidence/p3_resource_policy/20261010-143415/delivery_analysis.json)
+重新核验原始端点、运行/冻结身份、实际失败调用绑定、历史字节和原始流，不仅信任summary。
+20个MONO/RAW绝对差范围0.000142–0.010402秒，0失败；REALTIME/RAW亦0失败。
+Windows A/B同调用UTC/QPC为30.649647/30.647741、30.627787/30.614535秒，均通过。
+批前/批后各3区间及两次宿主检查通过。未据此断言旧异常根因或校准旧成绩。
+
+旧清单10161个evidence/code原始字节项、新近历史234个Git字节项全部匹配（分开计数，
+不声明两清单的唯一文件总数）。旧冻结归档/编译器/候选/reference共32项匹配；
+原检查点/JSONL/run_id/完整观测/3+2部分样本和PAUSE_REQUEST不变，无正式进程且runner锁可获取。
+
+本轮4096目标执行、候选复测及放弃目标尝试成本均0；实际失败campaign的Windows完整
+调用2.105102秒，检查点只保存0.095894秒累计活动、wait=0，异常尾段没落账，不能由0
+推导资源采集无成本。外层resume57.442800秒、recovery101.456010秒，分别包含对应
+门禁14.563771/15.707523秒与边界/恢复检查等，不能全部相加。
+已捕获辅助命令QPC区间并集685.578757秒，含有限验证/合成重放/编译n17/初始化，排除本次
+汇总及后续核验、编辑/模型/离线/推送和未捕获准备操作。逐操作/来源见汇总；失败日志保留。
+旧campaign活动7120.754915秒、门禁/等待1165.348475秒不变，属于旧数据，不追加本轮成本。
+所有范围按包含关系分列，完整端到端前缀成本仍unknown。
+
+### 下一轮具体入口（本轮不执行）
+
+先由外部审计复核，并明确授权新一次有限recovery；不把e0353bf通过文件移用到新session。
+在Windows项目根目录执行（路径由[冻结新计划](../evidence/p3_resource_policy/20261010-143415/corrected_session_plan.json)给出）：
+
+```powershell
+$policyPlan = Get-Content -Raw evidence/p3_resource_policy/20261010-143415/corrected_session_plan.json | ConvertFrom-Json
+$policyArgs = @('--content-sha', $policyPlan.content_commit, '--auxiliary-sha', $policyPlan.content_commit,
+  '--archive-directory', $policyPlan.archive_directory, '--campaign-directory', $policyPlan.campaign_directory,
+  '--git-identity', $policyPlan.git_identity, '--session-id', $policyPlan.session_id)
+$policyRecovery = 'evidence/p3_resource_policy/20261010-143415/recovery-corrected-next-round'
+python scripts/start_p3_first_seed.py --mode recover @policyArgs --output $policyRecovery
+# 仅这次新恢复的20区间、来源/检查点、独立检查均通过后；resume还会重新执行Formal门禁
+python scripts/start_p3_first_seed.py --mode resume @policyArgs --recovery-directory $policyRecovery --output evidence/p3_resource_policy/20261010-143415/resume-corrected-next-round
+```
+
+若目录已存在须选新的唯一目录，不能覆盖。只运行两条12配置首种子轨迹及候选复测。

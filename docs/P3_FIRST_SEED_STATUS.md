@@ -1,4 +1,4 @@
-# 首种子正式比较：时钟阻塞（更新于 2026-10-10）
+# 首种子正式比较：P3_PARTIAL（更新于 2026-10-10）
 
 ## 当前：aae4147 后资源策略迁移
 
@@ -6,7 +6,19 @@
 集中策略与来源、全新 session 的身份、一次有限 recovery 计划及实际结果见
 [P3_RESOURCE_POLICY](P3_RESOURCE_POLICY.md)。原 session 的3配置/23执行及部分组全部封存，
 新版从空观测开始，不能迁入旧分数。新源码已修改，不能继续声称执行身份为 fa59701。
-此段在内容冻结时尚未进行新的真实 recovery 或正式矩阵执行，正式比较未完成。
+本轮唯一recovery全部20区间/两个宿主检查通过，来源50/50匹配；新的Formal门禁及
+实际失败调用的批前/批后各3区间也通过。执行内容e0353bf、session920aee4663ff44b084cd11d35eeeadbb
+的campaign调用退出1，内部UNC资源采集解码异常，未启动矩阵，配置0/24、轨迹0/2、复测0。
+修复后的内容7405fcc37074ab815294ba401d5cf5e8280f3d5f经双干净归档验证通过；
+新空session3768a29ade69408da4c5d0c4404ba44e仅初始化。唯一recovery额度已用，旧通过
+证明不移用到修复后身份，不再自动恢复。下一轮新有限复核授权及入口见策略文档。
+
+| 验收范围 | evidence_integrity_pass | execution_complete | timing_checks_pass | comparison_ready |
+|---|---|---|---|---|
+| 实际e0353bf恢复/失败调用 | true | false | true | false |
+| 当前修复后7405fcc空session | true（身份/无观测） | false | false（未执行） | false |
+
+本次不是时钟失败或CPU仍阻塞。旧Grid/P3计时与资源限制保留，不校准历史成绩。
 
 ## 历史：e4f93333后管理员处理核验，未同步/CPU门禁阻塞
 

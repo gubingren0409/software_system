@@ -58,6 +58,8 @@ def main():
     assert actual["controller"]["campaign_returncode"] == 1
     ops, intervals = [], []
     for path in sorted(BATCH.rglob("*.operation.json")):
+        if path.name.startswith("delivery_analysis"):
+            continue  # This analysis cannot include its own unfinished capture.
         record = load(path)
         assert type(record["returncode"]) is int, str(path)
         for stream in ("stdout", "stderr"):
@@ -70,7 +72,7 @@ def main():
     for start, end in sorted(intervals):
         if merged and start <= merged[-1][1]: merged[-1][1] = max(merged[-1][1], end)
         else: merged.append([start, end])
-    process = load(BATCH / "final_checks/process_state.stdout.txt")
+    process = load(BATCH / "final_checks/process_state_corrected.stdout.txt")
     assert not process["formal_processes"] and process["runner_lock_available"]
     frozen = load(ROOT / "evidence/p3_clock_repair/20261010-135557/frozen_expectations.json")["expected"]
     actual_frozen = {line.split(maxsplit=1)[1].strip(): line.split()[0]
