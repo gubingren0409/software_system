@@ -1,6 +1,15 @@
 # 审计交接入口
 
-当前入口为aae4147后资源准入迁移及运行器修复：
+当前入口为b19e6cd后7405fcc3首种子恢复：
+[`P3_FIRST_SEED_7405FCC3.md`](P3_FIRST_SEED_7405FCC3.md)、[`P3_FIRST_SEED_STATUS.md`](P3_FIRST_SEED_STATUS.md)。
+50项来源匹配，既有session3768a29a保持；唯一新recovery入口退出2，宿主内存最低0.722GiB
+不足2GiB，CPU14.6%/27%只警告。A/B时钟、Formal门禁与正式目标均未开始，0/24配置、
+0/2轨迹/0复测，P3_RESOURCE_BLOCKED。四项独立验收均false，原因说明及原始证据在
+[`独立验收`](../evidence/p3_resource_policy/20261010-161312-30f9a2a1-first-seed-7405fcc3/independent_recover.json)
+和[`结构化交付摘要`](../evidence/p3_resource_policy/20261010-161312-30f9a2a1-first-seed-7405fcc3/delivery_summary.json)。
+不再自动recovery，不借旧证书恢复；10357项历史和新检查点保护通过，无正式实验进程。
+
+历史入口为aae4147后资源准入迁移及运行器修复：
 [`P3_RESOURCE_POLICY.md`](P3_RESOURCE_POLICY.md)、[`P3_FIRST_SEED_STATUS.md`](P3_FIRST_SEED_STATUS.md)。
 Recovery CPU仅警告、Formal30%/60%，内存/磁盘不放宽，等待含采集最多120秒。
 唯一20区间及随后实际失败调用的6个边界区间全通过；新Formal门禁通过，campaign内部

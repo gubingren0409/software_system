@@ -1,0 +1,16 @@
+Tool transcript excerpt (not raw child stderr). Batch-local finalizer invocation:
+python -B -X utf8 evidence/p3_resource_policy/20261010-161312-30f9a2a1-first-seed-7405fcc3/finalize.py
+Returned exit code 1. Initial source preserved as finalize_initial.py, SHA256:
+827c60c9ba12d142e71dc210c6bdb6c5a10b508ac77af42b38cb1538f43f2205
+
+Both read-only child queries returned 1 because command strings accidentally began with '+'.
+Actual child command, PID, stdout, stderr, exit code and QPC duration are preserved in
+host_memory_explanation.* and formal_process_state.*.
+
+Finalizer then failed at line 92:
+    state = load(HERE / "formal_process_state.stdout.txt")
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+No recovery/probe/target was started by these queries. Corrected source removes only the
+two stray '+' characters and uses different evidence filenames; no failure file is overwritten.
+The whole initial finalizer's duration was not captured and remains unknown.
