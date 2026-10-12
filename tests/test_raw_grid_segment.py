@@ -102,8 +102,32 @@ class SegmentTests(unittest.TestCase):
             state['setup_seconds']=2.0; write(Path(plan['session_directory'])/'checkpoint.json', state)
             with self.assertRaisesRegex(ValueError,'groups/setup'): segment.verify_protection(auth,plan)
 
-    def controlled_run(self, root, *, resource=True, clock=True, identity=True):
+    def manual_fixture(self, auth_path, auth, plan):
+        root=Path(plan['session_directory']).parent
+        prior_dir=root/'prior/window'; prior_auth=prior_dir/'authorization.json'
+        old=copy.deepcopy(auth); old['directory']=str(prior_dir); write(prior_auth,old)
+        claim={'schema':segment.VERSION,'qpc_start':100_000_000_000,'qpc_frequency':10_000_000,
+            'authorization_sha256':segment.digest(prior_auth),'helper_sha256':'b'*64,'auxiliary_content_commit':'c'*40}
+        claim_path=Path(plan['session_directory'])/'RAW_SEGMENT_WINDOW_V1.claim.json'; write(claim_path,claim)
+        window={**claim,'qpc_end':101_333_351_975,'status':'partial_or_blocked','budget_pass':True,
+            'formal_invoked':False,'pre_resource_pass':False,'continuation_clock_pass':False,
+            'window_qpc_seconds':segment.PRIOR_USED_SECONDS,
+            'cumulative_active_qpc_seconds':segment.FIRST_SECONDS+segment.PRIOR_USED_SECONDS,
+            'ended_at':'2026-10-12T00:00:00+00:00'}
+        prior_window=prior_dir/'window.json'; write(prior_window,window)
+        auth.update(schema=segment.MANUAL_VERSION,repository_directory=str(root),
+            prior_authorization_file=str(prior_auth),prior_window_file=str(prior_window),prior_claim_file=str(claim_path),
+            prior_delivery_commit=segment.MANUAL_BASELINE,prior_used_seconds=segment.PRIOR_USED_SECONDS,
+            remaining_allowance_seconds=segment.REMAINING_SECONDS,manual_attempt_limit=1,
+            protected_previous_files={str(p):segment.digest(p) for p in (prior_auth,prior_window,claim_path)})
+        write(auth_path,auth)
+        def git_show(argv,**kwargs):
+            return SimpleNamespace(stdout=(root/argv[-1].split(':',1)[1]).read_bytes())
+        return git_show
+
+    def controlled_run(self, root, *, resource=True, clock=True, identity=True, manual=False):
         auth_path,auth,plan,state,_=self.fixture(root); session=Path(plan['session_directory']); commands=[]
+        git_show=self.manual_fixture(auth_path,auth,plan) if manual else None
         def capture(argv,directory,name,*args,**kwargs):
             commands.append((name,argv))
             if name=='windows_environment':
@@ -124,6 +148,7 @@ class SegmentTests(unittest.TestCase):
         def verify(*a):
             if not identity: raise ValueError('Controlled helper identity mismatch')
         with patch.object(segment,'frozen',return_value=f), patch.object(segment,'verify_auxiliary',side_effect=verify), \
+                patch.object(segment.subprocess,'run',side_effect=git_show), \
                 patch.object(segment,'collect_admission',clock_call), \
                 patch.object(segment,'audit_admission',return_value={'eligible':clock,'errors':[]}), \
                 patch('scripts.audit_raw_grid.audit_grid',return_value={'evidence_integrity_pass':True,'errors':[]}):
@@ -132,6 +157,55 @@ class SegmentTests(unittest.TestCase):
                 rc=None
             else: rc=segment.run(auth_path,'a'*40)
         return rc,commands,clock_call,state,auth,plan
+
+    def test_manual_resume_deducts_prior_cost_and_preserves_original_claim(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            rc,commands,clock_call,state,auth,plan=self.controlled_run(Path(tmp),manual=True)
+            self.assertEqual(rc,0); self.assertEqual(len(state['completed']),20); clock_call.assert_called_once()
+            self.assertEqual([int(a[a.index('--index')+1]) for n,a in commands if n.startswith('measure_')],list(range(5,20)))
+            window=segment.read(Path(auth['directory'])/'window.json')
+            self.assertEqual(window['prior_used_seconds'],133.3351975)
+            self.assertEqual(window['remaining_allowance_seconds'],14266.6648025)
+            self.assertEqual(window['second_window_activity_seconds'],133.3351975+window['window_qpc_seconds'])
+            self.assertEqual(window['cumulative_active_qpc_seconds'],segment.FIRST_SECONDS+(133.3351975+window['window_qpc_seconds']))
+            original=Path(auth['prior_claim_file']); self.assertEqual(segment.digest(original),auth['protected_previous_files'][str(original)])
+            manual_claim=Path(plan['session_directory'])/'RAW_SEGMENT_MANUAL_REMAINING_V1.claim.json'
+            self.assertTrue(manual_claim.exists())
+            with self.assertRaises(FileExistsError): segment.exclusive_claim(manual_claim,{'qpc_start':1})
+
+    def test_manual_authorization_cannot_reset_or_discard_consumed_budget(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path,auth,plan,_,_=self.fixture(Path(tmp)); git_show=self.manual_fixture(path,auth,plan)
+            with patch.object(segment.subprocess,'run',side_effect=git_show):
+                self.assertEqual(segment.budget_settings(auth,plan)[:2],(133.3351975,14266.6648025))
+                for key,value in (('prior_used_seconds',0),('remaining_allowance_seconds',14400),('manual_attempt_limit',2),('new_window_seconds',28800)):
+                    wrong=copy.deepcopy(auth); wrong[key]=value
+                    with self.assertRaises(ValueError): segment.budget_settings(wrong,plan)
+
+    def test_manual_closed_attempt_must_match_hashes_and_audited_git_bytes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path,auth,plan,_,_=self.fixture(Path(tmp)); git_show=self.manual_fixture(path,auth,plan)
+            old_path=Path(auth['prior_window_file']); saved=old_path.read_bytes()
+            old=segment.read(old_path); old['formal_invoked']=True; write(old_path,old)
+            with self.assertRaisesRegex(ValueError,'closed attempt changed'): segment.verify_previous(auth,plan)
+            auth['protected_previous_files'][str(old_path)]=segment.digest(old_path)
+            with self.assertRaisesRegex(ValueError,'claim/window'): segment.verify_previous(auth,plan)
+            old_path.write_bytes(saved); auth['protected_previous_files'][str(old_path)]=segment.digest(old_path)
+            with patch.object(segment.subprocess,'run',return_value=SimpleNamespace(stdout=b'wrong audited bytes')):
+                with self.assertRaisesRegex(ValueError,'audited 9f'): segment.verify_previous(auth,plan)
+
+    def test_manual_resource_failure_never_starts_clock_or_target(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            rc,commands,clock_call,state,auth,_=self.controlled_run(Path(tmp),manual=True,resource=False)
+            self.assertEqual(rc,2); clock_call.assert_not_called(); self.assertEqual(len(state['completed']),5)
+            self.assertEqual(len(commands),2)
+            self.assertGreater(segment.read(Path(auth['directory'])/'window.json')['second_window_activity_seconds'],133.3351975)
+
+    def test_manual_clock_failure_never_starts_target(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            rc,commands,clock_call,state,_,_=self.controlled_run(Path(tmp),manual=True,clock=False)
+            self.assertEqual(rc,2); clock_call.assert_called_once(); self.assertEqual(len(state['completed']),5)
+            self.assertEqual(len(commands),2)
 
     def test_controlled_resume_starts_index5_preserves_five_and_skips_setup(self):
         with tempfile.TemporaryDirectory() as tmp:

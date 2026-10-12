@@ -7,6 +7,10 @@ from pathlib import Path
 CONTENT = '3cc9e0d03ba682569fca0e91f28d364f2dab73fa'
 SESSION = 'f705a488d7b442789973381e2190c944'
 VERSION = 'raw-grid-segment-v1'
+MANUAL_VERSION = 'raw-grid-manual-remaining-v1'
+MANUAL_BASELINE = '9f714a72f2c59e75839db89a67e870d9b320fe4d'
+PRIOR_USED_SECONDS = 133.3351975
+REMAINING_SECONDS = 14266.6648025
 FIRST_SECONDS = 13883.0691008
 WINDOW_SECONDS = 14400
 TOTAL_SECONDS = 28800
@@ -62,7 +66,7 @@ def rows(path):
     return [json.loads(line) for line in Path(path).read_bytes().splitlines() if line]
 
 
-def prepare(plan_path, directory):
+def prepare(plan_path, directory, prior_authorization=None):
     plan = read(plan_path); f = frozen(plan)
     if plan['content_commit'] != CONTENT or plan['session_id'] != SESSION:
         raise ValueError('Wrong accepted content/session')
@@ -105,6 +109,19 @@ def prepare(plan_path, directory):
             for p in Path(plan['recovery_directory']).rglob('*') if p.is_file()},
         'cached_manifest_sha256': {}, 'no_third_window': True,
         'skip_setup_when_artifacts_verified': True, 'performance_cache_allowed': False}
+    if prior_authorization is not None:
+        prior = read(prior_authorization); previous = Path(prior['directory'])
+        claim = session / 'RAW_SEGMENT_WINDOW_V1.claim.json'
+        protected_previous = {str(p): digest(p) for p in previous.parent.rglob('*') if p.is_file()}
+        protected_previous[str(claim)] = digest(claim)
+        authorization.update(schema=MANUAL_VERSION,
+            authorized_by='Explicit user confirmation at 9f714a72; one manual use of the remaining allowance',
+            scope='Resume the original second-window activity allowance, not a third window or a budget reset',
+            prior_authorization_file=str(prior_authorization), prior_window_file=str(previous / 'window.json'),
+            prior_claim_file=str(claim), prior_delivery_commit=MANUAL_BASELINE,
+            protected_previous_files=protected_previous, prior_used_seconds=PRIOR_USED_SECONDS,
+            remaining_allowance_seconds=REMAINING_SECONDS, manual_attempt_limit=1)
+        verify_previous(authorization, plan)
     for name in ('candidate_O0', 'candidate_O1', 'candidate_O2', 'candidate_O3', 'reference_build'):
         metadata = read(session / 'manifests' / (name + '.json'))
         path = f.local_path(metadata['command'][-1]).parent / 'manifest.json'
@@ -115,12 +132,54 @@ def prepare(plan_path, directory):
     return authorization
 
 
+def verify_previous(auth, plan):
+    """Preserve the closed rejected attempt; sum durations, never subtract across QPC epochs."""
+    if auth['prior_delivery_commit'] != MANUAL_BASELINE or auth['prior_used_seconds'] != PRIOR_USED_SECONDS or \
+            auth['remaining_allowance_seconds'] != REMAINING_SECONDS or auth['manual_attempt_limit'] != 1:
+        raise ValueError('Manual remaining-budget authorization differs')
+    for path, expected in auth['protected_previous_files'].items():
+        if digest(path) != expected: raise ValueError('Previous closed attempt changed: ' + path)
+    prior = read(auth['prior_authorization_file']); old = read(auth['prior_window_file']); claim = read(auth['prior_claim_file'])
+    if prior['schema'] != VERSION or prior['content_commit'] != CONTENT or prior['session_id'] != SESSION or \
+            old['schema'] != VERSION or old['status'] != 'partial_or_blocked' or old['budget_pass'] is not True or \
+            any(old[k] is not False for k in ('formal_invoked', 'pre_resource_pass', 'continuation_clock_pass')) or \
+            old['authorization_sha256'] != digest(auth['prior_authorization_file']) or \
+            old['qpc_start'] != claim['qpc_start'] or old['qpc_frequency'] != claim['qpc_frequency'] or \
+            old['authorization_sha256'] != claim['authorization_sha256'] or old['helper_sha256'] != claim['helper_sha256'] or \
+            old['auxiliary_content_commit'] != claim['auxiliary_content_commit'] or \
+            elapsed(old['qpc_start'], old['qpc_end'], old['qpc_frequency'], old['qpc_frequency']) != PRIOR_USED_SECONDS or \
+            old['window_qpc_seconds'] != PRIOR_USED_SECONDS or old['cumulative_active_qpc_seconds'] != FIRST_SECONDS + PRIOR_USED_SECONDS or \
+            auth['start_checkpoint_sha256'] != prior['start_checkpoint_sha256'] or \
+            auth['samples_prefix_sha256'] != prior['samples_prefix_sha256']:
+        raise ValueError('Previous closed claim/window/start state differs')
+    repository = Path(auth['repository_directory'])
+    for path in (auth['prior_authorization_file'], auth['prior_window_file'], auth['prior_claim_file']):
+        relative = Path(path).relative_to(repository).as_posix()
+        committed = subprocess.run(['git', 'show', MANUAL_BASELINE + ':' + relative], cwd=repository, capture_output=True, check=True).stdout
+        if hashlib.sha256(committed).hexdigest() != digest(path): raise ValueError('Previous attempt differs from audited 9f714a72 bytes')
+    return PRIOR_USED_SECONDS
+
+
+def budget_settings(auth, plan):
+    if auth['schema'] not in (VERSION, MANUAL_VERSION) or auth['helper_sha256'] != digest(SELF) or \
+            auth['content_commit'] != CONTENT or auth['session_id'] != SESSION or auth['start_index'] != 5 or \
+            auth['stop_index'] != 20 or auth['performance_cache_allowed'] is not False or \
+            auth['new_window_seconds'] != WINDOW_SECONDS or auth['cumulative_active_ceiling_seconds'] != TOTAL_SECONDS or \
+            auth['first_segment_qpc_seconds'] != FIRST_SECONDS:
+        raise ValueError('Authorization/helper/budget differs')
+    if auth['schema'] == VERSION: return 0.0, WINDOW_SECONDS, 'RAW_SEGMENT_WINDOW_V1.claim.json'
+    prior = verify_previous(auth, plan)
+    if prior + REMAINING_SECONDS != WINDOW_SECONDS: raise ValueError('Remaining allowance does not preserve the original ceiling')
+    return prior, REMAINING_SECONDS, 'RAW_SEGMENT_MANUAL_REMAINING_V1.claim.json'
+
+
 def verify_protection(auth, plan, *, initial=False):
     session = Path(plan['session_directory']); state = read(session / 'checkpoint.json')
     if digest(auth['plan_file']) != auth['plan_sha256'] or plan['content_commit'] != CONTENT or plan['session_id'] != SESSION:
         raise ValueError('Plan/content/session identity changed')
     if initial and digest(session / 'checkpoint.json') != auth['start_checkpoint_sha256']:
         raise ValueError('Starting checkpoint changed')
+    if auth['schema'] == MANUAL_VERSION: verify_previous(auth, plan)
     for name, expected in auth['protected_session_files'].items():
         if digest(session / name) != expected: raise ValueError('Historical session file changed: ' + name)
     for name, expected in auth['first_recovery_sha256'].items():
@@ -300,23 +359,20 @@ def audit_admission(f, plan, auth, directory):
 def run(authorization, auxiliary_sha):
     auth = read(authorization); plan = read(auth['plan_file']); f = frozen(plan)
     directory = Path(auth['directory']); session = Path(plan['session_directory'])
-    if auth['schema'] != VERSION or auth['helper_sha256'] != digest(SELF) or auth['content_commit'] != CONTENT or auth['session_id'] != SESSION or \
-            auth['start_index'] != 5 or auth['stop_index'] != 20 or auth['performance_cache_allowed'] is not False or \
-            not auxiliary_sha or auth['new_window_seconds'] != WINDOW_SECONDS or \
-            auth['cumulative_active_ceiling_seconds'] != TOTAL_SECONDS or auth['first_segment_qpc_seconds'] != FIRST_SECONDS:
-        raise ValueError('Authorization/helper/budget differs')
+    prior_used, allowance, claim_name = budget_settings(auth, plan)
     verify_auxiliary(auth, auxiliary_sha)
     verify_protection(auth, plan, initial=True); validate_start(read(session / 'checkpoint.json'), rows(session / 'samples.jsonl'))
     start, frequency = f.qpc()
-    status = {'schema': VERSION, 'auxiliary_content_commit': auxiliary_sha, 'helper_sha256': digest(SELF),
+    status = {'schema': auth['schema'], 'auxiliary_content_commit': auxiliary_sha, 'helper_sha256': digest(SELF),
         'authorization_sha256': digest(authorization), 'qpc_start': start, 'qpc_frequency': frequency,
         'first_segment_qpc_seconds': FIRST_SECONDS, 'status': 'running', 'phase': 'environment', 'formal_invoked': False,
-        'pre_resource_pass': False, 'continuation_clock_pass': False, 'failure_reason': None, 'controller_pid': os.getpid()}
-    exclusive_claim(session / 'RAW_SEGMENT_WINDOW_V1.claim.json', status)
+        'pre_resource_pass': False, 'continuation_clock_pass': False, 'failure_reason': None, 'controller_pid': os.getpid(),
+        'prior_used_seconds': prior_used, 'remaining_allowance_seconds': allowance}
+    exclusive_claim(session / claim_name, status)
     f.atomic_write_json(directory / 'window.json', status)
     def used():
         now, hz = f.qpc(); return elapsed(start, now, frequency, hz)
-    def remaining(): return min(WINDOW_SECONDS - used(), TOTAL_SECONDS - FIRST_SECONDS - used())
+    def remaining(): return min(allowance - used(), TOTAL_SECONDS - FIRST_SECONDS - prior_used - used())
     last_progress = 0
     def progress(force=False):
         nonlocal last_progress
@@ -324,7 +380,8 @@ def run(authorization, auxiliary_sha):
         last_progress = used(); state = read(session / 'checkpoint.json')
         sample = read(session / 'progress.json') if state['active'] else None
         payload = {'at': f.utc_now(), 'phase': status['phase'], 'completed': len(state['completed']), 'active': state['active'],
-            'sample': sample, 'window_qpc_seconds': used(), 'cumulative_active_qpc_seconds': FIRST_SECONDS + used(),
+            'sample': sample, 'window_qpc_seconds': used(), 'prior_used_seconds': prior_used,
+            'second_window_activity_seconds': prior_used + used(), 'cumulative_active_qpc_seconds': FIRST_SECONDS + (prior_used + used()),
             'remaining_window_seconds': max(0, remaining()), 'current_operation_seconds': used() - status.get('operation_start_seconds', used())}
         f.atomic_write_json(directory / 'progress.json', payload); print(json.dumps(payload), flush=True)
     def capture(argv, name, maximum=None):
@@ -347,6 +404,13 @@ def run(authorization, auxiliary_sha):
             'review_pause_start_utc_label': old['updated_at'], 'review_pause_end_utc_label': host['at'],
             'review_pause_utc_label_gap_seconds': (datetime.fromisoformat(host['at']) - datetime.fromisoformat(old['updated_at'])).total_seconds(),
             'trusted_review_pause_duration_seconds': 'unknown; UTC labels may have clock adjustments', 'pause_in_active_cost': False})
+        if auth['schema'] == MANUAL_VERSION:
+            pause = read(directory / 'epoch_and_pause.json'); previous = read(auth['prior_window_file'])
+            pause.update(previous_attempt_qpc_frequency=previous['qpc_frequency'],
+                manual_pause_start_utc_label=previous['ended_at'], manual_pause_end_utc_label=host['at'],
+                manual_pause_utc_label_gap_seconds=(datetime.fromisoformat(host['at']) - datetime.fromisoformat(previous['ended_at'])).total_seconds(),
+                trusted_manual_pause_duration_seconds='unknown; UTC labels only, excluded from activity')
+            f.atomic_write_json(directory / 'epoch_and_pause.json', pause)
         context = {'content_commit': CONTENT, 'session_id': SESSION, 'purpose': 'segment-preflight', 'authorization_sha256': digest(authorization)}
         status['phase'] = 'preflight_resource_gate'; progress(True)
         if not f.gate(plan, directory / 'preflight_gate', 'Formal', context, time.perf_counter() + remaining() - 25):
@@ -385,8 +449,10 @@ def run(authorization, auxiliary_sha):
         status.update(status='partial_or_blocked', failure_reason=str(error))
     finally:
         end, hz = f.qpc(); duration = elapsed(start, end, frequency, hz)
-        status.update(qpc_end=end, window_qpc_seconds=duration, cumulative_active_qpc_seconds=FIRST_SECONDS + duration,
-            budget_pass=duration <= WINDOW_SECONDS and FIRST_SECONDS + duration <= TOTAL_SECONDS, ended_at=f.utc_now())
+        status.update(qpc_end=end, window_qpc_seconds=duration, second_window_activity_seconds=prior_used + duration,
+            cumulative_active_qpc_seconds=FIRST_SECONDS + (prior_used + duration),
+            budget_pass=duration <= allowance and prior_used + duration <= WINDOW_SECONDS and FIRST_SECONDS + prior_used + duration <= TOTAL_SECONDS,
+            ended_at=f.utc_now())
         f.atomic_write_json(directory / 'window.json', status); print(json.dumps(status), flush=True)
     return 0 if status['status'] == 'complete' and status['budget_pass'] else 2
 
@@ -396,14 +462,19 @@ def audit(authorization):
     result = {'evidence_integrity_pass': False, 'grid_complete': False, 'grid_timing_checks_pass': False,
         'execution_complete': False, 'timing_checks_pass': False, 'comparison_ready': False, 'errors': []}
     try:
+        prior_used, allowance, claim_name = budget_settings(auth, plan)
         verify_protection(auth, plan)
         window = read(directory / 'window.json')
         verify_auxiliary(auth, window['auxiliary_content_commit'])
         seconds = elapsed(window['qpc_start'], window['qpc_end'], window['qpc_frequency'], window['qpc_frequency'])
-        if seconds != window['window_qpc_seconds'] or active_cost(FIRST_SECONDS, seconds) != window['cumulative_active_qpc_seconds']:
+        if seconds > allowance or seconds != window['window_qpc_seconds'] or \
+                active_cost(FIRST_SECONDS, prior_used + seconds) != window['cumulative_active_qpc_seconds'] or \
+                window['prior_used_seconds'] != prior_used or window['remaining_allowance_seconds'] != allowance or window['schema'] != auth['schema']:
             raise ValueError('Segment activity cost differs')
-        claim = read(Path(plan['session_directory']) / 'RAW_SEGMENT_WINDOW_V1.claim.json')
-        if claim['qpc_start'] != window['qpc_start'] or claim['authorization_sha256'] != digest(authorization) or claim['helper_sha256'] != digest(SELF):
+        claim = read(Path(plan['session_directory']) / claim_name)
+        if claim['qpc_start'] != window['qpc_start'] or claim['authorization_sha256'] != digest(authorization) or claim['helper_sha256'] != digest(SELF) or \
+                claim['qpc_frequency'] != window['qpc_frequency'] or claim['auxiliary_content_commit'] != window['auxiliary_content_commit'] or \
+                claim['prior_used_seconds'] != prior_used or claim['remaining_allowance_seconds'] != allowance:
             raise ValueError('Unique authorization claim differs')
         base = importlib.import_module('scripts.audit_raw_grid').audit_grid(plan)
         f.atomic_write_json(directory / 'frozen_measurement_audit.json', base)
@@ -431,7 +502,8 @@ def audit(authorization):
             completed_configurations=base['completed_configurations'], target_executions=base['target_execution_count'],
             newly_completed_configurations=base['completed_configurations'] - 5, new_target_executions=base['target_execution_count'] - 30,
             first_segment_qpc_seconds=FIRST_SECONDS, continuation_qpc_seconds=seconds,
-            cumulative_active_qpc_seconds=FIRST_SECONDS + seconds, lowest_median_observation=base.get('lowest_median_observation'),
+            prior_used_seconds=prior_used, second_window_activity_seconds=prior_used + seconds,
+            cumulative_active_qpc_seconds=FIRST_SECONDS + (prior_used + seconds), lowest_median_observation=base.get('lowest_median_observation'),
             original_data_protection_pass=True, auxiliary_content_commit=window['auxiliary_content_commit'],
             additional_reference_generation_calls=0,
             auxiliary_sha256=digest(SELF), content_commit=CONTENT, session_id=SESSION,
@@ -447,9 +519,11 @@ def main():
     parser.add_argument('mode', choices=('prepare', 'run', 'audit'))
     parser.add_argument('--plan', type=Path); parser.add_argument('--directory', type=Path)
     parser.add_argument('--authorization', type=Path); parser.add_argument('--auxiliary-sha')
+    parser.add_argument('--prior-authorization', type=Path, help='Explicitly authorized one-time use of the original remaining allowance')
     args = parser.parse_args()
     if args.mode == 'prepare':
-        print(json.dumps(prepare(args.plan.resolve(), args.directory.resolve()))); return 0
+        print(json.dumps(prepare(args.plan.resolve(), args.directory.resolve(),
+            args.prior_authorization.resolve() if args.prior_authorization else None))); return 0
     if args.mode == 'run': return run(args.authorization.resolve(), args.auxiliary_sha)
     return audit(args.authorization.resolve())
 
