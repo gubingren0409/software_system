@@ -1,0 +1,162 @@
+{
+  "all_grid_nested_raw_costs": {
+    "all_completed_group_core_raw_seconds": 20451.716136929,
+    "all_completed_group_validation_raw_seconds": 85.373246897,
+    "controller_envelope_qpc_seconds": 13883.0691008,
+    "grid_group_evaluation_raw_seconds": 20707.004089023,
+    "scope": "Core/validation/process/group costs are nested. Setup/resource/clock checks inside QPC envelope. Historical MONOTONIC metadata is not a trusted total. No sums across overlapping scopes.",
+    "setup_raw_seconds": 43.69811622900001
+  },
+  "closed_helper_operations_qpc_seconds_not_deduplicated": 88.883267,
+  "continuation_admission_qpc_seconds": 35.9889743,
+  "continuation_preflight_gate_qpc_seconds": 71.505736,
+  "cumulative_qpc_envelope_seconds": 24330.2994407,
+  "first_segment_qpc_seconds": 13883.0691008,
+  "inclusion": "Sum first + prior failed attempt + manual attempt QPC durations only; never absolute endpoints across epochs. Envelopes include gates/checks/setup and this manual standby. RAW costs, resource wait and outer wrapper are nested: do not add. Standby UTC duration is descriptive, not a QPC refund; offline review excluded. Listed helper intervals are an intermediate snapshot, NOT deduplicated (power event query is inside manual execution; post snapshots are inside finalizer). Use final_cost_index.json for non-overlapping auxiliary envelopes; edits/model/push excluded, not a whole-turn total.",
+  "manual_attempt_qpc_seconds": 10313.8951424,
+  "new_abandoned_attempt_seconds": 0,
+  "new_build_seconds": 0,
+  "new_group_evaluation_raw_seconds": 7524.601799888002,
+  "new_group_gates_qpc_seconds": 173.28389860000001,
+  "new_reference_generation_calls": 0,
+  "new_retest_seconds": 0,
+  "new_target_core_raw_seconds": 7359.824058116,
+  "new_target_validation_raw_seconds": 40.335517487,
+  "offline_pause_labels": {
+    "current_qpc_frequency": 10000000,
+    "current_windows_boot_utc": "2026-10-11T13:05:54.5000000Z",
+    "current_wsl_boot_id": "94273c99-a477-4551-8b82-e524590c1217\n",
+    "epoch_relation": "Do not infer equal epochs from equal frequency; durations only are summed",
+    "first_qpc_frequency": 10000000,
+    "first_windows_boot_identity": "unknown",
+    "manual_pause_end_utc_label": "2026-10-12T18:20:31.3432780+08:00",
+    "manual_pause_start_utc_label": "2026-10-12T06:54:48.120632+00:00",
+    "manual_pause_utc_label_gap_seconds": 12343.222646,
+    "pause_in_active_cost": false,
+    "previous_attempt_qpc_frequency": 10000000,
+    "review_pause_end_utc_label": "2026-10-12T18:20:31.3432780+08:00",
+    "review_pause_start_utc_label": "2026-10-10T22:32:43.633291+00:00",
+    "review_pause_utc_label_gap_seconds": 128867.709987,
+    "trusted_manual_pause_duration_seconds": "unknown; UTC labels only, excluded from activity",
+    "trusted_review_pause_duration_seconds": "unknown; UTC labels may have clock adjustments"
+  },
+  "original_setup_raw_seconds": 43.69811622900001,
+  "outer_launch_capture_qpc_seconds": 10324.3827959,
+  "previous_attempt_qpc_seconds": 133.3351975,
+  "remaining_second_window_seconds": 3952.769660099999,
+  "second_window_qpc_seconds": 10447.230339900001,
+  "helper_operation_intervals_for_deduplication": [
+    {
+      "path": "operations/clean_controlled_tests.operation.json",
+      "qpc_end": 764359142538,
+      "qpc_frequency": 10000000,
+      "qpc_seconds": 4.2092729,
+      "qpc_start": 764317049809,
+      "returncode": 0
+    },
+    {
+      "path": "operations/controlled_tests.operation.json",
+      "qpc_end": 761962508352,
+      "qpc_frequency": 10000000,
+      "qpc_seconds": 4.0082908,
+      "qpc_start": 761922425444,
+      "returncode": 0
+    },
+    {
+      "path": "operations/controlled_tests_final.operation.json",
+      "qpc_end": 763526505376,
+      "qpc_frequency": 10000000,
+      "qpc_seconds": 4.1449926,
+      "qpc_start": 763485055450,
+      "returncode": 0
+    },
+    {
+      "path": "operations/export_auxiliary.operation.json",
+      "qpc_end": 764303688643,
+      "qpc_frequency": 10000000,
+      "qpc_seconds": 2.0633356,
+      "qpc_start": 764283055287,
+      "returncode": 0
+    },
+    {
+      "path": "operations/fetch_github.operation.json",
+      "qpc_end": 760098124424,
+      "qpc_frequency": 10000000,
+      "qpc_seconds": 22.4746135,
+      "qpc_start": 759873378289,
+      "returncode": 0
+    },
+    {
+      "path": "operations/git_add_auxiliary.operation.json",
+      "qpc_end": 763962499239,
+      "qpc_frequency": 10000000,
+      "qpc_seconds": 0.545048,
+      "qpc_start": 763957048759,
+      "returncode": 0
+    },
+    {
+      "path": "operations/git_commit_auxiliary.operation.json",
+      "qpc_end": 763969235193,
+      "qpc_frequency": 10000000,
+      "qpc_seconds": 0.6627919,
+      "qpc_start": 763962607274,
+      "returncode": 0
+    },
+    {
+      "path": "operations/git_diff_check.operation.json",
+      "qpc_end": 763956930677,
+      "qpc_frequency": 10000000,
+      "qpc_seconds": 0.3302943,
+      "qpc_start": 763953627734,
+      "returncode": 0
+    },
+    {
+      "path": "operations/git_status.operation.json",
+      "qpc_end": 760102214917,
+      "qpc_frequency": 10000000,
+      "qpc_seconds": 0.3943243,
+      "qpc_start": 760098271674,
+      "returncode": 0
+    },
+    {
+      "path": "operations/independent_segment_audit.operation.json",
+      "qpc_end": 868520175696,
+      "qpc_frequency": 10000000,
+      "qpc_seconds": 17.1226779,
+      "qpc_start": 868348948917,
+      "returncode": 0
+    },
+    {
+      "path": "operations/monitor_gap_power_events.operation.json",
+      "qpc_end": 861255789977,
+      "qpc_frequency": 10000000,
+      "qpc_seconds": 2.9486302,
+      "qpc_start": 861226303675,
+      "returncode": 0
+    },
+    {
+      "path": "operations/post_windows.operation.json",
+      "qpc_end": 869096205200,
+      "qpc_frequency": 10000000,
+      "qpc_seconds": 2.8997376,
+      "qpc_start": 869067207824,
+      "returncode": 0
+    },
+    {
+      "path": "operations/post_wsl.operation.json",
+      "qpc_end": 869213314969,
+      "qpc_frequency": 10000000,
+      "qpc_seconds": 11.6986077,
+      "qpc_start": 869096328892,
+      "returncode": 0
+    },
+    {
+      "path": "operations/prepare_authorization.operation.json",
+      "qpc_end": 762677906459,
+      "qpc_frequency": 10000000,
+      "qpc_seconds": 15.3806497,
+      "qpc_start": 762524099962,
+      "returncode": 0
+    }
+  ]
+}

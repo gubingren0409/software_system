@@ -17,7 +17,46 @@
 
 本轮证据入口：[人工续跑声明](../evidence/p3_raw_grid/20261012-181149-manual-remaining/README.md)。
 针对外层适配新增5项受控测试，连同既有15项共20项；不额外运行n17、4096或110项历史回归。
-以下“实际结果”仍描述上一轮已封存的失败，不是本轮执行结论。
+下方“历史实际结果”保留上一轮已封存的失败；本次结果如下，不追认旧REJECT为PASS。
+
+### 人工剩余额度的实际结果
+
+辅助冻结957576ca39689e9b8a723006aeb8177562e1620b，SHA256
+bd22b200f08a2bb9242434e6baa1ff10a96e314f99c36269968b8d11b8418a21，Git/归档/执行字节一致，LF532/CRLF0。
+20项受控测试在工作区及准确干净导出通过；无额外小矩阵或110项历史回归。
+Formal预检第一次仅host_memory拒绝（500543488B），第二次通过（1919221760B），总QPC71.505736s。
+通过快照CPU均值8.4%/峰24%、WSL6203023360B、commit余量24678649856B、根盘223111458816B；
+低于2GiB警告及初次REJECT保留。全部新组Formal用同一v2独立复算，未新增硬门槛。
+唯一两区间fresh附件10响应，RAW2/2完整且在未加容差边界内，QPC35.9889743s；MONO警告不作为拒绝。
+由原归档从index5完成余15组，新增90fresh；合计20组/120唯一/40组检查，无部分或放弃组。
+缓存身份核验后跳过setup；reference生成计数仍1，本次build/reference新增0，性能缓存0。
+
+Windows明确记录20:23:27.022合盖进入Modern Standby、20:59:36.239退出，UTC标签差2169.217s。
+定位O3/s24测量5/run_id6948e9aca2aa4b8eaf4b2085ef068731：核心RAW65.122054088s，
+该组测量调用宿主QPC2593.8447413s、来宾RAW评估417.886870885s。
+这不是同一范围可直接作比例校准的数据；冻结两侧RAW检查通过，未触发原失败分类，原运行器继续最后两组。
+保留全部原始样本及后处理警告；不把边界通过宣称为计算全程连续，也不自动剔除/重测。
+
+本次QPC10313.8951424s，旧133.3351975s继续计费；第二段10447.2303399s，
+累计24330.2994407s（约6h45m30s），余3952.7696601s，不开启额外窗口。
+包络含休眠，不等于纯执行成本；事件UTC差不从QPC预算扣除。
+新增15组评估RAW7524.601799888s（内含核心7359.824058116s、验证40.335517487s），
+新增组门禁QPC173.2838986s、预检71.505736s、准入35.9889743s均是包络内含项，不全加。
+原controller13883.0691008s只代表首段，不能当整个Grid总成本。
+只读审计退出0：evidence完整、Grid完整/RAW检查true；P3执行/时钟/比较false，无搜索/独立复测。
+原329项session保护、上轮101文件、五组和30条字节前缀、11017更早文件均保持；live checkpoint/CSV合法追加。
+Windows/WSL任务进程已退出。新摘要、20行CSV、图、资源与休眠证据均在本次入口。
+
+只读复核，不领取预算或运行目标：
+
+```powershell
+python -X utf8 C:/Users/28489/AppData/Local/Temp/raw-grid-remaining-957576ca-9f3uvul3/content/scripts/raw_grid_segment.py audit --authorization E:/software_system/project01/evidence/p3_raw_grid/20261012-181149-manual-remaining/window/authorization.json
+```
+
+从干净检出复核时，导出准确957576ca辅助提交，并按原plan核验/还原两侧3cc9e0d归档及缓存路径；
+不要直接从后续工作区导入冻结执行模块。不再执行run；剩余额度不是新的调用许可。
+
+## 历史：f19f9f84之后的分段授权
 
 本轮审计基点 `f19f9f84b19a5a7c2b71ba38ffab206499ffff54`。用户于2026-10-12授权
 一个新的外层续跑窗口，不改变测量规则，不增加Random/Greedy、种子、最优独立复测。
@@ -83,7 +122,7 @@ Grid完成与P3 Random/Greedy比较分开，后者execution_complete/timing_chec
 python -X utf8 C:/Users/28489/AppData/Local/Temp/raw-grid-segment-7a8dc17f-us7jy1r9/content/scripts/raw_grid_segment.py audit --authorization E:/software_system/project01/evidence/p3_raw_grid/20261012-144553-segment/window/authorization.json
 ```
 
-## 实际结果：资源预检拒绝，未进行fresh时钟准入
+## 历史实际结果：资源预检拒绝，未进行fresh时钟准入
 
 辅助冻结内容 `7a8dc17f7e268edcea7ff011b56540725ce65af4`，源码/执行/Git blob SHA256
 均 `a49b9b2217256eef6bd77e0a3e342e6d9b79b0eed212c32ac4cce0583fbdd6a1`，LF458/CRLF0。

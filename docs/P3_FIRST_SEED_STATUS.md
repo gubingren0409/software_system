@@ -1,6 +1,30 @@
 # 首种子正式比较尚未完成（2026-10-12）
 
-## 当前：一次新分段窗口在资源预检停止
+## 当前：RAW Grid完整，首种子搜索比较仍未运行
+
+9f714a72后用户明确允许一次人工续用原剩余额度，旧133.3351975秒继续计费，不重置或开启第三窗口。
+辅助内容957576ca、测量内容3cc9e0d/session f705a488；原资源v2/计时/输入/核心/评分/搜索均不变。
+干净归档20项受控测试通过；原Formal预检在120秒内先REJECT后PASS，全部原样保存。
+唯一两区间fresh准入RAW2/2通过，MONOTONIC差异仅辅助警告。index5–19串行完成新增15组/90fresh，
+完整Grid20/20、120唯一fresh（20预热/100测量）、40/40分组RAW检查，active=null、partial=0、abandoned=[]。
+原12区间恢复证书不改，本次2区间为续跑附件，不是第二套恢复证书。
+
+测得最低中位数O3/s12850.996291138秒，CV0.4313%、MAD0.229528039秒；没有独立复测或算法轨迹。
+独立验收evidence_integrity_pass=true、grid_complete=true、grid_timing_checks_pass=true；
+**P3 execution_complete/timing_checks_pass/comparison_ready仍false**。
+本次O3/s24测量5期间有Kernel-Power506/507明确的合盖Modern Standby，约36分钟（UTC事件标签差）。
+冻结RAW契约和两侧检查通过不证明整次矩阵执行未暂停；该样本/统计原样保留，不剔除、不重跑、不校准。
+排名为实际观测，不能表述成稳定性保证或物理时钟绝对精度认证。
+
+本次QPC10313.8951424s，第二段含旧失败尝试10447.2303399s；含首段累计24330.2994407s。
+该包络含休眠；审核/人工离线等待单列，只加各epoch时长，不跨epoch减绝对端点。
+原329文件、五组、30条前缀、上轮101文件、11017更早文件及教师原件保持；原controller只描述首段。
+进程均已退出，不调用剩余预算、不启动Random/Greedy或最优复测，等待外部审计。
+[完整交接](../evidence/p3_raw_grid/20261012-181149-manual-remaining/README.md)、
+[独立审计](../evidence/p3_raw_grid/20261012-181149-manual-remaining/window/independent_segment_audit.json)、
+[休眠定位](../evidence/p3_raw_grid/20261012-181149-manual-remaining/standby_analysis.json)。
+
+## 历史：一次新分段窗口在资源预检停止
 
 基点f19f9f84，辅助内容`7a8dc17f7e268edcea7ff011b56540725ce65af4`；正式测量内容仍3cc9e0d，
 session仍f705a488。15项受控测试及其干净导出通过；没有重复110项或n17。

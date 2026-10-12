@@ -1,0 +1,43 @@
+{
+  "affected_config": {
+    "block_size": 24,
+    "optimization": "O3"
+  },
+  "assessment": "Confirmed lid-triggered standby inside sample 5. Frozen RAW contracts and group checks passed; this is not an uninterrupted benchmark. No sample removed, repeated, calibrated or replaced; no protocol changed.",
+  "attempt_id": "109098196375437aa57ecff32db1b741",
+  "budget_action": "Entire QPC envelope retained. No refund/reset; exact QPC-only suspend duration unknown (event timestamps are UTC labels).",
+  "event_source_sha256": "0d340cc3827da1622c1d70bcfaf4b89ee629969d295a13f5049c75d64d82de85",
+  "event_utc_end": "2026-10-12T12:59:36.239000+00:00",
+  "event_utc_label_gap_seconds": 2169.217,
+  "event_utc_start": "2026-10-12T12:23:27.022000+00:00",
+  "events": {
+    "at": "2026-10-12T21:01:18.8759170+08:00",
+    "events": [
+      {
+        "Id": 507,
+        "Message": "The system is exiting Modern Standby \r\n\r\nReason: Lid.",
+        "ProviderName": "Microsoft-Windows-Kernel-Power",
+        "TimeCreated": "/Date(1791809976239)/"
+      },
+      {
+        "Id": 506,
+        "Message": "The system is entering Modern Standby \r\n\r\nReason: Lid.",
+        "ProviderName": "Microsoft-Windows-Kernel-Power",
+        "TimeCreated": "/Date(1791807807022)/"
+      }
+    ],
+    "windows_boot": "2026-10-11T13:05:54.5000100Z"
+  },
+  "group_before_after_raw_checks_pass": true,
+  "group_evaluation_raw_seconds": 417.88687088499955,
+  "group_measure_operation_qpc_seconds": 2593.8447413,
+  "quality_limitation": "Group-boundary probes do not certify continuity inside a matrix execution. Best observation/ranking is descriptive, not an independent stability claim.",
+  "run_id": "6948e9aca2aa4b8eaf4b2085ef068731",
+  "sample_core_raw_seconds": 65.122054088,
+  "sample_index": 5,
+  "sample_process_raw_seconds": 66.0729995369993,
+  "sample_resource_utc_label_span_seconds": 2234.007349,
+  "sample_result_sha256": "d415c13598caa985b10ee3a82d166b4a2d0d10691bf20efad7f70a0e7b1983a9",
+  "sample_role": "measurement",
+  "sample_validation_raw_seconds": 0.376391363
+}

@@ -1,6 +1,42 @@
 # 审计交接入口
 
-## 当前：f19f9f84之后的一次分段续跑交付
+## 当前：9f714a72之后，人工续用剩余额度完成RAW Grid
+
+**RAW_GRID_COMPLETE / P3_SEARCH_COMPARISON_INCOMPLETE**，不是整个作业完成。
+测量内容`3cc9e0d03ba682569fca0e91f28d364f2dab73fa`、session `f705a488d7b442789973381e2190c944`不变；
+外层内容`957576ca39689e9b8a723006aeb8177562e1620b`，准确归档运行，20项关联受控测试通过。
+人工授权仅续用14266.6648025s，旧133.3351975s保持计费。新claim排他，旧claim/预算/controller不改。
+一次原Formal预检、一次两区间fresh附件通过，余15配置/90fresh完成，合计20/120/40组检查。
+原12区间证书不变，附件2区间另计；120个run_id唯一，1+5fresh完整，无部分/放弃组。
+evidence_integrity_pass=true；grid_complete/grid_timing_checks_pass=true；
+P3 execution_complete/timing_checks_pass/comparison_ready=false，Random/Greedy及独立最优复测均未运行。
+
+**必须审计的质量限制：O3/s24第5测量内发生合盖Modern Standby。**
+事件506/507及消息已保存，UTC标签间隔2169.217s；原RAW契约和组边界检查通过，但不证明矩阵内部连续。
+样本/排名不修改、不筛掉、不校准或重跑；整段QPC计费，不退款。
+独立审计的Grid timing=true仅表示冻结规定的RAW端点/准入/分组边界成立，不是全天候准确性或稳定性认证。
+测得最低中位数O3/s12850.996291138s，CV0.4313%、MAD0.229528039s；未独立复测。
+
+优先审计：
+
+- [本次完整入口与只读命令](../evidence/p3_raw_grid/20261012-181149-manual-remaining/README.md)
+- [授权及旧133.3351975s绑定](../evidence/p3_raw_grid/20261012-181149-manual-remaining/window/authorization.json)、[真实预算/退出状态](../evidence/p3_raw_grid/20261012-181149-manual-remaining/window/window.json)
+- [辅助内容/实际字节/归档](../evidence/p3_raw_grid/20261012-181149-manual-remaining/auxiliary_freeze.json)、[20项干净测试](../evidence/p3_raw_grid/20261012-181149-manual-remaining/operations/clean_controlled_tests.stderr.txt)
+- [两区间全部原始流](../evidence/p3_raw_grid/20261012-181149-manual-remaining/window/admission/)、[独立端点复算](../evidence/p3_raw_grid/20261012-181149-manual-remaining/window/recomputed_admission.json)
+- [原测量＋分段独立审计](../evidence/p3_raw_grid/20261012-181149-manual-remaining/window/independent_segment_audit.json)、[20配置汇总](../evidence/p3_raw_grid/20261012-181149-manual-remaining/grid_summary_20.csv)
+- [全部120样本](../evidence/p3_raw_grid/20261011-021601/final-content/grid-f705a488/samples.jsonl)、[40个组检查](../evidence/p3_raw_grid/20261011-021601/final-content/grid-f705a488/group_checks/)
+- [休眠/受影响样本和来源](../evidence/p3_raw_grid/20261012-181149-manual-remaining/standby_analysis.json)、[Windows原消息](../evidence/p3_raw_grid/20261012-181149-manual-remaining/operations/monitor_gap_power_events.stdout.txt)
+- [原件/旧5组/前缀/11017历史/进程退出保护](../evidence/p3_raw_grid/20261012-181149-manual-remaining/delivery_verification.json)、[资源独立复算](../evidence/p3_raw_grid/20261012-181149-manual-remaining/resource_quality.json)
+- [真实终端stdout/可靠退出0](../evidence/p3_raw_grid/20261012-181149-manual-remaining/operations/manual_run.stdout.txt)、[stderr](../evidence/p3_raw_grid/20261012-181149-manual-remaining/operations/manual_run.stderr.txt)
+- [分段与嵌套成本](../evidence/p3_raw_grid/20261012-181149-manual-remaining/costs.json)、[辅助成本去重索引](../evidence/p3_raw_grid/20261012-181149-manual-remaining/final_cost_index.json)
+
+本次QPC10313.8951424s，第二段10447.2303399s，累计包络24330.2994407s，余3952.7696601s。
+包络含系统休眠而不是纯计算，离线审核暂停另列；嵌套RAW/门禁/外层包装不相加。
+冻结源码/四二进制/reference身份一致，新增setup/reference0；所有本任务实验进程已退出。
+只追加新组与原JSONL，旧controller/initial/证书/五组/前缀及上轮101文件不变。
+本轮到此停止。请外审裁决本次休眠质量限制和分段结果适用范围；不自动再领窗口、复测或进入算法比较。
+
+## 历史：f19f9f84之后的一次分段续跑交付
 
 **RAW_GRID_RESOURCE_BLOCKED / PARTIAL**。辅助内容`7a8dc17f7e268edcea7ff011b56540725ce65af4`；
 实际测量仍准确`3cc9e0d03ba682569fca0e91f28d364f2dab73fa`归档，session
