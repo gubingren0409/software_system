@@ -1,6 +1,21 @@
-# 首种子正式比较尚未完成（2026-10-11）
+# 首种子正式比较尚未完成（2026-10-12）
 
-## 当前：正式RAW Grid部分完成，资源门禁停止
+## 当前：一次新分段窗口在资源预检停止
+
+基点f19f9f84，辅助内容`7a8dc17f7e268edcea7ff011b56540725ce65af4`；正式测量内容仍3cc9e0d，
+session仍f705a488。15项受控测试及其干净导出通过；没有重复110项或n17。
+只领取一个新窗口。Formal预检三个完整快照仅host_memory拒绝（最低457887744、397090816、
+316342272B），第四次超时无输出；原策略v2、CPU与WSL等规则不变。
+本轮fresh续跑准入**未执行**，不是RAW失败；新配置/探针/目标/放弃组/复测均0。
+原checkpoint、五行CSV、controller、30条JSONL、五完整组、初始检查点及第一段证书均原字节不变。
+继续为5/20配置、30/120执行，余15仍从index5/O1/s8开始，Random/Greedy和前缀复测未运行。
+证据完整性true；Grid complete、全Grid timing、P3 execution_complete/timing_checks_pass/comparison_ready均false。
+当前没有实验进程。一次性claim保留；本轮不再调用run或重置窗口，下一步等待外审明确剩余额度的
+后续授权，并先解决实际宿主余量。收尾内存快照不是新Formal门禁，不追认拒绝通过。
+[当前分段入口和成本](P3_RAW_GRID_SEGMENT.md)、
+[独立验收](../evidence/p3_raw_grid/20261012-144553-segment/window/independent_segment_audit.json)。
+
+## 首段历史：正式RAW Grid部分完成，资源门禁停止
 
 状态 **RAW_GRID_RESOURCE_BLOCKED / PARTIAL**。运行内容
 `3cc9e0d03ba682569fca0e91f28d364f2dab73fa`，新Grid session

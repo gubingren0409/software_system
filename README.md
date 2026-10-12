@@ -2,7 +2,17 @@
 
 《软件系统优化》实践项目 P1。**P2 历史Grid已保存；P3首种子正式比较尚未完成。**
 
-当前（2026-10-11，3755c4a外审之后）：**RAW_GRID_RESOURCE_BLOCKED / PARTIAL**。
+当前（2026-10-12，f19f9f84外审之后）：**RAW_GRID_RESOURCE_BLOCKED / PARTIAL**。
+已按授权实现一次性分段续跑助手，辅助内容`7a8dc17f7e268edcea7ff011b56540725ce65af4`，
+干净导出15项受控测试通过。原五组和30条样本完整封存，不重跑、不修改冻结归档。
+唯一新窗口在Formal预检停止：三次完整采样宿主最低约437/379/302MiB均低于512MiB，
+第四次采集被剩余预算中止；新探针/矩阵/配置均0。累计活动包络14016.4042983秒，
+不含审核暂停，不用旧controller值冒充整个Grid成本。窗口不可重复领取。
+[分段授权、停止原因及只读复核入口](docs/P3_RAW_GRID_SEGMENT.md)、
+[分段独立审计](evidence/p3_raw_grid/20261012-144553-segment/window/independent_segment_audit.json)、
+[原数据与进程保护核验](evidence/p3_raw_grid/20261012-144553-segment/delivery_verification.json)。
+
+首段已接受结果（历史，不被本次拒绝改写）：
 正式RAW内容`3cc9e0d03ba682569fca0e91f28d364f2dab73fa`、新Grid session
 `f705a488d7b442789973381e2190c944`。唯一恢复12/12与5组前后10/10 RAW检查通过；
 O0五配置完成、30/120次fresh执行有效。O1/s8前宿主内存门禁等待耗尽，停止；余15配置未执行。

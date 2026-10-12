@@ -1,0 +1,100 @@
+{
+  "decisions": [
+    {
+      "checks": {
+        "cpu_average": true,
+        "cpu_maximum": true,
+        "host_commit_headroom": true,
+        "host_memory": false,
+        "root_disk": true,
+        "wsl_memory": true
+      },
+      "decision": "REJECT",
+      "host_cpu_average_percent": 8.8,
+      "host_cpu_maximum_percent": 19,
+      "host_minimum_available_bytes": 457887744,
+      "host_minimum_commit_headroom_bytes": 27178926080,
+      "operation": "sample_0",
+      "qpc_seconds": 35.1841425,
+      "rejection_reasons": [
+        "host_memory"
+      ],
+      "returncode": 2,
+      "sample_count": 5,
+      "timed_out": false,
+      "warnings": [
+        "host_memory below warning threshold"
+      ],
+      "wsl_available_bytes": 5771509760
+    },
+    {
+      "checks": {
+        "cpu_average": true,
+        "cpu_maximum": true,
+        "host_commit_headroom": true,
+        "host_memory": false,
+        "root_disk": true,
+        "wsl_memory": true
+      },
+      "decision": "REJECT",
+      "host_cpu_average_percent": 7.2,
+      "host_cpu_maximum_percent": 15,
+      "host_minimum_available_bytes": 397090816,
+      "host_minimum_commit_headroom_bytes": 26650705920,
+      "operation": "sample_1",
+      "qpc_seconds": 25.8451552,
+      "rejection_reasons": [
+        "host_memory"
+      ],
+      "returncode": 2,
+      "sample_count": 5,
+      "timed_out": false,
+      "warnings": [
+        "host_memory below warning threshold"
+      ],
+      "wsl_available_bytes": 6198054912
+    },
+    {
+      "checks": {
+        "cpu_average": true,
+        "cpu_maximum": true,
+        "host_commit_headroom": true,
+        "host_memory": false,
+        "root_disk": true,
+        "wsl_memory": true
+      },
+      "decision": "REJECT",
+      "host_cpu_average_percent": 12.2,
+      "host_cpu_maximum_percent": 23,
+      "host_minimum_available_bytes": 316342272,
+      "host_minimum_commit_headroom_bytes": 27102732288,
+      "operation": "sample_2",
+      "qpc_seconds": 24.9537842,
+      "rejection_reasons": [
+        "host_memory"
+      ],
+      "returncode": 2,
+      "sample_count": 5,
+      "timed_out": false,
+      "warnings": [
+        "host_memory below warning threshold"
+      ],
+      "wsl_available_bytes": 6201458688
+    },
+    {
+      "decision": "unknown; collection timed out with no stdout",
+      "operation": "sample_3",
+      "qpc_seconds": 4.1126305,
+      "rejection_reasons": [
+        "collection_timeout"
+      ],
+      "returncode": 1,
+      "timed_out": true
+    }
+  ],
+  "declared_wait_budget_seconds": 120,
+  "gate_qpc_seconds": 120.1520997,
+  "independent_decisions_match": true,
+  "observed_shutdown_overrun_seconds": 0.15209969999999373,
+  "scope": "Original frozen gate stops at its deadline; observed 0.152s return/cancellation overrun is disclosed, not treated as a pass."
+}

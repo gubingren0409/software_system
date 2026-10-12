@@ -4,7 +4,8 @@
 姓名：谷秉仁
 
 > P2 已完成运行契约修复、统一测量、三策略诊断、20/20 正式 Grid 和候选独立复测，
-> 等待外部审计；P3首种子比较尚未完成。当前已验证并实现RAW候选，P3_RAW_CLOCK_CANDIDATE_READY，见8.8；正式恢复仍禁用。
+> 等待外部审计；P3首种子比较尚未完成。RAW候选获审后建立正式RAW session，见8.9；
+> 当前正式Grid为5/20。本次一次性分段续跑在宿主内存门禁停止，未新增目标或时钟区间，见8.10。
 > 历史 pilot 不追认为 Grid，P2 不因开始 P3 而视为审计通过。
 > 管理员处理、e0353bf/7405fcc3及内存v2恢复均保留为8.3–8.6历史记录，不移用旧证书。
 > 历史50cd24e后唯一30区间诊断的默认忙工作有2项MONOTONIC/QPC失配，
@@ -47,8 +48,8 @@ P1-R1 修复了初次提交中 `.gitignore` 误忽略 `autotuner/core.py` 的交
 `MATRIX_N=4096`，诊断构建才覆盖尺寸；块大小严格限制为 `1 <= s <= n`。
 
 输入由固定的 `splitmix64-interleaved-v1` 规则生成，默认种子 20261008。核心计算
-历史正式内容用 `CLOCK_MONOTONIC` 与 `double` 计时；本轮仅准备RAW候选（见8.8），
-不改写历史分数。初始化、reference 读取、逐元素验证、结果
+历史正式内容用 `CLOCK_MONOTONIC` 与 `double` 计时；新RAW Grid统一使用`CLOCK_MONOTONIC_RAW`
+和整数纳秒端点（见8.9–8.10），不改写或校准历史分数。初始化、reference 读取、逐元素验证、结果
 checksum 和输出均在计时区外。输出是单行 JSON。每个结果和 reference 元素、误差、
 checksum 与时间必须有限；判据在运行前固定为
 `abs_error <= 1e-12 + 1e-12 * abs(reference)`。
@@ -656,3 +657,41 @@ timing_checks_pass、comparison_ready仍false：新Grid基线和两算法比较�
 两次辅助CLI/cwd失败和一次收尾助手失败保留，见[正式RAW Grid完整记录](docs/P3_RAW_GRID.md)、
 [独立审计](evidence/p3_raw_grid/20261011-021601/final-content/grid_audit_archive.json)与
 [成本](evidence/p3_raw_grid/20261011-021601/final-content/costs.json)。
+
+### 8.10 一次分段续跑（f19f9f84外审之后，仍为部分结果）
+
+五个O0组/30fresh及对应RAW检查已获外审接受。测量内容3cc9e0d、session f705a488及
+所有输入/算法/正确性/评分/时钟/资源v2保持；本轮仅增加外层分段调度助手，内容
+`7a8dc17f7e268edcea7ff011b56540725ce65af4`，准确干净导出15项受控测试通过。
+本段新授权最多14400秒，原段13883.0691008秒，两段活动≤28800秒；不是旧连续窗口静默续期。
+不同epoch只累计各自验证的QPC时长；审核暂停排除，不能宣称整个Grid连续运行。
+
+一次领取后先做Formal资源预检，3个完整五样本快照独立复算：
+
+| 门禁采集 | 宿主最低可用/B | WSL可用/B | CPU均值/最高 | 结论 |
+| --- | ---: | ---: | --- | --- |
+| 0 | 457887744 | 5771509760 | 8.8% / 19% | 仅host_memory拒绝 |
+| 1 | 397090816 | 6198054912 | 7.2% / 15% | 仅host_memory拒绝 |
+| 2 | 316342272 | 6201458688 | 12.2% / 23% | 仅host_memory拒绝 |
+
+三次commit余量均充足，但不能抵销宿主物理余量不足512MiB。第四次采集用剩余约3.974秒，
+超时无stdout，不能补造其内存值或判为通过。门禁QPC120.1520997秒，约0.152秒停止返回越界
+保留，不因此启动计算。内存下降原因unknown，不把WSL预占或任何应用写成已证实原因。
+完整原始分页计数、WSL meminfo及Vmmem数据保留。收尾boot_id/PID变化为观测，原因unknown；
+本任务没有关闭/重启WSL或改配置。较晚3.68GiB可用快照不是新门禁，更不能重写本次REJECT。
+
+预声明的两个续跑区间实际执行0；矩阵、小矩阵、reference、复测、新完整/部分/放弃组均0。
+原六个状态文件与五组成绩原字节保持，仍5/20、30/120、10个分组检查；初次12区间证书不修改。
+新窗口安全停止，本段QPC133.3351975秒；两段非重叠活动包络累计14016.4042983秒，
+内含120.1520997秒预检；外层启动捕获142.7036262秒也包含本段，不把这些范围全部相加。
+审核暂停标签间隔116394.010757秒仅UTC差，可信精确暂停秒数unknown，不混入活动/计算/资源等待。
+已记录辅助操作成本及排除项单列，编辑、推送和部分收尾不完整计时，不宣称完整轮次成本。
+
+独立验收完整性true；新时钟not_performed，Grid complete/Grid timing及P3执行/时钟/比较全false。
+本轮不新增成绩、排名、最优复测或搜索；8.9的五行表维持原值，不能称20配置最优。
+一次性claim保留，剩余15项从O1/s8开始，但本轮不再次领取窗口或开始恢复，等待外审。
+[分段授权/只读入口](docs/P3_RAW_GRID_SEGMENT.md)、
+[独立验收](evidence/p3_raw_grid/20261012-144553-segment/window/independent_segment_audit.json)、
+[资源复算](evidence/p3_raw_grid/20261012-144553-segment/resource_rejection_recomputed.json)、
+[保护核验](evidence/p3_raw_grid/20261012-144553-segment/delivery_verification.json)、
+[成本范围](evidence/p3_raw_grid/20261012-144553-segment/costs.json)。

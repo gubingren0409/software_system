@@ -1,6 +1,36 @@
 # 审计交接入口
 
-当前（3755c4a外审后）：**RAW_GRID_RESOURCE_BLOCKED / PARTIAL**。
+## 当前：f19f9f84之后的一次分段续跑交付
+
+**RAW_GRID_RESOURCE_BLOCKED / PARTIAL**。辅助内容`7a8dc17f7e268edcea7ff011b56540725ce65af4`；
+实际测量仍准确`3cc9e0d03ba682569fca0e91f28d364f2dab73fa`归档，session
+`f705a488d7b442789973381e2190c944`。没有修改冻结测量/时钟/资源协议。
+一次性窗口已领取且在资源预检停止；三次完整快照独立复算均只有host_memory拒绝，第四次超时。
+本轮新增准入区间/分组检查/4096/小矩阵/reference/配置/轨迹/复测/放弃组均0。
+仍5/20有效配置、30/120fresh、10个分组检查，原恢复12区间另计。
+
+优先审计本轮新增内容：
+
+- [外层分段设计与结果、下一步限制](P3_RAW_GRID_SEGMENT.md)
+- [授权、328文件/30样本/五组/缓存哈希锁定](../evidence/p3_raw_grid/20261012-144553-segment/window/authorization.json)
+- [辅助准确内容、干净导出及字节SHA](../evidence/p3_raw_grid/20261012-144553-segment/auxiliary_freeze.json)
+- [15项干净受控测试](../evidence/p3_raw_grid/20261012-144553-segment/tests/clean_auxiliary_tests.stderr.txt)
+- [唯一窗口/真实QPC、停止原因](../evidence/p3_raw_grid/20261012-144553-segment/window/window.json)
+- [资源原始流](../evidence/p3_raw_grid/20261012-144553-segment/window/preflight_gate/)、[独立判定](../evidence/p3_raw_grid/20261012-144553-segment/resource_rejection_recomputed.json)
+- [分段+原测量独立验收](../evidence/p3_raw_grid/20261012-144553-segment/window/independent_segment_audit.json)
+- [历史及原六文件字节保护、进程退出](../evidence/p3_raw_grid/20261012-144553-segment/delivery_verification.json)
+- [成本包含关系](../evidence/p3_raw_grid/20261012-144553-segment/costs.json)、[窗口原始stdout](../evidence/p3_raw_grid/20261012-144553-segment/operations/segment_run.stdout.txt)
+- [闭合22项流/退出码/QPC与链接/误提交检查](../evidence/p3_raw_grid/20261012-144553-segment/closed_packaging_verification.json)、[非重叠辅助成本](../evidence/p3_raw_grid/20261012-144553-segment/final_cost_index.json)
+
+完整性true，正式执行未新增；当前续跑时钟not_performed，Grid/P3完整及比较false。
+两段活动包络14016.4042983秒，不跨epoch相减、不叠加内含门禁/组时间。
+120秒门禁实测120.1520997秒，约0.152秒停止返回越界如实披露，不接受为PASS。
+11017个更早文件原字节不变，原首段controller/checkpoint/CSV/progress/JSONL/initial全不变，
+首段证书和原失败记录保留。一次性claim不删除，不自动再跑或开启第三窗口。
+
+## 首段历史交付（3755c4a外审后，f19f9f84已接受）
+
+状态：**RAW_GRID_RESOURCE_BLOCKED / PARTIAL**。
 修复协议路径重定位、schema严格binding和QPC发送戳顺序，新增正式RAW协议与独立恢复证书。
 运行内容`3cc9e0d03ba682569fca0e91f28d364f2dab73fa`，新Grid session
 `f705a488d7b442789973381e2190c944`；候选协议、资源v2、教师C/核心/输入/reference/容差/搜索不改。

@@ -61,7 +61,51 @@ Grid完成与P3 Random/Greedy比较分开，后者execution_complete/timing_chec
 只读复核（辅助准确提交的干净导出入口；不产生新窗口）：
 
 ```powershell
-python -X utf8 <auxiliary-archive>/scripts/raw_grid_segment.py audit --authorization E:/software_system/project01/evidence/p3_raw_grid/20261012-144553-segment/window/authorization.json
+python -X utf8 C:/Users/28489/AppData/Local/Temp/raw-grid-segment-7a8dc17f-us7jy1r9/content/scripts/raw_grid_segment.py audit --authorization E:/software_system/project01/evidence/p3_raw_grid/20261012-144553-segment/window/authorization.json
 ```
 
-实际新窗口结果待本轮运行后填写；准备/受控测试通过不表示正式Grid完成。
+## 实际结果：资源预检拒绝，未进行fresh时钟准入
+
+辅助冻结内容 `7a8dc17f7e268edcea7ff011b56540725ce65af4`，源码/执行/Git blob SHA256
+均 `a49b9b2217256eef6bd77e0a3e342e6d9b79b0eed212c32ac4cce0583fbdd6a1`，LF458/CRLF0。
+干净归档的15项测试通过；没有矩阵或真实探针。正式依赖完整使用原3cc归档，执行字节清单仍为原计划。
+
+唯一窗口实际在2026-10-12 14:52开始，14:54:48停止；入口可靠退出2、stderr为空。
+Formal预检三个完整快照各5个原始样本，宿主最低457887744/397090816/316342272B，
+均低于512MiB，只有host_memory拒绝。WSL5771509760/6198054912/6201458688B、
+CPU均值8.8/7.2/12.2%、最高19/15/23%、commit余量及磁盘均通过。
+第四个采集用剩余3.973811秒，超时退出1、stdout为空；不补造读数。
+预检实测120.1520997秒，0.1520997秒停止返回越界如实保留，门禁未通过。
+[`resource_rejection_recomputed.json`](../evidence/p3_raw_grid/20261012-144553-segment/resource_rejection_recomputed.json)
+用原策略从全部完整原始读数重新计算，结论一致，未放宽/筛选。
+
+新2区间准入、分组探针、矩阵、reference、部分/放弃组、复测全部0。
+仍O0五完整/30fresh，起点index5/O1/s8未动；没有新attempt覆盖旧拒绝记录。
+原controller/checkpoint/五行CSV/initial/progress/samples六文件字节均相同，第一段证书及
+328项原文件、缓存manifests、11017更早历史文件原字节保持。新claim是唯一追加到原session的文件。
+准确归档/缓存/探针范围WSL实验进程与Windows主控均已退出，未终止用户应用。
+
+| 验收范围 | 结果 |
+| --- | --- |
+| evidence_integrity_pass（测量/分段/保护） | true |
+| 本段Formal资源 | failed：host_memory；末次采集timeout |
+| 本段fresh时钟准入 | not_performed，eligible=false |
+| grid_complete / grid_timing_checks_pass | false / false |
+| P3 execution_complete / timing_checks_pass / comparison_ready | false / false / false |
+
+本段QPC133.3351975秒；两段活动包络累计14016.4042983秒，低于28800秒。
+门禁120.1520997秒是本段内含项，外层启动捕获142.7036262秒也包含本段，不重复相加。
+审核暂停UTC标签差116394.010757秒，精确可信时长unknown，不计活动/计算/资源等待。
+辅助成本见[`costs.json`](../evidence/p3_raw_grid/20261012-144553-segment/costs.json)；
+闭合到收尾/远端fetch的非重叠辅助包络合计87.4688323秒，
+见[`final_cost_index.json`](../evidence/p3_raw_grid/20261012-144553-segment/final_cost_index.json)，不是完整轮次成本。
+全部22个已闭合operation的退出码、QPC差及流哈希通过，含先前自身收尾父调用；
+新文件链接/敏感模式/大文件检查通过，见
+[`closed_packaging_verification.json`](../evidence/p3_raw_grid/20261012-144553-segment/closed_packaging_verification.json)。
+新主控自身窗口已关闭；剩余预算不自动变成再启动授权，不删除claim或重开四小时。
+
+只读收尾快照宿主可用3949428736B，与门禁不是同一时间，不能追认拒绝或直接开始矩阵。
+收尾WSL boot_id从ec5e9efe…变为bc99880b…，Vmmem PID从150060变为151944，
+变化为观测、原因unknown；本任务没有执行WSL重启或系统修改。未跨boot减vmstat计数器。
+后续先由外审裁决分段额度和续跑入口，再核实资源稳定、做授权范围内的fresh准入。
+本轮到此停止；不再次运行Formal、时钟采集、Grid、Random/Greedy或最优复测。
