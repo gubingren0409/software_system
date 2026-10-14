@@ -2,7 +2,21 @@
 
 《软件系统优化》实践项目 P1。**P2 历史Grid已保存；P3首种子正式比较尚未完成。**
 
-当前（2026-10-12，9f714a72后的人工剩余额度授权）：**RAW_GRID_COMPLETE / P3比较未完成**。
+当前（2026-10-14，e1b3a7ee后）：**P3_RAW_COMPARISON_PARTIAL_AC_POWER_BLOCKED**。
+已新增独立RAW比较协议/入口及连续性保护；没有解除原campaign的Grid-only限制。
+执行内容`35a60b090b728d2ec3b6a8ea014beac69fe3766d`双干净归档各19项假执行器测试通过，
+20配置及科学文件字节身份通过；新validation session `f9f3bb0d54724d2385a8b77be26a99b3`，
+新search session `d7a9ba9fc5384990b739ff51363a03e5`为空。本轮**没有真实搜索**。
+唯一验证调用在接电检查停止：API成功、ACLineStatus=0、电量72%。防睡眠请求同线程释放。
+资源门禁及时钟准入均未执行（不是失败/PASS）；矩阵0/18、组0/3、部分样本0。
+证据完整性true；validation完成/时钟和P3 execution_complete/timing_checks_pass/comparison_ready均false。
+原Grid已关闭，20组/120次及O3/s24待机样本、检查点/证书/预算原字节保留，不追加或退款。
+[本轮交接与下一步](evidence/p3_raw_comparison/20261014-102833/README.md)、
+[入口及预声明协议](docs/P3_RAW_COMPARISON.md)、
+[独立验收](evidence/p3_raw_comparison/20261014-102833/independent_validation_audit.json)。
+本轮停止并等待外审；接电、开盖后仍需明确新的有限验证授权，不能重复运行已领取的one-shot plan。
+
+历史（2026-10-12，9f714a72后的人工剩余额度授权）：**RAW_GRID_COMPLETE / P3比较未完成**。
 正式内容`3cc9e0d03ba682569fca0e91f28d364f2dab73fa`、session `f705a488d7b442789973381e2190c944`不变；
 外层助手内容`957576ca39689e9b8a723006aeb8177562e1620b`干净导出20项受控测试通过。
 一次两区间fresh准入及原Formal门禁通过后，从index5完成余15组，合计20配置/120fresh/40组检查。

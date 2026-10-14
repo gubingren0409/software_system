@@ -1,6 +1,35 @@
-# 首种子正式比较尚未完成（2026-10-12）
+# 首种子正式比较尚未完成（2026-10-14）
 
-## 当前：RAW Grid完整，首种子搜索比较仍未运行
+## 当前：独立RAW入口已冻结，验证因未接电停止
+
+基于e1b3a7ee，本轮没有真实Random/Greedy搜索。新增比较协议v1，新运行内容
+`35a60b090b728d2ec3b6a8ea014beac69fe3766d`，继承科学测量内容3cc9e0d及原协议/资源v2。
+validation session `f9f3bb0d54724d2385a8b77be26a99b3`；search session
+`d7a9ba9fc5384990b739ff51363a03e5`完全空观测。原f705a488 Grid已关闭，不再修改/追加。
+
+双干净归档各19项新受控回归、CLI、20唯一配置及科学源码/缓存哈希通过，没有额外n17或110项重复。
+新主控临时防睡眠成功申请/释放，按System RecordID跟踪待机；组内待机或同范围QPC/RAW
+差超过max(30s,5%RAW)将保留受扰组并停止。策略只能获得自身观测，候选复测不反馈。
+
+唯一3600秒验证窗口在准入资源检查之前因Windows ACLineStatus=0（查询成功、电量72%）停止。
+实用QPC2.428145s，外层进程3.1998347s，范围嵌套。claim保留，不重置、不自动再次启动。
+Recovery/Formal门禁均**未执行**；短/长准入0/2、组边界探针0、4096目标0/18、组0/3、
+部分/放弃矩阵组0、候选复测0、两算法观测/轨迹0。没有新时钟失败，不应描述为CPU或内存阻塞。
+
+独立验收evidence_integrity_pass=true；validation_complete/validation_timing_checks_pass=false；
+P3 execution_complete/timing_checks_pass/comparison_ready全部false。
+三个原Grid分数旁列，新分数/CV/MAD/变化均“未执行”，六行预算表仅结构，不含假执行器成绩。
+已闭合历史2089文件全部字节相同；原Grid准确归档只读审计仍20/120有效。
+O3/s24受扰事实及原样本不删、不退款，其他组连续性未认证，不能倒推为连续执行。
+
+后续先外审本轮入口，连接AC/保持开盖，再明确授权新的有限验证活动；当前plan再次调用会拒绝，
+不能删除claim或借旧Grid证书。长搜索建议约7–10小时，独立固定12小时预算需另获审核授权；
+不承诺全部完成，不扩种子/算法。任务进程已退出。
+[全部交接](../evidence/p3_raw_comparison/20261014-102833/README.md)、
+[独立验收](../evidence/p3_raw_comparison/20261014-102833/independent_validation_audit.json)、
+[代码与冻结协议](P3_RAW_COMPARISON.md)。
+
+## 历史：RAW Grid完整，首种子搜索比较仍未运行
 
 9f714a72后用户明确允许一次人工续用原剩余额度，旧133.3351975秒继续计费，不重置或开启第三窗口。
 辅助内容957576ca、测量内容3cc9e0d/session f705a488；原资源v2/计时/输入/核心/评分/搜索均不变。

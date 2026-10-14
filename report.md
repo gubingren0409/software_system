@@ -7,6 +7,8 @@
 > 等待外部审计；P3首种子比较尚未完成。RAW候选获审后建立正式RAW session，见8.9；
 > 8.9/8.10保留首段及上次拒绝历史；9f714a72后人工续用剩余额度完成正式RAW Grid20/20，见8.11。
 > O3/s24测量5期间发生合盖Modern Standby，原样保留；完成规定检查不等于全程连续或稳定。
+> 2026-10-14已建立独立RAW比较入口，三配置验证在未接AC电源检查停止，目标0/18、准入0/2；
+> 没有真实Random/Greedy轨迹，P3比较仍未完成，见8.12。不是新时钟失败或资源门禁通过。
 > 历史 pilot 不追认为 Grid，P2 不因开始 P3 而视为审计通过。
 > 管理员处理、e0353bf/7405fcc3及内存v2恢复均保留为8.3–8.6历史记录，不移用旧证书。
 > 历史50cd24e后唯一30区间诊断的默认忙工作有2项MONOTONIC/QPC失配，
@@ -770,3 +772,55 @@ Random/Greedy、独立复测及新增小矩阵均0。旧五组/前缀/证书/con
 [休眠定位](evidence/p3_raw_grid/20261012-181149-manual-remaining/standby_analysis.json)、
 [历史保护](evidence/p3_raw_grid/20261012-181149-manual-remaining/delivery_verification.json)、
 [成本范围](evidence/p3_raw_grid/20261012-181149-manual-remaining/costs.json)。
+
+### 8.12 独立RAW比较入口与三配置验证计划（e1b3a7ee之后）
+
+原3cc9e0d/session f705a488 Grid已关闭，所有20组/120记录、证书/claim/controller/预算及
+O3/s24待机样本保持原字节，不筛样本/替换分数/退款。新增的质量注释区分正确性、冻结计时契约和
+内部连续性：前两者通过旧规定检查，O3/s24内部连续性为false；其他组没有内部认证，标unknown。
+
+新比较协议`2026-10-14-raw-comparison-v1`、执行内容
+`35a60b090b728d2ec3b6a8ea014beac69fe3766d`独立归档；继承C、输入/reference/容差、20空间、
+编译选项、RAW契约、1预热+5fresh/中位数、搜索及资源v2不变。新validation session
+`f9f3bb0d54724d2385a8b77be26a99b3`，search session `d7a9ba9fc5384990b739ff51363a03e5`为空。
+旧campaign仍Grid-only，未删除拒绝后恢复旧实验；没有旧观测导入。
+
+Windows控制线程临时防睡眠申请并核验，finally释放；不能保证阻止用户合盖。
+按System RecordID跟踪待机/唤醒原始消息，组内待机即保留受扰样本、停止且不接纳完整组。
+READY之后，宿主RUN发送至FINISHED接收的QPC包络对照同一配置评估的整数RAW区间，
+不含WSL启动/setup/门禁/两侧探针，宿主另含传输包络；差值大于max(30秒,5%RAW)停查。
+该额外连续性规则不改变核心RAW评分，不用于比例校准。
+
+双干净归档各19项针对性假执行器回归、CLI/20唯一配置和科学文件/缓存哈希通过。
+实际验证顺序预声明为O3/s128→s64→s24，预算3600秒，fresh短/长准入及6个组边界探针，
+每组1+5、共18目标全矩阵检查。**唯一启动在接电检查停止**：Windows API成功，
+ACLineStatus=0、电量72%；防睡眠成功申请且同线程释放。资源门禁、时钟采集和矩阵均未执行。
+
+| 配置（新验证顺序） | 原Grid中位数/RAW秒 | 原Grid CV/% | 原Grid MAD/秒 | 新独立中位数/CV/MAD/变化 | 新正确性/连续性 |
+| --- | ---: | ---: | ---: | --- | --- |
+| O3/s128 | 50.996291138 | 0.4313 | 0.229528039 | 未执行 | 未执行 |
+| O3/s64 | 52.469094035 | 0.3582 | 0.076079772 | 未执行 | 未执行 |
+| O3/s24 | 66.249431562 | 1.0883 | 0.361471251 | 未执行 | 未执行 |
+
+表中原Grid仅旁列历史参照，未给新session预置成绩；不选两轮较小值，不把空值当0。
+本轮4096目标0/18、准入0/2、完整验证组0/3、搜索配置/轨迹/候选复测均0；没有新增部分矩阵组。
+独立验收完整性true，validation完成/验证计时及P3 execution_complete/timing_checks_pass/
+comparison_ready全部false。未采时钟不能写PASS，未采资源不能写REJECT。
+
+后续首种子计划仍random/greedy各12唯一、4/8/12同轨迹前缀，各算法内部候选去重复测，
+仅自身观测参与搜索，Grid/本轮验证/复测/另一算法不反馈。[六行比较结构](evidence/p3_raw_comparison/20261014-102833/first_seed_six_row_template.csv)
+均“未执行”。按历史20组评估RAW约20707秒乘24/20，搜索评估启发式约24848秒，
+加复测、门禁/探针等估计约7–10小时；这是规划假设，贪心配置组成、环境/等待可变，不能保证完成。
+建议另行外审固定12小时QPC总活动上限（包含准入/门禁/1+5/复测/收尾），超时停止而非重置预算。
+搜索144次目标，候选去重后另12–36次复测，搜索预算不含复测，跨算法不共用样本。
+
+本轮活动窗口QPC2.428145秒，外层验证进程3.1998347秒含该窗口，不能相加；目标/核心/评估RAW、
+门禁等待、原生探针、reference生成、候选复测和放弃目标成本均0。已闭合辅助捕获去重108.9703983秒
+仅覆盖当时日志，不含编辑/模型/后续收尾/推送，不是整轮总时间。旧Grid成本/暂停无退款。
+已保存claim/失败状态，不自动第二次启动。下一步需接电、开盖，外审后明确新的有限验证授权。
+
+[完整证据/来源/停止原因](evidence/p3_raw_comparison/20261014-102833/README.md)、
+[独立验收](evidence/p3_raw_comparison/20261014-102833/independent_validation_audit.json)、
+[旧Grid三种质量结论](evidence/p3_raw_comparison/20261014-102833/closed_grid_quality_annotation.json)、
+[历史保护](evidence/p3_raw_comparison/20261014-102833/history_after.json)、
+[成本包含关系](evidence/p3_raw_comparison/20261014-102833/costs.json)。

@@ -1,5 +1,33 @@
 # 工作记录
 
+## 2026-10-14：独立RAW比较入口及未接电安全停止
+
+- 核对project01、HEAD e1b3a7ee、干净工作区及github/origin，正常fetch github成功；未reset/clean/覆盖用户工作。
+  保存关闭Grid、memory-policy、clock-repair历史2089文件的字节哈希，不再向f705a488追加。
+- 最小改动技能约束为新增独立比较协议/状态机/主控，复用已有测量和时钟复算；原campaign拒绝保持。
+  scientific C/输入/reference/容差/20空间/搜索/RAW测量/资源v2原字节不改。
+  新比较协议v1明确12唯一配置、4/8/12前缀、自身观测隔离、各算法候选去重复测、不共用性能缓存。
+- Windows临时SetThreadExecutionState核验非零且finally同线程释放；只读System RecordID事件消息/XML，
+  同组QPC包络/评估RAW差值阈值max(30s,5%)与待机停止规则预先写入协议，不校准成绩。
+  实测Windows API及事件查询正常；16项初版测试后补足入口身份/搜索授权等为19项，均假执行器。
+- 一次辅助Windows list-configs因缺本机/usr/bin/gcc失败，原stderr保留；这是WSL目标配置，
+  后续准确WSL归档实际CLI/20唯一配置通过，没有替换编译器或修改科学配置。
+- 冻结运行内容35a60b090b728d2ec3b6a8ea014beac69fe3766d，准确Windows/WSL归档各19项关联回归通过。
+  Git blob、实际SHA、LF/CRLF分别保存；教师原C必须字节一致。编译/reference经身份核验复用，
+  新cache只链接这两类目录，performance新目录独立，不读取/覆盖旧成绩缓存。
+  新validation f9f3bb0d54724d2385a8b77be26a99b3、search d7a9ba9fc5384990b739ff51363a03e5初始化皆0执行。
+- 唯一validation调用2.428145s后退出2：GetSystemPowerStatus成功，ACLineStatus=0、电量72%。
+  未接交流电不满足“运行时接电开盖”，安全停止并释放临时防睡眠；没有CPU/内存/时钟失败。
+  Recovery/Formal均未采，准入0/2、4096目标0/18、验证0/3、搜索/复测/部分矩阵组均0。
+  保留排他claim/预算，不自动第二次调用、不修改归档后重启。不因剩余预算而删除claim。
+- 从实际35a归档独立验收退出2（未完成），evidence_integrity_pass=true、验证/P3完成与计时/比较均false。
+  从原3cc归档只读复算旧Grid退出0：20完整、120fresh及原时钟契约有效；输出写入新目录。
+  派生质量注释单列correctness/timing_contract/uninterrupted：O3/s24后者false，其他组unknown，
+  不把未知标为true、不改原中位数、不退款或筛样本。
+- 生成三配置旁列表及六行搜索空表，未执行数据保持空/未执行；约7–10小时及固定12小时仅后续预算提案。
+  核对2089历史字节不变，关闭Grid原样，更新报告/交接；正式进程退出，停止等待外审。
+  成本包络、嵌套与辅助操作见[本轮证据](../evidence/p3_raw_comparison/20261014-102833/README.md)。
+
 ## 2026-10-12：9f714a72后人工续用原剩余额度
 
 - 用户明确授权一次人工续跑，保留133.3351975s已用，最多再14266.6648025s；没有第三窗口。

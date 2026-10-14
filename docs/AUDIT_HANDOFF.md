@@ -1,6 +1,35 @@
 # 审计交接入口
 
-## 当前：9f714a72之后，人工续用剩余额度完成RAW Grid
+## 当前：e1b3a7ee之后独立RAW比较入口，验证未接电停止
+
+状态`P3_RAW_COMPARISON_PARTIAL_AC_POWER_BLOCKED`，不是完成18次验证或P3比较。
+实际内容`35a60b090b728d2ec3b6a8ea014beac69fe3766d`准确双归档，各19项新受控测试通过；
+测量来源3cc9e0d独立绑定，科学源码、20空间/搜索、测量/RAW及资源v2未改。
+validation session `f9f3bb0d54724d2385a8b77be26a99b3`，search session
+`d7a9ba9fc5384990b739ff51363a03e5`；两者未导入旧成绩，旧Grid完全关闭。
+
+唯一调用真实退出2：GetSystemPowerStatus成功、ACLineStatus=0、电量72%，按接电/开盖要求停止。
+防睡眠请求核验非零、finally同线程释放。QPC窗口2.428145秒（3600预算），外层3.1998347秒含该窗口；
+claim和真实stdout/stderr/退出码保留，不重启/退款。资源/时钟均未执行，不能写成时钟失败或门禁通过。
+0/18矩阵、0/3验证组、0/2准入区间、0搜索/复测/部分组；没有恢复证书。
+证据完整性true；验证完成/验证计时及P3 execution_complete/timing_checks_pass/comparison_ready均false。
+
+优先审计：
+
+- [本轮完整证据与只读命令](../evidence/p3_raw_comparison/20261014-102833/README.md)
+- [最终摘要](../evidence/p3_raw_comparison/20261014-102833/delivery_summary.json)、[独立验收](../evidence/p3_raw_comparison/20261014-102833/independent_validation_audit.json)
+- [新协议/连续性/信息隔离/固定预算](P3_RAW_COMPARISON.md)、[受控回归](../tests/test_raw_comparison.py)
+- [双干净归档及实际来源](../evidence/p3_raw_comparison/20261014-102833/content/prepare_summary.json)、[validation plan](../evidence/p3_raw_comparison/20261014-102833/content/validation_plan.json)、[空search plan](../evidence/p3_raw_comparison/20261014-102833/content/search_plan.json)
+- [接电API原始返回](../evidence/p3_raw_comparison/20261014-102833/content/validation-f9f3bb0d/ac_status.json)、[申请/释放](../evidence/p3_raw_comparison/20261014-102833/content/validation-f9f3bb0d/sleep_request.json)、[窗口/原因](../evidence/p3_raw_comparison/20261014-102833/content/validation-f9f3bb0d/window.json)
+- [三配置原Grid/新未执行表](../evidence/p3_raw_comparison/20261014-102833/three_configuration_comparison.csv)、[六行比较空表](../evidence/p3_raw_comparison/20261014-102833/first_seed_six_row_template.csv)
+- [历史保护](../evidence/p3_raw_comparison/20261014-102833/history_after.json)、[旧Grid只读审计](../evidence/p3_raw_comparison/20261014-102833/closed_grid_readonly_audit.json)、[三种质量结论](../evidence/p3_raw_comparison/20261014-102833/closed_grid_quality_annotation.json)
+- [本轮成本和包含关系](../evidence/p3_raw_comparison/20261014-102833/costs.json)、[后续搜索预算提案](../evidence/p3_raw_comparison/20261014-102833/later_search_budget_proposal.json)
+
+待审：独立RAW授权而非删除旧拒绝、source/session/协议拒绝、同范围QPC/RAW及RecordID受扰判定、
+one-shot预算防重置、三配置验证尚未进行。下一步应接电开盖、外审后明确新的有限验证授权；
+不直接复用当前claim，不自动启动搜索。新准入通过也不能追认旧Grid内部连续性。
+
+## 历史：9f714a72之后，人工续用剩余额度完成RAW Grid
 
 **RAW_GRID_COMPLETE / P3_SEARCH_COMPARISON_INCOMPLETE**，不是整个作业完成。
 测量内容`3cc9e0d03ba682569fca0e91f28d364f2dab73fa`、session `f705a488d7b442789973381e2190c944`不变；
