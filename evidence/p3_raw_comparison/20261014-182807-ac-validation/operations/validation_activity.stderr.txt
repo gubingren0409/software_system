@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "C:\Users\28489\AppData\Local\Temp\matrix-raw-comparison-35a60b090b728d2ec3b6a8ea014beac69fe3766d\scripts\start_raw_comparison.py", line 254, in run
+    measure(plan, plan_path, job, attempt, checks, deadline, progress)
+  File "C:\Users\28489\AppData\Local\Temp\matrix-raw-comparison-35a60b090b728d2ec3b6a8ea014beac69fe3766d\scripts\start_raw_comparison.py", line 163, in measure
+    if errors: raise ValueError('; '.join(errors))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Evaluation did not finish; timeout=False
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\28489\AppData\Local\Temp\matrix-raw-comparison-35a60b090b728d2ec3b6a8ea014beac69fe3766d\scripts\start_raw_comparison.py", line 281, in <module>
+    args = parser.parse_args(); raise SystemExit(run(load(args.plan), args.plan.resolve(), args.search_authorization))
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28489\AppData\Local\Temp\matrix-raw-comparison-35a60b090b728d2ec3b6a8ea014beac69fe3766d\scripts\start_raw_comparison.py", line 267, in run
+    atomic_write_json(output / 'checkpoint.json', state)
+  File "C:\Users\28489\AppData\Local\Temp\matrix-raw-comparison-35a60b090b728d2ec3b6a8ea014beac69fe3766d\scripts\p3_clock_contract.py", line 40, in atomic_write_json
+    temporary.write_bytes((json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False, allow_nan=False) + "\n").encode("utf-8"))
+  File "C:\Users\28489\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1037, in write_bytes
+    return f.write(view)
+           ^^^^^^^^^^^^^
+OSError: [Errno 28] No space left on device

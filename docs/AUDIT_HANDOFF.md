@@ -1,6 +1,37 @@
 # 审计交接入口
 
-## 当前：e1b3a7ee之后独立RAW比较入口，验证未接电停止
+## 当前：c08184e后新AC授权，2/3验证组完成后证据盘满
+
+状态`P3_RAW_VALIDATION_PARTIAL / EVIDENCE_DISK_FULL`。原执行内容
+`35a60b090b728d2ec3b6a8ea014beac69fe3766d`不改，新验证session
+`9332ead2881a4c1e91b966e90a0d2057`，唯一新3600s活动，不覆盖旧claim或失败证据。
+一次fresh短/长准入2/2通过，已采5组边界RAW检查通过；12fresh（2预热/10测量）、2完整组有效。
+新分数s128=51.602724641s、s64=52.784908609s，正确性/RAW/连续性三项各自通过。
+第三组s24在写检查点时EIO，Windows故障保存ENOSPC；实际目标0次，剩6次未执行。
+E:仅16384B，WSL根盘约208GiB；不是时钟失败/AC失败，也未放宽内存/CPU/计时规则。
+控制器真实退出1，窗口stopped，最后有效checkpoint仍ready/两组/active=null，不手工修成stopped或complete。
+临时防睡眠finally释放成功；没有重跑、补采、删除样本或退款。QPC846.073676s。
+
+evidence_integrity_pass=true；validation_complete/validation_timing_checks_pass=false；
+P3 execution_complete/timing_checks_pass/comparison_ready=false。正式搜索仍未运行。
+13,231项旧证据字节保护通过；旧AC claim/失败、关闭Grid和旧成绩都不改。
+本轮290文件复制并逐SHA核验到C，E原始文件不动；两份失败checkpoint临时片段也随证据保留。
+提交/推送工作树为C盘同历史project01副本，原E工作树仍在c08184e，需释放空间后安全同步，禁止reset覆盖。
+
+优先审计：
+
+- [完整新批次、原因及只读命令](../evidence/p3_raw_comparison/20261014-182807-ac-validation/README.md)
+- [新授权](../evidence/p3_raw_comparison/20261014-182807-ac-validation/authorization.json)、[plan/准确归档](../evidence/p3_raw_comparison/20261014-182807-ac-validation/validation_plan.json)
+- [独立验收](../evidence/p3_raw_comparison/20261014-182807-ac-validation/independent_validation_audit.json)、[12条逐样本契约](../evidence/p3_raw_comparison/20261014-182807-ac-validation/all_sample_contracts_independent.json)
+- [7区间原始独立复算](../evidence/p3_raw_comparison/20261014-182807-ac-validation/all_clock_checks_independent.json)、[门禁含旧REJECT](../evidence/p3_raw_comparison/20261014-182807-ac-validation/all_resource_gates_independent.json)
+- [三配置表/波动/变化](../evidence/p3_raw_comparison/20261014-182807-ac-validation/three_configuration_comparison.csv)、[成本包含关系](../evidence/p3_raw_comparison/20261014-182807-ac-validation/costs.json)
+- [真实退出1及ENOSPC stderr](../evidence/p3_raw_comparison/20261014-182807-ac-validation/operations/validation_activity.stderr.txt)、[E和WSL磁盘原读数](../evidence/p3_raw_comparison/20261014-182807-ac-validation/operations/wsl_root_and_evidence_disk.stdout.txt)
+- [13231项历史保护](../evidence/p3_raw_comparison/20261014-182807-ac-validation/history_after.json)、[救援复制逐字节证明](../evidence/p3_raw_comparison/20261014-182807-ac-validation/disk_full_rescue/rescue_manifest.json)
+
+未解决：证据盘未被现有根盘门禁覆盖，失败保存可再次ENOSPC，s24未验证。下一轮审定最小入口修复及
+补充磁盘/写失败回归、新内容或有界续跑授权；不要拿剩余2753.926324s自动重试，也不直接开始搜索。
+
+## 历史：e1b3a7ee之后独立RAW比较入口，验证未接电停止
 
 状态`P3_RAW_COMPARISON_PARTIAL_AC_POWER_BLOCKED`，不是完成18次验证或P3比较。
 实际内容`35a60b090b728d2ec3b6a8ea014beac69fe3766d`准确双归档，各19项新受控测试通过；

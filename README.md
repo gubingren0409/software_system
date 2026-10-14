@@ -2,7 +2,22 @@
 
 《软件系统优化》实践项目 P1。**P2 历史Grid已保存；P3首种子正式比较尚未完成。**
 
-当前（2026-10-14，e1b3a7ee后）：**P3_RAW_COMPARISON_PARTIAL_AC_POWER_BLOCKED**。
+当前（2026-10-14，c08184e后新授权）：**P3_RAW_VALIDATION_PARTIAL / EVIDENCE_DISK_FULL**。
+沿用执行内容`35a60b090b728d2ec3b6a8ea014beac69fe3766d`，新validation session
+`9332ead2881a4c1e91b966e90a0d2057`，未改运行代码/协议，未重跑历史测试。
+已接AC；唯一fresh准入2/2与已采5个组边界区间全部通过。O3/s128、s64完成2组/12fresh，
+全16777216元素正确；新中位数51.602724641s、52.784908609s，无待机或连续性拒绝。
+O3/s24在启动目标前写检查点失败：E:证据盘仅剩16384B；WSL EIO、Windows ENOSPC，
+保存并停止，余6次未执行，不补跑、不重置claim。活动QPC846.073676s（3600预算内）。
+有效检查点仍为最后持久化的ready/两组，不代表控制器成功；真实退出1，失败临时片段保留。
+证据完整性true，验证完成/全验证计时以及P3 execution_complete/timing_checks_pass/comparison_ready均false。
+13,231个历史文件字节不变，旧AC拒绝/claim及关闭Grid完全保留，真实搜索仍为0。
+E:无法继续写入，使用C:应急同历史project01副本提交；原E:工作树停在c08184e，未reset或回写。
+[本轮完整交接及恢复限制](evidence/p3_raw_comparison/20261014-182807-ac-validation/README.md)、
+[新独立验收](evidence/p3_raw_comparison/20261014-182807-ac-validation/independent_validation_audit.json)、
+[三配置旁列表](evidence/p3_raw_comparison/20261014-182807-ac-validation/three_configuration_comparison.csv)。
+
+历史（2026-10-14，e1b3a7ee后）：**P3_RAW_COMPARISON_PARTIAL_AC_POWER_BLOCKED**。
 已新增独立RAW比较协议/入口及连续性保护；没有解除原campaign的Grid-only限制。
 执行内容`35a60b090b728d2ec3b6a8ea014beac69fe3766d`双干净归档各19项假执行器测试通过，
 20配置及科学文件字节身份通过；新validation session `f9f3bb0d54724d2385a8b77be26a99b3`，

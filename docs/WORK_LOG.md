@@ -1,5 +1,37 @@
 # 工作记录
 
+## 2026-10-14：c08184e后新AC授权，证据盘满时停止
+
+- 确认本地project01/c08184e与GitHub API远端一致，初始工作区无用户修改；旧claim和失败原样保留。
+  新批次20261014-182807-ac-validation，封存所有13,231项已有证据SHA。归档35a60b0双端92文件、
+  科学来源、GCC、12个build/reference缓存文件及探针二进制身份通过。复用已有19项双端测试，无新n17。
+- 新session 9332ead2881a4c1e91b966e90a0d2057只初始化，不执行目标/reference。
+  用户明确的新一次3600s授权、顺序128→64→24及失败即停写入authorization.json；不是清除旧claim重置。
+  正式调用准确35a60b0归档，没有修改运行器、C、输入、计时/容差/搜索或资源协议。
+- ACLineStatus=1、临时防睡眠成功，唯一fresh短/长准入2/2、10响应通过，原始QPC/RAW整数证据完整。
+  setup/三组前Formal最终通过；s128前曾仅host_memory REJECT297893888B，原规则等待内再PASS821194752B，
+  全部读数和低2GiB警告保留。原资源门槛未改，不用CPU/内存规则限制运行中目标自身占用。
+- s128、s64各完成1预热+5fresh，12唯一目标/2完整组全矩阵与RAW契约通过；两侧4区间通过，
+  无待机，组同范围QPC/RAW分别差6.605/5.541ms。中位数51.602724641/52.784908609秒。
+- s24组前门禁和第5个边界区间通过，但WSL在READY之前写活动checkpoint时EIO，父控保存失败又ENOSPC。
+  主控真实退出1；window stopped，QPC846.073676s。有效checkpoint仍是最后ready/两组/active=null，
+  不手工改写；保留0B/65512B两个失败临时片段。s24目标0，剩6次不执行；没有部分矩阵组/放弃样本。
+- 只读核实E:仅16384B、WSL根盘223129370624B可用：原根盘门禁未覆盖证据盘。
+  致满过程/启动前E余量未知，不推断Vmmem预占或某用户应用；没有结束应用、清缓存、改系统设置或再启动。
+  防睡眠finally同线程释放正常，控制器/测量器/探针退出后做独立验收。
+- 将本轮290文件、4867951字节复制到C救援区并逐SHA核验，原E文件不移动/删除。
+  本地同历史克隆因MAX_PATH首次checkout失败；只在新副本设置core.longpaths，read-tree索引后
+  checkout-index仅填7465个缺失文件，不覆盖原E或现有文件；恢复到干净c08184e，再纳入新证据。
+  C副本用于提交/推送，E工作树仍在基点且保留未提交本轮原始文件，不reset/强制同步。
+- 准确35a归档独立验收退出2（完整性true、12fresh/2组有效、整体验证未完成）；新采7区间全部RAW通过。
+  C后处理首先误把/mnt/e路径直接交WindowsPath，原源码及失败日志保留；仅辅助脚本改用既有local_path，
+  再明确第三配置为not_executed而非false计时失败。未修改冻结归档、重算替换原成绩或重新执行目标。
+- 生成三配置旁列表、逐样本/时钟/门禁复算和成本范围；新分数比原Grid+1.1892%/+0.6019%，CV1.7022%/1.7756%。
+  原Grid及待机样本/旧AC拒绝、旧空search session字节保持；真实Random/Greedy和前缀复测仍0，P3三项false。
+  [完整批次与精确计数](../evidence/p3_raw_comparison/20261014-182807-ac-validation/README.md)。
+- 暂存区默认whitespace检查仅提示救援克隆原始stderr末尾空行；保持stderr SHA，单一路径排除后其余严格检查通过。
+  原始日志不裁剪；两份失败.tmp通过明确路径force-add，未因默认忽略规则遗漏。
+
 ## 2026-10-14：独立RAW比较入口及未接电安全停止
 
 - 核对project01、HEAD e1b3a7ee、干净工作区及github/origin，正常fetch github成功；未reset/clean/覆盖用户工作。

@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "C:\Users\28489\AppData\Local\Temp\matrix-validation-rescue-20261014-184709\repository\evidence\p3_raw_comparison\20261014-182807-ac-validation\finalize_validation.py", line 159, in <module>
+    if __name__ == '__main__': main()
+                               ^^^^^^
+  File "C:\Users\28489\AppData\Local\Temp\matrix-validation-rescue-20261014-184709\repository\evidence\p3_raw_comparison\20261014-182807-ac-validation\finalize_validation.py", line 42, in main
+    continuity = load(Path(current['checks_directory']) / 'continuity.json')['result']
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28489\AppData\Local\Temp\matrix-raw-comparison-35a60b090b728d2ec3b6a8ea014beac69fe3766d\scripts\p3_clock_contract.py", line 52, in load
+    return json.loads(Path(path).read_text(encoding="utf-8-sig"), object_pairs_hook=pairs,
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28489\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28489\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '\\mnt\\e\\software_system\\project01\\evidence\\p3_raw_comparison\\20261014-182807-ac-validation\\validation-9332ead2\\group_checks\\46b967df623b4142951a09c4cdf8218b\\continuity.json'

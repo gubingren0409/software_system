@@ -1,6 +1,36 @@
 # 首种子正式比较尚未完成（2026-10-14）
 
-## 当前：独立RAW入口已冻结，验证因未接电停止
+## 当前：新AC授权验证完成两组，E证据盘耗尽后停止
+
+基于c08184e的新授权，不重用旧claim：执行35a60b090b728d2ec3b6a8ea014beac69fe3766d，
+新session `9332ead2881a4c1e91b966e90a0d2057`，科学/搜索/计时/资源协议均未修改。
+新归档/编译器/缓存身份核验通过，复用已通过的双端19项测试，不重复110项或n17。
+ACLineStatus=1；临时防睡眠申请及finally同线程释放成功，两个完整组无待机事件。
+
+一次短/长准入2/2通过、10响应完整，新证书绑定新session。组前后已采5区间全部通过：
+s128两侧、s64两侧、s24仅组前，合计7区间，无RAW失败/MONOTONIC准入警告。
+按顺序完成s128、s64各1预热+5fresh：12/18次、2/3组，全部全矩阵/RAW整数契约通过。
+s128中位数51.602724641s、CV1.7022%、MAD0.449608174s（比原Grid+1.1892%）；
+s64中位数52.784908609s、CV1.7756%、MAD0.242572761s（+0.6019%）。不替换旧Grid或取两轮较小值。
+
+s24组前门禁/时钟通过，但WSL写活动检查点EIO，Windows失败保存又报ENOSPC。
+E:只剩16384B，WSL根盘仍有223129370624B；原门禁仅检查根盘，不能证明E证据盘可写。
+第三组没有READY/目标process.json，没有任何矩阵样本；剩6次未执行，部分矩阵样本0，失败启动attempt1。
+有效checkpoint保留ready/active=null/两组，这是最后持久化状态；window stopped且控制器真实退出1。
+没有手工改checkpoint、删临时片段或重启。预算窗口QPC846.073676s，原claim保持。
+
+独立验收完整性true；validation_complete/validation_timing_checks_pass=false，P3三项仍false。
+Random/Greedy、预算前缀与候选复测均未执行；旧空search session及旧Grid未改。
+13,231个历史证据文件全部字节一致。290个本轮文件先复制到C并逐SHA核验，保留两段失败临时片段。
+E空间不足无法提交，使用同历史C应急副本提交推送；原E HEAD仍c08184e且原文件不动，不强制同步。
+
+下一步：先外审磁盘故障及两组证据；恢复E空间后安全同步原工作树，并审定证据盘空间准入与
+ENOSPC保存失败回归/续跑方案。当前one-shot不能直接重启，剩余额度不是自动重试授权；本轮停止。
+[完整新批次](../evidence/p3_raw_comparison/20261014-182807-ac-validation/README.md)、
+[独立验收](../evidence/p3_raw_comparison/20261014-182807-ac-validation/independent_validation_audit.json)、
+[结果和波动](../evidence/p3_raw_comparison/20261014-182807-ac-validation/three_configuration_comparison.csv)。
+
+## 历史：独立RAW入口已冻结，验证因未接电停止
 
 基于e1b3a7ee，本轮没有真实Random/Greedy搜索。新增比较协议v1，新运行内容
 `35a60b090b728d2ec3b6a8ea014beac69fe3766d`，继承科学测量内容3cc9e0d及原协议/资源v2。

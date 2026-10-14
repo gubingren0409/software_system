@@ -9,6 +9,8 @@
 > O3/s24测量5期间发生合盖Modern Standby，原样保留；完成规定检查不等于全程连续或稳定。
 > 2026-10-14已建立独立RAW比较入口，三配置验证在未接AC电源检查停止，目标0/18、准入0/2；
 > 没有真实Random/Greedy轨迹，P3比较仍未完成，见8.12。不是新时钟失败或资源门禁通过。
+> c08184e后获新AC授权，唯一新活动完成s128/s64两组、12fresh；s24启动前E证据盘满，停止。
+> 2/3验证并非完成，原Grid不改、搜索仍0，见8.13；从C应急副本提交，原E工作树保留不强制同步。
 > 历史 pilot 不追认为 Grid，P2 不因开始 P3 而视为审计通过。
 > 管理员处理、e0353bf/7405fcc3及内存v2恢复均保留为8.3–8.6历史记录，不移用旧证书。
 > 历史50cd24e后唯一30区间诊断的默认忙工作有2项MONOTONIC/QPC失配，
@@ -824,3 +826,68 @@ comparison_ready全部false。未采时钟不能写PASS，未采资源不能写R
 [旧Grid三种质量结论](evidence/p3_raw_comparison/20261014-102833/closed_grid_quality_annotation.json)、
 [历史保护](evidence/p3_raw_comparison/20261014-102833/history_after.json)、
 [成本包含关系](evidence/p3_raw_comparison/20261014-102833/costs.json)。
+
+### 8.13 c08184e后新授权验证：两组通过，第三组前证据盘满
+
+用户确认接电、开盖并授权一次新的有限验证活动。执行内容仍为
+`35a60b090b728d2ec3b6a8ea014beac69fe3766d`，继承科学测量3cc9e0d，比较协议/资源v2不变。
+新session `9332ead2881a4c1e91b966e90a0d2057`，未清除8.12的claim或迁移旧成绩。
+双端92执行文件/编译器/缓存/协议核验通过，复用先前19项针对性测试，没有新增小矩阵、Grid或搜索。
+
+一次默认libc/不绑核、固定10亿+100亿更新的fresh准入2/2及10响应通过。
+已采5个组边界区间均通过（128前后、64前后、24仅前），合计7个RAW区间，未替换或补采。
+MONOTONIC仅辅助；没有用旧证书准入或据新结果校准历史。新证书绑定准确内容、新session和初始checkpoint。
+
+| 配置/顺序 | 原Grid中位数/秒 | 新独立中位数/秒 | 中位数变化/% | 新CV/% | 新MAD/秒 | 新组状态 |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| O3/s128 | 50.996291138 | 51.602724641 | +1.1892 | 1.7022 | 0.449608174 | 完整，正确性/RAW/连续性通过 |
+| O3/s64 | 52.469094035 | 52.784908609 | +0.6019 | 1.7756 | 0.242572761 | 完整，正确性/RAW/连续性通过 |
+| O3/s24 | 66.249431562 | 未执行 | 未执行 | 未执行 | 未执行 | 启动目标前写失败 |
+
+两组各1预热+5fresh，12个唯一执行（2预热/10测量），全部校验16777216元素，误差0、checksum/时间有限，
+RAW整数契约及来源通过。分数只取5次测量中位数，没有旧性能缓存凑样本。
+新s128仍低于s64，但单批次、两个配置不足以宣称完整3配置验证或解释硬件机制。
+新CV高于原0.4313%/0.3582%；保留所有慢样本及资源警告，不事后筛除。
+原Grid只旁列历史，未替换原分数、取两轮较小值或移用于策略；O3/s24待机限制原样披露。
+
+临时防睡眠申请非零、finally同线程释放。两个完整组内System RecordID事件无待机，额外连续性判据通过：
+
+| 配置 | 宿主同范围QPC包络/秒 | 评估调用整数RAW范围/秒 | 差值/ms |
+| --- | ---: | ---: | ---: |
+| s128 | 320.805202300 | 320.798597304 | 6.605 |
+| s64 | 330.113492400 | 330.107951371 | 5.541 |
+
+差值远小于预声明max(30秒,5%RAW)。该检查不校准核心成绩，也不把边界通过等同全天候物理精度认证。
+防睡眠不能保证阻止合盖；本轮已完成组没有记录到该类事件。
+
+第三组资源/组前时钟通过后，WSL在写活动checkpoint、发READY之前报EIO；Windows父控保存失败状态时又报
+`Errno28 No space left on device`。只读双端均显示E:可用16384B；WSL根盘仍223129370624B。
+现有磁盘门禁只看WSL根盘，不覆盖E证据盘。启动前E余量和致满过程未采集，原因不可进一步归因到某应用。
+没有第三组目标process.json/READY/样本；剩6次不运行，不重试、不重置或退款。
+控制器退出1，window stopped；最后有效checkpoint保持ready、active=null、两完整组，
+这是原子写失败时的最后持久化状态，不是成功结束证明。两份0B/65512B临时片段保留，不当成绩解析。
+
+本轮活动QPC846.073676秒（3600预算），外层进程846.9903539秒包含它；两组评估RAW650.83599454秒，
+内含全部核心633.229610487秒。门禁采集/等待QPC113.3422585秒、原生时钟53.8220326秒、
+setup核验RAW0.553232607秒均是包络内含项，不能全加。reference生成/搜索/前缀候选复测0。
+运行最大单进程RSS394852KiB（约385.6MiB），不是系统峰值。
+s128前曾仅host_memory拒绝297893888B，随后在原120秒等待内通过821194752B；低2GiB警告及分页原记录保留。
+新采集门禁通过不保证证据盘空间或性能稳定，两个结果的波动不能被该PASS抹去。
+
+独立验收evidence_integrity_pass=true；validation_complete/validation_timing_checks_pass=false，
+P3 execution_complete/timing_checks_pass/comparison_ready仍false。没有Random/Greedy轨迹/六行预算成绩或前缀复测。
+13,231个历史文件、旧AC拒绝及claim、已关闭Grid、原件和旧空search session字节未改。
+
+E无法继续写入，290个本轮文件（4867951B）先复制到C并逐SHA核验；原E文件没有移动或删除。
+同历史C应急project01副本用于提交/推送，运行内容35a归档不改；原E工作树仍基点c08184e及未提交原始文件。
+只对新克隆启用Git core.longpaths，没有全局/系统改动。后处理仅修正Windows读取/mnt/e路径及未执行状态说明，
+失败源码/日志和两份临时片段保留，未重跑任何实验。
+下一步先外审两组及磁盘故障；释放E空间后安全同步，审定证据盘准入/ENOSPC回归与新的有界续跑授权，
+当前claim不能直接再run，剩余额度不是自动重试许可。本轮在此停止。
+
+[完整新证据与只读入口](evidence/p3_raw_comparison/20261014-182807-ac-validation/README.md)、
+[独立验收](evidence/p3_raw_comparison/20261014-182807-ac-validation/independent_validation_audit.json)、
+[原始样本](evidence/p3_raw_comparison/20261014-182807-ac-validation/validation-9332ead2/samples.jsonl)、
+[三配置表](evidence/p3_raw_comparison/20261014-182807-ac-validation/three_configuration_comparison.csv)、
+[成本](evidence/p3_raw_comparison/20261014-182807-ac-validation/costs.json)、
+[历史保护](evidence/p3_raw_comparison/20261014-182807-ac-validation/history_after.json)。
