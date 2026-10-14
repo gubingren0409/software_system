@@ -104,3 +104,6 @@ python -B -X utf8 -m scripts.raw_comparison_contract --plan $comparisonPlan --ou
 本轮停止，不自动搜索。[Windows原controller PID退出核验](operations/owned_windows_process_check.stdout.txt)、
 [WSL无本任务测量器/探针进程](operations/owned_wsl_process_check.stdout.txt)均空。
 真实终端stdout/stderr已保存，没有真实终端截图，不伪造或为截图补跑。
+
+收尾Git默认whitespace检查仅报告GCC版本原始stdout末尾空行；保留字节和operation哈希，
+只排除该单一路径后其余差异严格检查通过。[例外及实际退出码](whitespace_exception.json)。
