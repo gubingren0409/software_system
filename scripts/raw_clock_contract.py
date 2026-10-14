@@ -34,7 +34,8 @@ def raw_schedule(kind):
 
 
 def validate_manifest(manifest,root=ROOT):
-    if manifest.get('schema')!='raw-grid-clock-manifest-v1' or \
+    comparison=manifest.get('schema')=='raw-comparison-clock-manifest-v1'
+    if manifest.get('schema') not in ('raw-grid-clock-manifest-v1','raw-comparison-clock-manifest-v1') or \
             manifest.get('timing_version')!=FORMAL_RAW_VERSION:
         raise ValueError('Not a formal RAW manifest')
     protocol=load(Path(root)/'configs/measurement_protocol.json')
@@ -46,10 +47,10 @@ def validate_manifest(manifest,root=ROOT):
             not re.fullmatch('[0-9a-f]{40}',context['content_commit']) or \
             not re.fullmatch('[0-9a-f]{32}',context['session_id']):
         raise ValueError('RAW manifest protocol/content/session differs')
-    purpose=manifest['purpose']; planned=raw_schedule(purpose)
+    purpose=manifest['purpose']; planned=manifest_schedule(manifest,root)
     if manifest['schedule']!=planned or manifest['interval_count']!=len(planned) or \
             manifest['criteria']!=timing['admission'] or \
-            manifest['collection_budget_seconds']!=(240 if purpose=='recovery' else 60):
+            manifest['collection_budget_seconds']!=((120 if comparison else 240) if purpose in ('admission','recovery') else 60):
         raise ValueError('RAW manifest criteria/schedule/budget differs')
     build=manifest['probe_build']
     if build['content_commit']!=context['content_commit'] or build['binary']!=manifest['probe_binary'] or \
@@ -63,11 +64,29 @@ def validate_manifest(manifest,root=ROOT):
               'scripts/raw_clock_contract.py','scripts/run_fixed_work_clock.py',
               'scripts/p3_fixed_work_clock.py','code/diagnostics/clock_fixed_work_probe.c',
               'configs/raw_formal_timing_protocol.json','code/original/matrix_multiplication.c'}
+    if comparison:
+        required.update({'autotuner/raw_comparison.py','scripts/start_raw_comparison.py',
+            'scripts/raw_comparison_contract.py','scripts/raw_comparison_power.py','configs/raw_comparison_protocol.json'})
     if not required<=files.keys() or manifest['source_sha256']!={p:v['executed_sha256'] for p,v in files.items()}:
         raise ValueError('RAW source closure or bytes differ')
     binary=local_path(manifest['probe_binary'])
     if sha256_file(binary)!=manifest['binary_sha256']:
         raise ValueError('RAW compiled probe identity differs')
+
+
+def manifest_schedule(manifest,root=ROOT):
+    if manifest.get('schema')=='raw-comparison-clock-manifest-v1':
+        from autotuner.raw_comparison import comparison_protocol
+        protocol=comparison_protocol(Path(root))
+        if manifest['comparison_protocol_hash']!=sha256_json(protocol) or \
+                manifest['context'].get('comparison_protocol_hash')!=sha256_json(protocol):
+            raise ValueError('Comparison clock authorization differs')
+        if manifest['purpose']=='admission':
+            return [{'index':i,'round':i+1,'condition':'LU-long' if i else 'LU','path':'libc',
+                'selected_cpu':-1,'updates':value,'long':bool(i)} for i,value in enumerate(protocol['admission']['updates'])]
+        if manifest['purpose'] not in ('before','after'):
+            raise ValueError('Unknown comparison clock purpose')
+    return raw_schedule(manifest['purpose'])
 
 
 def audit_clock(directory,expected_context=None):
@@ -78,7 +97,7 @@ def audit_clock(directory,expected_context=None):
         manifest=load(directory/'manifest.json'); validate_manifest(manifest)
         if expected_context is not None and manifest['context']!=expected_context:
             raise ValueError('Clock batch is stale or belongs to another group/content/session')
-        operation=load(directory/'native_process.json'); planned=raw_schedule(manifest['purpose'])
+        operation=load(directory/'native_process.json'); planned=manifest_schedule(manifest)
         if operation['schema']!='fixed-work-clock-process-v1' or \
                 operation['manifest_sha256']!=sha256_file(directory/'manifest.json') or \
                 operation['command']!=manifest['probe_command'] or \

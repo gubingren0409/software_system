@@ -1,0 +1,50 @@
+{
+  "schema": "raw-comparison-campaign-v1",
+  "version": "2026-10-14-raw-comparison-v1",
+  "authorization": "Independent RAW comparison entry; does not enable or resume the historical Grid-only campaign",
+  "inherited_measurement_content": "3cc9e0d03ba682569fca0e91f28d364f2dab73fa",
+  "measurement_protocol_hash": "df2f365aec3fbce2b195a739b452234d9789b4fea3be3b6a0211549f0de2fb61",
+  "timing_protocol_hash": "936591ac5303e832788dc5f35ecac4c7807f52c3662666f13ef35f187b320847",
+  "resource_policy_hash": "38e073716eafc5356d775509414018415bba05ac6e87e4e29be93663b90da9d9",
+  "search_protocol_hash": "dde9c06145eb8b830d12eae64ecc5dd2f31e247235a9d71a9731dcff9e1f4447",
+  "matrix_input_seed": 20261008,
+  "search_seed": 20261008,
+  "algorithms": ["random", "greedy"],
+  "unique_evaluations_per_trajectory": 12,
+  "prefix_budgets": [4, 8, 12],
+  "information_isolation": "Only own chronological configuration, classification and score observations are supplied to each strategy. Grid, validation, retest and other trajectory data are never supplied.",
+  "retests": "Deduplicate selected prefix candidates within each algorithm only; independent fresh groups after its 12-observation trajectory; no feedback; do not share groups across algorithms",
+  "validation_order": [
+    {"optimization": "O3", "block_size": 128},
+    {"optimization": "O3", "block_size": 64},
+    {"optimization": "O3", "block_size": 24}
+  ],
+  "admission": {
+    "schema": "raw-comparison-admission-certificate-v1",
+    "updates": [1000000000, 10000000000],
+    "path": "libc",
+    "selected_cpu": -1,
+    "collection_budget_seconds": 120,
+    "criteria_source": "Unchanged raw_formal_timing_protocol.json admission; all conservative RAW ranges required"
+  },
+  "continuity": {
+    "sleep_request": "ES_CONTINUOUS | ES_SYSTEM_REQUIRED on Windows controller thread; verify nonzero result, release ES_CONTINUOUS in finally; cannot prevent user closing lid",
+    "event_log": "System RecordId cursor, Kernel-Power 42/506 standby and 107/507 wake, Power-Troubleshooter 1; save messages and XML",
+    "standby_action": "Preserve all samples/cost; mark disturbed; no comparable completion; stop without retry",
+    "difference_limit_seconds": 30,
+    "difference_limit_fraction": 0.05,
+    "comparison": "abs(host QPC evaluation envelope - guest RAW evaluation interval) <= max(30, 0.05 * guest RAW evaluation interval)",
+    "scope": "Host brackets the RUN request and FINISHED response after READY; guest RAW brackets only ConfigurationEvaluator.evaluate. Transport is included in host envelope; WSL startup, setup, source checks, resource gate and boundary probes are excluded from both. No subtraction of guessed overhead or calibration."
+  },
+  "budget": {
+    "clock": "Windows QPC",
+    "validation_activity_seconds": 3600,
+    "proposed_first_seed_activity_seconds": 43200,
+    "claim": "Exclusive, one activity window per session; repeated invocation cannot reset or re-claim budget",
+    "formal_gate_wait_seconds": 120,
+    "cleanup_reserve_seconds": 20,
+    "search_requires_separate_authorization": true,
+    "included": "From before admission resource gate through admission, setup verification, all gates, target groups, boundary checks and cleanup; nested RAW costs are reported separately, not added"
+  },
+  "failure_policy": "Stop on any identity, gate, clock, correctness, continuity, budget or execution failure; keep partial groups; no automatic retry, replacement, filtering or performance-cache reuse"
+}

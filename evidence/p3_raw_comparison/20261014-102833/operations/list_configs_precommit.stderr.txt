@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "E:\software_system\project01\autotuner\__main__.py", line 3, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "E:\software_system\project01\autotuner\cli.py", line 139, in main
+    return args.action(args)
+           ^^^^^^^^^^^^^^^^^
+  File "E:\software_system\project01\autotuner\cli.py", line 87, in command_list_configs
+    _, space = load_runtime(args)
+               ^^^^^^^^^^^^^^^^^^
+  File "E:\software_system\project01\autotuner\cli.py", line 81, in load_runtime
+    target = TargetAdapter.load(args.target, evidence_root=args.evidence_root)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\software_system\project01\autotuner\core.py", line 189, in load
+    return cls(path, evidence_root=evidence_root)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\software_system\project01\autotuner\core.py", line 175, in __init__
+    raise ConfigurationError(f"compiler not found: {self.compiler}")
+autotuner.core.ConfigurationError: compiler not found: E:\usr\bin\gcc
