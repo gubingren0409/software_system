@@ -891,3 +891,31 @@ E无法继续写入，290个本轮文件（4867951B）先复制到C并逐SHA核�
 [三配置表](evidence/p3_raw_comparison/20261014-182807-ac-validation/three_configuration_comparison.csv)、
 [成本](evidence/p3_raw_comparison/20261014-182807-ac-validation/costs.json)、
 [历史保护](evidence/p3_raw_comparison/20261014-182807-ac-validation/history_after.json)。
+
+### 8.14 E空间释放后的有界补齐：内存门禁拒绝，未新增成绩
+
+用户要求补齐磁盘失败；新增外层助手内容22fe97c，实际测量35a60b0/session9332ead2不变。
+原两组成绩、12条字节前缀、初始证书、旧claim/window和磁盘失败片段保持，不新建3600秒预算。
+E余62715604992B及真实写/fsync/read-back通过。新增证据卷前检不改冻结资源v2、数学程序或评分。
+10项针对性受控测试在工作树和干净辅助归档通过，无额外小矩阵或真实搜索。
+
+Formal预检host最低3317710848B通过；一次默认libc、不绑核短/长RAW2/2通过，没有筛选或重采。
+随后O3/s24的组前Formal四个快照最低分别239452160/302333952/394579968/300908544B，
+均低于512MiB，仅host_memory拒绝。CPU均2.2/3.6/10.4/14%、峰4/5/15/27%，WSL≥4.58GiB，
+commit余量充足。等待120.0005393秒停止，严格独立审计保留0.0005393秒超额拒绝，不放宽阈值。
+没有启动新组前/后探针或矩阵；仍2/3组、12/18fresh，原表8.13成绩不变，s24仍未执行。
+因此磁盘问题已解除，但本轮不能宣称三配置验证完成或比较准备就绪。
+
+停止后的host可用回升4068204544B，只是不同窗口的只读快照，不追认先前拒绝，也不证明内存变化原因。
+临时防睡眠finally释放成功，未修改系统设置、清缓存、终止用户应用或主动重启WSL。
+原253个session文件和13,354个其他证据逐SHA不变；旧Grid及待机限制、所有搜索空观测都保留。
+
+本段活动QPC200.0468689s，加原846.073676s＝1046.1205449s；账面余2553.8794551s不自动重启。
+本段进程包络211.1955594s包含它；嵌套门禁/探针/评估/核心不重复相加，离线辅助操作另列。
+来源/原数据完整性true，验证完成/全验证计时及P3 execution_complete/timing_checks_pass/comparison_ready仍false。
+全部新时钟9区间RAW通过也不能证明未执行的第三组或旧Grid的内部连续性。
+
+[本轮完整证据及边界](evidence/p3_raw_comparison/20261014-204900-disk-continuation/README.md)、
+[真实门禁及超额](evidence/p3_raw_comparison/20261014-204900-disk-continuation/all_resource_gates_independent.json)、
+[独立验收](evidence/p3_raw_comparison/20261014-204900-disk-continuation/continuation/independent_continuation_audit.json)、
+[成本](evidence/p3_raw_comparison/20261014-204900-disk-continuation/costs.json)。

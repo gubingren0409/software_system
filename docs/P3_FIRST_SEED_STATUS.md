@@ -1,6 +1,34 @@
 # 首种子正式比较尚未完成（2026-10-14）
 
-## 当前：新AC授权验证完成两组，E证据盘耗尽后停止
+## 当前：E空间恢复，单次补齐在组前host_memory门禁停止
+
+用户授权补齐磁盘失败，外层助手22fe97c02e2bf1cd56662413e10fc5311113a246准确干净归档，
+原测量35a60b0/session9332ead2881a4c1e91b966e90a0d2057不变。没有再创建3600秒预算，
+保留原846.073676秒，只用2753.926324秒剩余额度，独占新claim防止重复领取。
+新增证据盘1GiB余量+write/fsync/read-back前检通过（62715604992B），不修改资源v2或冻结归档。
+正式预检通过：host最低3317710848B、commit余量31561756672B、WSL可用6248665088B、CPU均3.6%/峰6%。
+一次fresh短/长默认RAW准入2/2通过，无MONOTONIC辅助警告；旧证书保持，附件绑定当前checkpoint及授权。
+
+O3/s24新资源attempt 91ca8e9806b246f6a1b2d9e2938ec072四个快照都仅host_memory拒绝：
+239452160、302333952、394579968、300908544B。CPU均2.2/3.6/10.4/14%、峰4/5/15/27%，
+WSL约4.58–5.81GiB、commit余量约25.75–26.01GiB，不是CPU、commit、WSL、磁盘或时钟阻塞。
+等待包络120.0005393秒，原严格审计记录超额0.0005393秒而拒绝，不放宽判据、不伪写PASS。
+组前/后探针及新目标均0，不是新增部分矩阵组；有效checkpoint仍原字节ready/active=null/两组。
+新的外层window stopped，真实退出2；原故障claim/window和片段不动，新防睡眠申请/释放成功。
+
+本段200.0468689s，累计1046.1205449s；账面余2553.8794551s不是新的启动许可。
+两次活动QPC包络分别验证后求和，离线排查、用户释放空间、代码/快照/提交单列；嵌套RAW/门禁不叠加。
+独立核验253个原session文件、13,354个其他证据和12条样本字节前缀不变，科学源码不改。
+evidence_integrity_pass=true（来源/既有测量数据）；validation_complete/validation_timing_checks_pass=false；
+P3 execution_complete/timing_checks_pass/comparison_ready=false。累计时钟9区间全部RAW通过，但不能证明未执行的s24。
+停止后只读host快照回升4068204544B不等于组前门禁通过，不据此再次尝试；内存变化原因尚未证实。
+旧独立结果仍s128 51.602724641s、s64 52.784908609s，s24未执行。没有Random/Greedy轨迹或前缀复测。
+
+[本轮证据和下一步](../evidence/p3_raw_comparison/20261014-204900-disk-continuation/README.md)、
+[独立验收](../evidence/p3_raw_comparison/20261014-204900-disk-continuation/continuation/independent_continuation_audit.json)。
+当前任务实验进程已退出；下一轮先复核失败门禁及内存稳定性，再明确授权使用原剩余额度的一次补齐，不重置预算。
+
+## 历史：新AC授权验证完成两组，E证据盘耗尽后停止
 
 基于c08184e的新授权，不重用旧claim：执行35a60b090b728d2ec3b6a8ea014beac69fe3766d，
 新session `9332ead2881a4c1e91b966e90a0d2057`，科学/搜索/计时/资源协议均未修改。

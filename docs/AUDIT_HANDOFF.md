@@ -1,6 +1,33 @@
 # 审计交接入口
 
-## 当前：c08184e后新AC授权，2/3验证组完成后证据盘满
+## 当前：释放E空间后单次续用原额度，组前内存门禁停止
+
+状态`P3_RAW_VALIDATION_RESOURCE_BLOCKED`。辅助内容22fe97c02e2bf1cd56662413e10fc5311113a246；
+实际35a60b090b728d2ec3b6a8ea014beac69fe3766d/session9332ead2881a4c1e91b966e90a0d2057不变。
+新增外层调度，不绕过原空session入口或改旧claim/证书，保留两组，仅授权s24及原剩余额度2753.926324s。
+10项针对性测试工作树/准确干净辅助归档均通过，没有n17/额外历史测试或新Grid/搜索。
+E证据盘可写/约58.4GiB通过，Formal预检通过，一次fresh短/长RAW2/2通过（累计9区间全部通过）。
+第三组资源门禁四个快照仅host_memory拒绝，最低239452160/302333952/394579968/300908544B，
+等待120.0005393s后停止；严格独立审计也保留0.0005393s超额拒绝。组前后新探针0、目标0。
+仍2/3组、12/18fresh、部分矩阵样本0；253原session文件、13,354其他证据、旧原始前缀均保持。
+累计活动1046.1205449s=原846.073676s+本段200.0468689s，不退款、不重置；离线辅助成本另列。
+原始/来源完整性true；validation_complete/validation_timing_checks_pass和P3三项全部false。
+Formal预检通过不证明组门禁通过；停止后的host恢复快照也不能取代失败快照。
+旧Grid仍关闭，原待机样本/分数不变，旧空search session和所有搜索协议均不动。
+
+审计入口：
+
+- [完整说明、调用和停止边界](../evidence/p3_raw_comparison/20261014-204900-disk-continuation/README.md)
+- [真实授权及保护哈希](../evidence/p3_raw_comparison/20261014-204900-disk-continuation/continuation/authorization.json)
+- [独立核验与预算](../evidence/p3_raw_comparison/20261014-204900-disk-continuation/continuation/independent_continuation_audit.json)
+- [完整门禁复算/旧REJECT与超额](../evidence/p3_raw_comparison/20261014-204900-disk-continuation/all_resource_gates_independent.json)
+- [9区间复算](../evidence/p3_raw_comparison/20261014-204900-disk-continuation/all_clock_checks_independent.json)、[12条严格结果契约](../evidence/p3_raw_comparison/20261014-204900-disk-continuation/all_sample_contracts_independent.json)
+- [来源/行尾/缓存](../evidence/p3_raw_comparison/20261014-204900-disk-continuation/source_identity.json)、[成本](../evidence/p3_raw_comparison/20261014-204900-disk-continuation/costs.json)
+- [原工作树备份和ff-only同步](../evidence/p3_raw_comparison/20261014-204900-disk-continuation/sync.transcript.txt)、[范围/准入/预算规则](P3_RAW_VALIDATION_CONTINUATION.md)
+
+本轮已停止。剩s24六次，下一轮须核验资源稳定并明确一次剩余额度补齐，不能再run本次claim或借新3600s。
+
+## 历史：c08184e后新AC授权，2/3验证组完成后证据盘满
 
 状态`P3_RAW_VALIDATION_PARTIAL / EVIDENCE_DISK_FULL`。原执行内容
 `35a60b090b728d2ec3b6a8ea014beac69fe3766d`不改，新验证session

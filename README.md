@@ -2,7 +2,20 @@
 
 《软件系统优化》实践项目 P1。**P2 历史Grid已保存；P3首种子正式比较尚未完成。**
 
-当前（2026-10-14，c08184e后新授权）：**P3_RAW_VALIDATION_PARTIAL / EVIDENCE_DISK_FULL**。
+当前（2026-10-14，释放E空间后）：**P3_RAW_VALIDATION_RESOURCE_BLOCKED**。
+E盘可写性/约58.4GiB自由空间通过；一次新的短/长RAW准入2/2通过。
+只准备补齐原session的O3/s24，不重跑两组，不重置3600秒预算。组前Formal门禁四个快照
+均仅host_memory拒绝（最低约228/288/376/287MiB），120秒耗尽后安全停止，新增目标0次。
+仍为2/3组、12/18fresh，余s24六次；原253个session文件、13,354个其他证据及12条样本字节前缀不变。
+外层助手准确内容`22fe97c02e2bf1cd56662413e10fc5311113a246`双端10项受控测试通过；
+实际测量内容35a60b0、session9332ead2不变。原846.073676s仍计费，新增200.0468689s，累计1046.1205449s。
+证据完整性true；验证完成/全验证计时及P3三项仍false，真实搜索未运行。
+E工作树已安全快进同步0a74241，原未跟踪目录有逐SHA备份，未reset或覆盖用户修改。
+[本轮完整入口/阻塞及预算](evidence/p3_raw_comparison/20261014-204900-disk-continuation/README.md)、
+[最终独立核验](evidence/p3_raw_comparison/20261014-204900-disk-continuation/continuation/independent_continuation_audit.json)、
+[单次补齐规则](docs/P3_RAW_VALIDATION_CONTINUATION.md)。本次claim已关闭，不自动重试或启动搜索。
+
+历史（2026-10-14，c08184e后新授权）：**P3_RAW_VALIDATION_PARTIAL / EVIDENCE_DISK_FULL**。
 沿用执行内容`35a60b090b728d2ec3b6a8ea014beac69fe3766d`，新validation session
 `9332ead2881a4c1e91b966e90a0d2057`，未改运行代码/协议，未重跑历史测试。
 已接AC；唯一fresh准入2/2与已采5个组边界区间全部通过。O3/s128、s64完成2组/12fresh，

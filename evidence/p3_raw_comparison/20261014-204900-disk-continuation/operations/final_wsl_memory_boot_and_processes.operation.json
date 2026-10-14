@@ -1,0 +1,22 @@
+{
+  "command": [
+    "wsl.exe",
+    "-d",
+    "Ubuntu-24.04",
+    "--",
+    "python3",
+    "-c",
+    "import json,pathlib,subprocess; print(json.dumps({\"meminfo\":pathlib.Path(\"/proc/meminfo\").read_text(),\"vmstat\":pathlib.Path(\"/proc/vmstat\").read_text(),\"boot_id\":pathlib.Path(\"/proc/sys/kernel/random/boot_id\").read_text(),\"uptime\":pathlib.Path(\"/proc/uptime\").read_text(),\"kernel\":subprocess.check_output([\"uname\",\"-a\"],text=True),\"processes\":subprocess.check_output([\"ps\",\"-eo\",\"pid,ppid,comm,etime,args\"],text=True)}))"
+  ],
+  "cwd": "E:/software_system/project01",
+  "started_at": "2026-10-14T13:00:21.279745+00:00",
+  "qpc_start": 397290644657,
+  "qpc_frequency": 10000000,
+  "returncode": 0,
+  "recorder_sha256": "23c14f6cd77c1799c4400c228866cb55b75256a6ff1f3fa6c401802037783979",
+  "pid": 84204,
+  "qpc_end": 397384551336,
+  "ended_at": "2026-10-14T13:00:30.684771+00:00",
+  "qpc_seconds": 9.3906679,
+  "qpc_frequency_unchanged": true
+}
