@@ -1,6 +1,24 @@
-# 首种子正式比较尚未完成（2026-10-14）
+# 首种子正式比较尚未完成（2026-10-15）
 
-## 当前：E空间恢复，单次补齐在组前host_memory门禁停止
+## 当前：用户明确一次重试，组前内存不足/末次采集超时
+
+起点742cac14，外层内容3eaeadd28245664f4ea27bd8e4f79082fcf0124e准确归档，14项相关受控测试通过。
+测量35a60b0/session9332ead2881a4c1e91b966e90a0d2057不变。新retry claim只用2553.8794551s，
+旧846.073676s和200.0468689s照计，不删除原claim/证书/失败或重跑两组。
+证据盘余62714880000B可写；Formal预检host最低1016856576B通过并警告低2GiB，CPU18.8%/31%。
+一次默认libc短/长fresh RAW2/2通过，无MONOTONIC辅助警告，不补采。s24组前前三个有效快照
+host最低247074816/379310080/341209088B，均仅host_memory拒绝，CPU/commit/WSL不是拒绝原因；
+第四次timed_out=true、退出1、stdout空，判unknown而非PASS。门禁119.5028273s，在原120s内停止。
+新组前/后探针、READY和矩阵执行均0，checkpoint仍原字节ready/active=null/两组；防睡眠finally释放。
+原270个session文件、13,458其他证据和12条字节前缀保持，科学代码/资源策略v2不变。
+本段211.7102998s，累计1257.8308447s，余2342.1691553s不是自动再次启动许可。
+来源/证据完整性true；validation_complete/validation_timing_checks_pass及P3三项仍false。
+仍2/3组、12/18fresh，partial/abandoned矩阵样本0，算法轨迹/前缀复测0。旧成绩不变。
+停止后快照显示游戏VALORANT约1.71GiB，不证明其唯一因果；未终止应用或改系统设置。
+[完整结果/原始日志/下步](../evidence/p3_raw_comparison/20261015-130000-user-retry/README.md)。
+本轮停止并推送。先由用户释放高占用，后续仍只补s24六次、使用原剩余额度，不自动启动搜索。
+
+## 历史：E空间恢复，单次补齐在组前host_memory门禁停止
 
 用户授权补齐磁盘失败，外层助手22fe97c02e2bf1cd56662413e10fc5311113a246准确干净归档，
 原测量35a60b0/session9332ead2881a4c1e91b966e90a0d2057不变。没有再创建3600秒预算，

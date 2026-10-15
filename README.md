@@ -2,7 +2,17 @@
 
 《软件系统优化》实践项目 P1。**P2 历史Grid已保存；P3首种子正式比较尚未完成。**
 
-当前（2026-10-14，释放E空间后）：**P3_RAW_VALIDATION_RESOURCE_BLOCKED**。
+当前（2026-10-15，用户授权一次重试）：**P3_RAW_VALIDATION_RESOURCE_BLOCKED**。
+辅助内容3eaeadd、测量内容35a60b0/session9332ead2；14项关联测试及干净归档验证通过。
+Formal预检和唯一short/long RAW2/2通过，但s24组前3个有效快照仅host_memory拒绝，第四次采集超时。
+门禁119.5028273s内安全停止，新增目标0；仍2/3组、12/18fresh，原270个session文件与13,458其他证据不变。
+原两段1046.1205449s照计，新211.7102998s，累计1257.8308447s；余2342.1691553s不自动再run。
+停止后快照显示VALORANT约1.71GiB占用；不终止用户应用、不放宽门槛、不追认旧REJECT。
+来源/原数据完整性true，验证完成/全验证计时及P3三项false。任务进程已退出，没有搜索。
+[本轮完整证据及下一步](evidence/p3_raw_comparison/20261015-130000-user-retry/README.md)、
+[独立验收](evidence/p3_raw_comparison/20261015-130000-user-retry/continuation/independent_continuation_audit.json)。
+
+历史（2026-10-14，释放E空间后）：**P3_RAW_VALIDATION_RESOURCE_BLOCKED**。
 E盘可写性/约58.4GiB自由空间通过；一次新的短/长RAW准入2/2通过。
 只准备补齐原session的O3/s24，不重跑两组，不重置3600秒预算。组前Formal门禁四个快照
 均仅host_memory拒绝（最低约228/288/376/287MiB），120秒耗尽后安全停止，新增目标0次。

@@ -1,6 +1,24 @@
 # 审计交接入口
 
-## 当前：释放E空间后单次续用原额度，组前内存门禁停止
+## 当前：742cac14后授权一次重试，仍在组前资源门禁停止
+
+外层3eaeadd28245664f4ea27bd8e4f79082fcf0124e，测量35a60b0/session9332ead2不变；14项针对性测试
+工作树及干净归档通过，未执行n17/历史大批测试、搜索或新Grid。新retry claim绑定前次授权/窗口/旧claim，
+原1046.1205449s全部保留，只获2553.8794551s，非新3600秒预算。门禁保留1秒收尾、不改120秒上限。
+Formal预检与唯一2区间fresh RAW通过；s24组前3有效快照低于512MiB仅host_memory拒绝，第四次采集超时。
+119.5028273s安全停止，新目标/边界检查0；仍2/3组、12/18fresh，旧270+13,458文件/原前缀不变。
+本段211.7102998s，累计1257.8308447s，账面余2342.1691553s，不再自动试。
+evidence_integrity_pass=true；验证完成/验证全计时及P3 execution_complete/timing_checks_pass/comparison_ready=false。
+停止后快照有VALORANT约1.71GiB；不是已证实的唯一根因，也不以较晚内存恢复追认门禁PASS。
+
+- [本轮完整说明和原始证据](../evidence/p3_raw_comparison/20261015-130000-user-retry/README.md)
+- [授权/保护哈希](../evidence/p3_raw_comparison/20261015-130000-user-retry/continuation/authorization.json)、[独立验收](../evidence/p3_raw_comparison/20261015-130000-user-retry/continuation/independent_continuation_audit.json)
+- [全部资源门禁/超时/历史REJECT](../evidence/p3_raw_comparison/20261015-130000-user-retry/all_resource_gates_independent.json)、[RAW区间复算](../evidence/p3_raw_comparison/20261015-130000-user-retry/all_clock_checks_independent.json)
+- [成本口径](../evidence/p3_raw_comparison/20261015-130000-user-retry/costs.json)、[源码/协议/行尾](../evidence/p3_raw_comparison/20261015-130000-user-retry/source_identity.json)
+
+下一步先释放游戏等高内存占用，再明确一次原剩余额度补齐；不直接重复run、不删除claim或运行搜索。
+
+## 历史：释放E空间后单次续用原额度，组前内存门禁停止
 
 状态`P3_RAW_VALIDATION_RESOURCE_BLOCKED`。辅助内容22fe97c02e2bf1cd56662413e10fc5311113a246；
 实际35a60b090b728d2ec3b6a8ea014beac69fe3766d/session9332ead2881a4c1e91b966e90a0d2057不变。

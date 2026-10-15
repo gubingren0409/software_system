@@ -919,3 +919,28 @@ commit余量充足。等待120.0005393秒停止，严格独立审计保留0.0005
 [真实门禁及超额](evidence/p3_raw_comparison/20261014-204900-disk-continuation/all_resource_gates_independent.json)、
 [独立验收](evidence/p3_raw_comparison/20261014-204900-disk-continuation/continuation/independent_continuation_audit.json)、
 [成本](evidence/p3_raw_comparison/20261014-204900-disk-continuation/costs.json)。
+
+### 8.15 2026-10-15授权一次人工重试，仍在组前资源门禁停止
+
+用户授权一次重试；外层内容3eaeadd，测量35a60b0/session9332ead2及所有科学规则不变。
+14项相关受控测试及干净归档通过，无额外n17/Grid/搜索。旧两组、12条及270+13,458历史文件原字节保护。
+先前1046.1205449s仍计费，仅使用2553.8794551s余量，不删旧claim或重置预算。
+E可写、Formal预检通过（host最低1016856576B，低2GiB警告，CPU均18.8%/峰31%）；
+唯一fresh short/long RAW2/2通过，无替换或校准。
+
+s24组前3有效快照host最低247074816/379310080/341209088B均小于512MiB，只因host_memory拒绝。
+CPU均26.6/12.4/17%、峰49/18/35%，WSL约4.54–5.82GiB，commit余量充足。
+第四次采集超时（退出1，stdout空，计数不可用），不伪称第四个有效内存读数或PASS。
+外层为120秒上限预留1秒收尾，本次门禁119.5028273s，安全停止；新组前/后检查和目标执行0。
+仍2/3组、12/18fresh，8.13成绩不变；s24未执行、搜索和前缀复测0。不能宣称比较准备就绪。
+停止后只读快照可用2669293568B，VALORANT约1.71GiB；不同窗口不能追认门禁通过，也不证明唯一因果。
+未改系统配置、强制结束应用或清缓存。防睡眠finally成功释放。
+
+本段活动211.7102998s，三段合计1257.8308447s，账面余2342.1691553s不自动再次运行。
+只分别相减QPC整数端点后求和，不跨epoch。外层本段进程226.3787934s包含它；
+门禁/探针/已接受组RAW与核心均为嵌套项，离线辅助操作另列，不全部相加。
+证据/来源完整性true，验证完成/全验证计时及P3三项false；累计11区间RAW通过不证明未执行的第三组。
+[完整本轮证据](evidence/p3_raw_comparison/20261015-130000-user-retry/README.md)、
+[独立验收](evidence/p3_raw_comparison/20261015-130000-user-retry/continuation/independent_continuation_audit.json)、
+[门禁及超时](evidence/p3_raw_comparison/20261015-130000-user-retry/all_resource_gates_independent.json)、
+[成本范围](evidence/p3_raw_comparison/20261015-130000-user-retry/costs.json)。

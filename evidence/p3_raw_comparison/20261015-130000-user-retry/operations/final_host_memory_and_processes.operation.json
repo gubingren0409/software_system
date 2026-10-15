@@ -1,0 +1,19 @@
+{
+  "command": [
+    "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+    "-NoProfile",
+    "-Command",
+    "[ordered]@{at=[DateTimeOffset]::Now.ToString('o');memory=(Get-CimInstance Win32_PerfFormattedData_PerfOS_Memory | Select-Object AvailableBytes,CommittedBytes,CommitLimit,PagesInputPersec,PagesOutputPersec);processes=@(Get-Process | Sort-Object WorkingSet64 -Descending | Select-Object -First 10 Id,ProcessName,WorkingSet64);disks=@(Get-PSDrive E,C | Select-Object Name,Free,Used)} | ConvertTo-Json -Depth 5"
+  ],
+  "cwd": "E:/software_system/project01",
+  "started_at": "2026-10-15T05:04:47.488768+00:00",
+  "qpc_start": 53902628282,
+  "qpc_frequency": 10000000,
+  "returncode": 0,
+  "recorder_sha256": "23c14f6cd77c1799c4400c228866cb55b75256a6ff1f3fa6c401802037783979",
+  "pid": 66204,
+  "qpc_end": 53936729180,
+  "ended_at": "2026-10-15T05:04:50.898237+00:00",
+  "qpc_seconds": 3.4100898,
+  "qpc_frequency_unchanged": true
+}
