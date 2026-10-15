@@ -117,6 +117,15 @@ class ValidationContinuationTests(unittest.TestCase):
         self.assertEqual(r.TOTAL_SECONDS-r.PREVIOUS_CUMULATIVE_SECONDS,2553.8794551)
         with self.assertRaises(ValueError): r.cumulative(0,window)
 
+    def test_second_authorized_retry_keeps_all_three_costs(self):
+        window=dict(qpc_start=10,qpc_end=1000000010,qpc_frequency=10000000)
+        self.assertEqual(r.cumulative(r.LAST_CUMULATIVE_SECONDS,window),1357.8308447)
+        self.assertEqual(r.TOTAL_SECONDS-r.LAST_CUMULATIVE_SECONDS,2342.1691553)
+        self.assertEqual(r.claim_filename(dict(schema=r.RETRY2_SCHEMA)),'DISK_CONTINUATION_RETRY_V2.claim.json')
+        self.assertNotEqual(r.claim_filename(dict(schema=r.RETRY2_SCHEMA)),r.claim_filename(dict(schema=r.RETRY_SCHEMA)))
+        with patch.object(r,'previous_allowance',return_value=(r.PREVIOUS_CUMULATIVE_SECONDS,{})):
+            with self.assertRaises(ValueError): r.prior_seconds(dict(schema=r.RETRY2_SCHEMA,prior_authorization_file='old',session_directory='session'))
+
     def test_retry_claim_is_separate_and_exclusive(self):
         old=r.claim_filename(dict(schema='raw-validation-disk-continuation-v1'))
         new=r.claim_filename(dict(schema=r.RETRY_SCHEMA))
@@ -150,6 +159,21 @@ class ValidationContinuationTests(unittest.TestCase):
             (out/'DISK_CONTINUATION_V1.claim.json').write_text(json.dumps(window))
             used,identity=r.previous_allowance(prior_path,out)
             self.assertEqual(used,r.PREVIOUS_CUMULATIVE_SECONDS)
+            second=out/'second'; (second/'preserved').mkdir(parents=True)
+            (second/'preserved/checkpoint.json').write_text('{}')
+            second_path=second/'authorization.json'
+            second_auth=dict(prior,**identity)
+            second_auth.update(schema=r.RETRY_SCHEMA,directory=str(second),previous_activity_qpc_seconds=used,
+                auxiliary_content_commit='3eaeadd28245664f4ea27bd8e4f79082fcf0124e')
+            second_path.write_text(json.dumps(second_auth))
+            second_window=dict(window,qpc_start=51290188886,qpc_end=53407291884,authorization_sha256=r.digest(second_path),
+                budget_seconds=2553.8794551,activity_qpc_seconds=r.LAST_CONTINUATION_SECONDS,cumulative_activity_qpc_seconds=r.LAST_CUMULATIVE_SECONDS)
+            (second/'window.json').write_text(json.dumps(second_window))
+            (out/'DISK_CONTINUATION_RETRY_V1.claim.json').write_text(json.dumps(second_window))
+            self.assertEqual(r.previous_allowance(second_path,out)[0],r.LAST_CUMULATIVE_SECONDS)
+            second_window['budget_seconds']=3600
+            (second/'window.json').write_text(json.dumps(second_window))
+            with self.assertRaises(ValueError): r.previous_allowance(second_path,out)
             window['qpc_end']=window['qpc_start']; window['activity_qpc_seconds']=0
             (out/'window.json').write_text(json.dumps(window))
             with self.assertRaises(ValueError): r.previous_allowance(prior_path,out)
