@@ -94,7 +94,7 @@ class ValidationContinuationTests(unittest.TestCase):
             (session/'checkpoint.json').write_text(json.dumps(state))
             (session/'samples.jsonl').write_text('\n'.join(json.dumps(x) for x in samples))
             (session/'window.json').write_text(json.dumps(old))
-            auth=dict(schema='raw-validation-disk-continuation-v1',directory=str(out),session_directory=str(session),plan_file='plan',remaining_allowance_seconds=2753.926324, checkpoint_sha256='x')
+            auth=dict(schema='raw-validation-disk-continuation-v1',directory=str(out),session_directory=str(session),plan_file='plan',remaining_allowance_seconds=2753.926324, previous_activity_qpc_seconds=r.OLD_SECONDS, checkpoint_sha256='x')
             qpc=iter([(100,10),(110,10),(120,10),(130,10),(140,10),(150,10),(160,10),(170,10)])
             class Sleep:
                 def __init__(self,*a): pass
@@ -110,6 +110,49 @@ class ValidationContinuationTests(unittest.TestCase):
             fake.measure.assert_not_called(); fake.clock_check.assert_not_called()
             fake.claim.assert_called_once()
             fake.gate.assert_called_once()
+
+    def test_user_retry_preserves_used_allowance_and_different_epoch(self):
+        window=dict(qpc_start=10,qpc_end=1000000010,qpc_frequency=10000000)
+        self.assertEqual(r.cumulative(r.PREVIOUS_CUMULATIVE_SECONDS,window),1146.1205449)
+        self.assertEqual(r.TOTAL_SECONDS-r.PREVIOUS_CUMULATIVE_SECONDS,2553.8794551)
+        with self.assertRaises(ValueError): r.cumulative(0,window)
+
+    def test_retry_claim_is_separate_and_exclusive(self):
+        old=r.claim_filename(dict(schema='raw-validation-disk-continuation-v1'))
+        new=r.claim_filename(dict(schema=r.RETRY_SCHEMA))
+        self.assertNotEqual(old,new)
+        with tempfile.TemporaryDirectory() as tmp:
+            path=Path(tmp)/new
+            with path.open('x') as f: f.write('one attempt')
+            with self.assertRaises(FileExistsError): path.open('x')
+            self.assertEqual(path.read_text(),'one attempt')
+
+    def test_formal_gate_leaves_cleanup_time_within_120(self):
+        from unittest.mock import MagicMock
+        f=MagicMock()
+        with patch.object(r.time,'perf_counter',return_value=100):
+            r.formal_gate(f,{},Path('gate'),{},1000)
+        self.assertEqual(f.gate.call_args.args[-1],219)
+        self.assertEqual(f.gate.call_args.args[2],'Formal')
+
+    def test_prior_closed_window_cannot_be_refunded_or_replaced(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out=Path(tmp); (out/'preserved').mkdir(); checkpoint=out/'preserved/checkpoint.json'
+            checkpoint.write_text('{}'); prior_path=out/'authorization.json'
+            prior=dict(schema='raw-validation-disk-continuation-v1',content_commit=r.CONTENT,session_id=r.SESSION,
+                previous_activity_qpc_seconds=r.OLD_SECONDS,auxiliary_content_commit='22fe97c02e2bf1cd56662413e10fc5311113a246',
+                directory=str(out),checkpoint_sha256=r.digest(checkpoint))
+            prior_path.write_text(json.dumps(prior))
+            window=dict(status='stopped',failure_reason='Group Formal gate refused',authorization_sha256=r.digest(prior_path),
+                budget_seconds=2753.926324,qpc_start=393789313692,qpc_end=395789782381,qpc_frequency=10000000,
+                activity_qpc_seconds=r.PREVIOUS_CONTINUATION_SECONDS,cumulative_activity_qpc_seconds=r.PREVIOUS_CUMULATIVE_SECONDS)
+            (out/'window.json').write_text(json.dumps(window))
+            (out/'DISK_CONTINUATION_V1.claim.json').write_text(json.dumps(window))
+            used,identity=r.previous_allowance(prior_path,out)
+            self.assertEqual(used,r.PREVIOUS_CUMULATIVE_SECONDS)
+            window['qpc_end']=window['qpc_start']; window['activity_qpc_seconds']=0
+            (out/'window.json').write_text(json.dumps(window))
+            with self.assertRaises(ValueError): r.previous_allowance(prior_path,out)
 
 
 if __name__ == '__main__': unittest.main()

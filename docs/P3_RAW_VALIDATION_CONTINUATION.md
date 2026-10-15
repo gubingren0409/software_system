@@ -34,3 +34,18 @@ python -B -X utf8 scripts/resume_raw_validation.py audit --authorization <续跑
 
 重复调用run因session独占DISK_CONTINUATION_V1.claim.json拒绝，不再次获得额度；prepare不执行矩阵。
 真实命令/退出码、当前环境、资源、来源和结果见本轮独立证据目录。
+
+## 2026-10-15：用户明确授权再尝试一次，仍用原余量
+
+用户“重试一下吧”授权本次人工重试，不授权循环重试或新的3600秒窗口。
+原846.073676秒和上次200.0468689秒全部计费，起始累计1046.1205449秒，
+本次只用2553.8794551秒。通过`--prior-authorization`绑定上次授权、窗口、原claim及SHA，
+使用新schema raw-validation-user-retry-v1和独占DISK_CONTINUATION_RETRY_V1.claim.json。
+旧claim/故障/REJECT/原十二条均不改；原22fe97c助手归档和记录仍按原身份保留。
+新助手单独冻结，测量仍用35a60b0及原验证session，只补s24一个组。
+
+保持原Formal策略及120秒总上限；外层将一次门禁采集/等待的deadline设为至多119秒，
+预留1秒收尾，原冻结manifest预算及严格审计仍为120秒。这是提前停止，不放宽上限，
+不修改CPU/内存/计时判据。上次120.0005393秒失败仍失败。
+先门禁再一次fresh短/长附件，组前重做门禁与fresh检查；任何失败立即保存停止，
+不因旧准入通过跳过当前验证，不启动搜索。

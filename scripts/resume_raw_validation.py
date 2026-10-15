@@ -15,6 +15,9 @@ from pathlib import Path
 CONTENT = '35a60b090b728d2ec3b6a8ea014beac69fe3766d'
 SESSION = '9332ead2881a4c1e91b966e90a0d2057'
 OLD_SECONDS = 846.073676
+PREVIOUS_CONTINUATION_SECONDS = 200.0468689
+PREVIOUS_CUMULATIVE_SECONDS = OLD_SECONDS + PREVIOUS_CONTINUATION_SECONDS
+RETRY_SCHEMA = 'raw-validation-user-retry-v1'
 TOTAL_SECONDS = 3600.
 SELF = Path(__file__).resolve()
 JOB = {'kind': 'validation', 'config': {'optimization': 'O3', 'block_size': 24}}
@@ -72,10 +75,49 @@ def cumulative(old_seconds, window):
     if any(type(window[k]) is not int or window[k] <= 0 for k in ('qpc_start', 'qpc_end', 'qpc_frequency')):
         raise ValueError('Invalid continuation QPC endpoints')
     elapsed = (window['qpc_end'] - window['qpc_start']) / window['qpc_frequency']
-    if elapsed < 0 or old_seconds != OLD_SECONDS or old_seconds + elapsed > TOTAL_SECONDS:
+    if elapsed < 0 or old_seconds not in (OLD_SECONDS, PREVIOUS_CUMULATIVE_SECONDS) or old_seconds + elapsed > TOTAL_SECONDS:
         raise ValueError('Remaining allowance exceeded; no reset or third window')
     # Sum individually measured durations, never absolute endpoints from different epochs.
     return old_seconds + elapsed
+
+
+def previous_allowance(prior_authorization, session):
+    """One user-authorized retry of the closed memory refusal, not a generic retry loop."""
+    path = Path(prior_authorization); prior = read(path); window_path = Path(prior['directory']) / 'window.json'
+    window = read(window_path); claim = read(Path(session) / 'DISK_CONTINUATION_V1.claim.json')
+    if prior['schema'] != 'raw-validation-disk-continuation-v1' or prior['content_commit'] != CONTENT or \
+            prior['session_id'] != SESSION or prior['previous_activity_qpc_seconds'] != OLD_SECONDS or \
+            prior['auxiliary_content_commit'] != '22fe97c02e2bf1cd56662413e10fc5311113a246' or \
+            window['status'] != 'stopped' or window['failure_reason'] != 'Group Formal gate refused' or \
+            window['authorization_sha256'] != digest(path) or \
+            any(claim[k] != window[k] for k in ('authorization_sha256', 'qpc_start', 'qpc_frequency', 'budget_seconds')) or \
+            window['budget_seconds'] != TOTAL_SECONDS - OLD_SECONDS or \
+            window['activity_qpc_seconds'] != PREVIOUS_CONTINUATION_SECONDS or \
+            cumulative(OLD_SECONDS, window) != PREVIOUS_CUMULATIVE_SECONDS or \
+            window['cumulative_activity_qpc_seconds'] != PREVIOUS_CUMULATIVE_SECONDS:
+        raise ValueError('Prior rejected activity/claim/remaining allowance differs')
+    if digest(Path(prior['directory']) / 'preserved/checkpoint.json') != prior['checkpoint_sha256']:
+        raise ValueError('Previous checkpoint snapshot identity differs')
+    return PREVIOUS_CUMULATIVE_SECONDS, dict(prior_authorization_file=str(path.resolve()),
+        prior_authorization_sha256=digest(path), prior_window_file=str(window_path), prior_window_sha256=digest(window_path))
+
+
+def prior_seconds(auth):
+    if auth['schema'] == RETRY_SCHEMA:
+        used, identity = previous_allowance(auth['prior_authorization_file'], auth['session_directory'])
+        if any(auth.get(k) != value for k, value in identity.items()):
+            raise ValueError('Prior activity identity changed')
+        return used
+    return OLD_SECONDS
+
+
+def claim_filename(auth):
+    return 'DISK_CONTINUATION_RETRY_V1.claim.json' if auth['schema'] == RETRY_SCHEMA else 'DISK_CONTINUATION_V1.claim.json'
+
+
+def formal_gate(f, plan, directory, context, deadline):
+    # Keep the frozen 120 s maximum, including cleanup; do not relax the strict audit.
+    return f.gate(plan, directory, 'Formal', context, min(deadline, time.perf_counter() + 119))
 
 
 def evidence_preflight(directory, minimum=1024**3):
@@ -111,22 +153,29 @@ def verify_preserved(auth, completed=False):
 
 
 def verify_auth(auth):
-    if auth['schema'] != 'raw-validation-disk-continuation-v1' or auth['content_commit'] != CONTENT or \
-            auth['session_id'] != SESSION or auth['previous_activity_qpc_seconds'] != OLD_SECONDS or \
-            auth['remaining_allowance_seconds'] != TOTAL_SECONDS - OLD_SECONDS or auth['only_job'] != JOB or \
+    used = prior_seconds(auth)
+    if auth['schema'] not in ('raw-validation-disk-continuation-v1', RETRY_SCHEMA) or auth['content_commit'] != CONTENT or \
+            auth['session_id'] != SESSION or auth['previous_activity_qpc_seconds'] != used or \
+            auth['remaining_allowance_seconds'] != TOTAL_SECONDS - used or auth['only_job'] != JOB or \
             auth['helper_sha256'] != digest(SELF) or auth['helper_file'] != str(SELF):
         raise ValueError('Continuation authorization/helper identity differs')
     if digest(auth['plan_file']) != auth['plan_sha256']:
         raise ValueError('Original plan changed')
 
 
-def prepare(plan_path, directory, auxiliary_sha):
+def prepare(plan_path, directory, auxiliary_sha, prior_authorization=None):
     plan_path = plan_path.resolve(); directory = directory.resolve()
     if directory.exists(): raise ValueError('New unique continuation directory required')
     plan = read(plan_path); f, c = frozen(plan); session = f.local_path(plan['session_directory'])
     state = read(session / 'checkpoint.json'); sample_path = session / 'samples.jsonl'
     rows = [json.loads(line) for line in sample_path.read_bytes().splitlines() if line]
     remaining = check_start(plan, state, rows, read(session / 'window.json'))
+    used = OLD_SECONDS; previous = {}
+    if prior_authorization is not None:
+        used, previous = previous_allowance(prior_authorization, session)
+        if digest(session / 'checkpoint.json') != read(prior_authorization)['checkpoint_sha256']:
+            raise ValueError('Current checkpoint differs from the closed refused attempt')
+        remaining = TOTAL_SECONDS - used
     old_audit = c.audit(plan)
     if not old_audit['evidence_integrity_pass'] or old_audit['completed_groups'] != 2 or old_audit['partial_target_samples']:
         raise ValueError('Existing accepted evidence failed independent audit')
@@ -148,12 +197,15 @@ def prepare(plan_path, directory, auxiliary_sha):
         'plan_sha256': digest(plan_path), 'checkpoint_sha256': digest(session / 'checkpoint.json'),
         'samples_prefix_bytes': sample_path.stat().st_size, 'samples_prefix_sha256': digest(sample_path),
         'original_run_ids': [r['run_id'] for r in rows], 'protected_session_files': protected,
-        'protected_history_files': history, 'previous_activity_qpc_seconds': OLD_SECONDS,
+        'protected_history_files': history, 'previous_activity_qpc_seconds': used,
         'remaining_allowance_seconds': remaining, 'total_allowance_seconds': TOTAL_SECONDS, 'only_job': JOB,
         'start_index': 2, 'stop_index': 3, 'skip_setup': True, 'performance_cache_allowed': False,
         'fresh_admission': 'One short 1e9 then one long 1e10 default-libc/unbound attachment; original certificate untouched',
-        'activity_scope': 'New admission resource gate through cleanup. Add to prior 846.073676 s; off-line review/preparation separate',
+        'activity_scope': 'New admission resource gate through cleanup. Add to previous_activity_qpc_seconds; off-line review/preparation separate',
         'evidence_volume_preflight': 'External scheduling safeguard only; >=1 GiB free plus fsync/read-back. Scientific resource v2 unchanged'}
+    if prior_authorization is not None:
+        auth.update(previous, schema=RETRY_SCHEMA, authorized_by='User on 2026-10-15: retry once; original remaining allowance only',
+            formal_gate_cleanup_reserve_seconds=1, prior_activity_count=2)
     f.atomic_write_json(directory / 'previous_independent_audit.json', old_audit)
     f.claim(directory / 'authorization.json', auth)
     print(json.dumps({'authorization': str(directory / 'authorization.json'), 'protected_session_files': len(protected),
@@ -164,13 +216,14 @@ def run(auth_path):
     auth = read(auth_path); verify_auth(auth)
     plan = read(auth['plan_file']); f, c = frozen(plan); output = Path(auth['directory']); session = Path(auth['session_directory'])
     state = verify_preserved(auth)
+    used_before = auth['previous_activity_qpc_seconds']
     check_start(plan, state, [json.loads(s) for s in (session / 'samples.jsonl').read_bytes().splitlines()], read(session / 'window.json'))
     c.require_certificate(plan)
     started, hz = f.qpc(); budget = auth['remaining_allowance_seconds']
     window = {'schema': auth['schema'], 'content_commit': CONTENT, 'session_id': SESSION,
         'authorization_sha256': digest(auth_path), 'qpc_start': started, 'qpc_frequency': hz, 'controller_pid': os.getpid(),
         'budget_seconds': budget, 'phase': 'preflight', 'status': 'running', 'failure_reason': None}
-    f.claim(session / 'DISK_CONTINUATION_V1.claim.json', window)
+    f.claim(session / claim_filename(auth), window)
     deadline = time.perf_counter() + budget - 15; last = -60.
     def progress(force=False):
         nonlocal last
@@ -180,7 +233,7 @@ def run(auth_path):
         if not force and elapsed - last < 60: return
         last = elapsed; checkpoint = read(session / 'checkpoint.json')
         value = {**window, 'at': f.utc_now(), 'activity_qpc_seconds': elapsed,
-            'cumulative_activity_qpc_seconds': OLD_SECONDS + elapsed, 'remaining_budget_seconds': max(0, budget - elapsed),
+            'cumulative_activity_qpc_seconds': used_before + elapsed, 'remaining_budget_seconds': max(0, budget - elapsed),
             'completed_groups': len(checkpoint['validation_groups']), 'target_executions': checkpoint['target_executions'],
             'active': checkpoint['active'], 'sample_progress': read(session / 'progress.json') if (session / 'progress.json').exists() else None}
         f.atomic_write_json(output / 'progress.json', value); print(json.dumps(value), flush=True)
@@ -195,7 +248,7 @@ def run(auth_path):
             context = {'content_commit': CONTENT, 'session_id': SESSION, 'comparison_protocol_hash': plan['comparison_protocol_hash'],
                 'continuation_authorization_sha256': digest(auth_path), 'starting_checkpoint_sha256': auth['checkpoint_sha256']}
             window['phase'] = 'formal_preflight'; progress(True)
-            if not f.gate(plan, output / 'admission_resources', 'Formal', context, deadline): raise ValueError('Formal resource preflight refused')
+            if not formal_gate(f, plan, output / 'admission_resources', context, deadline): raise ValueError('Formal resource preflight refused')
             window['phase'] = 'fresh_continuation_admission'; progress(True)
             f.clock_check(plan, output / 'admission', 'admission', context, min(deadline, time.perf_counter() + 120))
             checked = f.audit_clock(output / 'admission', context)
@@ -213,7 +266,7 @@ def run(auth_path):
             window.update(attempt_id=attempt, checks_directory=str(checks), phase='group_resources'); progress(True)
             job_context = f.job_context(plan, JOB, attempt)
             f.atomic_write_json(output / 'evidence_volume_before_group.json', evidence_preflight(session))
-            if not f.gate(plan, checks / 'resources', 'Formal', job_context, deadline): raise ValueError('Group Formal gate refused')
+            if not formal_gate(f, plan, checks / 'resources', job_context, deadline): raise ValueError('Group Formal gate refused')
             window['phase'] = 'before_clock'; progress(True)
             f.clock_check(plan, checks / 'before', 'before', {**job_context, 'phase': 'before'}, deadline)
             window['phase'] = 'evaluation'; progress(True)
@@ -232,8 +285,8 @@ def run(auth_path):
         # Do not rewrite history or mark a failed/partial group complete. The outer record is authoritative.
     finally:
         ended, end_hz = f.qpc(); window.update(qpc_end=ended, ended_at=f.utc_now(), activity_qpc_seconds=(ended-started)/hz)
-        window['budget_pass'] = end_hz == hz and OLD_SECONDS + window['activity_qpc_seconds'] <= TOTAL_SECONDS
-        window['cumulative_activity_qpc_seconds'] = OLD_SECONDS + window['activity_qpc_seconds']
+        window['budget_pass'] = end_hz == hz and used_before + window['activity_qpc_seconds'] <= TOTAL_SECONDS
+        window['cumulative_activity_qpc_seconds'] = used_before + window['activity_qpc_seconds']
         f.atomic_write_json(output / 'window.json', window); progress(True)
     return 0 if window['status'] == 'complete' and window['budget_pass'] else 2
 
@@ -245,11 +298,11 @@ def audit(auth_path):
         'execution_complete': False, 'timing_checks_pass': False, 'comparison_ready': False, 'errors': []}
     try:
         state = verify_preserved(auth, completed=True); window = read(output / 'window.json')
-        claim = read(session / 'DISK_CONTINUATION_V1.claim.json')
+        claim = read(session / claim_filename(auth))
         if any(claim[k] != window[k] for k in ('authorization_sha256', 'qpc_start', 'qpc_frequency', 'budget_seconds')) or \
                 window['authorization_sha256'] != digest(auth_path) or window['budget_seconds'] != auth['remaining_allowance_seconds']:
             raise ValueError('Continuation budget claim changed')
-        total = cumulative(OLD_SECONDS, window)
+        total = cumulative(auth['previous_activity_qpc_seconds'], window)
         if total != window['cumulative_activity_qpc_seconds']: raise ValueError('Cumulative cost differs')
         power = read(output / 'sleep_request.json')
         if not power['acquired'] or not power['released'] or power['thread_id'] != power['release_thread_id']:
@@ -270,7 +323,7 @@ def audit(auth_path):
             target_executions=base['target_executions'], completed_groups=base['completed_groups'],
             partial_target_samples=base['partial_target_samples'], original_runs_preserved=len(auth['original_run_ids']),
             protected_session_files=len(auth['protected_session_files']), protected_history_files=len(auth['protected_history_files']),
-            previous_activity_qpc_seconds=OLD_SECONDS, continuation_activity_qpc_seconds=window['activity_qpc_seconds'],
+            previous_activity_qpc_seconds=auth['previous_activity_qpc_seconds'], continuation_activity_qpc_seconds=window['activity_qpc_seconds'],
             cumulative_activity_qpc_seconds=total, failure_reason=window['failure_reason'])
     except (ValueError, KeyError, TypeError, OSError) as error:
         result['errors'].append(str(error))
@@ -284,7 +337,8 @@ if __name__ == '__main__':
     parser.add_argument('mode', choices=('prepare', 'run', 'audit'))
     parser.add_argument('--plan', type=Path); parser.add_argument('--output', type=Path)
     parser.add_argument('--auxiliary-sha'); parser.add_argument('--authorization', type=Path)
+    parser.add_argument('--prior-authorization', type=Path, help='Explicit user retry of the closed 2026-10-14 memory refusal')
     args = parser.parse_args()
-    if args.mode == 'prepare': prepare(args.plan, args.output, args.auxiliary_sha)
+    if args.mode == 'prepare': prepare(args.plan, args.output, args.auxiliary_sha, args.prior_authorization)
     elif args.mode == 'run': raise SystemExit(run(args.authorization))
     else: raise SystemExit(audit(args.authorization))
