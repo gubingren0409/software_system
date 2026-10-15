@@ -1,0 +1,22 @@
+{
+  "command": [
+    "wsl.exe",
+    "-d",
+    "Ubuntu-24.04",
+    "--",
+    "python3",
+    "-c",
+    "import json,pathlib,subprocess; k=subprocess.check_output([\"uname\",\"-r\"],text=True).strip(); print(json.dumps({\"kernel\":k,\"boot_id\":pathlib.Path(\"/proc/sys/kernel/random/boot_id\").read_text().strip(),\"allowed_cpus\":next(x for x in pathlib.Path(\"/proc/self/status\").read_text().splitlines() if x.startswith(\"Cpus_allowed_list:\")),\"archive_present\":pathlib.Path(\"/var/tmp/matrix-raw-comparison-content-35a60b090b728d2ec3b6a8ea014beac69fe3766d\").is_dir()})); raise SystemExit(0 if k==\"6.18.54.1-microsoft-standard-WSL2\" else 2)"
+  ],
+  "cwd": "E:/software_system/project01",
+  "started_at": "2026-10-15T07:29:09.423337+00:00",
+  "qpc_start": 140524756339,
+  "qpc_frequency": 10000000,
+  "returncode": 0,
+  "recorder_sha256": "23c14f6cd77c1799c4400c228866cb55b75256a6ff1f3fa6c401802037783979",
+  "pid": 113332,
+  "qpc_end": 140615980005,
+  "ended_at": "2026-10-15T07:29:18.545446+00:00",
+  "qpc_seconds": 9.1223666,
+  "qpc_frequency_unchanged": true
+}

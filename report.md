@@ -944,3 +944,21 @@ CPU均26.6/12.4/17%、峰49/18/35%，WSL约4.54–5.82GiB，commit余量充足�
 [独立验收](evidence/p3_raw_comparison/20261015-130000-user-retry/continuation/independent_continuation_audit.json)、
 [门禁及超时](evidence/p3_raw_comparison/20261015-130000-user-retry/all_resource_gates_independent.json)、
 [成本范围](evidence/p3_raw_comparison/20261015-130000-user-retry/costs.json)。
+
+### 8.16 2026-10-15下午再次重试，接电前检停止
+
+用户再次明确一次原余量重试。新外层103387c，原35a60b0/session9332ead2和科学规则不变，
+15项相关受控回归/准确归档通过；原三段1257.8308447s全部计费，仅2342.1691553s余量。
+E证据盘可写、临时防睡眠申请通过，但Windows API ac=0、电量75%，按接电要求停止，真实退出2。
+本次资源/RAW准入/组边界/新目标全部未执行，不是新的内存或时钟失败；finally同线程释放请求。
+仍2/3组、12/18fresh；旧分数、待机样本、287+13,545保护文件和12条前缀不变，无搜索/前缀复测。
+
+本段3.2553424s，累计1261.0861871s，账面余2338.9138129s，不自动再次运行。
+进程12.8550992s包含活动与身份/收尾，历史门禁/探针/RAW为嵌套项，不全部相加。
+旧辅助审计因未启动阶段文件缺席拒绝，原结果保留；单独只读接电拒绝核验及3项合成回归确认
+源/原始数据/保护完整性true，资源/时钟not_executed。验证完成/全验证计时及P3三项仍false。
+本轮派生表按已接受组原始证据标timing_contract_pass，而非把“全三组未完成”误作两组时钟失败，
+历史表/分数/样本不修改。下一步先接电、保持开盖，再明确一次原余量补齐。
+[完整证据/阶段限制](evidence/p3_raw_comparison/20261015-152400-user-retry2/README.md)、
+[独立接电拒绝核验](evidence/p3_raw_comparison/20261015-152400-user-retry2/continuation/independent_preflight_stop_audit.json)、
+[成本](evidence/p3_raw_comparison/20261015-152400-user-retry2/costs.json)。

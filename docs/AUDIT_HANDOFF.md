@@ -1,6 +1,24 @@
 # 审计交接入口
 
-## 当前：742cac14后授权一次重试，仍在组前资源门禁停止
+## 当前：6b1860a后再次明确重试，接电前检停止
+
+状态P3_RAW_VALIDATION_AC_POWER_BLOCKED。辅助103387cfae82523d9ad42bf4567af42cc2239337，
+原测量35a60b0/session9332ead2不变；15项关联测试/干净归档通过，只允许s24及原2342.1691553s。
+Windows API ac=0、电量75%，父控退出2；finally释放防睡眠。资源/新RAW/新组边界/矩阵全部0次。
+仍2/3组、12/18fresh，287个原session文件和13,545其他证据、原12条字节前缀不变。
+本段3.2553424s，累计1261.0861871s，账面余2338.9138129s；不重置、不再次探测或自动搜索。
+原辅助审计早期文件缺席的integrity=false结果保留；另以原数据/捕获/授权检查器核验接电拒绝及阶段缺席，
+证据完整性true。资源/时钟not_executed不是PASS，验证全完成/全计时及P3三项false。
+
+- [全部新说明/原始命令/成本/下一步](../evidence/p3_raw_comparison/20261015-152400-user-retry2/README.md)
+- [采集前授权/保护哈希](../evidence/p3_raw_comparison/20261015-152400-user-retry2/continuation/authorization.json)、[AC原始操作](../evidence/p3_raw_comparison/20261015-152400-user-retry2/continuation/ac_status.operation.json)
+- [原辅助拒绝](../evidence/p3_raw_comparison/20261015-152400-user-retry2/continuation/independent_continuation_audit.json)、[单独阶段核验](../evidence/p3_raw_comparison/20261015-152400-user-retry2/continuation/independent_preflight_stop_audit.json)
+- [阶段/成本摘要](../evidence/p3_raw_comparison/20261015-152400-user-retry2/delivery_summary.json)、[辅助源码/协议身份](../evidence/p3_raw_comparison/20261015-152400-user-retry2/source_identity.json)
+
+待审：阶段缺席与检查失败/通过分开；组级timing标志与全验证完成分开。所有旧记录不改。
+先由用户接电/保持开盖，再一次原余量授权，当前已关闭claim不可直接再run。
+
+## 历史：742cac14后授权一次重试，仍在组前资源门禁停止
 
 外层3eaeadd28245664f4ea27bd8e4f79082fcf0124e，测量35a60b0/session9332ead2不变；14项针对性测试
 工作树及干净归档通过，未执行n17/历史大批测试、搜索或新Grid。新retry claim绑定前次授权/窗口/旧claim，
