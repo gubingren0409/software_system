@@ -126,6 +126,15 @@ class ValidationContinuationTests(unittest.TestCase):
         with patch.object(r,'previous_allowance',return_value=(r.PREVIOUS_CUMULATIVE_SECONDS,{})):
             with self.assertRaises(ValueError): r.prior_seconds(dict(schema=r.RETRY2_SCHEMA,prior_authorization_file='old',session_directory='session'))
 
+    def test_third_authorized_retry_keeps_ac_refusal_cost(self):
+        window=dict(qpc_start=10,qpc_end=1000000010,qpc_frequency=10000000)
+        self.assertEqual(r.cumulative(r.AC_CUMULATIVE_SECONDS,window),1361.0861871)
+        self.assertAlmostEqual(r.TOTAL_SECONDS-r.AC_CUMULATIVE_SECONDS,2338.9138129,places=9)
+        self.assertEqual(r.claim_filename(dict(schema=r.RETRY3_SCHEMA)),'DISK_CONTINUATION_RETRY_V3.claim.json')
+        self.assertNotEqual(r.claim_filename(dict(schema=r.RETRY3_SCHEMA)),r.claim_filename(dict(schema=r.RETRY2_SCHEMA)))
+        with patch.object(r,'previous_allowance',return_value=(r.LAST_CUMULATIVE_SECONDS,{})):
+            with self.assertRaises(ValueError): r.prior_seconds(dict(schema=r.RETRY3_SCHEMA,prior_authorization_file='old',session_directory='session'))
+
     def test_retry_claim_is_separate_and_exclusive(self):
         old=r.claim_filename(dict(schema='raw-validation-disk-continuation-v1'))
         new=r.claim_filename(dict(schema=r.RETRY_SCHEMA))
@@ -171,6 +180,23 @@ class ValidationContinuationTests(unittest.TestCase):
             (second/'window.json').write_text(json.dumps(second_window))
             (out/'DISK_CONTINUATION_RETRY_V1.claim.json').write_text(json.dumps(second_window))
             self.assertEqual(r.previous_allowance(second_path,out)[0],r.LAST_CUMULATIVE_SECONDS)
+            third=out/'third'; (third/'preserved').mkdir(parents=True)
+            (third/'preserved/checkpoint.json').write_text('{}')
+            third_path=third/'authorization.json'
+            third_auth=dict(second_auth,**r.previous_allowance(second_path,out)[1])
+            third_auth.update(schema=r.RETRY2_SCHEMA,directory=str(third),previous_activity_qpc_seconds=r.LAST_CUMULATIVE_SECONDS,
+                auxiliary_content_commit='103387cfae82523d9ad42bf4567af42cc2239337')
+            third_path.write_text(json.dumps(third_auth))
+            third_window=dict(second_window,qpc_start=141269768945,qpc_end=141302322369,
+                authorization_sha256=r.digest(third_path),budget_seconds=r.TOTAL_SECONDS-r.LAST_CUMULATIVE_SECONDS,
+                failure_reason='AC power required; keep lid open',activity_qpc_seconds=r.AC_REFUSAL_SECONDS,
+                cumulative_activity_qpc_seconds=r.AC_CUMULATIVE_SECONDS)
+            (third/'window.json').write_text(json.dumps(third_window))
+            (out/'DISK_CONTINUATION_RETRY_V2.claim.json').write_text(json.dumps(third_window))
+            self.assertEqual(r.previous_allowance(third_path,out)[0],r.AC_CUMULATIVE_SECONDS)
+            third_window['failure_reason']='Group Formal gate refused'
+            (third/'window.json').write_text(json.dumps(third_window))
+            with self.assertRaises(ValueError): r.previous_allowance(third_path,out)
             second_window['budget_seconds']=3600
             (second/'window.json').write_text(json.dumps(second_window))
             with self.assertRaises(ValueError): r.previous_allowance(second_path,out)
