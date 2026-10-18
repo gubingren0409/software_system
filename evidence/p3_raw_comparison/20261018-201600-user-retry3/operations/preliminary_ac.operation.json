@@ -1,0 +1,21 @@
+{
+  "command": [
+    "python",
+    "-B",
+    "-X",
+    "utf8",
+    "-c",
+    "import ctypes,datetime,json,sys\nclass Status(ctypes.Structure):\n    _fields_=[('ac',ctypes.c_ubyte),('battery_flag',ctypes.c_ubyte),('battery_percent',ctypes.c_ubyte),('reserved',ctypes.c_ubyte),('battery_life_seconds',ctypes.c_uint32),('battery_full_life_seconds',ctypes.c_uint32)]\ns=Status(); ok=bool(ctypes.windll.kernel32.GetSystemPowerStatus(ctypes.byref(s)))\nresult=dict(observed_at=datetime.datetime.now(datetime.timezone.utc).isoformat(),ok=ok,ac=s.ac if ok else 'unknown',battery_percent=s.battery_percent if ok else 'unknown',purpose='read_only_preliminary_AC_check_not_formal_admission')\nprint(json.dumps(result));sys.exit(0 if ok and s.ac==1 else 2)"
+  ],
+  "cwd": "E:/software_system/project01",
+  "started_at": "2026-10-18T12:16:09.842454+00:00",
+  "qpc_start": 139865885393,
+  "qpc_frequency": 10000000,
+  "returncode": 0,
+  "recorder_sha256": "23c14f6cd77c1799c4400c228866cb55b75256a6ff1f3fa6c401802037783979",
+  "pid": 65576,
+  "qpc_end": 139869676524,
+  "ended_at": "2026-10-18T12:16:10.220865+00:00",
+  "qpc_seconds": 0.3791131,
+  "qpc_frequency_unchanged": true
+}

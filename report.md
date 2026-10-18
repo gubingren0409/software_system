@@ -962,3 +962,27 @@ E证据盘可写、临时防睡眠申请通过，但Windows API ac=0、电量75%
 [完整证据/阶段限制](evidence/p3_raw_comparison/20261015-152400-user-retry2/README.md)、
 [独立接电拒绝核验](evidence/p3_raw_comparison/20261015-152400-user-retry2/continuation/independent_preflight_stop_audit.json)、
 [成本](evidence/p3_raw_comparison/20261015-152400-user-retry2/costs.json)。
+
+### 8.17 2026-10-18人工单次重试：接电/时钟通过，仍被组前宿主内存门禁拒绝
+
+新外层02907787以新retry-v3独占claim绑定全部旧活动，实际测量35a60b0/session9332ead2不变。
+16项关联受控回归及准确干净归档、3项合成AC拒绝核验通过；未重跑历史全套或额外n17/搜索。
+已接电100%，Formal预检host最低4071182336B、WSL6228447232B、CPU均3.6%峰6%，全部通过。
+唯一fresh短/长RAW2/2与真实源码/编译器/缓存身份核验通过，没有setup或reference生成。
+
+s24组前四有效快照host最低281374720/325533696/429780992/474804224B，均低于512MiB，
+只因host_memory拒绝；CPU、提交余量、WSL容量及根盘均通过。118.9061907s耗尽后安全停止，控制器退出2。
+没有新组两侧探针或矩阵执行，仍2/3组、12/18fresh，8.13两组分数保持，s24仍“未执行”。
+未删除历史待机样本、改中位数或校准；不同窗口的资源变化不能追认拒绝或证明唯一成因。
+
+同等待窗口只读快照host可用334102528B、VmmemWSL工作集5230096384B，分页计数5611/s及page reads1059/s，
+属于资源质量证据，不证明WSL预占，更不能将整个Vmmem工作集作为可供目标使用的额外容量。
+未结束用户应用、清系统缓存、重启WSL或修改配置；临时防睡眠finally同线程释放。
+
+289原session文件、13,618其他证据、原12条字节前缀和两组、旧claim/初始证书原样保护。
+本段QPC207.9839123s，原四段1261.0861871s照计，累计1469.0700994s，余2130.9299006s，不自动续跑。
+进程包络218.5935365s包含活动，门禁/探针/核心/评估RAW为嵌套项，离线准备/审计/Git另列，不重复相加。
+独立evidence_integrity_pass=true；验证全完成/全计时以及P3 execution_complete/timing_checks_pass/comparison_ready仍false。
+[完整本轮证据与边界](evidence/p3_raw_comparison/20261018-201600-user-retry3/README.md)、
+[独立验收](evidence/p3_raw_comparison/20261018-201600-user-retry3/continuation/independent_continuation_audit.json)、
+[成本](evidence/p3_raw_comparison/20261018-201600-user-retry3/costs.json)。

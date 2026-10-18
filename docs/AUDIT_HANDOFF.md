@@ -1,6 +1,26 @@
 # 审计交接入口
 
-## 当前：6b1860a后再次明确重试，接电前检停止
+## 当前：9d271433后人工重试，组前host_memory拒绝
+
+状态P3_RAW_VALIDATION_RESOURCE_BLOCKED。新外层02907787f09ee94922d159e6b6bb9a0203c6bde5，
+原实际测量35a60b090b728d2ec3b6a8ea014beac69fe3766d/session9332ead2881a4c1e91b966e90a0d2057不变。
+16项针对性回归及干净归档、3项合成AC拒绝测试通过。未重跑历史大批测试或额外n17/搜索。
+AC已接100%，Formal预检通过、唯一fresh RAW2/2及源码/编译器/缓存核验通过；没有setup/reference生成。
+s24组前四有效快照仅host_memory拒绝，最低281374720/325533696/429780992/474804224B；
+门禁118.9061907s内停止，控制器退出2，临时防睡眠释放。没有组边界新探针或矩阵执行。
+仍2组/12fresh，部分/放弃目标0，搜索/前缀复测0。独立完整性true，验证完成/全计时及P3三项false。
+289个session文件、13,618其他证据和原12条字节前缀/两组成绩/初始证书/旧claim均保护。
+本段207.9839123s，累计1469.0700994s，余2130.9299006s；不跨epoch相减，不叠加嵌套成本。
+
+- [本轮完整说明/测试/真实资源/下一步](../evidence/p3_raw_comparison/20261018-201600-user-retry3/README.md)
+- [新授权与历史保护SHA](../evidence/p3_raw_comparison/20261018-201600-user-retry3/continuation/authorization.json)、[停止窗口](../evidence/p3_raw_comparison/20261018-201600-user-retry3/continuation/window.json)
+- [独立验收](../evidence/p3_raw_comparison/20261018-201600-user-retry3/continuation/independent_continuation_audit.json)、[所有门禁与历史错误](../evidence/p3_raw_comparison/20261018-201600-user-retry3/all_resource_gates_independent.json)
+- [源码/协议身份及行尾](../evidence/p3_raw_comparison/20261018-201600-user-retry3/source_identity.json)、[成本](../evidence/p3_raw_comparison/20261018-201600-user-retry3/costs.json)
+
+本轮已停止；余量不代表自动重新授权。先稳定宿主余量/接电开盖，后续只补s24、不重复旧两组或搜索。
+占用快照仅说明当前内存压力，不能证明WSL预占或单个进程的唯一因果；不改旧失败结论。
+
+## 历史：6b1860a后再次明确重试，接电前检停止
 
 状态P3_RAW_VALIDATION_AC_POWER_BLOCKED。辅助103387cfae82523d9ad42bf4567af42cc2239337，
 原测量35a60b0/session9332ead2不变；15项关联测试/干净归档通过，只允许s24及原2342.1691553s。
