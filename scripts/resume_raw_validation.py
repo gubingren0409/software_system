@@ -24,6 +24,9 @@ RETRY2_SCHEMA = 'raw-validation-user-retry-v2'
 AC_REFUSAL_SECONDS = 3.2553424
 AC_CUMULATIVE_SECONDS = LAST_CUMULATIVE_SECONDS + AC_REFUSAL_SECONDS
 RETRY3_SCHEMA = 'raw-validation-user-retry-v3'
+RESOURCE_RETRY3_SECONDS = 207.9839123
+RESOURCE_CUMULATIVE_SECONDS = AC_CUMULATIVE_SECONDS + RESOURCE_RETRY3_SECONDS
+RETRY4_SCHEMA = 'raw-validation-user-retry-v4'
 TOTAL_SECONDS = 3600.
 SELF = Path(__file__).resolve()
 JOB = {'kind': 'validation', 'config': {'optimization': 'O3', 'block_size': 24}}
@@ -81,7 +84,7 @@ def cumulative(old_seconds, window):
     if any(type(window[k]) is not int or window[k] <= 0 for k in ('qpc_start', 'qpc_end', 'qpc_frequency')):
         raise ValueError('Invalid continuation QPC endpoints')
     elapsed = (window['qpc_end'] - window['qpc_start']) / window['qpc_frequency']
-    if elapsed < 0 or old_seconds not in (OLD_SECONDS, PREVIOUS_CUMULATIVE_SECONDS, LAST_CUMULATIVE_SECONDS, AC_CUMULATIVE_SECONDS) or old_seconds + elapsed > TOTAL_SECONDS:
+    if elapsed < 0 or old_seconds not in (OLD_SECONDS, PREVIOUS_CUMULATIVE_SECONDS, LAST_CUMULATIVE_SECONDS, AC_CUMULATIVE_SECONDS, RESOURCE_CUMULATIVE_SECONDS) or old_seconds + elapsed > TOTAL_SECONDS:
         raise ValueError('Remaining allowance exceeded; no reset or third window')
     # Sum individually measured durations, never absolute endpoints from different epochs.
     return old_seconds + elapsed
@@ -92,17 +95,22 @@ def previous_allowance(prior_authorization, session):
     path = Path(prior_authorization); prior = read(path); window_path = Path(prior['directory']) / 'window.json'
     window = read(window_path)
     expected_failure = 'Group Formal gate refused'
-    if prior['schema'] in (RETRY_SCHEMA, RETRY2_SCHEMA):
+    if prior['schema'] in (RETRY_SCHEMA, RETRY2_SCHEMA, RETRY3_SCHEMA):
         parent = Path(prior['prior_authorization_file'])
         is_ac_refusal = prior['schema'] == RETRY2_SCHEMA
-        parent_schema = RETRY_SCHEMA if is_ac_refusal else 'raw-validation-disk-continuation-v1'
+        parent_schema = {RETRY_SCHEMA: 'raw-validation-disk-continuation-v1', RETRY2_SCHEMA: RETRY_SCHEMA,
+            RETRY3_SCHEMA: RETRY2_SCHEMA}[prior['schema']]
         if parent.resolve() == path.resolve() or read(parent)['schema'] != parent_schema:
             raise ValueError('Only the reviewed closed-refusal parent chain is supported')
         parent_used, parent_identity = previous_allowance(parent, session)
-        expected_parent_used = LAST_CUMULATIVE_SECONDS if is_ac_refusal else PREVIOUS_CUMULATIVE_SECONDS
+        expected_parent_used = {RETRY_SCHEMA: PREVIOUS_CUMULATIVE_SECONDS, RETRY2_SCHEMA: LAST_CUMULATIVE_SECONDS,
+            RETRY3_SCHEMA: AC_CUMULATIVE_SECONDS}[prior['schema']]
         if parent_used != expected_parent_used or any(prior.get(k) != v for k, v in parent_identity.items()):
             raise ValueError('Previous refusal chain identity differs')
-        if is_ac_refusal:
+        if prior['schema'] == RETRY3_SCHEMA:
+            expected_schema, start, duration, end = RETRY3_SCHEMA, AC_CUMULATIVE_SECONDS, RESOURCE_RETRY3_SECONDS, RESOURCE_CUMULATIVE_SECONDS
+            expected_content = '02907787f09ee94922d159e6b6bb9a0203c6bde5'
+        elif is_ac_refusal:
             expected_schema, start, duration, end = RETRY2_SCHEMA, LAST_CUMULATIVE_SECONDS, AC_REFUSAL_SECONDS, AC_CUMULATIVE_SECONDS
             expected_content = '103387cfae82523d9ad42bf4567af42cc2239337'
             expected_failure = 'AC power required; keep lid open'
@@ -131,10 +139,10 @@ def previous_allowance(prior_authorization, session):
 
 
 def prior_seconds(auth):
-    if auth['schema'] in (RETRY_SCHEMA, RETRY2_SCHEMA, RETRY3_SCHEMA):
+    if auth['schema'] in (RETRY_SCHEMA, RETRY2_SCHEMA, RETRY3_SCHEMA, RETRY4_SCHEMA):
         used, identity = previous_allowance(auth['prior_authorization_file'], auth['session_directory'])
         expected = {RETRY_SCHEMA: PREVIOUS_CUMULATIVE_SECONDS, RETRY2_SCHEMA: LAST_CUMULATIVE_SECONDS,
-            RETRY3_SCHEMA: AC_CUMULATIVE_SECONDS}[auth['schema']]
+            RETRY3_SCHEMA: AC_CUMULATIVE_SECONDS, RETRY4_SCHEMA: RESOURCE_CUMULATIVE_SECONDS}[auth['schema']]
         if used != expected or any(auth.get(k) != value for k, value in identity.items()):
             raise ValueError('Prior activity identity changed')
         return used
@@ -145,7 +153,8 @@ def claim_filename(auth):
     return {'raw-validation-disk-continuation-v1': 'DISK_CONTINUATION_V1.claim.json',
         RETRY_SCHEMA: 'DISK_CONTINUATION_RETRY_V1.claim.json',
         RETRY2_SCHEMA: 'DISK_CONTINUATION_RETRY_V2.claim.json',
-        RETRY3_SCHEMA: 'DISK_CONTINUATION_RETRY_V3.claim.json'}[auth['schema']]
+        RETRY3_SCHEMA: 'DISK_CONTINUATION_RETRY_V3.claim.json',
+        RETRY4_SCHEMA: 'DISK_CONTINUATION_RETRY_V4.claim.json'}[auth['schema']]
 
 
 def formal_gate(f, plan, directory, context, deadline):
@@ -187,7 +196,7 @@ def verify_preserved(auth, completed=False):
 
 def verify_auth(auth):
     used = prior_seconds(auth)
-    if auth['schema'] not in ('raw-validation-disk-continuation-v1', RETRY_SCHEMA, RETRY2_SCHEMA, RETRY3_SCHEMA) or auth['content_commit'] != CONTENT or \
+    if auth['schema'] not in ('raw-validation-disk-continuation-v1', RETRY_SCHEMA, RETRY2_SCHEMA, RETRY3_SCHEMA, RETRY4_SCHEMA) or auth['content_commit'] != CONTENT or \
             auth['session_id'] != SESSION or auth['previous_activity_qpc_seconds'] != used or \
             auth['remaining_allowance_seconds'] != TOTAL_SECONDS - used or auth['only_job'] != JOB or \
             auth['helper_sha256'] != digest(SELF) or auth['helper_file'] != str(SELF):
@@ -239,9 +248,10 @@ def prepare(plan_path, directory, auxiliary_sha, prior_authorization=None):
     if prior_authorization is not None:
         parent_schema = read(prior_authorization)['schema']
         next_schema, count = {'raw-validation-disk-continuation-v1': (RETRY_SCHEMA, 2),
-            RETRY_SCHEMA: (RETRY2_SCHEMA, 3), RETRY2_SCHEMA: (RETRY3_SCHEMA, 4)}[parent_schema]
+            RETRY_SCHEMA: (RETRY2_SCHEMA, 3), RETRY2_SCHEMA: (RETRY3_SCHEMA, 4), RETRY3_SCHEMA: (RETRY4_SCHEMA, 5)}[parent_schema]
         auth.update(previous, schema=next_schema,
-            authorized_by='User on 2026-10-18: explicit retry; original remaining allowance only' if next_schema == RETRY3_SCHEMA else
+            authorized_by='User on 2026-10-19: explicit retry; original remaining allowance only' if next_schema == RETRY4_SCHEMA else
+                'User on 2026-10-18: explicit retry; original remaining allowance only' if next_schema == RETRY3_SCHEMA else
                 'User on 2026-10-15: explicit retry; original remaining allowance only',
             formal_gate_cleanup_reserve_seconds=1, prior_activity_count=count)
     f.atomic_write_json(directory / 'previous_independent_audit.json', old_audit)

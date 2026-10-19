@@ -145,6 +145,15 @@ class ValidationContinuationTests(unittest.TestCase):
             with self.assertRaises(FileExistsError): path.open('x')
             self.assertEqual(path.read_text(),'one attempt')
 
+    def test_fourth_authorized_retry_charges_the_previous_resource_refusal(self):
+        window=dict(qpc_start=10,qpc_end=1000000010,qpc_frequency=10000000)
+        self.assertEqual(r.cumulative(r.RESOURCE_CUMULATIVE_SECONDS,window),1569.0700994)
+        self.assertAlmostEqual(r.TOTAL_SECONDS-r.RESOURCE_CUMULATIVE_SECONDS,2130.9299006,places=9)
+        self.assertEqual(r.claim_filename(dict(schema=r.RETRY4_SCHEMA)),'DISK_CONTINUATION_RETRY_V4.claim.json')
+        self.assertNotEqual(r.claim_filename(dict(schema=r.RETRY4_SCHEMA)),r.claim_filename(dict(schema=r.RETRY3_SCHEMA)))
+        with patch.object(r,'previous_allowance',return_value=(r.AC_CUMULATIVE_SECONDS,{})):
+            with self.assertRaises(ValueError): r.prior_seconds(dict(schema=r.RETRY4_SCHEMA,prior_authorization_file='old',session_directory='session'))
+
     def test_formal_gate_leaves_cleanup_time_within_120(self):
         from unittest.mock import MagicMock
         f=MagicMock()
@@ -194,6 +203,23 @@ class ValidationContinuationTests(unittest.TestCase):
             (third/'window.json').write_text(json.dumps(third_window))
             (out/'DISK_CONTINUATION_RETRY_V2.claim.json').write_text(json.dumps(third_window))
             self.assertEqual(r.previous_allowance(third_path,out)[0],r.AC_CUMULATIVE_SECONDS)
+            fourth=out/'fourth'; (fourth/'preserved').mkdir(parents=True)
+            (fourth/'preserved/checkpoint.json').write_text('{}')
+            fourth_path=fourth/'authorization.json'
+            fourth_auth=dict(third_auth,**r.previous_allowance(third_path,out)[1])
+            fourth_auth.update(schema=r.RETRY3_SCHEMA,directory=str(fourth),previous_activity_qpc_seconds=r.AC_CUMULATIVE_SECONDS,
+                auxiliary_content_commit='02907787f09ee94922d159e6b6bb9a0203c6bde5')
+            fourth_path.write_text(json.dumps(fourth_auth))
+            fourth_window=dict(third_window,qpc_start=141291619901,qpc_end=143371459024,
+                authorization_sha256=r.digest(fourth_path),budget_seconds=r.TOTAL_SECONDS-r.AC_CUMULATIVE_SECONDS,
+                failure_reason='Group Formal gate refused',activity_qpc_seconds=r.RESOURCE_RETRY3_SECONDS,
+                cumulative_activity_qpc_seconds=r.RESOURCE_CUMULATIVE_SECONDS)
+            (fourth/'window.json').write_text(json.dumps(fourth_window))
+            (out/'DISK_CONTINUATION_RETRY_V3.claim.json').write_text(json.dumps(fourth_window))
+            self.assertEqual(r.previous_allowance(fourth_path,out)[0],r.RESOURCE_CUMULATIVE_SECONDS)
+            fourth_window['budget_seconds']=3600
+            (fourth/'window.json').write_text(json.dumps(fourth_window))
+            with self.assertRaises(ValueError): r.previous_allowance(fourth_path,out)
             third_window['failure_reason']='Group Formal gate refused'
             (third/'window.json').write_text(json.dumps(third_window))
             with self.assertRaises(ValueError): r.previous_allowance(third_path,out)
