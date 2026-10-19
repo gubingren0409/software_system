@@ -2,7 +2,20 @@
 
 《软件系统优化》实践项目 P1。**P2 历史Grid已保存；P3首种子正式比较尚未完成。**
 
-当前（2026-10-19，人工单次续用原余量）：**P3_RAW_THREE_CONFIG_VALIDATION_COMPLETE**。
+当前（2026-10-19，efb7f9df后首种子真实搜索授权）：**FIRST_SEED_RAW_COMPARISON_PARTIAL**。
+执行内容`776b11171d796c8071e69824ffe463c4faf8ba57`，新search session `c1bd157c6c8d42439d0fb08f69156ff5`；
+科学内容3cc9e0d/RAW/资源v2不变。修复搜索模式验收与实际证据卷write/fsync/read-back门禁；
+比较相关28项、关联续跑17项受控回归及准确归档验证通过，没有额外n17或三配置重测。
+Random12搜索组＋2个候选复测组完整；Greedy2/12完整，第三组O3/s128受合盖Modern Standby及超时影响而停止。
+共98条唯一记录：96条属16个已接纳组，2条部分组（成功预热＋超时）不计分、不补跑。
+证据完整性true；首种子execution_complete/timing_checks_pass/comparison_ready及五种子完成均false。
+活动QPC15841.5879168s/43200s，未重置预算或退款。旧14,221个证据文件哈希不变，关闭验证18条样本不追加。
+[本轮原始证据、六行前缀表、成本与停止原因](evidence/p3_raw_first_seed/20261019-132400/README.md)、
+[独立验收](evidence/p3_raw_first_seed/20261019-132400/official_first_seed_audit.json)、
+[停止/电源原始消息复核](evidence/p3_raw_first_seed/20261019-132400/stop_review.json)。
+本任务实验进程已退出，防睡眠请求已释放；不重新领取窗口或自动恢复，等待外审。
+
+历史（2026-10-19，人工单次续用原余量）：**P3_RAW_THREE_CONFIG_VALIDATION_COMPLETE**。
 辅助e8816554、实际35a60b0/session9332ead2不变；17项关联回归/准确干净归档及3项合成辅助测试通过。
 只补s24六次fresh；三配置现3/3组、18/18次，全矩阵正确性/RAW契约/连续性独立审计通过。
 s24测得中位数63.240102045s，CV0.5041%、MAD0.273363999s，旧两组/旧Grid分数和待机记录不改。

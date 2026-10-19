@@ -1,0 +1,69 @@
+{
+  "baseline_operation": "events_0",
+  "context": {
+    "attempt_id": "aae9b1505c3c4a53aab33968a288876e",
+    "comparison_protocol_hash": "362668cb7857b69ccc528ecb58b5870d7d347dfa30149f615f228fd058593495",
+    "content_commit": "776b11171d796c8071e69824ffe463c4faf8ba57",
+    "job": {
+      "algorithm": "greedy",
+      "config": {
+        "block_size": 128,
+        "optimization": "O3"
+      },
+      "kind": "search"
+    },
+    "session_id": "c1bd157c6c8d42439d0fb08f69156ff5"
+  },
+  "errors": [
+    "Power event log reset or identity invalid"
+  ],
+  "event_cursor_after": 353603,
+  "event_cursor_before": 353603,
+  "event_operations": [
+    "events_1",
+    "events_2"
+  ],
+  "host": {
+    "command": "RUN aae9b1505c3c4a53aab33968a288876e\n",
+    "command_argv": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "--cd",
+      "/var/tmp/matrix-raw-comparison-content-776b11171d796c8071e69824ffe463c4faf8ba57",
+      "--",
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "timeout",
+      "--signal=TERM",
+      "--kill-after=10",
+      "28422.0674793",
+      "python3",
+      "-m",
+      "autotuner.raw_comparison",
+      "--plan",
+      "/mnt/e/software_system/project01/evidence/p3_raw_first_seed/20261019-132400/content/search_plan.json",
+      "measure",
+      "--attempt-id",
+      "aae9b1505c3c4a53aab33968a288876e",
+      "--checks-directory",
+      "/mnt/e/software_system/project01/evidence/p3_raw_first_seed/20261019-132400/content/search-c1bd157c/group_checks/aae9b1505c3c4a53aab33968a288876e"
+    ],
+    "qpc_frequency": 10000000,
+    "ready_recv_qpc": 283398672698,
+    "start_qpc": 283399172509
+  },
+  "host_pid": 70360,
+  "process_end_qpc": 294244475455,
+  "process_start_qpc": 283385334932,
+  "qpc_frequency": 10000000,
+  "result": null,
+  "returncode": 3,
+  "schema": "raw-comparison-continuity-v1",
+  "scope": null,
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout_sha256": "03dbbabf1bb328083b36b961661a0f1a25191323b4a5145d0a01fcd0af94ad63",
+  "timed_out": false
+}

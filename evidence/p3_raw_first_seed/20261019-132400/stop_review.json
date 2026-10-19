@@ -1,0 +1,326 @@
+{
+  "active": {
+    "attempt_id": "aae9b1505c3c4a53aab33968a288876e",
+    "failure_reason": "Power event log reset or identity invalid",
+    "formal_comparable": false,
+    "job": {
+      "algorithm": "greedy",
+      "config": {
+        "block_size": 128,
+        "optimization": "O3"
+      },
+      "kind": "search"
+    },
+    "saved_samples": 2
+  },
+  "all_owned_experiment_processes_exited": true,
+  "auxiliary_source_sha256": "8043a3440afe5087c14fb64e5b6d70c87759abfa17df6d316c4d81d9700cd44d",
+  "completed_group_checks": 32,
+  "content_commit": "776b11171d796c8071e69824ffe463c4faf8ba57",
+  "controller_returncode": 2,
+  "gate_calls": 19,
+  "gate_qpc_seconds": 227.5545062,
+  "gate_rejections": 0,
+  "native_intervals": 35,
+  "native_processes": 34,
+  "owned_process_operation": {
+    "batch_id": "stopped-first-seed",
+    "command": [
+      "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+      "-NoProfile",
+      "-Command",
+      "[Console]::OutputEncoding=[Text.UTF8Encoding]::new($false); $ownedWindows=@(Get-Process -Id 48912,70360 -ErrorAction SilentlyContinue | Select-Object Id,ProcessName,StartTime); $wslText=@(& wsl.exe -d Ubuntu-24.04 -- ps -eo pid,ppid,stat,args); $wslExit=$LASTEXITCODE; $ownedWsl=@($wslText | Select-String -Pattern 'matrix-raw-comparison-(content|cache)-776b111|p3_raw_first_seed/20261019-132400|^\\s*11952\\s' | ForEach-Object { $_.Line }); [ordered]@{windows_processes=$ownedWindows;wsl_ps_returncode=$wslExit;matching_wsl_processes=$ownedWsl;at=[DateTimeOffset]::Now.ToString('o')} | ConvertTo-Json -Depth 5; if ($wslExit -ne 0) {exit 2}"
+    ],
+    "cwd": "C:\\Users\\28489\\AppData\\Local\\Temp\\matrix-raw-comparison-776b11171d796c8071e69824ffe463c4faf8ba57",
+    "end_utc_ns": 1792404250166788000,
+    "ended_at": "2026-10-19T10:04:10.166788+00:00",
+    "manifest_sha256": null,
+    "operation_id": "e23b32bd5e324ec78be4b4dc75aa60d1",
+    "operation_kind": "owned_processes",
+    "pid": 78912,
+    "qpc_end": 296710486481,
+    "qpc_frequency": 10000000,
+    "qpc_seconds": 18.1413849,
+    "qpc_start": 296529072632,
+    "returncode": 0,
+    "schema": "p3-captured-operation-v2",
+    "start_utc_ns": 1792404232026425600,
+    "stderr_byte_count": 0,
+    "stderr_crlf_count": 0,
+    "stderr_lf_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_path": "owned_processes.stderr.txt",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_byte_count": 216,
+    "stdout_crlf_count": 10,
+    "stdout_lf_sha256": "64ce1266325cb8baafc53936be1aa06eb289cd8b5b93c6fd8dd8235f1e736d05",
+    "stdout_path": "owned_processes.stdout.txt",
+    "stdout_sha256": "ecdccda1a118b3b21d2885c8ee28fe8aa7b0e448725cbd7a36fb030bcdeb204f",
+    "timed_out": false,
+    "timeout_seconds": 30,
+    "utc_seconds": 18.1403624
+  },
+  "owned_process_snapshot": {
+    "at": "2026-10-19T18:04:10.0659165+08:00",
+    "matching_wsl_processes": [],
+    "windows_processes": [],
+    "wsl_ps_returncode": 0
+  },
+  "partial_cost_note": "Guest evaluation RAW covers the failed two-sample group. Host process QPC also includes startup and stop. Missing matched FINISHED envelope means no valid same-scope continuity comparison; do not subtract these ranges or refund standby.",
+  "partial_evaluation_raw_seconds": 93.559193609,
+  "partial_group_checks": 1,
+  "partial_process_qpc_seconds": 1085.9140523,
+  "power_identity_recomputation": [
+    {
+      "boot_utc": "2026-10-19T01:49:39.5000000Z",
+      "cursor_after": 353603,
+      "cursor_before": -1,
+      "file": "content\\search-c1bd157c\\group_checks\\aae9b1505c3c4a53aab33968a288876e\\power_events\\events_0.stdout.txt",
+      "identity_accepted": true,
+      "reason": null,
+      "sha256": "243c585bb23b7646ee91d120b8019fe301c535ecbf9dbf8afcd21364e12a0f4b"
+    },
+    {
+      "boot_utc": "2026-10-19T01:49:39.5000000Z",
+      "cursor_after": 353603,
+      "cursor_before": 353603,
+      "file": "content\\search-c1bd157c\\group_checks\\aae9b1505c3c4a53aab33968a288876e\\power_events\\events_1.stdout.txt",
+      "identity_accepted": true,
+      "reason": null,
+      "sha256": "a5e65652b54bc3236b36e8ad7c18811557f76c7bc5325768dab6f698cc1569cc"
+    },
+    {
+      "boot_utc": "2026-10-19T01:49:39.5000000Z",
+      "cursor_after": 353603,
+      "cursor_before": 353603,
+      "file": "content\\search-c1bd157c\\group_checks\\aae9b1505c3c4a53aab33968a288876e\\power_events\\events_2.stdout.txt",
+      "identity_accepted": true,
+      "reason": null,
+      "sha256": "51346863f739e693657d6ee779bf9fd0b62297c7f0e69b1ec964f8528bbf50cb"
+    },
+    {
+      "boot_utc": "2026-10-19T01:49:39.5048330Z",
+      "cursor_after": 353639,
+      "cursor_before": 353603,
+      "file": "content\\search-c1bd157c\\group_checks\\aae9b1505c3c4a53aab33968a288876e\\power_events\\events_3.stdout.txt",
+      "identity_accepted": false,
+      "reason": "Power event log reset or identity invalid",
+      "sha256": "0094bd88df17b84f1728aa77ead6cba23406890f42ff4f8cfc6e84752f46316a"
+    }
+  ],
+  "power_messages": [
+    {
+      "event_id": 506,
+      "message": "The system is entering Modern Standby \r\n\r\nReason: Lid.",
+      "provider": "Microsoft-Windows-Kernel-Power",
+      "record_id": 353607,
+      "time_utc": "2026-10-19T09:43:18.7512946Z"
+    },
+    {
+      "event_id": 507,
+      "message": "The system is exiting Modern Standby \r\n\r\nReason: AC/DC Display Burst Suppressed.",
+      "provider": "Microsoft-Windows-Kernel-Power",
+      "record_id": 353608,
+      "time_utc": "2026-10-19T09:43:18.7526169Z"
+    },
+    {
+      "event_id": 506,
+      "message": "The system is entering Modern Standby \r\n\r\nReason: AC/DC Display Burst Suppressed.",
+      "provider": "Microsoft-Windows-Kernel-Power",
+      "record_id": 353610,
+      "time_utc": "2026-10-19T09:43:18.7530143Z"
+    },
+    {
+      "event_id": 507,
+      "message": "The system is exiting Modern Standby \r\n\r\nReason: Input Mouse.",
+      "provider": "Microsoft-Windows-Kernel-Power",
+      "record_id": 353631,
+      "time_utc": "2026-10-19T09:59:55.6677480Z"
+    }
+  ],
+  "power_note": "Modern Standby is proven by raw System 506/507 messages including Lid. Boot-time estimate string changed; that alone does not prove a reboot or log reset. Frozen controller refused identity before its standby-message branch. No source change or retry.",
+  "resource_snapshot_summaries": [
+    {
+      "file": "content\\search-c1bd157c\\group_checks\\066f8e93ee5548e59a5a264b76a40b86\\resources\\sample_0.stdout.txt",
+      "formal_gate": "PASS",
+      "purpose": "Formal",
+      "recovery_gate": "NOT_APPLICABLE",
+      "warnings": [
+        "host_memory below warning threshold"
+      ]
+    },
+    {
+      "file": "content\\search-c1bd157c\\group_checks\\22845feb4c8947a78a8f11788187787b\\resources\\sample_0.stdout.txt",
+      "formal_gate": "PASS",
+      "purpose": "Formal",
+      "recovery_gate": "NOT_APPLICABLE",
+      "warnings": [
+        "host_memory below warning threshold"
+      ]
+    },
+    {
+      "file": "content\\search-c1bd157c\\group_checks\\2476d55f19af43c2821cb8ab18e5c5a7\\resources\\sample_0.stdout.txt",
+      "formal_gate": "PASS",
+      "purpose": "Formal",
+      "recovery_gate": "NOT_APPLICABLE",
+      "warnings": [
+        "host_memory below warning threshold"
+      ]
+    },
+    {
+      "file": "content\\search-c1bd157c\\group_checks\\2ed9fb90034d48f792cfc5253229e341\\resources\\sample_0.stdout.txt",
+      "formal_gate": "PASS",
+      "purpose": "Formal",
+      "recovery_gate": "NOT_APPLICABLE",
+      "warnings": []
+    },
+    {
+      "file": "content\\search-c1bd157c\\group_checks\\62578a85a2f24018aa5a91de69f89492\\resources\\sample_0.stdout.txt",
+      "formal_gate": "PASS",
+      "purpose": "Formal",
+      "recovery_gate": "NOT_APPLICABLE",
+      "warnings": [
+        "host_memory below warning threshold"
+      ]
+    },
+    {
+      "file": "content\\search-c1bd157c\\group_checks\\687c7b9ed41a4b0cb3f3c75e65468bb3\\resources\\sample_0.stdout.txt",
+      "formal_gate": "PASS",
+      "purpose": "Formal",
+      "recovery_gate": "NOT_APPLICABLE",
+      "warnings": [
+        "host_memory below warning threshold"
+      ]
+    },
+    {
+      "file": "content\\search-c1bd157c\\group_checks\\71908b2541964a6f998467137702c078\\resources\\sample_0.stdout.txt",
+      "formal_gate": "PASS",
+      "purpose": "Formal",
+      "recovery_gate": "NOT_APPLICABLE",
+      "warnings": []
+    },
+    {
+      "file": "content\\search-c1bd157c\\group_checks\\79363f8be8d44be999b0bbc91ead2345\\resources\\sample_0.stdout.txt",
+      "formal_gate": "PASS",
+      "purpose": "Formal",
+      "recovery_gate": "NOT_APPLICABLE",
+      "warnings": [
+        "host_memory below warning threshold"
+      ]
+    },
+    {
+      "file": "content\\search-c1bd157c\\group_checks\\8d0b5b13cbd443499e8c2844ea8b7a12\\resources\\sample_0.stdout.txt",
+      "formal_gate": "PASS",
+      "purpose": "Formal",
+      "recovery_gate": "NOT_APPLICABLE",
+      "warnings": []
+    },
+    {
+      "file": "content\\search-c1bd157c\\group_checks\\8d8aa19c7fce4734934fb5d6e0538666\\resources\\sample_0.stdout.txt",
+      "formal_gate": "PASS",
+      "purpose": "Formal",
+      "recovery_gate": "NOT_APPLICABLE",
+      "warnings": []
+    },
+    {
+      "file": "content\\search-c1bd157c\\group_checks\\9a7e3d49111942519c7ef798a22f5ba2\\resources\\sample_0.stdout.txt",
+      "formal_gate": "PASS",
+      "purpose": "Formal",
+      "recovery_gate": "NOT_APPLICABLE",
+      "warnings": [
+        "host_memory below warning threshold"
+      ]
+    },
+    {
+      "file": "content\\search-c1bd157c\\group_checks\\aae9b1505c3c4a53aab33968a288876e\\resources\\sample_0.stdout.txt",
+      "formal_gate": "PASS",
+      "purpose": "Formal",
+      "recovery_gate": "NOT_APPLICABLE",
+      "warnings": [
+        "host_memory below warning threshold"
+      ]
+    },
+    {
+      "file": "content\\search-c1bd157c\\group_checks\\d0a668aa09864047b9d941d6dab4a5cd\\resources\\sample_0.stdout.txt",
+      "formal_gate": "PASS",
+      "purpose": "Formal",
+      "recovery_gate": "NOT_APPLICABLE",
+      "warnings": []
+    },
+    {
+      "file": "content\\search-c1bd157c\\group_checks\\d41a0e874b2443bd9e0bdab76141b1cc\\resources\\sample_0.stdout.txt",
+      "formal_gate": "PASS",
+      "purpose": "Formal",
+      "recovery_gate": "NOT_APPLICABLE",
+      "warnings": []
+    },
+    {
+      "file": "content\\search-c1bd157c\\group_checks\\e34ddc6616ac4980a2df3ef857c60e37\\resources\\sample_0.stdout.txt",
+      "formal_gate": "PASS",
+      "purpose": "Formal",
+      "recovery_gate": "NOT_APPLICABLE",
+      "warnings": []
+    },
+    {
+      "file": "content\\search-c1bd157c\\group_checks\\e5e070d1fcfc44bda0b4129781670e20\\resources\\sample_0.stdout.txt",
+      "formal_gate": "PASS",
+      "purpose": "Formal",
+      "recovery_gate": "NOT_APPLICABLE",
+      "warnings": [
+        "host_memory below warning threshold"
+      ]
+    },
+    {
+      "file": "content\\search-c1bd157c\\group_checks\\f2b62560d3154857872e9ab4f5241a96\\resources\\sample_0.stdout.txt",
+      "formal_gate": "PASS",
+      "purpose": "Formal",
+      "recovery_gate": "NOT_APPLICABLE",
+      "warnings": [
+        "host_memory below warning threshold"
+      ]
+    }
+  ],
+  "sample_classifications": {
+    "success": 97,
+    "timeout": 1
+  },
+  "schema": "first-seed-stop-review-v1",
+  "scored_target_samples": 96,
+  "session_id": "c1bd157c6c8d42439d0fb08f69156ff5",
+  "standby_records": [
+    {
+      "event_id": 506,
+      "message": "The system is entering Modern Standby \r\n\r\nReason: Lid.",
+      "provider": "Microsoft-Windows-Kernel-Power",
+      "record_id": 353607,
+      "time_utc": "2026-10-19T09:43:18.7512946Z",
+      "xml": "<Event xmlns='http://schemas.microsoft.com/win/2004/08/events/event'><System><Provider Name='Microsoft-Windows-Kernel-Power' Guid='{331c3b3a-2005-44c2-ac5e-77220c37d6b4}'/><EventID>506</EventID><Version>3</Version><Level>4</Level><Task>157</Task><Opcode>0</Opcode><Keywords>0x8000000000000404</Keywords><TimeCreated SystemTime='2026-10-19T09:43:18.7512946Z'/><EventRecordID>353607</EventRecordID><Correlation/><Execution ProcessID='4' ThreadID='72400'/><Channel>System</Channel><Computer>小谷天天开心</Computer><Security UserID='S-1-5-18'/></System><EventData><Data Name='Reason'>15</Data><Data Name='LidOpenState'>false</Data><Data Name='ExternalMonitorConnectedState'>false</Data><Data Name='ScenarioInstanceId'>6</Data><Data Name='BatteryRemainingCapacityOnEnter'>72592</Data><Data Name='BatteryFullChargeCapacityOnEnter'>72591</Data><Data Name='ScenarioInstanceIdV2'>6</Data><Data Name='BootId'>694</Data></EventData></Event>"
+    },
+    {
+      "event_id": 506,
+      "message": "The system is entering Modern Standby \r\n\r\nReason: AC/DC Display Burst Suppressed.",
+      "provider": "Microsoft-Windows-Kernel-Power",
+      "record_id": 353610,
+      "time_utc": "2026-10-19T09:43:18.7530143Z",
+      "xml": "<Event xmlns='http://schemas.microsoft.com/win/2004/08/events/event'><System><Provider Name='Microsoft-Windows-Kernel-Power' Guid='{331c3b3a-2005-44c2-ac5e-77220c37d6b4}'/><EventID>506</EventID><Version>3</Version><Level>4</Level><Task>157</Task><Opcode>0</Opcode><Keywords>0x8000000000000404</Keywords><TimeCreated SystemTime='2026-10-19T09:43:18.7530143Z'/><EventRecordID>353610</EventRecordID><Correlation/><Execution ProcessID='4' ThreadID='70200'/><Channel>System</Channel><Computer>小谷天天开心</Computer><Security UserID='S-1-5-18'/></System><EventData><Data Name='Reason'>28</Data><Data Name='LidOpenState'>false</Data><Data Name='ExternalMonitorConnectedState'>false</Data><Data Name='ScenarioInstanceId'>8</Data><Data Name='BatteryRemainingCapacityOnEnter'>72592</Data><Data Name='BatteryFullChargeCapacityOnEnter'>72591</Data><Data Name='ScenarioInstanceIdV2'>8</Data><Data Name='BootId'>694</Data></EventData></Event>"
+    }
+  ],
+  "stop_reason": "Power event log reset or identity invalid",
+  "targets": 98,
+  "unaccepted_samples": [
+    {
+      "classification": "success",
+      "process_wall_seconds": 52.275523195999995,
+      "returncode": 0,
+      "run_id": "cf6c692f5c8745608c733e25e8565ac4",
+      "score_seconds": 51.298125119
+    },
+    {
+      "classification": "timeout",
+      "process_wall_seconds": 35.86547697900096,
+      "returncode": -9,
+      "run_id": "ee0f88c283aa4833a6746749a2447d40",
+      "score_seconds": null
+    }
+  ],
+  "unique_run_ids": 98
+}

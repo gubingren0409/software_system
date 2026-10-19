@@ -1,6 +1,32 @@
 # 首种子正式比较尚未完成（2026-10-19）
 
-## 当前：三配置独立验证已完成；真实搜索仍未执行
+## 当前：首种子真实搜索PARTIAL，因合盖待机停止
+
+起点efb7f9df，实际执行内容`776b11171d796c8071e69824ffe463c4faf8ba57`，准确Windows/WSL归档，
+新session `c1bd157c6c8d42439d0fb08f69156ff5`；matrix input/search seed分别固定20261008。
+科学内容3cc9e0d不变；比较验收按mode/first_seed严格计数、重放、复测和退出码，新增证据卷门禁。
+工作树/干净Windows/WSL各28项比较相关测试通过，续跑关联17项工作树/干净Windows通过；均为受控测试。
+新空session绑定43200s独占claim，旧验证1616.5610957s余量不转移，构建/reference核验后复用，性能不复用。
+唯一fresh准入短/长2/2通过；Random12组及去重复测2组完成，然后Greedy完成2组。
+第三组O3/s128预热成功、测量1超时（returncode=-9），2条部分样本均不计分。
+17:43:18 System506原始消息为Reason:Lid；17:59:55 System507退出Modern Standby。
+原控制器先因Windows boot-time估计字符串变化报`Power event log reset or identity invalid`，真实退出2，
+没有证据据此声称真正重启或事件日志清空；原始消息另证实待机。防睡眠请求finally同线程释放，进程退出。
+
+计数：14/24搜索组、2个复测组，共16完整组/96已接纳执行；98个run_id唯一、另2条部分执行。
+35个真实RAW/QPC区间（准入2＋完整组两侧32＋失败组前1）独立复算通过，208个响应；
+失败组缺组后检查、连续性不成立，**整轮timing_checks_pass仍false**，不以其他区间通过冒充完成。
+19资源门禁均通过、11次低内存警告；18次实际证据卷检查通过。不是资源或RAW探针拒绝。
+evidence_integrity_pass=true；execution_complete/timing_checks_pass/comparison_ready=false（first_seed范围），
+five_seed_execution_complete/five_seed_comparison_ready=false。Random三前缀完成不代表两个算法比较完成。
+活动QPC15841.5879168s，余27358.4120832s只是账面余量，不自动续领、不退款或补跑。
+全部14,221旧证据文件保持字节，包括关闭Grid、验证18条样本、旧失败/claim/证书/预算。
+[全部结果/六行表/精确来源/成本](../evidence/p3_raw_first_seed/20261019-132400/README.md)、
+[独立验收](../evidence/p3_raw_first_seed/20261019-132400/official_first_seed_audit.json)、
+[历史保护](../evidence/p3_raw_first_seed/20261019-132400/history_after.json)。
+此轮停止等待外审；下一步若授权续用余量，须先制定不重置claim/预算、保留失败组的新续跑方案，不能直接重跑入口。
+
+## 历史：三配置独立验证已完成；当时真实搜索未执行
 
 起点aac44ef7，用户仅授权一次重试。辅助e8816554b3b9208b0ab4aa00d9adc96b0f692505，
 实际测量35a60b0/session9332ead2不变；准确干净辅助归档17项受控回归通过，另3项合成辅助核验通过。

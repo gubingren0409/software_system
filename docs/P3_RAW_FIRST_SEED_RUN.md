@@ -28,3 +28,12 @@
 终态配置评估RAW累计成本；共享准备、复测及宿主QPC包络分别列明包含关系，不全部相加。
 旧Grid含待机且跨日，不能直接用其QPC包络证明耗时优势；资源警告与单种子限制继续披露。
 原始stdout/stderr保留；无可靠真实终端截图时不伪造。完成或失败均提交推送后停止、等待外审。
+
+## 实际结果（采集后，2026-10-19）
+
+执行内容776b11171d796c8071e69824ffe463c4faf8ba57，新session c1bd157c6c8d42439d0fb08f69156ff5。
+Random12搜索＋2去重复测完整，Greedy2/12完整，第三组O3/s128成功预热/测量1超时后停止。
+原始System消息确认合盖Modern Standby；98记录/98唯一run_id，96属于16完整组，2部分样本不计分。
+活动QPC15841.5879168s，待机不退款，余量不自动续领。证据完整性true、首种子其余三项false，五种子false。
+[本轮原始证据及停止位置](../evidence/p3_raw_first_seed/20261019-132400/README.md)、
+[官方独立验收](../evidence/p3_raw_first_seed/20261019-132400/official_first_seed_audit.json)。

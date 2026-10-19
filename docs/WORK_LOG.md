@@ -1,5 +1,40 @@
 # 工作记录
 
+## 2026-10-19：efb7f9df后首种子RAW搜索，合盖待机停止并交付PARTIAL
+
+- 起点project01/efb7f9df干净；fetch github成功，保留origin/Gitea及用户文件。按最小改动技能限制范围：
+  仅比较验收、证据盘门禁、prepare search-only与相关受控测试；科学code/autotuner/configs未改。
+- 先保护14,221个旧证据文件，完整SHA映射d17ced1f...。教师原件字节SHA188d0111...保持。
+  修复按plan.mode决定CLI/完成条件，严格恰两算法各12唯一、重放/前缀/去重复测/全样本、窗口正常结束，
+  first_seed与five_seed分开；实际证据卷至少1GiB且write/fsync/read-back在活动开始和每组前执行/独立复算。
+- 工作树28比较相关测试＋17续跑关联测试通过；先提交776b11171d796c8071e69824ffe463c4faf8ba57，
+  准确Windows/WSL归档各28通过、Windows续跑17通过，CLI/20唯一配置、科学14文件字节等同3cc9e0d。
+  未跑历史110/160/834测试、未新增n17或三配置实测。构建/reference身份验证后共享，性能缓存独立不复用。
+- 建新空session c1bd157c6c8d42439d0fb08f69156ff5，严格授权JSON/plan/initial checkpoint绑定；
+  13:36:02开始43200s独占QPC活动，不借验证1616.5610957s余量。AC=1/电量100%，防睡眠请求成功。
+  唯一fresh默认libc短/长2/2通过，setup仅核验既有缓存，reference_generation_calls=0。
+- 顺序完成Random12组及内部去重复测2组，再完成Greedy2组；样本/门禁/RAW/连续性均由原运行器逐组持久化。
+  Greedy第三组O3/s128保存成功预热及测量1超时(-9)，原始98条记录都保留，不计部分组，不共享算法样本。
+- 17:43:18 System506原消息Reason:Lid，17:59:55 System507退出Modern Standby；监控sleep实际延长1035s。
+  原PowerEvents首先因LastBootUpTime字符串01:49:39.5000000Z变成01:49:39.5048330Z报身份拒绝，
+  原始cursor仍增加，并非证明日志重置或真实重启；另有原始消息证实待机。控制器退出2，finally同线程释放防睡眠。
+  不修改冻结归档/PowerEvents，不补跑、不改分、不退款、不再recovery或续领窗口。
+- 官方后处理初次按文件路径执行因PYTHONPATH被移除而ModuleNotFoundError；保存原stderr/退出1，
+  纠正为准确归档cwd下python -m scripts.raw_comparison_contract，真实退出2（PARTIAL），没有目标重跑。
+  独立后处理另复算：integrity=true，其余三项false；16完整组/96接纳执行，2部分执行，98个run_id唯一。
+  已采35 RAW区间/208响应全部通过、7个MONOTONIC辅助警告，失败组没有后检查，不能称整轮计时通过。
+- 19资源门禁全部通过、11快照低内存警告，最低宿主1175203840B、WSL4822970368B，已采WSL swap used=0；
+  不能由稀疏快照声称无压力。18证据卷检查通过，最低62524596224B。没有系统设置/清缓存/终止用户应用。
+- 活动15841.5879168s、账面余27358.4120832s，待机与停止照计；完整配置评估/复测/门禁/准备RAW与QPC是嵌套口径。
+  独立历史保护14221/14221哈希不变，所有旧session/分数/证书/失败/claim保留。本任务Windows/WSL进程退出。
+  完整原始命令/stdout/stderr、精确来源、六行表及受干扰组保存在evidence/p3_raw_first_seed/20261019-132400。
+  无可靠可见终端截图，保留原始流，不伪造文本图片。交付为新证据目录补充-text属性，避免Git对原始JSON/日志换行归一化；
+  仅证据保存规则变化，不改变776b1117归档/执行身份。此轮停止并推送外审，不自动扩展种子/算法或重启claim。
+- 推送前Windows Git因既有127.0.0.1:7897代理不可达，fetch真实退出128；保留原stderr，不修改系统代理/TLS。
+  改用本轮开始时已验证的WSL Git/同仓库凭据助手，fetch成功，远端仍efb7f9df；后续普通推送使用该路径。
+- staged全量diff检查唯一提示为原始gcc --version输出末尾空行，原stdout按字节保留、不strip或伪造；
+  科学/辅助源码及文档范围diff检查通过。该原始输出格式提示不是程序/计时/资源验证失败。
+
 ## 2026-10-19：第四次明确人工重试，仅补s24并完成三配置验证
 
 - 初始project01/aac44ef7干净，fetch github成功，API核对同基点，其他远端和用户文件保留。

@@ -1,6 +1,34 @@
 # 审计交接入口
 
-## 当前：aac44ef7后仅补s24，三配置验证完整通过
+## 当前：efb7f9df后RAW首种子搜索PARTIAL
+
+实际执行SHA `776b11171d796c8071e69824ffe463c4faf8ba57`，继承科学内容3cc9e0d；
+新search session `c1bd157c6c8d42439d0fb08f69156ff5`，一次43200s独占QPC窗口，双seed分别20261008。
+最小运行修复仅mode验收/完整性及实际证据卷门禁、prepare search-only适配与受控测试，科学C/协议不改。
+三环境28项比较回归、两环境17项续跑关联回归、CLI与20唯一配置通过；没有额外n17、三配置或Grid。
+
+Random12完整搜索组＋2个去重复测完整，Greedy2/12完整；第三组O3/s128受合盖待机/测量超时影响。
+98个唯一run_id，96条属16个完整组；另成功预热/超时两条保留为active不可比较，不拼接、不评分、不自动重试。
+17:43:18原始System506消息Reason:Lid，17:59:55 System507退出；boot-time估计字符串发生微小变化，
+原控制器先报身份拒绝，不据此伪称日志重置/真正重启。防睡眠请求无法阻止合盖，已finally释放。
+官方模块CLI及独立后处理均真实退出2，四项为true/false/false/false：证据完整、执行未完成、整轮计时未验收、比较未就绪。
+35个已采RAW区间/208响应独立复算通过，但失败组无组后/连续性，不能据此将整轮timing_checks_pass置true。
+19资源门禁通过、11次低内存警告；18证据卷检查均通过；本次不是CPU/内存/磁盘准入阻塞。
+历史14,221文件全SHA不变，关闭验证9332ead2的18样本/分数、Grid待机/旧失败/claim/证书/预算均不改。
+
+- [原始证据总入口、六行真实前缀表及成本范围](../evidence/p3_raw_first_seed/20261019-132400/README.md)
+- [执行计划/双端源码与协议身份](../evidence/p3_raw_first_seed/20261019-132400/content/search_plan.json)、[来源清单](../evidence/p3_raw_first_seed/20261019-132400/source_identity.json)
+- [官方独立审计](../evidence/p3_raw_first_seed/20261019-132400/official_first_seed_audit.json)、[独立后处理](../evidence/p3_raw_first_seed/20261019-132400/independent_first_seed_audit.json)
+- [停止原始消息与部分样本复核](../evidence/p3_raw_first_seed/20261019-132400/stop_review.json)、[成本](../evidence/p3_raw_first_seed/20261019-132400/costs.json)
+- [历史保护](../evidence/p3_raw_first_seed/20261019-132400/history_after.json)、[资源/时钟质量派生说明](../evidence/p3_raw_first_seed/20261019-132400/quality_report.json)
+
+活动包络15841.5879168s（43200内），待机不退款；Random配置评估RAW12370.681806653s、
+Greedy已接纳两组1041.151905033s、Random复测791.041269405s及准备84.7506965s是嵌套分项，不全部相加。
+现有prefix终态配置评估口径不含门禁/准入/复测/失败，完整端到端prefix成本仍未知。
+五种子未完成，不能以Random三个前缀的完成声称整个P3已完成；旧Grid跨日/待机限制不消失。
+当前实验进程全部退出，保留claim/window/失败组；后续仅外审和新的明确续跑授权，禁止直接重启一次性入口。
+
+## 历史：aac44ef7后仅补s24，三配置验证完整通过
 
 状态P3_RAW_THREE_CONFIG_VALIDATION_COMPLETE，**不表示P3搜索比较完成**。
 辅助e8816554b3b9208b0ab4aa00d9adc96b0f692505准确归档；实际执行35a60b090b728d2ec3b6a8ea014beac69fe3766d、
