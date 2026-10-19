@@ -1,6 +1,34 @@
 # 审计交接入口
 
-## 当前：9d271433后人工重试，组前host_memory拒绝
+## 当前：aac44ef7后仅补s24，三配置验证完整通过
+
+状态P3_RAW_THREE_CONFIG_VALIDATION_COMPLETE，**不表示P3搜索比较完成**。
+辅助e8816554b3b9208b0ab4aa00d9adc96b0f692505准确归档；实际执行35a60b090b728d2ec3b6a8ea014beac69fe3766d、
+验证session9332ead2881a4c1e91b966e90a0d2057不变，继承科学3cc9e0d。17项相关回归/干净归档与3项合成辅助测试通过。
+本次唯一fresh准入2区间、组两侧2区间全部独立RAW通过，来源/缓存/编译器核验，无setup/reference生成。
+只新增s24的1预热+5fresh，3/3组、18/18执行，全16777216元素正确，18个run_id唯一，无部分/放弃目标。
+s24中位数63.240102045s、CV0.504125%、MAD0.273363999s；相对原Grid−4.542423%，原Grid/待机/旧分数不改。
+System原始消息无组内待机；同范围QPC387.9632797s/RAW387.957298023s，差0.005981677s。防睡眠finally释放。
+组门禁host最低648581120B、低2GiB警告保留；后续资源快照不能证明组内无压力或WSL预占原因。
+两组10月14日、s24在19日，跨日分段，不是连续批次或严格同环境因果比较。
+
+独立evidence_integrity_pass/validation_complete/validation_timing_checks_pass=true；
+P3 execution_complete/timing_checks_pass/comparison_ready=false，搜索轨迹/配置/前缀复测仍0。
+306原session文件、13,711其他证据、原两组/12条字节前缀/旧claim/证书保护；samples只追加6条，原运行器写complete。
+旧空stdout、超额门禁、E满盘片段及全部旧失败仍保存为原结论。本轮在此关闭验证，不追加或自动搜索。
+本段514.3688049s，六段累计1983.4389043s，3600s账面余1616.5610957s，不转移搜索预算。
+进程527.3836979s包含活动；门禁/核心/组评估/探针嵌套成本不再相加，离线辅助成本另列。
+
+- [全部证据/来源/限制/下一阶段](../evidence/p3_raw_comparison/20261019-122200-user-retry4/README.md)
+- [独立完整验收](../evidence/p3_raw_comparison/20261019-122200-user-retry4/continuation/independent_continuation_audit.json)、[授权/保护SHA](../evidence/p3_raw_comparison/20261019-122200-user-retry4/continuation/authorization.json)
+- [三配置CSV](../evidence/p3_raw_comparison/20261019-122200-user-retry4/three_configuration_comparison.csv)、[18条结果契约复算](../evidence/p3_raw_comparison/20261019-122200-user-retry4/all_sample_contracts_independent.json)
+- [本轮及历史RAW复算](../evidence/p3_raw_comparison/20261019-122200-user-retry4/all_clock_checks_independent.json)、[资源与旧拒绝](../evidence/p3_raw_comparison/20261019-122200-user-retry4/all_resource_gates_independent.json)
+- [源码/协议/二进制身份](../evidence/p3_raw_comparison/20261019-122200-user-retry4/source_identity.json)、[成本](../evidence/p3_raw_comparison/20261019-122200-user-retry4/costs.json)
+
+待外审：验证完整性、跨日与低内存边界、12h搜索预算场景；之后才另行授权新search session及fresh准入。
+不把独立验证/旧Grid馈入搜索，不借原证书或未用验证余量启动搜索。
+
+## 历史：9d271433后人工重试，组前host_memory拒绝
 
 状态P3_RAW_VALIDATION_RESOURCE_BLOCKED。新外层02907787f09ee94922d159e6b6bb9a0203c6bde5，
 原实际测量35a60b090b728d2ec3b6a8ea014beac69fe3766d/session9332ead2881a4c1e91b966e90a0d2057不变。

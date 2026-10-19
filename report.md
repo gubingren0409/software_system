@@ -986,3 +986,41 @@ s24组前四有效快照host最低281374720/325533696/429780992/474804224B，均
 [完整本轮证据与边界](evidence/p3_raw_comparison/20261018-201600-user-retry3/README.md)、
 [独立验收](evidence/p3_raw_comparison/20261018-201600-user-retry3/continuation/independent_continuation_audit.json)、
 [成本](evidence/p3_raw_comparison/20261018-201600-user-retry3/costs.json)。
+
+### 8.18 2026-10-19：s24补齐，三配置独立验证完成
+
+本次在aac44ef7后只续用原2130.9299006s余量，辅助e8816554，实际35a60b0/session9332ead2不变。
+17项相关受控回归及准确归档、3项合成辅助检查通过；科学程序、协议/门槛及原两组不改，没有额外n17或搜索。
+Formal预检和组门禁、一次fresh短/长RAW及组两侧RAW、六次全矩阵正确性/整数RAW契约、连续性均通过。
+只追加s24的1预热+5fresh，现3/3组、18/18执行（3预热+15计分），部分/放弃目标0，reference生成0。
+
+| 配置 | 原Grid中位数/s | 独立验证中位数/s | CV/% | MAD/s | 相对原Grid |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| O3/s128 | 50.996291138 | 51.602724641 | 1.702165 | 0.449608174 | +1.189172% |
+| O3/s64 | 52.469094035 | 52.784908609 | 1.775623 | 0.242572761 | +0.601906% |
+| O3/s24 | 66.249431562 | 63.240102045 | 0.504125 | 0.273363999 | −4.542423% |
+
+三组正确性、timing_contract_pass及uninterrupted_execution均true。s24组同范围QPC387.9632797s、
+RAW387.957298023s，差0.005981677s，System原始消息无组内待机。防睡眠finally同线程释放，真实退出0。
+原Grid及s24待机样本/中位数不改，不选择两轮较小值，不按比例校准或退款。
+前两组10月14日、本次s24在19日完成，**跨日分段，不是严格同环境连续或因果对照**。
+仅三配置独立验证，不能称新条件20配置全局最优，也不解释为已证明某个硬件机制。
+
+组门禁host最低648581120B（约619MiB，低2GiB警告）、WSL4907397120B，CPU均6.4%峰10%，
+提交余量/盘通过。较晚host快照6126317568B、分页49787/s及page reads669/s，WSL Swap全空闲，
+不证明Windows组内无分页/压力，不得把Vmmem工作集加回可用容量，也不证明WSL预占根因。
+306原session文件、13,711其他证据和原12条字节前缀/两组/claim/证书/失败保护；原运行器写complete/active=null。
+
+本段QPC514.3688049s，加原五段1469.0700994s，累计1983.4389043s；原3600s余1616.5610957s不移交搜索。
+进程包络527.3836979s包含活动；累计已接受组评估RAW1038.754632961s、核心1013.196641225s、门禁/探针
+均为嵌套分项，不能重复相加。离线准备、测试、后处理、较晚资源快照及Git单列，不冒充活动计算成本。
+独立evidence_integrity_pass/validation_complete/validation_timing_checks_pass=true，
+P3 execution_complete/timing_checks_pass/comparison_ready仍false，真实轨迹/前缀复测0；8.12六行模板仍“未执行”。
+
+离线历史中位数×6的均匀无放回场景约12279s/12配置，两轨迹约6.82h纯核心，贪心不假设均匀。
+保留下一阶段独立12h QPC总预算建议，包含24搜索组及至多6去重候选组/准入/门禁/收尾；慢配置场景可能超限，
+届时必须PARTIAL而非重置。本轮仅估计、不向算法馈入数据、不运行新搜索，等待外审后另行授权。
+[完整证据/限制/来源](evidence/p3_raw_comparison/20261019-122200-user-retry4/README.md)、
+[独立验收](evidence/p3_raw_comparison/20261019-122200-user-retry4/continuation/independent_continuation_audit.json)、
+[三配置原始统计](evidence/p3_raw_comparison/20261019-122200-user-retry4/three_configuration_comparison.csv)、
+[成本](evidence/p3_raw_comparison/20261019-122200-user-retry4/costs.json)。

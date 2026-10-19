@@ -2,7 +2,17 @@
 
 《软件系统优化》实践项目 P1。**P2 历史Grid已保存；P3首种子正式比较尚未完成。**
 
-当前（2026-10-18，用户再次重试）：**P3_RAW_VALIDATION_RESOURCE_BLOCKED**。
+当前（2026-10-19，人工单次续用原余量）：**P3_RAW_THREE_CONFIG_VALIDATION_COMPLETE**。
+辅助e8816554、实际35a60b0/session9332ead2不变；17项关联回归/准确干净归档及3项合成辅助测试通过。
+只补s24六次fresh；三配置现3/3组、18/18次，全矩阵正确性/RAW契约/连续性独立审计通过。
+s24测得中位数63.240102045s，CV0.5041%、MAD0.273363999s，旧两组/旧Grid分数和待机记录不改。
+组门禁host最低约619MiB，低内存警告保留；两组10月14日、s24在19日，非同一连续批次。
+本段514.3688049s，累计1983.4389043s；306原session文件、13,711其他证据和12条前缀保护。
+验证完成/验证全计时true，P3 execution_complete/timing_checks_pass/comparison_ready仍false，真实搜索0。
+[本轮完整证据/独立验收/成本边界](evidence/p3_raw_comparison/20261019-122200-user-retry4/README.md)。
+本轮停止并交外审，不用验证余量自动搜索或追加关闭Grid。
+
+历史（2026-10-18，用户再次重试）：**P3_RAW_VALIDATION_RESOURCE_BLOCKED**。
 已接AC、电量100%，16项相关回归及准确干净归档通过；新辅助02907787，测量35a60b0/session9332ead2不变。
 Formal预检、唯一fresh RAW短/长2/2及源码/缓存核验通过，但s24组前四快照宿主最低268–453MiB，
 均仅host_memory拒绝；118.9061907s内停止，新增目标0。仍2/3组、12/18fresh，未启动搜索。

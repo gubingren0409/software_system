@@ -71,5 +71,16 @@ python -B -X utf8 scripts/start_raw_comparison.py --plan <validation_plan.json>
 python -B -X utf8 -m scripts.raw_comparison_contract --plan <validation_plan.json> --output <新审计.json>
 ```
 
-实际执行计数、结果、成本、停止原因和历史保护见本阶段证据入口；以下待实际运行后填写，
-不得把假执行器成绩、旧Grid或未执行值当成本轮18次验证结果。
+## 当前结果（2026-10-19，三配置验证关闭）
+
+实际测量35a60b0/session9332ead2，辅助e8816554，仅补s24六次；17项关联受控回归/干净归档通过。
+现3/3组、18/18fresh，全矩阵正确性/RAW/连续性独立审计通过。原两组及12条前缀、旧Grid/待机/失败不改。
+新s24中位数63.240102045s、CV0.504125%、MAD0.273363999s；组门禁host约619MiB，低内存警告保留。
+三组跨日分段（14日两组、19日s24），不能称严格同环境连续对照。正式搜索/P3三项仍false。
+[完整证据及成本边界](../evidence/p3_raw_comparison/20261019-122200-user-retry4/README.md)、
+[三配置表](../evidence/p3_raw_comparison/20261019-122200-user-retry4/three_configuration_comparison.csv)。
+
+后续两个12配置轨迹的均匀抽样成本场景约6.82h纯核心；贪心不假设均匀，候选/门禁等另需时间。
+仍建议外审独立43200s QPC总活动上限，含24搜索组、至多6候选组和全部门禁/准入/收尾，耗尽即PARTIAL。
+慢配置场景可能超预算，不保证完成；[可复算的离线估计](../evidence/p3_raw_comparison/20261019-122200-user-retry4/search_budget_scenarios.json)
+不是策略输入，不包含或伪造新搜索观测。验证余量不移交，需外审后新search session/fresh准入和授权。

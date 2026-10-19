@@ -1,6 +1,24 @@
-# 首种子正式比较尚未完成（2026-10-18）
+# 首种子正式比较尚未完成（2026-10-19）
 
-## 当前：再次人工重试，接电/时钟通过，s24组前资源门禁停止
+## 当前：三配置独立验证已完成；真实搜索仍未执行
+
+起点aac44ef7，用户仅授权一次重试。辅助e8816554b3b9208b0ab4aa00d9adc96b0f692505，
+实际测量35a60b0/session9332ead2不变；准确干净辅助归档17项受控回归通过，另3项合成辅助核验通过。
+retry-v4绑定已用1469.0700994s及全部旧claim，只用2130.9299006s余量，旧两组不重跑。
+Formal预检、唯一短/长fresh RAW、组门禁、组前后RAW、六次正确性及连续性全部通过。
+仅新增O3/s24六次fresh，3/3组、18/18目标（3预热+15计分），partial/abandoned目标0，reference生成0。
+s24中位数63.240102045s、CV0.504125%、MAD0.273363999s；原两组/旧Grid（含待机）分数均不改。
+组同范围QPC387.9632797s、RAW387.957298023s，差0.005981677s，无组内待机。
+组门禁host最低648581120B（低2GiB警告），WSL/commit/CPU通过；门槛不改，不声称环境无干扰。
+306原session文件、13,711其他证据、原12条字节前缀/旧组保护；原运行器写complete/active=null，只追加6条。
+本段514.3688049s，累计1983.4389043s，余1616.5610957s，三配置验证关闭、不转移余量或自动搜索。
+独立evidence_integrity_pass/validation_complete/validation_timing_checks_pass均true；
+P3 execution_complete/timing_checks_pass/comparison_ready仍false，轨迹/预算前缀复测0。
+10月14日两组及19日s24为跨日分段，不是连续同环境实验；旧Grid限制/所有失败仍披露。
+[完整证据/源身份/成本/下一步](../evidence/p3_raw_comparison/20261019-122200-user-retry4/README.md)。
+当前停止等待外审。下一阶段需另行授权新search session与fresh准入，不复用旧Grid或本session证书。
+
+## 历史：再次人工重试，接电/时钟通过，s24组前资源门禁停止
 
 起点9d271433，辅助02907787f09ee94922d159e6b6bb9a0203c6bde5准确归档；16项关联受控测试
 工作树及干净归档通过，3项合成AC拒绝检查通过。原测量35a60b0/session9332ead2不变。

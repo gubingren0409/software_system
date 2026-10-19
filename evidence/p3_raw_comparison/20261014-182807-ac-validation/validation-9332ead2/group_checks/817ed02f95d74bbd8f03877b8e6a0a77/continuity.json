@@ -1,0 +1,93 @@
+{
+  "baseline_operation": "events_0",
+  "context": {
+    "attempt_id": "817ed02f95d74bbd8f03877b8e6a0a77",
+    "comparison_protocol_hash": "362668cb7857b69ccc528ecb58b5870d7d347dfa30149f615f228fd058593495",
+    "content_commit": "35a60b090b728d2ec3b6a8ea014beac69fe3766d",
+    "job": {
+      "config": {
+        "block_size": 24,
+        "optimization": "O3"
+      },
+      "kind": "validation"
+    },
+    "session_id": "9332ead2881a4c1e91b966e90a0d2057"
+  },
+  "errors": [],
+  "event_cursor_after": 352985,
+  "event_cursor_before": 352983,
+  "event_operations": [
+    "events_1",
+    "events_2",
+    "events_3",
+    "events_4",
+    "events_5",
+    "events_6",
+    "events_7",
+    "events_8",
+    "events_9",
+    "events_10",
+    "events_11",
+    "events_12"
+  ],
+  "host": {
+    "command": "RUN 817ed02f95d74bbd8f03877b8e6a0a77\n",
+    "command_argv": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "--cd",
+      "/var/tmp/matrix-raw-comparison-content-35a60b090b728d2ec3b6a8ea014beac69fe3766d",
+      "--",
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "timeout",
+      "--signal=TERM",
+      "--kill-after=10",
+      "2011.8696555999995",
+      "python3",
+      "-m",
+      "autotuner.raw_comparison",
+      "--plan",
+      "/mnt/e/software_system/project01/evidence/p3_raw_comparison/20261014-182807-ac-validation/validation_plan.json",
+      "measure",
+      "--attempt-id",
+      "817ed02f95d74bbd8f03877b8e6a0a77",
+      "--checks-directory",
+      "/mnt/e/software_system/project01/evidence/p3_raw_comparison/20261014-182807-ac-validation/validation-9332ead2/group_checks/817ed02f95d74bbd8f03877b8e6a0a77"
+    ],
+    "end_qpc": 97934511513,
+    "qpc_frequency": 10000000,
+    "ready_recv_qpc": 94054721426,
+    "start_qpc": 94054878716
+  },
+  "host_pid": 8520,
+  "process_end_qpc": 97959684426,
+  "process_start_qpc": 94044342339,
+  "qpc_frequency": 10000000,
+  "result": {
+    "absolute_difference_seconds": 0.005981676999965657,
+    "difference_limit_seconds": 30.0,
+    "envelope_scope": "RUN send through FINISHED receive, after READY; guest RAW wraps evaluation only",
+    "evaluation_qpc_seconds": 387.9632797,
+    "evaluation_raw_seconds": 387.957298023,
+    "standby_events": [],
+    "uninterrupted_execution": true
+  },
+  "returncode": 0,
+  "schema": "raw-comparison-continuity-v1",
+  "scope": {
+    "attempt_id": "817ed02f95d74bbd8f03877b8e6a0a77",
+    "group_file": "/mnt/e/software_system/project01/evidence/p3_raw_comparison/20261014-182807-ac-validation/validation-9332ead2/configurations/validation_817ed02f95d74bbd8f03877b8e6a0a77.json",
+    "raw_end_ns": 622704938658,
+    "raw_seconds": 387.957298023,
+    "raw_start_ns": 234747640635,
+    "schema": "raw-comparison-evaluation-scope-v1",
+    "scope": "Immediately before through immediately after ConfigurationEvaluator.evaluate"
+  },
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout_sha256": "f5b87d1f0c7956398624e22d436b3c1bad4dbe2b430cb7b65ec0a6214daeb599",
+  "timed_out": false
+}
