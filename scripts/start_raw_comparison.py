@@ -18,8 +18,9 @@ from autotuner.core import ConfigSpace, sha256_file, sha256_json, utc_now
 from autotuner.raw_comparison import comparison_protocol, next_job, job_context
 from scripts.p3_clock_contract import atomic_write_json, capture, load, qpc, wsl_path
 from scripts.raw_clock_contract import local_path, audit_clock, manifest_schedule
-from scripts.raw_comparison_contract import audit_admission, certificate_value, continuity
+from scripts.raw_comparison_contract import audit_admission, certificate_value, continuity, search_authorization_value
 from scripts.raw_comparison_power import SleepRequest, PowerEvents, standby_events
+from scripts.evidence_volume import check_volume
 from scripts.start_raw_grid import linux, gate, validate_plan as validate_base
 
 
@@ -171,9 +172,7 @@ def run(plan, plan_path, search_authorization=None):
     if state['active'] or state['validation_groups'] or any(t['observations'] for t in state['trajectories'].values()):
         raise ValueError('This first-window entry requires its initialized empty session; no silent retry')
     if plan['mode'] == 'search':
-        expected = {'schema': 'raw-comparison-search-authorization-v1', 'content_commit': plan['content_commit'],
-            'session_id': plan['session_id'], 'comparison_protocol_hash': plan['comparison_protocol_hash'],
-            'scope': 'first-seed-random-greedy-12-with-prefix-retests', 'budget_seconds': 43200}
+        expected = search_authorization_value(plan)
         if search_authorization is None or load(search_authorization) != expected:
             raise ValueError('Real search requires separately reviewed explicit authorization; not authorized this stage')
     budget = protocol['budget']['validation_activity_seconds' if plan['mode'] == 'validation' else 'proposed_first_seed_activity_seconds']
@@ -181,6 +180,10 @@ def run(plan, plan_path, search_authorization=None):
     window = {'schema': 'raw-comparison-activity-v1', 'content_commit': plan['content_commit'], 'session_id': plan['session_id'],
         'qpc_start': started, 'qpc_frequency': frequency, 'budget_seconds': budget, 'plan_sha256': sha256_file(plan_path),
         'phase': 'admission_resource_gate', 'status': 'running', 'failure_reason': None, 'controller_pid': os.getpid()}
+    window.update(mode=plan['mode'], scope='first_seed' if plan['mode'] == 'search' else 'validation',
+        matrix_input_seed=protocol['matrix_input_seed'], search_seed=protocol['search_seed'] if plan['mode'] == 'search' else None,
+        search_authorization_file=str(Path(search_authorization).resolve()) if search_authorization else None,
+        search_authorization_sha256=sha256_file(search_authorization) if search_authorization else None)
     claim(output / 'ACTIVITY.claim.json', window)
     atomic_write_json(output / 'window.json', window)
     deadline = time.perf_counter() + budget - protocol['budget']['cleanup_reserve_seconds']
@@ -209,6 +212,9 @@ def run(plan, plan_path, search_authorization=None):
         if result['returncode'] != 0 or result['timed_out']: raise ValueError(mode + ' failed: ' + str(result['returncode']))
     try:
         with SleepRequest(output / 'sleep_request.json'):
+            check_volume(output, output / 'evidence_volume_start.json', {
+                'content_commit': plan['content_commit'], 'session_id': plan['session_id'],
+                'plan_sha256': sha256_file(plan_path), 'phase': 'start'})
             power = PowerEvents(output / 'power_events'); initial_power = power.read()
             atomic_write_json(output / 'power_event_start.json', initial_power)
             # Read-only metadata, no global power changes. AC is checked once;
@@ -247,6 +253,7 @@ def run(plan, plan_path, search_authorization=None):
                 attempt = uuid.uuid4().hex; checks = output / 'group_checks' / attempt; checks.mkdir(parents=True)
                 context = job_context(plan, job, attempt)
                 window.update(phase='group_resources', job=job, attempt_id=attempt); progress(True)
+                check_volume(checks, checks / 'evidence_volume.json', context)
                 if not gate(plan, checks / 'resources', 'Formal', context, deadline): raise ValueError('Configuration Formal gate exhausted')
                 window['phase'] = 'before_clock'; progress(True)
                 clock_check(plan, checks / 'before', 'before', {**context, 'phase': 'before'}, deadline)

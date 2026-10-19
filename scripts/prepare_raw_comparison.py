@@ -1,4 +1,4 @@
-"""Export an exact committed runner, verify it, initialize two EMPTY independent sessions.
+"""Export an exact committed runner, verify it, initialize requested EMPTY sessions.
 
 No clock collection, matrix target, reference generation or search is performed.
 Run from the repository; all subsequent execution uses the exported content.
@@ -28,7 +28,7 @@ SCIENTIFIC_FILES = ('code/original/matrix_multiplication.c', 'code/working/matri
     'configs/raw_formal_timing_protocol.json', 'configs/resource_policy.json', 'configs/search_protocol.json')
 
 
-def prepare(content, directory):
+def prepare(content, directory, mode='both'):
     if os.name != 'nt': raise ValueError('Prepare from Windows project root')
     directory.mkdir(parents=True, exist_ok=False)
     def operation(argv, name, timeout=120):
@@ -65,8 +65,8 @@ def prepare(content, directory):
     code = 'from pathlib import Path; import json; from autotuner.session import source_identity; print(json.dumps(source_identity(Path.cwd(),json.load(open(' + repr(wsl_path(identity_path)) + '))["files"])))'
     linux_identity = json.loads(operation(execution(['python3', '-c', code]), 'linux_source_identity'))
     atomic_write_json(directory / 'linux_source_identity.json', linux_identity)
-    operation([sys.executable, '-X', 'utf8', str(archive / 'scripts/verify_raw_comparison_code.py')], 'clean_windows_focused_tests')
-    operation(execution(['python3', 'scripts/verify_raw_comparison_code.py']), 'clean_wsl_focused_tests')
+    windows_tests = json.loads(operation([sys.executable, '-B', '-X', 'utf8', str(archive / 'scripts/verify_raw_comparison_code.py')], 'clean_windows_focused_tests'))
+    linux_tests = json.loads(operation(execution(['python3', '-B', 'scripts/verify_raw_comparison_code.py']), 'clean_wsl_focused_tests'))
     operation([sys.executable, '-X', 'utf8', str(archive / 'scripts/start_raw_comparison.py'), '--help'], 'clean_controller_help')
     operation(execution(['python3', '-m', 'autotuner', '--help']), 'clean_cli_help')
     config_output = operation(execution(['python3', '-m', 'autotuner', 'list-configs']), 'clean_list_configs')
@@ -116,10 +116,10 @@ def prepare(content, directory):
     build_path = directory / 'probe_build.json'; atomic_write_json(build_path, build)
     comparison = load(archive / 'configs/raw_comparison_protocol.json')
     plans = {}
-    for mode in ('validation', 'search'):
-        session = uuid.uuid4().hex; output = directory / (mode + '-' + session[:8])
-        path = directory / (mode + '_plan.json')
-        plan = {'schema': 'raw-comparison-plan-v1', 'mode': mode, 'content_commit': content,
+    for session_mode in (('validation', 'search') if mode == 'both' else (mode,)):
+        session = uuid.uuid4().hex; output = directory / (session_mode + '-' + session[:8])
+        path = directory / (session_mode + '_plan.json')
+        plan = {'schema': 'raw-comparison-plan-v1', 'mode': session_mode, 'content_commit': content,
             'session_id': session, 'plan_file': str(path), 'windows_archive_directory': str(archive),
             'archive_directory': linux_archive, 'session_directory': str(output),
             'recovery_directory': str(output / 'admission'), 'git_identity': str(identity_path),
@@ -132,10 +132,10 @@ def prepare(content, directory):
             'comparison_protocol_hash': sha256_json(comparison), 'measurement_protocol_hash': old['measurement_protocol_hash'],
             'timing_protocol_hash': old['timing_protocol_hash']}
         atomic_write_json(path, plan)
-        operation(execution(['python3', '-m', 'autotuner.raw_comparison', '--plan', wsl_path(path), 'init']), 'initialize_' + mode)
-        plans[mode] = str(path)
+        operation(execution(['python3', '-m', 'autotuner.raw_comparison', '--plan', wsl_path(path), 'init']), 'initialize_' + session_mode)
+        plans[session_mode] = str(path)
     atomic_write_json(directory / 'prepare_summary.json', {'content_commit': content, 'plans': plans,
-        'focused_tests_windows': 19, 'focused_tests_wsl': 19, 'real_matrix_targets': 0,
+        'focused_tests_windows': windows_tests['focused_tests'], 'focused_tests_wsl': linux_tests['focused_tests'], 'real_matrix_targets': 0,
         'native_clock_intervals': 0, 'reference_generation_calls': 0, 'unique_configurations': 20,
         'scientific_files_byte_identical': True})
     print(json.dumps(plans))
@@ -144,4 +144,5 @@ def prepare(content, directory):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--content-sha', required=True); parser.add_argument('--output', type=Path, required=True)
-    args = parser.parse_args(); prepare(args.content_sha, args.output.resolve())
+    parser.add_argument('--mode', choices=('validation', 'search', 'both'), default='both')
+    args = parser.parse_args(); prepare(args.content_sha, args.output.resolve(), args.mode)
