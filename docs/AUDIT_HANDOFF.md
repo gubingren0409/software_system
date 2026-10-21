@@ -1,6 +1,22 @@
 # 审计交接入口
 
-## 当前：FIRST_SEED_RAW_COMPARISON_COMPLETE（仅20261008，五种子未完成）
+## 当前：课程报告整理完成（不新增实验）
+
+基于已审`0050066fd748c0fa5c06475eaa3b8a12e5e07ece`，整体重组唯一正式[report.md](../report.md)，
+同步精简README，新增三张基于旧数据的报告图（框架另有SVG）及只读复算脚本。
+本轮真实性能/矩阵/RAW探针/资源门禁/恢复/续跑执行均0，不使用剩余额度。
+首种子内容`776b11171d796c8071e69824ffe463c4faf8ba57`、收尾辅助`053930946d73b142d6eb39a1bb297b52cdd446fd`、
+session `c1bd157c6c8d42439d0fb08f69156ff5`和全部历史证据不改。
+首种子四项已通过状态保持；五种子整体完成/比较仍false，课程报告就绪是独立状态。
+
+- [要求对应、离线复算、自审与操作记录](../evidence/report_release/20261021/README.md)
+- [派生统计及输入SHA](../evidence/report_release/20261021/derived-release/summary.json)
+- [要求与报告对应表](REPORT_ACCEPTANCE.md)
+
+正文明确披露单种子、跨段、原Grid s24待机和资源警告；未增加perf/新种子/第四算法等要求。
+旧报告流水账可从基线Git查看，本文件以下历史交接及原始结论保留，不统一改写为完成。
+
+## 已审基线：FIRST_SEED_RAW_COMPARISON_COMPLETE（仅20261008，五种子未完成）
 
 保持执行内容`776b11171d796c8071e69824ffe463c4faf8ba57`、session `c1bd157c6c8d42439d0fb08f69156ff5`；
 收尾助手`053930946d73b142d6eb39a1bb297b52cdd446fd`准确归档，18项相关工作树/干净归档测试通过。

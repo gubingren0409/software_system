@@ -9,7 +9,7 @@
 **O3/s24测量5内发生合盖Modern Standby**，RAW分数/样本保留，整段暂停仍计QPC预算。
 不宣称连续实验或稳定硬件排名；组边界探针不能证明矩阵计算内部无暂停。
 [新20配置、原始样本及审计入口](../evidence/p3_raw_grid/20261012-181149-manual-remaining/README.md)、
-[授权与分段成本](P3_RAW_GRID_SEGMENT.md)、[报告8.11](../report.md#811-人工续用剩余额度完成raw-grid9f714a72之后)。
+[授权与分段成本](P3_RAW_GRID_SEGMENT.md)、[课程报告的RAW Grid结果](../report.md#4-完整raw-grid结果与性能分析)。
 
 ## 历史：f19f9f84之后的一次分段续跑（2026-10-12）
 
