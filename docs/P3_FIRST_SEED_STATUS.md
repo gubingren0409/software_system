@@ -1,6 +1,42 @@
-# 首种子正式比较尚未完成（2026-10-19）
+# 首种子正式比较尚未完成（2026-10-20交付）
 
-## 当前：首种子真实搜索PARTIAL，因合盖待机停止
+## 当前：d706a96a后一次人工续跑，Greedy11/12，待机后停止
+
+实际执行内容776b11171d796c8071e69824ffe463c4faf8ba57、session c1bd157c6c8d42439d0fb08f69156ff5不变。
+仅新增归档外助手706d239a5f1592dc17fb2ceefa46a2112727f966及14项相关受控回归，干净归档通过；
+教师原件、code/autotuner/configs和原搜索实现未改，不额外运行n17/Grid/关闭的三配置验证。
+保留旧15841.5879168s，只领取一次剩余27358.4120832s，新claim不能重复使用。
+
+Formal预检、唯一fresh默认libc不绑核短1e9/长1e10共2区间及源码/编译器/缓存核验通过；
+无setup/reference生成或性能样本复用。旧O3/s128两条失败尝试按授权列为放弃，原文件不改；
+新attempt重新1预热+5fresh完整通过，随后共新增9个完整Greedy配置。
+第12个Greedy配置O3/s16仅预热+测量1/2成功、测量3超时（-9），共4条部分记录，不评分、不补齐。
+2026-10-19T12:27:28.5899707Z System506原始消息Reason:Lid；12:37:45.3273151Z System507报告
+Austerity Battery Drain Budget Exceeded，随后506再次进入待机。日志保留XML；不推断用户意图或时钟校准。
+控制器真实退出2，防睡眠请求finally同线程释放；该请求不能阻止合盖。不是资源或RAW检查拒绝。
+
+当前Random12搜索+2去重复测完整且全轨迹原样；Greedy11搜索/0复测。新增目标58，原始总数156且run_id唯一；
+150条属25已接纳组（23搜索+2复测），旧放弃2、新部分4均不计分。GreedyB4/B8已形成，B12及所有自身候选复测未完成。
+独立evidence_integrity_pass=true；execution_complete/timing_checks_pass/comparison_ready=false（first_seed）；五种子仍false。
+本段21个真实RAW区间、与历史合计56区间/332响应全部原始复算通过；部分组缺组后检查及连续性，整轮计时仍false。
+本段11资源门禁和11证据卷检查通过；全session含历史共30资源快照、19低内存警告、29证据卷检查。
+门禁通过和WSL采样swap=0不证明组内无宿主压力，MONOTONIC差异仍只作警告，不校准成绩。
+
+本段7488.0732714s，旧+本段23329.6611882s/43200s，账面余19870.3388118s；待机/失败不退款。
+窗口最终整数QPC端点是成本依据，稍后的live progress多约6.5691ms，不拿该活读数覆盖已闭窗口。
+后续离线暂停、复核、测试、Git不算正式活动；两段各自时长相加，不跨epoch相减。该余量不自动授权另一次运行。
+Random搜索RAW12370.681806653s、Greedy已接受11组7287.827451217s、Random复测791.041269405s是嵌套分项；
+本段共享准备78.7235807s，新失败组RAW250.251100179s与其进程QPC868.4670412s不是同范围，不相减/退款。
+
+16,831旧文件、原98条2378346字节前缀、Random全轨迹及旧Greedy2组哈希/内容保护；
+原claim/window/证书、Grid和已关闭18条验证样本不追加。原session只有checkpoint/progress和samples追加被授权变化。
+任务实验进程已退出。下一步仅外审/只读复算；再次实验需新的明确授权和不重置累计预算的方案，本轮不启动。
+[本段完整证据及只读入口](../evidence/p3_raw_first_seed/20261019-181817-693c9e13-manual-continuation/README.md)、
+[六行CSV](../evidence/p3_raw_first_seed/20261019-181817-693c9e13-manual-continuation/first_seed_six_rows.csv)、
+[独立验收](../evidence/p3_raw_first_seed/20261019-181817-693c9e13-manual-continuation/continuation/independent_continuation_audit.json)、
+[历史/电源/退出核验](../evidence/p3_raw_first_seed/20261019-181817-693c9e13-manual-continuation/stop_review.json)。
+
+## 历史：首次首种子真实搜索PARTIAL，因合盖待机停止
 
 起点efb7f9df，实际执行内容`776b11171d796c8071e69824ffe463c4faf8ba57`，准确Windows/WSL归档，
 新session `c1bd157c6c8d42439d0fb08f69156ff5`；matrix input/search seed分别固定20261008。

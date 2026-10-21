@@ -1,0 +1,75 @@
+{
+  "baseline_operation": "events_0",
+  "context": {
+    "attempt_id": "42e0c68e880f4104a4041cc6a176b55d",
+    "comparison_protocol_hash": "362668cb7857b69ccc528ecb58b5870d7d347dfa30149f615f228fd058593495",
+    "content_commit": "776b11171d796c8071e69824ffe463c4faf8ba57",
+    "job": {
+      "algorithm": "greedy",
+      "config": {
+        "block_size": 16,
+        "optimization": "O3"
+      },
+      "kind": "search"
+    },
+    "session_id": "c1bd157c6c8d42439d0fb08f69156ff5"
+  },
+  "errors": [
+    "Standby during evaluation; preserve disturbed group and stop"
+  ],
+  "event_cursor_after": 354713,
+  "event_cursor_before": 354693,
+  "event_operations": [
+    "events_1",
+    "events_2",
+    "events_3",
+    "events_4",
+    "events_5",
+    "events_6",
+    "events_7",
+    "events_8"
+  ],
+  "host": {
+    "command": "RUN 42e0c68e880f4104a4041cc6a176b55d\n",
+    "command_argv": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "--cd",
+      "/var/tmp/matrix-raw-comparison-content-776b11171d796c8071e69824ffe463c4faf8ba57",
+      "--",
+      "env",
+      "-u",
+      "PYTHONPATH",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "timeout",
+      "--signal=TERM",
+      "--kill-after=10",
+      "20721.500895300007",
+      "python3",
+      "-m",
+      "autotuner.raw_comparison",
+      "--plan",
+      "/mnt/e/software_system/project01/evidence/p3_raw_first_seed/20261019-132400/content/search_plan.json",
+      "measure",
+      "--attempt-id",
+      "42e0c68e880f4104a4041cc6a176b55d",
+      "--checks-directory",
+      "/mnt/e/software_system/project01/evidence/p3_raw_first_seed/20261019-132400/content/search-c1bd157c/group_checks/42e0c68e880f4104a4041cc6a176b55d"
+    ],
+    "qpc_frequency": 10000000,
+    "ready_recv_qpc": 380241176772,
+    "start_qpc": 380241658499
+  },
+  "host_pid": 82552,
+  "process_end_qpc": 388911829871,
+  "process_start_qpc": 380227159459,
+  "qpc_frequency": 10000000,
+  "result": null,
+  "returncode": 3,
+  "schema": "raw-comparison-continuity-v1",
+  "scope": null,
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout_sha256": "9df6d7fad8012063adcfeb3ea1cba02cd67df2423a735f18bafb221a7c7f750e",
+  "timed_out": false
+}

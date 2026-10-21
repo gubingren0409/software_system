@@ -3,7 +3,11 @@
 学号：10245102457<br>
 姓名：谷秉仁
 
-> 当前（2026-10-19）：RAW首种子真实比较 **PARTIAL**，见8.19。Random12搜索＋2去重复测完整，
+> 当前（2026-10-20交付）：RAW首种子人工续跑仍 **PARTIAL**，见8.20。Random12＋2去重复测原样，
+> Greedy已接受11/12，第12配置O3/s16遭待机，4条部分记录不评分；合计156原始记录、150已接纳执行。
+> 四项验收true/false/false/false，保持原内容/session/预算，停止等待外审；不自动重试或扩展种子。
+>
+> 历史（2026-10-19）：RAW首种子真实比较 **PARTIAL**，见8.19。Random12搜索＋2去重复测完整，
 > Greedy2/12完整，第三组O3/s128发生合盖Modern Standby及测量超时，保留部分组并停止。
 > 98条原始记录不删，96条属于16个完整组；未完成两算法比较，更未完成五种子比较。
 > 以下摘要是历史状态，不以本次RAW准入追认旧Grid连续性或校准历史分数。
@@ -1086,3 +1090,48 @@ WSL可用4822970368B，采样时WSL swap used=0。18次证据卷检查通过，�
 [独立验收](evidence/p3_raw_first_seed/20261019-132400/official_first_seed_audit.json)、
 [成本](evidence/p3_raw_first_seed/20261019-132400/costs.json)、
 [电源消息/部分组复核](evidence/p3_raw_first_seed/20261019-132400/stop_review.json)。
+
+### 8.20 d706a96a后一次人工续跑：Greedy11/12，仍为PARTIAL
+
+保持776b11171d796c8071e69824ffe463c4faf8ba57和session c1bd157c6c8d42439d0fb08f69156ff5，
+仅外层助手706d239a5f1592dc17fb2ceefa46a2112727f966新增剩余预算/放弃账本及独立审计，
+14项针对性受控回归工作树/准确归档通过；原C、输入、reference、RAW/资源v2、搜索和评分不变。
+Formal及唯一fresh默认libc短/长2/2通过，源码/缓存核验后不setup或新增reference，性能全部fresh。
+旧O3/s128两条放弃保留，新完整组不拼接；本段新增9个完整Greedy搜索组，Random及其2复测完全不变。
+
+| 算法 | B | 已评估数 | 候选 | 搜索中位数/s | 独立复测/s | 终态配置评估RAW/s |
+| --- | ---: | ---: | --- | ---: | ---: | ---: |
+| Random | 4 | 4 | O1/s64 | 77.616996424 | 77.570096137 | 6273.335551774 |
+| Random | 8 | 8 | O3/s128 | 50.535368854 | 51.118067107 | 8340.945843372 |
+| Random | 12 | 12 | O3/s128 | 50.535368854 | 51.118067107 | 12370.681806653 |
+| Greedy | 4 | 4 | O3/s128 | 51.760896392 | 未执行 | 1839.423685402 |
+| Greedy | 8 | 8 | O3/s128 | 51.760896392 | 未执行 | 5960.500095546 |
+| Greedy | 12 | 11（未完成） | 未形成 | 未完成 | 未执行 | 未形成 |
+
+GreedyB4/B8候选搜索CV0.472854%、MAD0.176828183s，尚未独立复测，不共用Random样本；
+Random重复波动/变化保持8.19。成本仅自身终态组评估RAW，含预热+5fresh/验证，不含准入/门禁/失败/复测，
+完整端到端前缀成本未知。未完成的数据不预填，不据当前表断言算法稳定性、全局最优或耗时优势。
+
+第12个Greedy配置O3/s16预热及测量1/2成功、测量3超时-9，4条部分记录均不计分，不补齐/自动重试。
+2026-10-19T12:27:28.5899707Z System506原始消息明确Reason:Lid，12:37:45 System507/506报告
+Austerity Battery Drain Budget Exceeded；完整消息/XML保留。初始AC已通过，不能推断全程供电或用户意图。
+控制器真实退出2，临时防睡眠finally释放；该请求不保证阻止合盖，未调整系统时钟/电源政策。
+新增58目标，合计156唯一记录，其中150属于25完整组（23搜索+2复测），旧放弃2/新部分4保留。
+
+本段21个已采RAW区间独立通过，含历史合计56区间/332响应；新失败组无组后/连续性，
+因此evidence_integrity_pass=true，但execution_complete/timing_checks_pass/comparison_ready=false，
+first_seed以外的五种子完成也false。本段11资源/11证据卷检查通过；全session30资源快照含19低内存警告，
+宿主最低711725056B、提交余量27615494144B、WSL4767371264B，采样swap=0不证明组内宿主无分页压力。
+MONOTONIC失配继续只作警告，不校准或筛掉RAW慢样本；旧Grid待机/跨日限制保持。
+
+本段QPC7488.0732714s，加旧15841.5879168s累计23329.6611882s；原43200s账面余19870.3388118s不再自动领取。
+最终window整数QPC端点为准，稍后的live progress多6.5691ms，两者保留但不混为最终成本。
+本段准备78.7235807s，Random搜索12370.681806653s、Greedy11组7287.827451217s、Random复测791.041269405s
+是嵌套分项，不与包络重复相加。新失败组评估RAW250.251100179s与进程QPC868.4670412s不是同范围，
+没有匹配FINISHED端点，不相减、校准或退款。两段包络各自验证后相加，审核/离线复核暂停另列。
+16,831历史文件和原98条字节前缀、Random轨迹及关闭的Grid/验证18样本保持；任务进程退出，等待外审。
+[本段完整说明](evidence/p3_raw_first_seed/20261019-181817-693c9e13-manual-continuation/README.md)、
+[独立审计](evidence/p3_raw_first_seed/20261019-181817-693c9e13-manual-continuation/continuation/independent_continuation_audit.json)、
+[六行CSV与CV/MAD](evidence/p3_raw_first_seed/20261019-181817-693c9e13-manual-continuation/first_seed_six_rows.csv)、
+[成本](evidence/p3_raw_first_seed/20261019-181817-693c9e13-manual-continuation/costs.json)、
+[停止/历史/进程核验](evidence/p3_raw_first_seed/20261019-181817-693c9e13-manual-continuation/stop_review.json)。

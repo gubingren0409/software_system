@@ -1,6 +1,31 @@
 # 审计交接入口
 
-## 当前：efb7f9df后RAW首种子搜索PARTIAL
+## 当前：d706a96a后人工续跑已停止，FIRST_SEED_RAW_COMPARISON_PARTIAL
+
+执行776b11171d796c8071e69824ffe463c4faf8ba57、session c1bd157c6c8d42439d0fb08f69156ff5保持；
+辅助706d239a5f1592dc17fb2ceefa46a2112727f966准确归档，科学3cc9e0d/RAW/资源v2/搜索不改。
+14项新增相关受控回归工作树及准确归档通过。先保存旧checkpoint/window/98条记录与16,831历史文件SHA。
+唯一fresh准入2/2、Formal和缓存核验通过后，旧O3/s128两条明确放弃，新完整组重做且不复用性能缓存。
+Random12+2复测全保留，新增Greedy9完整组；当前23/24搜索组（12+11）、2复测组（2+0）、25完整组。
+原始156唯一记录=150已接纳+2旧放弃+4新部分，新增目标58。GreedyO3/s16测量3超时，缺组后RAW、连续性不成立。
+2026-10-19T12:27:28.5899707Z System506明确Reason:Lid，12:37:45退出/再次待机的完整消息/XML保留；
+控制器退出2，安全停止不重试，不把原始部分组的成功样本挑出计分，防睡眠finally释放，任务进程退出。
+
+四项为evidence_integrity_pass=true；execution_complete/timing_checks_pass/comparison_ready=false，first_seed范围，五种子仍false。
+本段21个RAW区间通过（合计历史56/332响应），资源11次通过、证据卷11次通过；并不证明受干扰组连续执行。
+预算保留旧15841.5879168s，本段7488.0732714s，累计23329.6611882s/43200s，余19870.3388118s不自动续领。
+旧window/claim/证书/旧98条字节前缀/Random完整轨迹和所有历史不可变文件均保护。
+prefix成本仅终态配置评估RAW，完整端到端未知；分段宿主包络、共享准备/测量/复测/失败/门禁为嵌套范围，不全部相加。
+
+- [本段说明/实际命令/来源/只读复算入口](../evidence/p3_raw_first_seed/20261019-181817-693c9e13-manual-continuation/README.md)
+- [新授权/16,831文件SHA](../evidence/p3_raw_first_seed/20261019-181817-693c9e13-manual-continuation/continuation/authorization.json)、[闭合QPC窗口](../evidence/p3_raw_first_seed/20261019-181817-693c9e13-manual-continuation/continuation/window.json)
+- [独立续跑审计](../evidence/p3_raw_first_seed/20261019-181817-693c9e13-manual-continuation/continuation/independent_continuation_audit.json)、[停止/电源/历史/进程核验](../evidence/p3_raw_first_seed/20261019-181817-693c9e13-manual-continuation/stop_review.json)
+- [六行真实前缀表](../evidence/p3_raw_first_seed/20261019-181817-693c9e13-manual-continuation/first_seed_six_rows.csv)、[成本及范围](../evidence/p3_raw_first_seed/20261019-181817-693c9e13-manual-continuation/costs.json)
+
+未解决：Greedy第12配置及其去重候选复测；本段待机造成的连续性拒绝；跨段/历史低内存和单种子比较限制。
+仅交外审，不直接重复run/准入或另开窗口。旧审计v2不支持人工续跑放弃账本，原结论保留；新版本审计复用冻结组判据并严格核对账本。
+
+## 历史：efb7f9df后RAW首种子搜索PARTIAL
 
 实际执行SHA `776b11171d796c8071e69824ffe463c4faf8ba57`，继承科学内容3cc9e0d；
 新search session `c1bd157c6c8d42439d0fb08f69156ff5`，一次43200s独占QPC窗口，双seed分别20261008。

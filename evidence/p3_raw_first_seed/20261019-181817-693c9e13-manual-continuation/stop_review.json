@@ -1,0 +1,259 @@
+{
+  "accepted_target_samples": 150,
+  "active": {
+    "attempt_id": "42e0c68e880f4104a4041cc6a176b55d",
+    "failure_reason": "Standby during evaluation; preserve disturbed group and stop",
+    "formal_comparable": false,
+    "job": {
+      "algorithm": "greedy",
+      "config": {
+        "block_size": 16,
+        "optimization": "O3"
+      },
+      "kind": "search"
+    },
+    "saved_samples": 4
+  },
+  "all_owned_experiment_processes_exited": true,
+  "at": "2026-10-21T03:30:31.566996+00:00",
+  "auxiliary_content_commit": "706d239a5f1592dc17fb2ceefa46a2112727f966",
+  "auxiliary_source_sha256": "b591821569e67bbe6e022873725e59019b808950afd7bc126d8f67fea52144fd",
+  "budget_note": "Use final window integer endpoints, not the later live-progress reading. Remaining ledger is not permission for another claim.",
+  "content_commit": "776b11171d796c8071e69824ffe463c4faf8ba57",
+  "continuation_activity_qpc_seconds": 7488.0732714,
+  "controller_returncode": 2,
+  "cumulative_activity_qpc_seconds": 23329.6611882,
+  "historical_protection_pass": true,
+  "ledger_remaining_seconds": 19870.3388118,
+  "new_targets": 58,
+  "original_98_record_prefix_bytes": 2378346,
+  "original_98_record_prefix_sha256": "ceab94eb460bffe00592b51f5f7dbdd4cab36ce0a5d9d529dc3b7b1cb76aad3c",
+  "original_activity_qpc_seconds": 15841.5879168,
+  "original_greedy_two_observations_unchanged": true,
+  "original_protected_files": 16831,
+  "owned_process_operation": {
+    "batch_id": "manual-continuation-stop",
+    "command": [
+      "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+      "-NoProfile",
+      "-Command",
+      "[Console]::OutputEncoding=[Text.UTF8Encoding]::new($false); $ownedWindows=@(Get-CimInstance Win32_Process -Filter \"Name='python.exe' OR Name='python3.exe' OR Name='wsl.exe'\" | Where-Object { $_.CommandLine -match 'matrix-raw-comparison-(content|cache)-776b111|matrix-raw-search-continuation-706d239|autotuner.raw_comparison' } | Select-Object ProcessId,ParentProcessId,Name,CommandLine); $wslText=@(& wsl.exe -d Ubuntu-24.04 -- ps -eo pid,ppid,stat,args); $wslExit=$LASTEXITCODE; $ownedWsl=@($wslText | Select-String -Pattern 'matrix-raw-comparison-(content|cache)-776b111|p3_raw_first_seed/20261019-132400' | ForEach-Object { $_.Line }); [ordered]@{windows_processes=$ownedWindows;wsl_ps_returncode=$wslExit;matching_wsl_processes=$ownedWsl;at=[DateTimeOffset]::Now.ToString('o')} | ConvertTo-Json -Depth 5; if ($wslExit -ne 0) {exit 2}"
+    ],
+    "cwd": "C:\\Users\\28489\\AppData\\Local\\Temp\\matrix-raw-comparison-776b11171d796c8071e69824ffe463c4faf8ba57",
+    "end_utc_ns": 1792553413686840500,
+    "ended_at": "2026-10-21T03:30:13.686840+00:00",
+    "manifest_sha256": null,
+    "operation_id": "eaae4644ff8f49438b0a76b3be0b6afb",
+    "operation_kind": "owned_processes",
+    "pid": 32428,
+    "qpc_end": 27224337972,
+    "qpc_frequency": 10000000,
+    "qpc_seconds": 22.3053975,
+    "qpc_start": 27001283997,
+    "returncode": 0,
+    "schema": "p3-captured-operation-v2",
+    "start_utc_ns": 1792553391381456300,
+    "stderr_byte_count": 0,
+    "stderr_crlf_count": 0,
+    "stderr_lf_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_path": "owned_processes.stderr.txt",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_byte_count": 216,
+    "stdout_crlf_count": 10,
+    "stdout_lf_sha256": "9b5c23a92b5b74d8b017ddcb86f4e48538036e8215c240efd728add63297684c",
+    "stdout_path": "owned_processes.stdout.txt",
+    "stdout_sha256": "74784bba8e31d3e777330c777d35cd41649126051f4c12d6fbde9451b0e4a8c6",
+    "timed_out": false,
+    "timeout_seconds": 30,
+    "utc_seconds": 22.3053842
+  },
+  "owned_process_snapshot": {
+    "at": "2026-10-20T20:30:13.4811453-07:00",
+    "matching_wsl_processes": [],
+    "windows_processes": [],
+    "wsl_ps_returncode": 0
+  },
+  "partial_cost_note": "No matched FINISHED response; process QPC and evaluation RAW are different scopes. No same-scope calibration, subtraction or standby refund.",
+  "partial_evaluation_raw_seconds": 250.251100179,
+  "partial_process_qpc_seconds": 868.4670412,
+  "power_identity_recomputation": [
+    {
+      "cursor_after": 354693,
+      "cursor_before": -1,
+      "identity_pass": true,
+      "path": "E:\\software_system\\project01\\evidence\\p3_raw_first_seed\\20261019-132400\\content\\search-c1bd157c\\group_checks\\42e0c68e880f4104a4041cc6a176b55d\\power_events\\events_0.stdout.txt",
+      "sha256": "b5ad49e9bbb8d8a3803441b7e283eb0c9f5388f024c1f0c7ee3b1a00ade085d6"
+    },
+    {
+      "cursor_after": 354693,
+      "cursor_before": 354693,
+      "identity_pass": true,
+      "path": "E:\\software_system\\project01\\evidence\\p3_raw_first_seed\\20261019-132400\\content\\search-c1bd157c\\group_checks\\42e0c68e880f4104a4041cc6a176b55d\\power_events\\events_1.stdout.txt",
+      "sha256": "be1ec14953e2dc30d73b83022956c8bcc9b3bc9a38a7d7d66e0154bc1bdfb362"
+    },
+    {
+      "cursor_after": 354693,
+      "cursor_before": 354693,
+      "identity_pass": true,
+      "path": "E:\\software_system\\project01\\evidence\\p3_raw_first_seed\\20261019-132400\\content\\search-c1bd157c\\group_checks\\42e0c68e880f4104a4041cc6a176b55d\\power_events\\events_2.stdout.txt",
+      "sha256": "5524fb69352a807f344abd0351375dd392df4416e6c69ba2a4a2a223b694db9d"
+    },
+    {
+      "cursor_after": 354693,
+      "cursor_before": 354693,
+      "identity_pass": true,
+      "path": "E:\\software_system\\project01\\evidence\\p3_raw_first_seed\\20261019-132400\\content\\search-c1bd157c\\group_checks\\42e0c68e880f4104a4041cc6a176b55d\\power_events\\events_3.stdout.txt",
+      "sha256": "40b7a40a5c2e6ada6ab956114b799a5346168825ed8b36e0f99e65f6bab03e8b"
+    },
+    {
+      "cursor_after": 354693,
+      "cursor_before": 354693,
+      "identity_pass": true,
+      "path": "E:\\software_system\\project01\\evidence\\p3_raw_first_seed\\20261019-132400\\content\\search-c1bd157c\\group_checks\\42e0c68e880f4104a4041cc6a176b55d\\power_events\\events_4.stdout.txt",
+      "sha256": "1626f164cccc53ab31fd65565614a587b912b615ad3d31ec08ae365c4afaba3e"
+    },
+    {
+      "cursor_after": 354693,
+      "cursor_before": 354693,
+      "identity_pass": true,
+      "path": "E:\\software_system\\project01\\evidence\\p3_raw_first_seed\\20261019-132400\\content\\search-c1bd157c\\group_checks\\42e0c68e880f4104a4041cc6a176b55d\\power_events\\events_5.stdout.txt",
+      "sha256": "8e9508781da32ff7d5950d031dbe01709d0c3d870ae9395634a9ab5515482bbb"
+    },
+    {
+      "cursor_after": 354693,
+      "cursor_before": 354693,
+      "identity_pass": true,
+      "path": "E:\\software_system\\project01\\evidence\\p3_raw_first_seed\\20261019-132400\\content\\search-c1bd157c\\group_checks\\42e0c68e880f4104a4041cc6a176b55d\\power_events\\events_6.stdout.txt",
+      "sha256": "e73c9762ab8e952e2ad86ae1387f2c8862260d55809da69ac9f64acf471d9546"
+    },
+    {
+      "cursor_after": 354697,
+      "cursor_before": 354693,
+      "identity_pass": true,
+      "path": "E:\\software_system\\project01\\evidence\\p3_raw_first_seed\\20261019-132400\\content\\search-c1bd157c\\group_checks\\42e0c68e880f4104a4041cc6a176b55d\\power_events\\events_7.stdout.txt",
+      "sha256": "6e717a2d9aa38cdb442b4fb3eb00f29e8c52fb51e3502c41be28a1899feafbd8"
+    },
+    {
+      "cursor_after": 354713,
+      "cursor_before": 354697,
+      "identity_pass": true,
+      "path": "E:\\software_system\\project01\\evidence\\p3_raw_first_seed\\20261019-132400\\content\\search-c1bd157c\\group_checks\\42e0c68e880f4104a4041cc6a176b55d\\power_events\\events_8.stdout.txt",
+      "sha256": "745a9455ae44b2967da9fdf9e9a4dc864074115ec988fd95a256bff3f0a6446e"
+    }
+  ],
+  "power_messages": [
+    {
+      "event_id": 506,
+      "message": "The system is entering Modern Standby \r\n\r\nReason: Lid.",
+      "provider": "Microsoft-Windows-Kernel-Power",
+      "record_id": 354699,
+      "time_utc": "2026-10-19T12:27:28.5899707Z"
+    },
+    {
+      "event_id": 507,
+      "message": "The system is exiting Modern Standby \r\n\r\nReason: Austerity Battery Drain Budget Exceeded.",
+      "provider": "Microsoft-Windows-Kernel-Power",
+      "record_id": 354711,
+      "time_utc": "2026-10-19T12:37:45.3273151Z"
+    },
+    {
+      "event_id": 506,
+      "message": "The system is entering Modern Standby \r\n\r\nReason: Austerity Battery Drain Budget Exceeded.",
+      "provider": "Microsoft-Windows-Kernel-Power",
+      "record_id": 354713,
+      "time_utc": "2026-10-19T12:37:45.3281634Z"
+    }
+  ],
+  "power_note": "System 506 explicitly reports Lid; 507 and later 506 report Austerity Battery Drain Budget Exceeded. Raw XML is retained. Initial AC pass is not evidence of continuous AC. No inference about user intent or physical clock calibration.",
+  "random_trajectory_unchanged": true,
+  "sample_classifications": {
+    "success": 154,
+    "timeout": 2
+  },
+  "schema": "manual-first-seed-stop-review-v1",
+  "session_id": "c1bd157c6c8d42439d0fb08f69156ff5",
+  "sleep_request": {
+    "acquire_result": 2147483648,
+    "acquired": true,
+    "exception": "Standby during evaluation; preserve disturbed group and stop",
+    "limitation": "Does not guarantee prevention of user lid closure",
+    "release_flags": 2147483648,
+    "release_result": 2147483649,
+    "release_thread_id": 46968,
+    "released": true,
+    "request_flags": 2147483649,
+    "schema": "raw-comparison-sleep-request-v1",
+    "thread_id": 46968
+  },
+  "standby_records": [
+    {
+      "event_id": 506,
+      "message": "The system is entering Modern Standby \r\n\r\nReason: Lid.",
+      "provider": "Microsoft-Windows-Kernel-Power",
+      "record_id": 354699,
+      "time_utc": "2026-10-19T12:27:28.5899707Z",
+      "xml": "<Event xmlns='http://schemas.microsoft.com/win/2004/08/events/event'><System><Provider Name='Microsoft-Windows-Kernel-Power' Guid='{331c3b3a-2005-44c2-ac5e-77220c37d6b4}'/><EventID>506</EventID><Version>3</Version><Level>4</Level><Task>157</Task><Opcode>0</Opcode><Keywords>0x8000000000000404</Keywords><TimeCreated SystemTime='2026-10-19T12:27:28.5899707Z'/><EventRecordID>354699</EventRecordID><Correlation/><Execution ProcessID='4' ThreadID='80208'/><Channel>System</Channel><Computer>小谷天天开心</Computer><Security UserID='S-1-5-18'/></System><EventData><Data Name='Reason'>15</Data><Data Name='LidOpenState'>false</Data><Data Name='ExternalMonitorConnectedState'>false</Data><Data Name='ScenarioInstanceId'>11</Data><Data Name='BatteryRemainingCapacityOnEnter'>72592</Data><Data Name='BatteryFullChargeCapacityOnEnter'>72591</Data><Data Name='ScenarioInstanceIdV2'>11</Data><Data Name='BootId'>694</Data></EventData></Event>"
+    },
+    {
+      "event_id": 506,
+      "message": "The system is entering Modern Standby \r\n\r\nReason: Austerity Battery Drain Budget Exceeded.",
+      "provider": "Microsoft-Windows-Kernel-Power",
+      "record_id": 354713,
+      "time_utc": "2026-10-19T12:37:45.3281634Z",
+      "xml": "<Event xmlns='http://schemas.microsoft.com/win/2004/08/events/event'><System><Provider Name='Microsoft-Windows-Kernel-Power' Guid='{331c3b3a-2005-44c2-ac5e-77220c37d6b4}'/><EventID>506</EventID><Version>3</Version><Level>4</Level><Task>157</Task><Opcode>0</Opcode><Keywords>0x8000000000000404</Keywords><TimeCreated SystemTime='2026-10-19T12:37:45.3281634Z'/><EventRecordID>354713</EventRecordID><Correlation/><Execution ProcessID='4' ThreadID='101504'/><Channel>System</Channel><Computer>小谷天天开心</Computer><Security UserID='S-1-5-18'/></System><EventData><Data Name='Reason'>55</Data><Data Name='LidOpenState'>false</Data><Data Name='ExternalMonitorConnectedState'>false</Data><Data Name='ScenarioInstanceId'>13</Data><Data Name='BatteryRemainingCapacityOnEnter'>71866</Data><Data Name='BatteryFullChargeCapacityOnEnter'>72591</Data><Data Name='ScenarioInstanceIdV2'>13</Data><Data Name='BootId'>694</Data></EventData></Event>"
+    }
+  ],
+  "stop_reason": "Standby during evaluation; preserve disturbed group and stop",
+  "targets": 156,
+  "unaccepted_samples": [
+    {
+      "attempt_id": "aae9b1505c3c4a53aab33968a288876e",
+      "classification": "success",
+      "process_wall_seconds": 52.275523195999995,
+      "returncode": 0,
+      "run_id": "cf6c692f5c8745608c733e25e8565ac4",
+      "score_seconds": 51.298125119
+    },
+    {
+      "attempt_id": "aae9b1505c3c4a53aab33968a288876e",
+      "classification": "timeout",
+      "process_wall_seconds": 35.86547697900096,
+      "returncode": -9,
+      "run_id": "ee0f88c283aa4833a6746749a2447d40",
+      "score_seconds": null
+    },
+    {
+      "attempt_id": "42e0c68e880f4104a4041cc6a176b55d",
+      "classification": "success",
+      "process_wall_seconds": 80.87219507300051,
+      "returncode": 0,
+      "run_id": "4f1a1a7dd099487da14c48400922bef6",
+      "score_seconds": 79.779717837
+    },
+    {
+      "attempt_id": "42e0c68e880f4104a4041cc6a176b55d",
+      "classification": "success",
+      "process_wall_seconds": 79.35557003400027,
+      "returncode": 0,
+      "run_id": "5f499641b732430389891ac52b27438b",
+      "score_seconds": 78.582363222
+    },
+    {
+      "attempt_id": "42e0c68e880f4104a4041cc6a176b55d",
+      "classification": "success",
+      "process_wall_seconds": 79.02186016199994,
+      "returncode": 0,
+      "run_id": "9ba868d5184f4a108f24124c6bd3e2fa",
+      "score_seconds": 78.195383608
+    },
+    {
+      "attempt_id": "42e0c68e880f4104a4041cc6a176b55d",
+      "classification": "timeout",
+      "process_wall_seconds": 8.115353700000014,
+      "returncode": -9,
+      "run_id": "c8600366f38647c59e84afc9410f297a",
+      "score_seconds": null
+    }
+  ],
+  "unique_run_ids": 156
+}

@@ -2,7 +2,20 @@
 
 《软件系统优化》实践项目 P1。**P2 历史Grid已保存；P3首种子正式比较尚未完成。**
 
-当前（2026-10-19，efb7f9df后首种子真实搜索授权）：**FIRST_SEED_RAW_COMPARISON_PARTIAL**。
+当前（2026-10-20交付，d706a96a后单次人工续跑）：**FIRST_SEED_RAW_COMPARISON_PARTIAL**。
+保持执行内容`776b11171d796c8071e69824ffe463c4faf8ba57`、session `c1bd157c6c8d42439d0fb08f69156ff5`；
+归档外助手`706d239a5f1592dc17fb2ceefa46a2112727f966`，相关14项工作树/干净归档受控回归通过。
+唯一fresh短/长RAW准入2/2通过；新增9个完整Greedy组、58次目标调用，Random12+2复测完全不变。
+当前Random12/12、Greedy11/12，复测Random2/Greedy0；156个唯一run_id中150条属25完整组，
+旧2条放弃样本及新O3/s16的4条受干扰部分样本均保留、不计分。System506原始消息明确Reason:Lid，
+该组测量3超时后安全停止，不是资源或RAW探针拒绝；没有再次准入或自动补跑。
+本段QPC7488.0732714s，加旧15841.5879168s累计23329.6611882s；账面余19870.3388118s不构成新授权。
+四项验收为true/false/false/false；16,831历史文件和原98条字节前缀保护，进程退出、防睡眠释放。
+[本段证据/六行表/成本/停止核验](evidence/p3_raw_first_seed/20261019-181817-693c9e13-manual-continuation/README.md)、
+[独立续跑审计](evidence/p3_raw_first_seed/20261019-181817-693c9e13-manual-continuation/continuation/independent_continuation_audit.json)。
+只读复算入口见证据README；等待外审，不重启已领取的claim，不扩展其他种子或算法。
+
+历史（2026-10-19，efb7f9df后首次首种子搜索授权）：**FIRST_SEED_RAW_COMPARISON_PARTIAL**。
 执行内容`776b11171d796c8071e69824ffe463c4faf8ba57`，新search session `c1bd157c6c8d42439d0fb08f69156ff5`；
 科学内容3cc9e0d/RAW/资源v2不变。修复搜索模式验收与实际证据卷write/fsync/read-back门禁；
 比较相关28项、关联续跑17项受控回归及准确归档验证通过，没有额外n17或三配置重测。
