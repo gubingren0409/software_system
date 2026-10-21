@@ -1,6 +1,29 @@
 # 审计交接入口
 
-## 当前：d706a96a后人工续跑已停止，FIRST_SEED_RAW_COMPARISON_PARTIAL
+## 当前：FIRST_SEED_RAW_COMPARISON_COMPLETE（仅20261008，五种子未完成）
+
+保持执行内容`776b11171d796c8071e69824ffe463c4faf8ba57`、session `c1bd157c6c8d42439d0fb08f69156ff5`；
+收尾助手`053930946d73b142d6eb39a1bb297b52cdd446fd`准确归档，18项相关工作树/干净归档测试通过。
+本轮唯一fresh短/长2/2通过，仅新增O3/s16搜索6次及Greedy O3/s128独立复测6次，controller退出0。
+Random12+2复测及原Greedy11组不改，Greedy自身B4/B8/B12同选O3/s128，内部去重G=1、不借Random样本。
+现24搜索+3复测=27完整组/162已接纳执行，另精确放弃6条，总168唯一run_id；无active或未知额外记录。
+首种子evidence_integrity_pass/execution_complete/timing_checks_pass/comparison_ready均true，五种子完成/比较仍false。
+本段962.6504186s，三段累计24292.3116068s/43200s，账面余18907.6883932s不转移、不自动继续。
+18,178历史文件与原156条3556374字节前缀、旧manual_resume/claim/window/证书/失败保护；任务进程退出、防睡眠释放。
+- [本轮说明/来源/命令/限制/只读复算](../evidence/p3_raw_first_seed/20261020-214028-09795d71-first-seed-finish/README.md)
+- [授权/保护SHA/前窗口链](../evidence/p3_raw_first_seed/20261020-214028-09795d71-first-seed-finish/continuation/authorization.json)、[新闭合窗口](../evidence/p3_raw_first_seed/20261020-214028-09795d71-first-seed-finish/continuation/window.json)
+- [独立首种子审计](../evidence/p3_raw_first_seed/20261020-214028-09795d71-first-seed-finish/continuation/independent_continuation_audit.json)、[精确计数](../evidence/p3_raw_first_seed/20261020-214028-09795d71-first-seed-finish/delivery_summary.json)
+- [六行CSV（含CV/MAD与成本）](../evidence/p3_raw_first_seed/20261020-214028-09795d71-first-seed-finish/first_seed_six_rows.csv)、[成本嵌套范围](../evidence/p3_raw_first_seed/20261020-214028-09795d71-first-seed-finish/costs.json)
+- [源码/协议/编译器/二进制/reference身份](../evidence/p3_raw_first_seed/20261020-214028-09795d71-first-seed-finish/source_identity.json)、[资源/时钟质量](../evidence/p3_raw_first_seed/20261020-214028-09795d71-first-seed-finish/quality_report.json)
+- [历史保护/放弃样本/进程退出](../evidence/p3_raw_first_seed/20261020-214028-09795d71-first-seed-finish/stop_review.json)、[追加放弃账本](../evidence/p3_raw_first_seed/20261020-214028-09795d71-first-seed-finish/continuation/abandoned_attempt.json)
+
+本轮RAW6区间及所有组检查通过，无新失败或重试；Greedy独立复测中位数50.118510833s，CV0.538161%、MAD0.127395643s。
+遗留限制：单种子、跨运行段、旧待机及低内存警告；不校准旧Grid，不推断全局最优或五种子稳定性。
+测试JSONL夹具换行、首次未暂存提交、报告操作文件名及重复捕获拒绝的失败证据均保留；修正只涉及夹具/离线报告，未修改冻结科学内容。
+活动总计是三段QPC时长相加，未退款待机；原始JSON二进制浮点尾数保留，文档按QPC频率精度显示，不改旧窗口。
+当前不再执行新目标；待外审后才讨论其他种子，不自动使用剩余账面预算。
+
+## 历史：d706a96a后人工续跑已停止，FIRST_SEED_RAW_COMPARISON_PARTIAL
 
 执行776b11171d796c8071e69824ffe463c4faf8ba57、session c1bd157c6c8d42439d0fb08f69156ff5保持；
 辅助706d239a5f1592dc17fb2ceefa46a2112727f966准确归档，科学3cc9e0d/RAW/资源v2/搜索不改。

@@ -1,0 +1,221 @@
+{
+  "accepted_target_samples": 162,
+  "active": null,
+  "all_owned_experiment_processes_exited": true,
+  "at": "2026-10-21T05:05:42.897156+00:00",
+  "auxiliary_content_commit": "053930946d73b142d6eb39a1bb297b52cdd446fd",
+  "auxiliary_source_sha256": "8e0564a0febb92cf4a87ae825808849ffce0a194ce83d13605f2623c7157a288",
+  "budget_note": "Use final window integer endpoints, not the later live-progress reading. Remaining ledger is not permission for another claim.",
+  "content_commit": "776b11171d796c8071e69824ffe463c4faf8ba57",
+  "continuation_activity_qpc_seconds": 962.6504186,
+  "controller_returncode": 0,
+  "cumulative_activity_qpc_seconds": 24292.311606799998,
+  "historical_protection_pass": true,
+  "last_group_evaluation_raw_seconds": 311.797954274,
+  "last_group_process_qpc_seconds": 321.170994,
+  "ledger_remaining_seconds": 18907.688393200002,
+  "new_targets": 12,
+  "original_156_record_prefix_bytes": 3556374,
+  "original_156_record_prefix_sha256": "e004ed1d9530aae73c05358c52536576b8436dd56e108dec627bfe6991147927",
+  "original_activity_qpc_seconds": 23329.6611882,
+  "original_greedy_eleven_observations_unchanged": true,
+  "original_protected_files": 18178,
+  "owned_process_operation": {
+    "batch_id": "manual-continuation-stop",
+    "command": [
+      "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+      "-NoProfile",
+      "-Command",
+      "[Console]::OutputEncoding=[Text.UTF8Encoding]::new($false); $ownedWindows=@(Get-CimInstance Win32_Process -Filter \"Name='python.exe' OR Name='python3.exe' OR Name='wsl.exe'\" | Where-Object { $_.CommandLine -match 'matrix-raw-comparison-(content|cache)-776b111|matrix-first-seed-finish-0539309|autotuner.raw_comparison' } | Select-Object ProcessId,ParentProcessId,Name,CommandLine); $wslText=@(& wsl.exe -d Ubuntu-24.04 -- ps -eo pid,ppid,stat,args); $wslExit=$LASTEXITCODE; $ownedWsl=@($wslText | Select-String -Pattern 'matrix-raw-comparison-(content|cache)-776b111|p3_raw_first_seed/20261019-132400' | ForEach-Object { $_.Line }); [ordered]@{windows_processes=$ownedWindows;wsl_ps_returncode=$wslExit;matching_wsl_processes=$ownedWsl;at=[DateTimeOffset]::Now.ToString('o')} | ConvertTo-Json -Depth 5; if ($wslExit -ne 0) {exit 2}"
+    ],
+    "cwd": "C:\\Users\\28489\\AppData\\Local\\Temp\\matrix-raw-comparison-776b11171d796c8071e69824ffe463c4faf8ba57",
+    "end_utc_ns": 1792559051787554300,
+    "ended_at": "2026-10-21T05:04:11.787554+00:00",
+    "manifest_sha256": null,
+    "operation_id": "6e7db1f165b54f36b160351cfee033da",
+    "operation_kind": "owned_processes",
+    "pid": 13408,
+    "qpc_end": 83605396978,
+    "qpc_frequency": 10000000,
+    "qpc_seconds": 12.3744734,
+    "qpc_start": 83481652244,
+    "returncode": 0,
+    "schema": "p3-captured-operation-v2",
+    "start_utc_ns": 1792559039417950600,
+    "stderr_byte_count": 0,
+    "stderr_crlf_count": 0,
+    "stderr_lf_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_path": "owned_processes.stderr.txt",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_byte_count": 216,
+    "stdout_crlf_count": 10,
+    "stdout_lf_sha256": "35ff5a9c8889435b9ae380870532c105db1336826dab60b8a687519b1c5a4a13",
+    "stdout_path": "owned_processes.stdout.txt",
+    "stdout_sha256": "da4afece66caf4806d82e4caef0354a5dfa5565ce08c15dfc5db904fc9aed725",
+    "timed_out": false,
+    "timeout_seconds": 30,
+    "utc_seconds": 12.3696037
+  },
+  "owned_process_snapshot": {
+    "at": "2026-10-20T22:04:11.6880258-07:00",
+    "matching_wsl_processes": [],
+    "windows_processes": [],
+    "wsl_ps_returncode": 0
+  },
+  "partial_cost_note": "Process QPC includes startup/stop and differs from evaluation RAW; same-scope evidence is in continuity.host/scope and independently audited. No calibration, outlier deletion or standby refund.",
+  "power_identity_recomputation": [
+    {
+      "cursor_after": 357023,
+      "cursor_before": -1,
+      "identity_pass": true,
+      "path": "E:\\software_system\\project01\\evidence\\p3_raw_first_seed\\20261019-132400\\content\\search-c1bd157c\\group_checks\\27ccb0d66b844db8bcb960d45f13990c\\power_events\\events_0.stdout.txt",
+      "sha256": "6af994b06d10a97db79eb4fc08a0646b95762dfe02f566ade82f6ff87570f039"
+    },
+    {
+      "cursor_after": 357023,
+      "cursor_before": 357023,
+      "identity_pass": true,
+      "path": "E:\\software_system\\project01\\evidence\\p3_raw_first_seed\\20261019-132400\\content\\search-c1bd157c\\group_checks\\27ccb0d66b844db8bcb960d45f13990c\\power_events\\events_1.stdout.txt",
+      "sha256": "5b1eb71d56fe7daebebf947cad430f984974ee0bd9aca7713d2bd813afc4a014"
+    },
+    {
+      "cursor_after": 357023,
+      "cursor_before": 357023,
+      "identity_pass": true,
+      "path": "E:\\software_system\\project01\\evidence\\p3_raw_first_seed\\20261019-132400\\content\\search-c1bd157c\\group_checks\\27ccb0d66b844db8bcb960d45f13990c\\power_events\\events_2.stdout.txt",
+      "sha256": "893d311ba84209fc6f6a50de0e16d02a83da960f251ef102f8f8eacfdff01104"
+    },
+    {
+      "cursor_after": 357023,
+      "cursor_before": 357023,
+      "identity_pass": true,
+      "path": "E:\\software_system\\project01\\evidence\\p3_raw_first_seed\\20261019-132400\\content\\search-c1bd157c\\group_checks\\27ccb0d66b844db8bcb960d45f13990c\\power_events\\events_3.stdout.txt",
+      "sha256": "083432d5b59f189e14c1046265786a036fa74a85bf10b0e8bbd1952597581023"
+    },
+    {
+      "cursor_after": 357023,
+      "cursor_before": 357023,
+      "identity_pass": true,
+      "path": "E:\\software_system\\project01\\evidence\\p3_raw_first_seed\\20261019-132400\\content\\search-c1bd157c\\group_checks\\27ccb0d66b844db8bcb960d45f13990c\\power_events\\events_4.stdout.txt",
+      "sha256": "7389839febeca03342c77d7ecf221043ccf0e4928c1a714b0e1f09d3e4ea11b7"
+    },
+    {
+      "cursor_after": 357023,
+      "cursor_before": 357023,
+      "identity_pass": true,
+      "path": "E:\\software_system\\project01\\evidence\\p3_raw_first_seed\\20261019-132400\\content\\search-c1bd157c\\group_checks\\27ccb0d66b844db8bcb960d45f13990c\\power_events\\events_5.stdout.txt",
+      "sha256": "3b14be59e7eade9f9c940346827d683304e796093cbdbeccf228e823a3faee57"
+    },
+    {
+      "cursor_after": 357023,
+      "cursor_before": 357023,
+      "identity_pass": true,
+      "path": "E:\\software_system\\project01\\evidence\\p3_raw_first_seed\\20261019-132400\\content\\search-c1bd157c\\group_checks\\27ccb0d66b844db8bcb960d45f13990c\\power_events\\events_6.stdout.txt",
+      "sha256": "f2e79dbe66ec3136a8d1db355befd99ebf1e6aa7a9c5ce889a99da158c641320"
+    },
+    {
+      "cursor_after": 357023,
+      "cursor_before": 357023,
+      "identity_pass": true,
+      "path": "E:\\software_system\\project01\\evidence\\p3_raw_first_seed\\20261019-132400\\content\\search-c1bd157c\\group_checks\\27ccb0d66b844db8bcb960d45f13990c\\power_events\\events_7.stdout.txt",
+      "sha256": "a01b28442901c9576df8775c268bc7b6875a5d5a4077280b3ff3107269d89ac5"
+    },
+    {
+      "cursor_after": 357023,
+      "cursor_before": 357023,
+      "identity_pass": true,
+      "path": "E:\\software_system\\project01\\evidence\\p3_raw_first_seed\\20261019-132400\\content\\search-c1bd157c\\group_checks\\27ccb0d66b844db8bcb960d45f13990c\\power_events\\events_8.stdout.txt",
+      "sha256": "34c71583a93c3dd2ae46c1b31afa70968bc5e02d7be2630dfd337e52f2aebd7b"
+    },
+    {
+      "cursor_after": 357023,
+      "cursor_before": 357023,
+      "identity_pass": true,
+      "path": "E:\\software_system\\project01\\evidence\\p3_raw_first_seed\\20261019-132400\\content\\search-c1bd157c\\group_checks\\27ccb0d66b844db8bcb960d45f13990c\\power_events\\events_9.stdout.txt",
+      "sha256": "7df911bceaa7cddf2d012d6132b121103b09620c21d9eb6c79f8dfafe2a87228"
+    },
+    {
+      "cursor_after": 357023,
+      "cursor_before": 357023,
+      "identity_pass": true,
+      "path": "E:\\software_system\\project01\\evidence\\p3_raw_first_seed\\20261019-132400\\content\\search-c1bd157c\\group_checks\\27ccb0d66b844db8bcb960d45f13990c\\power_events\\events_10.stdout.txt",
+      "sha256": "04af28aaae743c2d2c4a2c12c8c1ce2c1aa1edb00f08e509389d9d530aac0d54"
+    }
+  ],
+  "power_messages": [],
+  "power_note": "This summary rechecks the last current-window group only. Historical standby messages remain protected in prior batches; an empty new event list does not repair old failures. Initial AC pass is not proof of continuous AC.",
+  "random_trajectory_unchanged": true,
+  "sample_classifications": {
+    "success": 166,
+    "timeout": 2
+  },
+  "schema": "first-seed-finish-stop-review-v2",
+  "session_id": "c1bd157c6c8d42439d0fb08f69156ff5",
+  "sleep_request": {
+    "acquire_result": 2147483648,
+    "acquired": true,
+    "exception": null,
+    "limitation": "Does not guarantee prevention of user lid closure",
+    "release_flags": 2147483648,
+    "release_result": 2147483649,
+    "release_thread_id": 41160,
+    "released": true,
+    "request_flags": 2147483649,
+    "schema": "raw-comparison-sleep-request-v1",
+    "thread_id": 41160
+  },
+  "standby_records": [],
+  "stop_reason": null,
+  "targets": 168,
+  "unaccepted_samples": [
+    {
+      "attempt_id": "aae9b1505c3c4a53aab33968a288876e",
+      "classification": "success",
+      "process_wall_seconds": 52.275523195999995,
+      "returncode": 0,
+      "run_id": "cf6c692f5c8745608c733e25e8565ac4",
+      "score_seconds": 51.298125119
+    },
+    {
+      "attempt_id": "aae9b1505c3c4a53aab33968a288876e",
+      "classification": "timeout",
+      "process_wall_seconds": 35.86547697900096,
+      "returncode": -9,
+      "run_id": "ee0f88c283aa4833a6746749a2447d40",
+      "score_seconds": null
+    },
+    {
+      "attempt_id": "42e0c68e880f4104a4041cc6a176b55d",
+      "classification": "success",
+      "process_wall_seconds": 80.87219507300051,
+      "returncode": 0,
+      "run_id": "4f1a1a7dd099487da14c48400922bef6",
+      "score_seconds": 79.779717837
+    },
+    {
+      "attempt_id": "42e0c68e880f4104a4041cc6a176b55d",
+      "classification": "success",
+      "process_wall_seconds": 79.35557003400027,
+      "returncode": 0,
+      "run_id": "5f499641b732430389891ac52b27438b",
+      "score_seconds": 78.582363222
+    },
+    {
+      "attempt_id": "42e0c68e880f4104a4041cc6a176b55d",
+      "classification": "success",
+      "process_wall_seconds": 79.02186016199994,
+      "returncode": 0,
+      "run_id": "9ba868d5184f4a108f24124c6bd3e2fa",
+      "score_seconds": 78.195383608
+    },
+    {
+      "attempt_id": "42e0c68e880f4104a4041cc6a176b55d",
+      "classification": "timeout",
+      "process_wall_seconds": 8.115353700000014,
+      "returncode": -9,
+      "run_id": "c8600366f38647c59e84afc9410f297a",
+      "score_seconds": null
+    }
+  ],
+  "unique_run_ids": 168
+}

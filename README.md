@@ -1,8 +1,20 @@
 # Matrix Multiplication Autotuner (P1)
 
-《软件系统优化》实践项目 P1。**P2 历史Grid已保存；P3首种子正式比较尚未完成。**
+《软件系统优化》实践项目 P1。**P2 历史Grid已保存；P3首种子比较完成，五种子整体尚未完成。**
 
-当前（2026-10-20交付，d706a96a后单次人工续跑）：**FIRST_SEED_RAW_COMPARISON_PARTIAL**。
+当前（2026-10-20，有界第一种子收尾）：**FIRST_SEED_RAW_COMPARISON_COMPLETE**。
+保持执行内容`776b11171d796c8071e69824ffe463c4faf8ba57`、session `c1bd157c6c8d42439d0fb08f69156ff5`；
+收尾助手`053930946d73b142d6eb39a1bb297b52cdd446fd`准确归档，18项相关工作树/干净归档测试通过。
+本轮唯一fresh短/长2/2通过，仅新增O3/s16搜索6次及Greedy O3/s128独立复测6次，controller退出0。
+Random12+2复测及原Greedy11组不改，Greedy自身B4/B8/B12同选O3/s128，内部去重G=1、不借Random样本。
+现24搜索+3复测=27完整组/162已接纳执行，另精确放弃6条，总168唯一run_id；无active或未知额外记录。
+首种子evidence_integrity_pass/execution_complete/timing_checks_pass/comparison_ready均true，五种子完成/比较仍false。
+本段962.6504186s，三段累计24292.3116068s/43200s，账面余18907.6883932s不转移、不自动继续。
+18,178历史文件与原156条3556374字节前缀、旧manual_resume/claim/window/证书/失败保护；任务进程退出、防睡眠释放。
+[本轮六行表/完整证据与只读复算](evidence/p3_raw_first_seed/20261020-214028-09795d71-first-seed-finish/README.md)、[独立审计](evidence/p3_raw_first_seed/20261020-214028-09795d71-first-seed-finish/continuation/independent_continuation_audit.json)。
+仅一个搜索种子，跨段/历史待机/低内存限制继续披露；不自动扩展种子或算法，等待外审。
+
+历史（2026-10-20交付，d706a96a后单次人工续跑）：**FIRST_SEED_RAW_COMPARISON_PARTIAL**。
 保持执行内容`776b11171d796c8071e69824ffe463c4faf8ba57`、session `c1bd157c6c8d42439d0fb08f69156ff5`；
 归档外助手`706d239a5f1592dc17fb2ceefa46a2112727f966`，相关14项工作树/干净归档受控回归通过。
 唯一fresh短/长RAW准入2/2通过；新增9个完整Greedy组、58次目标调用，Random12+2复测完全不变。
