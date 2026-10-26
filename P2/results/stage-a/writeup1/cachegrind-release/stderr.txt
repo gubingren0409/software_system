@@ -1,0 +1,31 @@
+==1923== Cachegrind, a high-precision tracing profiler
+==1923== Copyright (C) 2002-2017, and GNU GPL'd, by Nicholas Nethercote et al.
+==1923== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==1923== Command: /mnt/e/software_system/Project02/P2/results/stage-a/binaries/sort-release.elf -b -s 42 131072 5
+==1923== 
+--1923-- warning: L3 cache found, using its data for the LL simulation.
+
+Running test #0...
+ --> test_correctness at line 249: PASS
+ --> test_correctness at line 249: PASS
+Done testing.
+==1923== 
+==1923== I refs:        1,371,689,467
+==1923== I1  misses:            1,907
+==1923== LLi misses:            1,697
+==1923== I1  miss rate:          0.00%
+==1923== LLi miss rate:          0.00%
+==1923== 
+==1923== D refs:          601,195,799  (370,934,402 rd   + 230,261,397 wr)
+==1923== D1  misses:        4,384,234  (  2,303,583 rd   +   2,080,651 wr)
+==1923== LLd misses:           51,204  (      1,367 rd   +      49,837 wr)
+==1923== D1  miss rate:           0.7% (        0.6%     +         0.9%  )
+==1923== LLd miss rate:           0.0% (        0.0%     +         0.0%  )
+==1923== 
+==1923== LL refs:           4,386,141  (  2,305,490 rd   +   2,080,651 wr)
+==1923== LL misses:            52,901  (      3,064 rd   +      49,837 wr)
+==1923== LL miss rate:            0.0% (        0.0%     +         0.0%  )
+==1923== 
+==1923== Branches:        207,475,945  (183,399,658 cond +  24,076,287 ind)
+==1923== Mispredicts:       9,365,300  (  9,364,961 cond +         339 ind)
+==1923== Mispred rate:            4.5% (        5.1%     +         0.0%   )

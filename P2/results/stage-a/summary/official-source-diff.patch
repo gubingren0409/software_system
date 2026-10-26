@@ -1,0 +1,239 @@
+--- official/homework/Makefile
++++ working/homework/Makefile
+@@ -1,6 +1,6 @@
+ # Copyright (c) 2012-2013 MIT License by 6.172 Staff
+ CC := clang
+-CFLAGS := -g -Wall -std=gnu99 -gdwarf-3 -always-inline
++CFLAGS := -g -Wall -std=gnu99 -gdwarf-3
+ LDFLAGS := -lrt -lm 
+ # You may add new files to the list of COMMON_SRC below
+ COMMON_SRC := tests.c util.c isort.c sort_a.c sort_c.c sort_i.c sort_p.c sort_m.c sort_f.c
+--- official/homework/main.c
++++ working/homework/main.c
+@@ -32,9 +32,12 @@
+ extern test_case test_cases[];
+ 
+ 
+-static void run_test_suite(int start_idx, int printFlag, int N, int R,
++static void run_test_suite(int start_idx, int printFlag, int N, int R, int benchmarkOnly,
+                            struct testFunc_t* testFunc, int numFunc) {
+   for (int i = 0; test_cases[i] != NULL; i++) {
++    if (benchmarkOnly && i > 0) {
++      break;
++    }
+     if (i < start_idx) {
+       continue;
+     }
+@@ -53,15 +56,14 @@
+ extern void sort_f(data_t*, int, int);
+ 
+ int main(int argc, char** argv) {
+-  int N, R, optchar, printFlag = 0;
+-  unsigned int seed = 0;
++  int N, R, optchar, printFlag = 0, benchmarkOnly = 0;
++  unsigned int seed = 1;
+ 
+   // an array of struct testFunc_t indicating the sort functions to test
+   // the struct contains two fields --- the function pointer to the sort function
+   // and its name (for printing)
+   struct testFunc_t testFunc[] = {
+-    {&sort_a, "sort_a\t\t"},
+-    {&sort_a, "sort_a repeated\t"},
++    {&sort_a, "sort_a"},
+     //{&sort_i, "sort_i\t\t"},
+     //{&sort_p, "sort_p\t\t"},
+     //{&sort_c, "sort_c\t\t"},
+@@ -71,12 +73,14 @@
+   const int kNumOfFunc = sizeof(testFunc) / sizeof(testFunc[0]);
+ 
+   // process command line options
+-  while ((optchar = getopt(argc, argv, "s:p")) != -1) {
++  while ((optchar = getopt(argc, argv, "s:pb")) != -1) {
+     switch (optchar) {
+     case 's':
+       seed = (unsigned int) atoi(optarg);
+       printf("Using user-provided seed: %u\n", seed);
+-      srand(seed);
++      break;
++    case 'b':
++      benchmarkOnly = 1;
+       break;
+     case 'p':
+       printFlag = 1;
+@@ -95,15 +99,23 @@
+ 
+   // check to make sure number of arguments is correct
+   if (remaining_args != 2) {
+-    printf("Usage: %s [-p] <num_elements> <num_repeats>\n", argv[0]);
++    printf("Usage: %s [-p] [-b] [-s seed] <num_elements> <num_repeats>\n", argv[0]);
+     printf("-p : print before/after arrays\n");
++    printf("-b : run only the random/inverted timing test\n");
+     exit(-1);
+   }
+ 
+   N = atoi(argv[1]);
+   R = atoi(argv[2]);
++  if (N < 1 || R < 1) {
++    fprintf(stderr, "num_elements and num_repeats must be positive\n");
++    return EXIT_FAILURE;
++  }
++  set_random_seed(seed);
++  printf("Initial rand_r seed: %u; sort versions: %d; trials per input: %d\n",
++         seed, kNumOfFunc, R);
+ 
+-  run_test_suite(0, printFlag, N, R, testFunc, kNumOfFunc);
++  run_test_suite(0, printFlag, N, R, benchmarkOnly, testFunc, kNumOfFunc);
+ 
+   return 0;
+ }
+--- official/homework/tests.c
++++ working/homework/tests.c
+@@ -48,6 +48,7 @@
+     fprintf(stderr, " --> %s at line %d: FAIL\n    Reason:", (name), (line)); \
+     fprintf(stderr, (failure_msg), ## args); \
+     fprintf(stderr, "\n"); \
++    exit(EXIT_FAILURE); \
+ } while (0)
+ 
+ 
+@@ -56,6 +57,16 @@
+ /* Some global variables to make it easier to run individual tests. */
+ // static int test_verbose = 1 ;
+ static unsigned int randomSeed = 1;
++
++void set_random_seed(unsigned int seed) {
++  randomSeed = seed;
++}
++
++static int compare_data(const void* lhs, const void* rhs) {
++  data_t a = *(const data_t*) lhs;
++  data_t b = *(const data_t*) rhs;
++  return (a > b) - (a < b);
++}
+ 
+ static inline void display_array(data_t* data, int N) {
+   // display array
+@@ -110,6 +121,21 @@
+       break;
+     }
+   }
++  // Compare against a trusted reference, including elements outside the range.
++  // This is outside the timed call to the candidate sorting function.
++  data_t* expected = (data_t*) malloc(N * sizeof(data_t));
++  if (expected == NULL) {
++    TEST_FAIL("Not enough memory for reference check");
++  }
++  memcpy(expected, data_bcup, N * sizeof(data_t));
++  qsort(expected + begin, end - begin + 1, sizeof(data_t), compare_data);
++  for (int i = 0; i < N; i++) {
++    if (data[i] != expected[i]) {
++      TEST_FAIL("Reference mismatch at index %d: got %u, expected %u",
++                i, data[i], expected[i]);
++    }
++  }
++  free(expected);
+   copy_data(data, data_bcup, N);
+   return result;
+ }
+@@ -158,7 +184,7 @@
+   data_t* data, *data_bcup;
+   int success = 1;
+ 
+-  float* sum_time = (float*) alloca(numFunc * sizeof(float));
++  double* sum_time = (double*) alloca(numFunc * sizeof(double));
+   for (int i = 0; i < numFunc; i++) {
+     sum_time[i] = 0;
+   }
+@@ -183,6 +209,9 @@
+   for (int gen = 0;
+        gen < sizeof(dataGen) / sizeof(dataGen[0]);
+        gen++) {
++    for (int k = 0; k < numFunc; k++) {
++      sum_time[k] = 0;
++    }
+     printf("Generating %s array of %d elements\n",
+            dataGen[gen].name, N);
+     // repeat for each trial
+@@ -203,7 +232,10 @@
+         testFunc[k].func(data, 0, N - 1);
+         time2 = gettime();
+ 
+-        sum_time[k] += tdiff(time1, time2);
++        double elapsed = tdiff(time1, time2);
++        sum_time[k] += elapsed;
++        printf("TIMING input=%s trial=%d function=%s seconds=%.9f\n",
++               dataGen[gen].name, j + 1, testFunc[k].name, elapsed);
+         success &= post_process(data, data_bcup, N, printFlag, testFunc[k].name, 0, N - 1);
+ 
+         if (!success) {
+@@ -217,8 +249,8 @@
+       TEST_PASS();
+       // report average execution time over R runs.
+       for (int k = 0; k < numFunc; k++) {
+-        float avgRuntime = R > 0 ? sum_time[k] / R : 0;
+-        printf("%s: Elapsed execution time: %f sec\n", testFunc[k].name, avgRuntime);
++        double avgRuntime = R > 0 ? sum_time[k] / R : 0;
++        printf("%s: Elapsed execution time: %.9f sec\n", testFunc[k].name, avgRuntime);
+       }
+     }
+   }
+@@ -233,8 +265,8 @@
+   int success = 1;
+   for (int i = 0; i < numFunc; i++) {
+     data_t data[] = {0, 0, 0};
+-    testFunc[i].func(&data[1], 0, 0);
+-    if (data[0] != 0 && data[1] != 0 && data[2] != 0) {
++    testFunc[i].func(&data[1], 0, -1);
++    if (data[0] != 0 || data[1] != 0 || data[2] != 0) {
+       printf("Error: %s failed to sort array with zero element\n",
+              testFunc[i].name);
+       success = 0;
+@@ -254,8 +286,7 @@
+   for (int i = 0; i < numFunc; i++) {
+     data_t data[] = {0, 1, 0};
+     testFunc[i].func(&data[1], 0, 0);
+-    if (data[0] != 0 && data[2] != 0) {
+-      // Can't test data[1] == 1 because of final part of homework.
++    if (data[0] != 0 || data[1] != 1 || data[2] != 0) {
+       printf("Error: %s failed to sort array with one element\n",
+              testFunc[i].name);
+       success = 0;
+--- official/homework/tests.h
++++ working/homework/tests.h
+@@ -15,4 +15,6 @@
+ 
+ typedef void (*test_case)(int printFlag, int N, int R, struct testFunc_t* testFunc, int numFunc);
+ 
++void set_random_seed(unsigned int seed);
++
+ #endif  // TESTS_H
+--- official/recitation/Makefile
++++ working/recitation/Makefile
+@@ -3,7 +3,7 @@
+ ifeq ($(DEBUG),1)
+ 	CFLAGS := -Wall -O0 -g
+ else
+-	CFLAGS := -Wall -O1 -DNDEBUG 
++	CFLAGS := -Wall -O1 -DNDEBUG -g
+ endif
+ 
+ LDFLAGS := -lrt
+--- official/recitation/sum.c
++++ working/recitation/sum.c
+@@ -5,8 +5,14 @@
+ #include <stdlib.h>
+ 
+ typedef uint32_t data_t;
+-const int U = 10000000;   // size of the array. 10 million vals ~= 40MB
+-const int N = 100000000;  // number of searches to perform
++#ifndef SUM_U
++#define SUM_U 10000000
++#endif
++#ifndef SUM_N
++#define SUM_N 100000000
++#endif
++const int U = SUM_U;   // default: 10 million vals ~= 40MB
++const int N = SUM_N;  // default: 100 million searches
+ 
+ int main() {
+   data_t* data = (data_t*) malloc(U * sizeof(data_t));

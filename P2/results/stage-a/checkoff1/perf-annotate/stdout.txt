@@ -1,0 +1,84 @@
+
+Sorted summary for file /mnt/e/software_system/Project02/P2/results/stage-a/binaries/isort-debug.elf
+----------------------------------------------
+
+   94.45 isort.c:20
+    2.58 isort.c:21
+    1.42 isort.c:22
+ Percent |	Source code & Disassembly of isort-debug.elf for cycles:u (779 samples, percent: local period)
+--------------------------------------------------------------------------------------------------------------
+         :
+         :
+         :
+         : 3    Disassembly of section .text:
+         :
+         : 5    0000000000001190 <isort>:
+         : 6    typedef uint32_t data_t;
+         :
+         : 8    extern void quickSortIterative(data_t arr[], int l, int h);
+         :
+         : 10   /* Insertion sort */
+         : 11   void isort(data_t* left, data_t* right) {
+    0.00 :   1190:   push   %rbp
+    0.00 :   1191:   mov    %rsp,%rbp
+    0.00 :   1194:   mov    %rdi,-0x8(%rbp)
+    0.00 :   1198:   mov    %rsi,-0x10(%rbp)
+         : 16   data_t* cur = left + 1;
+    0.00 :   119c:   mov    -0x8(%rbp),%rax
+    0.00 :   11a0:   add    $0x4,%rax
+    0.00 :   11a4:   mov    %rax,-0x18(%rbp)
+         : 20   while (cur <= right) {
+    0.00 :   11a8:   mov    -0x18(%rbp),%rax
+    0.00 :   11ac:   cmp    -0x10(%rbp),%rax
+    0.00 :   11b0:   ja     1236 <isort+0xa6>
+         : 24   data_t val = *cur;
+    0.00 :   11b6:   mov    -0x18(%rbp),%rax
+    0.00 :   11ba:   mov    (%rax),%eax
+    0.00 :   11bc:   mov    %eax,-0x1c(%rbp)
+         : 28   data_t* index = cur - 1;
+    0.00 :   11bf:   mov    -0x18(%rbp),%rax
+    0.00 :   11c3:   add    $0xfffffffffffffffc,%rax
+    0.00 :   11c7:   mov    %rax,-0x28(%rbp)
+         :
+         : 33   while (index >= left && *index > val) {
+   11.09 :   11cb:   mov    -0x28(%rbp),%rcx // isort.c:20
+    1.10 :   11cf:   xor    %eax,%eax
+    0.13 :   11d1:   cmp    -0x8(%rbp),%rcx
+    0.00 :   11d5:   mov    %al,-0x29(%rbp)
+    0.26 :   11d8:   jb     11ed <isort+0x5d>
+    2.46 :   11de:   mov    -0x28(%rbp),%rax
+    0.26 :   11e2:   mov    (%rax),%eax
+    0.52 :   11e4:   cmp    -0x1c(%rbp),%eax
+   11.63 :   11e7:   seta   %al
+    0.26 :   11ea:   mov    %al,-0x29(%rbp)
+    0.13 :   11ed:   mov    -0x29(%rbp),%al
+   67.65 :   11f0:   test   $0x1,%al
+    0.00 :   11f2:   jne    11fd <isort+0x6d>
+    0.00 :   11f8:   jmp    121b <isort+0x8b>
+         : 48   *(index + 1) = *index;
+    0.00 :   11fd:   mov    -0x28(%rbp),%rax
+    0.90 :   1201:   mov    (%rax),%ecx // isort.c:21
+    1.68 :   1203:   mov    -0x28(%rbp),%rax
+    0.13 :   1207:   mov    %ecx,0x4(%rax)
+         : 53   index--;
+    0.91 :   120a:   mov    -0x28(%rbp),%rax // isort.c:22
+    0.52 :   120e:   add    $0xfffffffffffffffc,%rax
+    0.00 :   1212:   mov    %rax,-0x28(%rbp)
+         : 57   while (index >= left && *index > val) {
+    0.00 :   1216:   jmp    11cb <isort+0x3b>
+         : 59   }
+         :
+         : 61   *(index + 1) = val;
+    0.13 :   121b:   mov    -0x1c(%rbp),%ecx
+    0.00 :   121e:   mov    -0x28(%rbp),%rax
+    0.00 :   1222:   mov    %ecx,0x4(%rax)
+         : 65   cur++;
+    0.26 :   1225:   mov    -0x18(%rbp),%rax
+    0.00 :   1229:   add    $0x4,%rax
+    0.00 :   122d:   mov    %rax,-0x18(%rbp)
+         : 69   while (cur <= right) {
+    0.00 :   1231:   jmp    11a8 <isort+0x18>
+         : 71   }
+         : 72   }
+    0.00 :   1236:   pop    %rbp
+    0.00 :   1237:   ret

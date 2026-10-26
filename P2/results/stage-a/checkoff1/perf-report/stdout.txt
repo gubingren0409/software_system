@@ -1,0 +1,49 @@
+# ========
+# captured on    : Mon Oct 26 03:47:23 2026
+# header version : 1
+# data offset    : 512
+# data size      : 33360
+# feat offset    : 33872
+# hostname : localhost
+# os release : 6.18.54.1-microsoft-standard-WSL2
+# perf version : 6.8.12
+# arch : x86_64
+# nrcpus online : 32
+# nrcpus avail : 32
+# cpudesc : AMD Ryzen 9 7940HX with Radeon Graphics
+# cpuid : AuthenticAMD,25,97,2
+# total memory : 7722220 kB
+# cmdline : /usr/lib/linux-tools-6.8.0-146/perf record -e cycles:u -F 999 -o /tmp/p2-perf-hjmlio7q/perf.data -- /mnt/e/software_system/Project02/P2/results/stage-a/binaries/isort-debug.elf 10000 10 
+# event : name = cycles:u, , id = { 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42 }, type = 0 (PERF_TYPE_HARDWARE), size = 136, config = 0 (PERF_COUNT_HW_CPU_CYCLES), { sample_period, sample_freq } = 999, sample_type = IP|TID|TIME|PERIOD, read_format = ID|LOST, disabled = 1, inherit = 1, exclude_kernel = 1, exclude_hv = 1, mmap = 1, comm = 1, freq = 1, enable_on_exec = 1, task = 1, sample_id_all = 1, exclude_guest = 1, mmap2 = 1, comm_exec = 1, ksymbol = 1, bpf_event = 1
+# CPU_TOPOLOGY info available, use -I to display
+# NUMA_TOPOLOGY info available, use -I to display
+# pmu mappings: cpu = 4, breakpoint = 5, kprobe = 8, msr = 10, software = 1, tracepoint = 2, uprobe = 9
+# CACHE info available, use -I to display
+# time of first sample : 17.148828
+# time of last sample : 17.924630
+# sample duration :    775.802 ms
+# MEM_TOPOLOGY info available, use -I to display
+# cpu pmu capabilities: max_precise=0
+# missing features: TRACING_DATA BRANCH_STACK GROUP_DESC AUXTRACE STAT CLOCKID DIR_FORMAT COMPRESSED CLOCK_DATA HYBRID_TOPOLOGY 
+# ========
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 788  of event 'cycles:u'
+# Event count (approx.): 1362621960
+#
+# Overhead  Symbol                  IPC   [IPC Coverage]
+# ........  ......................  ....................
+#
+    99.98%  [.] isort               -      -            
+     0.01%  [k] 0xffffffffb6232e8c  -      -            
+     0.00%  [.] handle_amd          -      -            
+     0.00%  [.] _dl_start           -      -            
+     0.00%  [k] 0xffffffffb5001320  -      -            
+     0.00%  [.] _start              -      -            
+
+
+#
+# (Cannot load tips.txt file, please install perf!)
+#

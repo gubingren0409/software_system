@@ -1,0 +1,466 @@
+--------------------------------------------------------------------------------
+-- Metadata
+--------------------------------------------------------------------------------
+Invocation:       /usr/bin/cg_annotate --auto=yes --threshold=0.1 --show-percs=no /mnt/e/software_system/Project02/P2/results/stage-a/writeup1/cachegrind-release.out
+I1 cache:         32768 B, 64 B, 8-way associative
+D1 cache:         32768 B, 64 B, 8-way associative
+LL cache:         67108864 B, 64 B, direct-mapped
+Command:          /mnt/e/software_system/Project02/P2/results/stage-a/binaries/sort-release.elf -b -s 42 131072 5
+Events recorded:  Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw Bc Bcm Bi Bim
+Events shown:     Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw Bc Bcm Bi Bim
+Event sort order: Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw Bc Bcm Bi Bim
+Threshold:        0.1%
+Annotation:       on
+
+--------------------------------------------------------------------------------
+-- Summary
+--------------------------------------------------------------------------------
+Ir___________ I1mr_ ILmr_ Dr_________ D1mr_____ DLmr_ Dw_________ D1mw_____ DLmw__ Bc_________ Bcm______ Bi________ Bim 
+
+1,371,689,467 1,907 1,697 370,934,402 2,303,583 1,367 230,261,397 2,080,651 49,837 183,399,658 9,364,961 24,076,287 339  PROGRAM TOTALS
+
+--------------------------------------------------------------------------------
+-- File:function summary
+--------------------------------------------------------------------------------
+  Ir_________ I1mr ILmr Dr________ D1mr___ DLmr Dw________ D1mw___ DLmw__ Bc________ Bcm______ Bi________ Bim  file:function
+
+< 478,575,530   17   17 67,174,310 899,345    0 52,756,320 884,705 16,430 34,897,790 2,086,176          0   0  /mnt/e/software_system/Project02/P2/results/stage-a/source/homework/sort_a.c:sort_a
+
+< 330,159,194  110   87 97,264,371  18,467    3 55,184,377   3,639     63 44,753,663   834,841          0   0  ./malloc/./malloc/malloc.c:
+  141,511,455    6    6 39,301,065   2,266    1 20,951,020     380      0 18,355,160     4,480          0   0    _int_free
+  114,017,410    7    7 31,452,195   5,899    1 18,339,828      19      0 18,350,116   820,578          0   0    malloc
+   73,400,432    6    5 26,214,420   3,107    0 15,728,666     969      0  7,864,333         6          0   0    free
+
+< 276,941,042   21   17 69,933,792   2,110    0 48,807,118 326,679 16,413 36,355,268 5,880,689 15,883,854   1  ./stdlib/./stdlib/qsort.c:
+  276,940,292    9    8 69,933,632   2,060    0 48,806,928 326,643 16,413 36,355,198 5,880,677 15,883,854   1    msort_with_tmp.part.0
+
+< 119,061,639   49   47 53,222,511 695,774   19  1,802,504 163,900  8,192  6,144,159       150         20   4  /mnt/e/software_system/Project02/P2/results/stage-a/source/homework/tests.c:
+   95,303,124    0    0 47,651,562 367,962    0          0       0      0          0         0          0   0    compare_data
+   18,187,010   14   14  5,570,650 327,710    0    327,800  81,950      0  5,406,800        94          0   0    post_process
+    4,587,610    3    1         25       5    0  1,310,745  40,964  8,192    655,365        27          0   0    all_random
+
+<  83,170,550   31   18 56,744,584 681,903    1 54,322,286 700,849  8,385 55,963,932   558,598          0   0  ./string/../sysdeps/x86_64/multiarch/memmove-vec-unaligned-erms.S:
+   83,170,027   21   13 56,744,461 681,901    0 54,322,201 700,834  8,370 55,963,835   558,547          0   0    __memcpy_avx_unaligned_erms
+
+<  44,564,140    2    2 13,107,100     510    0 15,728,520      80      0  2,621,420         0          0   0  /mnt/e/software_system/Project02/P2/results/stage-a/source/homework/util.c:
+   26,214,200    1    1  5,242,840       0    0  7,864,260       0      0  2,621,420         0          0   0    mem_alloc
+   18,349,940    1    1  7,864,260     510    0  7,864,260      80      0          0         0          0   0    mem_free
+
+<  12,451,840    6    2  1,310,720       0    0    655,360       0      0          0         0          0   0  ./stdlib/./stdlib/rand_r.c:rand_r
+
+<  10,485,703   52   43  8,191,961   2,335   21         44       2      1         16        10  8,191,915  43  ???:
+   10,485,691   51   42  8,191,959   2,335   21         41       2      1         16        10  8,191,914  42    ???
+
+<   8,190,580    1    0  3,932,130     630    0    982,580       0      0          0         0          0   0  ./stdlib/../string/bits/string_fortified.h:msort_with_tmp.part.0
+
+<   7,874,652   10   10         10       2    1         19       0      0  2,626,575        12          0   0  ./malloc/./malloc/arena.c:
+    7,864,305    0    0          0       0    0          0       0      0  2,621,435         5          0   0    free
+
+--------------------------------------------------------------------------------
+-- Function:file summary
+--------------------------------------------------------------------------------
+  Ir_________ I1mr ILmr Dr________ D1mr___ DLmr Dw________ D1mw___ DLmw__ Bc________ Bcm______ Bi________ Bim  function:file
+
+> 478,575,530   17   17 67,174,310 899,345    0 52,756,320 884,705 16,430 34,897,790 2,086,176          0   0  sort_a:/mnt/e/software_system/Project02/P2/results/stage-a/source/homework/sort_a.c
+
+> 285,130,872   10    8 73,865,762   2,690    0 49,789,508 326,643 16,413 36,355,198 5,880,677 15,883,854   1  msort_with_tmp.part.0:
+  276,940,292    9    8 69,933,632   2,060    0 48,806,928 326,643 16,413 36,355,198 5,880,677 15,883,854   1    ./stdlib/./stdlib/qsort.c
+    8,190,580    1    0  3,932,130     630    0    982,580       0      0          0         0          0   0    ./stdlib/../string/bits/string_fortified.h
+
+> 141,511,455    6    6 39,301,065   2,266    1 20,951,020     380      0 18,355,160     4,480          0   0  _int_free:./malloc/./malloc/malloc.c
+
+> 114,027,685    8    8 31,452,195   5,899    1 18,339,829      19      0 18,355,253   820,584          0   0  malloc:
+  114,017,410    7    7 31,452,195   5,899    1 18,339,828      19      0 18,350,116   820,578          0   0    ./malloc/./malloc/malloc.c
+
+>  95,303,124    0    0 47,651,562 367,962    0          0       0      0          0         0          0   0  compare_data:/mnt/e/software_system/Project02/P2/results/stage-a/source/homework/tests.c
+
+>  83,170,027   21   13 56,744,461 681,901    0 54,322,201 700,834  8,370 55,963,835   558,547          0   0  __memcpy_avx_unaligned_erms:./string/../sysdeps/x86_64/multiarch/memmove-vec-unaligned-erms.S
+
+>  81,264,737    6    5 26,214,420   3,107    0 15,728,666     969      0 10,485,768        11          0   0  free:
+   73,400,432    6    5 26,214,420   3,107    0 15,728,666     969      0  7,864,333         6          0   0    ./malloc/./malloc/malloc.c
+    7,864,305    0    0          0       0    0          0       0      0  2,621,435         5          0   0    ./malloc/./malloc/arena.c
+
+>  26,214,200    1    1  5,242,840       0    0  7,864,260       0      0  2,621,420         0          0   0  mem_alloc:/mnt/e/software_system/Project02/P2/results/stage-a/source/homework/util.c
+
+>  18,349,940    1    1  7,864,260     510    0  7,864,260      80      0          0         0          0   0  mem_free:/mnt/e/software_system/Project02/P2/results/stage-a/source/homework/util.c
+
+>  18,187,010   14   14  5,570,650 327,710    0    327,800  81,950      0  5,406,800        94          0   0  post_process:/mnt/e/software_system/Project02/P2/results/stage-a/source/homework/tests.c
+
+>  12,451,840    6    2  1,310,720       0    0    655,360       0      0          0         0          0   0  rand_r:./stdlib/./stdlib/rand_r.c
+
+>  10,485,691   51   42  8,191,959   2,335   21         41       2      1         16        10  8,191,914  42  ???:???
+
+>   4,587,610    3    1         25       5    0  1,310,745  40,964  8,192    655,365        27          0   0  all_random:/mnt/e/software_system/Project02/P2/results/stage-a/source/homework/tests.c
+
+--------------------------------------------------------------------------------
+-- Annotated source file: ./malloc/./malloc/arena.c
+--------------------------------------------------------------------------------
+Unannotated because one or more of these original files are unreadable:
+- ./malloc/./malloc/arena.c
+
+--------------------------------------------------------------------------------
+-- Annotated source file: ./malloc/./malloc/malloc.c
+--------------------------------------------------------------------------------
+Unannotated because one or more of these original files are unreadable:
+- ./malloc/./malloc/malloc.c
+
+--------------------------------------------------------------------------------
+-- Annotated source file: ./stdlib/../string/bits/string_fortified.h
+--------------------------------------------------------------------------------
+Unannotated because one or more of these original files are unreadable:
+- ./stdlib/../string/bits/string_fortified.h
+
+--------------------------------------------------------------------------------
+-- Annotated source file: ./stdlib/./stdlib/qsort.c
+--------------------------------------------------------------------------------
+Unannotated because one or more of these original files are unreadable:
+- ./stdlib/./stdlib/qsort.c
+
+--------------------------------------------------------------------------------
+-- Annotated source file: ./stdlib/./stdlib/rand_r.c
+--------------------------------------------------------------------------------
+Unannotated because one or more of these original files are unreadable:
+- ./stdlib/./stdlib/rand_r.c
+
+--------------------------------------------------------------------------------
+-- Annotated source file: ./string/../sysdeps/x86_64/multiarch/memmove-vec-unaligned-erms.S
+--------------------------------------------------------------------------------
+Unannotated because one or more of these original files are unreadable:
+- ./string/../sysdeps/x86_64/multiarch/memmove-vec-unaligned-erms.S
+
+--------------------------------------------------------------------------------
+-- Annotated source file: /mnt/e/software_system/Project02/P2/results/stage-a/source/homework/sort_a.c
+--------------------------------------------------------------------------------
+Ir_________ I1mr ILmr Dr________ D1mr___ DLmr Dw________ D1mw___ DLmw__ Bc________ Bcm______ Bi Bim 
+
+ 46,366,600    1    1  9,174,970     292    0 24,903,660 412,620      0          0         0  0   0  <unknown (line 0)>
+
+-- line 25 ----------------------------------------
+          .    .    .          .       .    .          .       .      .          .         .  .   .  
+          .    .    .          .       .    .          .       .      .          .         .  .   .  // Function prototypes
+          .    .    .          .       .    .          .       .      .          .         .  .   .  static void merge_a(data_t* A, int p, int q, int r);
+          .    .    .          .       .    .          .       .      .          .         .  .   .  static void copy_a(data_t* source, data_t* dest, int n);
+          .    .    .          .       .    .          .       .      .          .         .  .   .  
+          .    .    .          .       .    .          .       .      .          .         .  .   .  // A basic merge sort routine that sorts the subarray A[p..r]
+          .    .    .          .       .    .          .       .      .          .         .  .   .  void sort_a(data_t* A, int p, int r) {
+          .    .    .          .       .    .          .       .      .          .         .  .   .    assert(A);
+ 18,349,960    3    3          0       0    0  7,864,260   3,157      0  2,621,430   682,285  0   0    if (p < r) {
+  6,553,550    0    0          0       0    0          0       0      0          0         0  0   0      int q = (p + r) / 2;
+  2,621,420    0    0          0       0    0  1,310,710   2,012      0          0         0  0   0      sort_a(A, p, q);
+  5,242,840    0    0          0       0    0  1,310,710       0      0          0         0  0   0      sort_a(A, q + 1, r);
+          .    .    .          .       .    .          .       .      .          .         .  .   .      merge_a(A, p, q, r);
+          .    .    .          .       .    .          .       .      .          .         .  .   .    }
+  2,621,430    2    2  2,621,430       0    0          0       0      0          0         0  0   0  }
+          .    .    .          .       .    .          .       .      .          .         .  .   .  
+          .    .    .          .       .    .          .       .      .          .         .  .   .  // A merge routine. Merges the sub-arrays A [p..q] and A [q + 1..r].
+          .    .    .          .       .    .          .       .      .          .         .  .   .  // Uses two arrays 'left' and 'right' in the merge operation.
+          .    .    .          .       .    .          .       .      .          .         .  .   .  static void merge_a(data_t* A, int p, int q, int r) {
+          .    .    .          .       .    .          .       .      .          .         .  .   .    assert(A);
+          .    .    .          .       .    .          .       .      .          .         .  .   .    assert(p <= q);
+          .    .    .          .       .    .          .       .      .          .         .  .   .    assert((q + 1) <= r);
+  3,932,130    0    0          0       0    0          0       0      0          0         0  0   0    int n1 = q - p + 1;
+  2,621,420    2    2          0       0    0          0       0      0          0         0  0   0    int n2 = r - q;
+          .    .    .          .       .    .          .       .      .          .         .  .   .  
+  2,621,420    0    0          0       0    0  2,621,420     191      0          0         0  0   0    data_t* left = 0, * right = 0;
+  3,932,130    0    0          0       0    0  1,310,710       0      0          0         0  0   0    mem_alloc(&left, n1 + 1);
+  3,932,130    0    0          0       0    0  1,310,710       0      0          0         0  0   0    mem_alloc(&right, n2 + 1);
+  6,553,550    0    0  1,310,710       0    0          0       0      0  2,621,420         1  0   0    if (left == NULL || right == NULL) {
+          .    .    .          .       .    .          .       .      .          .         .  .   .      mem_free(&left);
+          .    .    .          .       .    .          .       .      .          .         .  .   .      mem_free(&right);
+          .    .    .          .       .    .          .       .      .          .         .  .   .      return;
+          .    .    .          .       .    .          .       .      .          .         .  .   .    }
+          .    .    .          .       .    .          .       .      .          .         .  .   .  
+  2,621,420    0    0          0       0    0          0       0      0          0         0  0   0    copy_a(&(A[p]), left, n1);
+  1,310,710    0    0          0       0    0          0       0      0          0         0  0   0    copy_a(&(A[q + 1]), right, n2);
+  2,621,420    1    1          0       0    0  1,310,710     310      0          0         0  0   0    left[n1] = UINT_MAX;
+  3,932,130    0    0          0       0    0  1,310,710   1,585      0          0         0  0   0    right[n2] = UINT_MAX;
+          .    .    .          .       .    .          .       .      .          .         .  .   .  
+          .    .    .          .       .    .          .       .      .          .         .  .   .    int i = 0;
+          .    .    .          .       .    .          .       .      .          .         .  .   .    int j = 0;
+          .    .    .          .       .    .          .       .      .          .         .  .   .  
+ 45,219,750    1    1          0       0    0          0       0      0 13,762,540   337,950  0   0    for (int k = p; k <= r; k++) {
+247,726,060    1    1 44,564,480 392,477    0          0       0      0          0         0  0   0      if (left[i] <= right[j]) {
+          .    .    .          .       .    .          .       .      .          .         .  .   .        A[k] = left[i];
+          .    .    .          .       .    .          .       .      .          .         .  .   .        i++;
+          .    .    .          .       .    .          .       .      .          .         .  .   .      } else {
+          .    .    .          .       .    .          .       .      .          .         .  .   .        A[k] = right[j];
+          .    .    .          .       .    .          .       .      .          .         .  .   .        j++;
+          .    .    .          .       .    .          .       .      .          .         .  .   .      }
+          .    .    .          .       .    .          .       .      .          .         .  .   .    }
+          .    .    .          .       .    .          .       .      .          .         .  .   .    mem_free(&left);
+          .    .    .          .       .    .          .       .      .          .         .  .   .    mem_free(&right);
+          .    .    .          .       .    .          .       .      .          .         .  .   .  }
+          .    .    .          .       .    .          .       .      .          .         .  .   .  
+          .    .    .          .       .    .          .       .      .          .         .  .   .  static void copy_a(data_t* source, data_t* dest, int n) {
+          .    .    .          .       .    .          .       .      .          .         .  .   .    assert(dest);
+          .    .    .          .       .    .          .       .      .          .         .  .   .    assert(source);
+          .    .    .          .       .    .          .       .      .          .         .  .   .  
+ 50,790,020    3    3          0       0    0          0       0      0 15,892,400 1,065,940  0   0    for (int i = 0 ; i < n ; i++) {
+ 19,005,440    3    3  9,502,720 506,576    0  9,502,720 464,830 16,430          0         0  0   0      dest[i] = source[i];
+          .    .    .          .       .    .          .       .      .          .         .  .   .    }
+          .    .    .          .       .    .          .       .      .          .         .  .   .  }
+
+--------------------------------------------------------------------------------
+-- Annotated source file: /mnt/e/software_system/Project02/P2/results/stage-a/source/homework/tests.c
+--------------------------------------------------------------------------------
+Ir________ I1mr ILmr Dr________ D1mr___ DLmr Dw_______ D1mw__ DLmw_ Bc_______ Bcm Bi Bim 
+
+       283   14   14         92      30   10        27     20     0         0   0  0   0  <unknown (line 0)>
+
+-- line 54 ----------------------------------------
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .  /* Some global variables to make it easier to run individual tests. */
+         .    .    .          .       .    .         .      .     .         .   .  .   .  // static int test_verbose = 1 ;
+         .    .    .          .       .    .         .      .     .         .   .  .   .  static unsigned int randomSeed = 1;
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .  void set_random_seed(unsigned int seed) {
+         1    1    1          0       0    0         1      1     0         0   0  0   0    randomSeed = seed;
+         1    0    0          1       0    0         0      0     0         0   0  0   0  }
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .  static int compare_data(const void* lhs, const void* rhs) {
+15,883,854    0    0 15,883,854 184,941    0         0      0     0         0   0  0   0    data_t a = *(const data_t*) lhs;
+         .    .    .          .       .    .         .      .     .         .   .  .   .    data_t b = *(const data_t*) rhs;
+79,419,270    0    0 31,767,708 183,021    0         0      0     0         0   0  0   0    return (a > b) - (a < b);
+         .    .    .          .       .    .         .      .     .         .   .  .   .  }
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .  static inline void display_array(data_t* data, int N) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .    // display array
+         .    .    .          .       .    .         .      .     .         .   .  .   .    for (int i = 0; i < N; i++) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .      printf("%d ", data[i]);
+         .    .    .          .       .    .         .      .     .         .   .  .   .    }
+         .    .    .          .       .    .         .      .     .         .   .  .   .    printf("\n");
+         .    .    .          .       .    .         .      .     .         .   .  .   .  }
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .  static inline void copy_data(data_t* data, data_t* data_bcup, int N) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .    // copy data_bcup to data
+       160    2    2          0       0    0         0      0     0        40  12  0   0    for (int i = 0 ; i < N ; i++) {
+ 1,146,880    0    0    327,680  81,930    0   327,680 81,930     0   163,840  28  0   0      *data++ = *data_bcup++;
+         .    .    .          .       .    .         .      .     .         .   .  .   .    }
+         .    .    .          .       .    .         .      .     .         .   .  .   .  }
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .  static inline int post_process(data_t* data, data_t* data_bcup, int N,
+       120    1    1         10       0    0        60      0     0         0   0  0   0                                 int printFlag, char* name, int begin, int end) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .    int result = 1;
+        40    0    0          0       0    0        10      0     0        10   2  0   0    if (printFlag) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .      printf("%s: ", name);
+         .    .    .          .       .    .         .      .     .         .   .  .   .      printf("Data after sort\n");
+         .    .    .          .       .    .         .      .     .         .   .  .   .      display_array(data, N);
+         .    .    .          .       .    .         .      .     .         .   .  .   .    }
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .    // check if the array is unchanged from data[0..begin-1]
+        20    1    1          0       0    0         0      0     0        10   2  0   0    for (int i = 0 ; i < begin ; i++) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .      if (data[i] != data_bcup[i]) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .        printf("%s: ", name);
+         .    .    .          .       .    .         .      .     .         .   .  .   .        TEST_FAIL("Array outside sort boundary changed!\n");
+         .    .    .          .       .    .         .      .     .         .   .  .   .        result = 0;
+         .    .    .          .       .    .         .      .     .         .   .  .   .        break;
+         .    .    .          .       .    .         .      .     .         .   .  .   .      }
+         .    .    .          .       .    .         .      .     .         .   .  .   .    }
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .    // check if sub-array is sorted
+ 3,932,220    1    1          0       0    0         0      0     0 1,310,720  12  0   0    for (int i = begin + 1 ; i < end + 1 ; i++) {
+ 5,242,840    0    0  2,621,420  81,930    0         0      0     0 1,310,710   8  0   0      if (data[i - 1] > data[i]) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .        printf("%s: ", name);
+         .    .    .          .       .    .         .      .     .         .   .  .   .        TEST_FAIL("Arrays are sorted: NO!\n");
+         .    .    .          .       .    .         .      .     .         .   .  .   .        result = 0;
+         .    .    .          .       .    .         .      .     .         .   .  .   .        break;
+         .    .    .          .       .    .         .      .     .         .   .  .   .      }
+         .    .    .          .       .    .         .      .     .         .   .  .   .    }
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .    // check if the array is unchanged from data[end+1..N-1]
+        60    2    2          0       0    0         0      0     0        10   2  0   0    for (int i = end + 1 ; i < N ; i++) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .      if (data[i] != data_bcup[i]) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .        printf("%s: ", name);
+         .    .    .          .       .    .         .      .     .         .   .  .   .        TEST_FAIL("Array outside sort boundary changed!\n");
+         .    .    .          .       .    .         .      .     .         .   .  .   .        result = 0;
+         .    .    .          .       .    .         .      .     .         .   .  .   .        break;
+         .    .    .          .       .    .         .      .     .         .   .  .   .      }
+         .    .    .          .       .    .         .      .     .         .   .  .   .    }
+         .    .    .          .       .    .         .      .     .         .   .  .   .    // Compare against a trusted reference, including elements outside the range.
+         .    .    .          .       .    .         .      .     .         .   .  .   .    // This is outside the timed call to the candidate sorting function.
+        30    0    0          0       0    0        10      0     0         0   0  0   0    data_t* expected = (data_t*) malloc(N * sizeof(data_t));
+        20    0    0          0       0    0         0      0     0        10   0  0   0    if (expected == NULL) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .      TEST_FAIL("Not enough memory for reference check");
+         .    .    .          .       .    .         .      .     .         .   .  .   .    }
+        40    0    0          0       0    0        10      0     0         0   0  0   0    memcpy(expected, data_bcup, N * sizeof(data_t));
+        60    1    1          0       0    0        10      0     0         0   0  0   0    qsort(expected + begin, end - begin + 1, sizeof(data_t), compare_data);
+ 3,932,190    0    0         10       0    0         0      0     0 1,310,730  28  0   0    for (int i = 0; i < N; i++) {
+ 3,932,160    0    0  2,621,440 163,840    0         0      0     0 1,310,720   0  0   0      if (data[i] != expected[i]) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .        TEST_FAIL("Reference mismatch at index %d: got %u, expected %u",
+         .    .    .          .       .    .         .      .     .         .   .  .   .                  i, data[i], expected[i]);
+         .    .    .          .       .    .         .      .     .         .   .  .   .      }
+         .    .    .          .       .    .         .      .     .         .   .  .   .    }
+        30    1    1         10       0    0        10     10     0         0   0  0   0    free(expected);
+         .    .    .          .       .    .         .      .     .         .   .  .   .    copy_data(data, data_bcup, N);
+        80    4    4         70      10    0         0      0     0         0   0  0   0    return result;
+         .    .    .          .       .    .         .      .     .         .   .  .   .  }
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .  static
+         .    .    .          .       .    .         .      .     .         .   .  .   .  void
+         .    .    .          .       .    .         .      .     .         .   .  .   .  init_data(data_t* data, int N, int randomPrefix, int invertedSuffix) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .    // initialize data with randomPrefix random numbers
+         .    .    .          .       .    .         .      .     .         .   .  .   .    assert(randomPrefix <= N);
+         .    .    .          .       .    .         .      .     .         .   .  .   .    /* random prefix */
+ 1,966,125    1    0          0       0    0        25      0     0   655,365  27  0   0    for (int i = 0; i < randomPrefix; i++) {
+ 2,621,440    2    1          0       0    0 1,310,720 40,964 8,192         0   0  0   0      data[i] = rand_r(&randomSeed) % RANGE;
+         .    .    .          .       .    .         .      .     .         .   .  .   .    }
+         .    .    .          .       .    .         .      .     .         .   .  .   .    /* sorted or inverted suffix - duplicates are OK */
+   245,795    1    1          0       0    0         0      0     0    81,935  21  0   0    for (int i = randomPrefix; i < N; i++) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .      if (invertedSuffix) {
+   737,280    1    1          0       0    0   163,840 40,965     0         0   0  0   0        data[i] = (N - i) % RANGE;         // inverted
+         .    .    .          .       .    .         .      .     .         .   .  .   .      } else {
+         .    .    .          .       .    .         .      .     .         .   .  .   .        data[i] = i % RANGE;             // sorted array
+         .    .    .          .       .    .         .      .     .         .   .  .   .      }
+         .    .    .          .       .    .         .      .     .         .   .  .   .    }
+         .    .    .          .       .    .         .      .     .         .   .  .   .  }
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .  struct dataGenerator_t {
+         .    .    .          .       .    .         .      .     .         .   .  .   .    void (*generate)(data_t*, int);
+         .    .    .          .       .    .         .      .     .         .   .  .   .    char* name;
+         .    .    .          .       .    .         .      .     .         .   .  .   .  };
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .  void all_random(data_t* data, int N) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .    init_data(data, N, N, 0);
+         5    0    0          5       0    0         0      0     0         0   0  0   0  }
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .  void all_inverted(data_t* data, int N) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .    init_data(data, N, 0, 1 /* inverted */);
+         5    1    1          5       5    0         0      0     0         0   0  0   0  }
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .  struct dataGenerator_t dataGen[] = {
+         .    .    .          .       .    .         .      .     .         .   .  .   .    {all_random, "random"},
+         .    .    .          .       .    .         .      .     .         .   .  .   .    {all_inverted, "inverted"},
+         .    .    .          .       .    .         .      .     .         .   .  .   .  };
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .  static void test_correctness(int printFlag, int N, int R,
+        13    2    2          0       0    0        10      0     0         0   0  0   0                               struct testFunc_t* testFunc, int numFunc) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .    fasttime_t time1, time2;
+         .    .    .          .       .    .         .      .     .         .   .  .   .    data_t* data, *data_bcup;
+         .    .    .          .       .    .         .      .     .         .   .  .   .    int success = 1;
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         6    0    0          0       0    0         0      0     0         0   0  0   0    double* sum_time = (double*) alloca(numFunc * sizeof(double));
+        43    0    0         23       5    0         0      0     0         1   0  0   0    for (int i = 0; i < numFunc; i++) {
+         3    0    0          0       0    0         1      0     0         0   0  0   0      sum_time[i] = 0;
+         .    .    .          .       .    .         .      .     .         .   .  .   .    }
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .    // allocate memory
+         5    1    1          1       0    0         1      0     0         0   0  0   0    data = (data_t*) malloc(N * sizeof(data_t));
+         3    0    0          0       0    0         1      0     0         0   0  0   0    data_bcup = (data_t*) malloc(N * sizeof(data_t));
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         4    0    0          0       0    0         0      0     0         1   1  0   0    if (data == NULL || data_bcup == NULL) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .      printf("Error: not enough memory\n");
+         .    .    .          .       .    .         .      .     .         .   .  .   .      free(data);
+         .    .    .          .       .    .         .      .     .         .   .  .   .      free(data_bcup);
+         .    .    .          .       .    .         .      .     .         .   .  .   .      exit(-1);
+         .    .    .          .       .    .         .      .     .         .   .  .   .    }
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .    // Initialize elapsed time counters to 0.
+         3    1    1          0       0    0         0      0     0         1   0  0   0    for (int k = 0; k < numFunc; k++) {
+         4    0    0          0       0    0         1      0     0         0   0  0   0      sum_time[k] = 0;
+         .    .    .          .       .    .         .      .     .         .   .  .   .    }
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .    // repeat for each array kind
+         2    0    0          0       0    0         1      0     0         0   0  0   0    for (int gen = 0;
+         .    .    .          .       .    .         .      .     .         .   .  .   .         gen < sizeof(dataGen) / sizeof(dataGen[0]);
+         .    .    .          .       .    .         .      .     .         .   .  .   .         gen++) {
+         1    0    0          0       0    0         0      0     0         1   0  0   0      for (int k = 0; k < numFunc; k++) {
+         8    0    0          1       0    0         3      0     0         0   0  0   0        sum_time[k] = 0;
+         .    .    .          .       .    .         .      .     .         .   .  .   .      }
+         8    0    0          1       0    0         2      0     0         0   0  0   0      printf("Generating %s array of %d elements\n",
+         2    1    1          2       1    1         0      0     0         0   0  0   0             dataGen[gen].name, N);
+         .    .    .          .       .    .         .      .     .         .   .  .   .      // repeat for each trial
+        70    0    0         20       5    0         3      0     0        11   2  0   0      for (int j = 0; j < R; j++) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .        // generate new data for each trial
+        45    2    2         25      18    7        10      8     0         0   0 10   2        dataGen[gen].generate(data, N);
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+        10    0    0          0       0    0         0      0     0        10   4  0   0        if (printFlag) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .          printf("Data before sort\n");
+         .    .    .          .       .    .         .      .     .         .   .  .   .          display_array(data, N);
+         .    .    .          .       .    .         .      .     .         .   .  .   .        }
+        10    0    0          0       0    0         0      0     0        10   0  0   0        for (int i = 0; i < N; i++) {
+        35    1    1         10       0    0        10      0     0         0   0  0   0          data_bcup[i] = data[i];
+         .    .    .          .       .    .         .      .     .         .   .  .   .        }
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+        60    1    1          0       0    0         0      0     0        20   0  0   0        for (int k = 0; k < numFunc; k++) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .          time1 = gettime();
+        35    0    0         20      10    0        10      0     0         0   0 10   2          testFunc[k].func(data, 0, N - 1);
+         .    .    .          .       .    .         .      .     .         .   .  .   .          time2 = gettime();
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .          double elapsed = tdiff(time1, time2);
+        20    0    0          0       0    0        10      0     0         0   0  0   0          sum_time[k] += elapsed;
+        40    0    0         10       0    0        10      0     0         0   0  0   0          printf("TIMING input=%s trial=%d function=%s seconds=%.9f\n",
+        20    1    1         20      20    0         0      0     0         0   0  0   0                 dataGen[gen].name, j + 1, testFunc[k].name, elapsed);
+       120    2    2         55       5    0        20      0     0         0   0  0   0          success &= post_process(data, data_bcup, N, printFlag, testFunc[k].name, 0, N - 1);
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .          if (!success) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .            break;
+         .    .    .          .       .    .         .      .     .         .   .  .   .          }
+         .    .    .          .       .    .         .      .     .         .   .  .   .        }
+         .    .    .          .       .    .         .      .     .         .   .  .   .      }
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .      if (success) {
+         4    0    0          0       0    0         2      2     0         0   0  0   0        printf("Arrays are sorted: yes\n");
+        14    1    1          4       1    1         2      0     0         0   0  0   0        TEST_PASS();
+         .    .    .          .       .    .         .      .     .         .   .  .   .        // report average execution time over R runs.
+        18    1    1          1       0    0         0      0     0         4   1  0   0        for (int k = 0; k < numFunc; k++) {
+         4    0    0          3       0    0         0      0     0         0   0  0   0          double avgRuntime = R > 0 ? sum_time[k] / R : 0;
+         9    1    1          3       2    0         2      0     0         0   0  0   0          printf("%s: Elapsed execution time: %.9f sec\n", testFunc[k].name, avgRuntime);
+         .    .    .          .       .    .         .      .     .         .   .  .   .        }
+         .    .    .          .       .    .         .      .     .         .   .  .   .      }
+         .    .    .          .       .    .         .      .     .         .   .  .   .    }
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         1    0    0          0       0    0         1      0     0         0   0  0   0    free(data);
+         2    0    0          0       0    0         1      0     0         0   0  0   0    free(data_bcup);
+         .    .    .          .       .    .         .      .     .         .   .  .   .    return;
+         8    0    0          7       0    0         0      0     0         0   0  0   0  }
+         .    .    .          .       .    .         .      .     .         .   .  .   .  
+         .    .    .          .       .    .         .      .     .         .   .  .   .  static void test_zero_element(int printFlag, int N, int R,
+         .    .    .          .       .    .         .      .     .         .   .  .   .                                struct testFunc_t* testFunc, int numFunc) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .    int success = 1;
+         .    .    .          .       .    .         .      .     .         .   .  .   .    for (int i = 0; i < numFunc; i++) {
+         .    .    .          .       .    .         .      .     .         .   .  .   .      data_t data[] = {0, 0, 0};
+         .    .    .          .       .    .         .      .     .         .   .  .   .      testFunc[i].func(&data[1], 0, -1);
+         .    .    .          .       .    .         .      .     .         .   .  .   .      if (data[0] != 0 || data[1] != 0 || data[2] != 0) {
+-- line 269 ----------------------------------------
+
+--------------------------------------------------------------------------------
+-- Annotated source file: /mnt/e/software_system/Project02/P2/results/stage-a/source/homework/util.c
+--------------------------------------------------------------------------------
+Ir________ I1mr ILmr Dr_______ D1mr DLmr Dw_______ D1mw DLmw Bc_______ Bcm Bi Bim 
+
+-- line 19 ----------------------------------------
+         .    .    .         .    .    .         .    .    .         .   .  .   .   * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+         .    .    .         .    .    .         .    .    .         .   .  .   .   * IN THE SOFTWARE.
+         .    .    .         .    .    .         .    .    .         .   .  .   .   **/
+         .    .    .         .    .    .         .    .    .         .   .  .   .  
+         .    .    .         .    .    .         .    .    .         .   .  .   .  
+         .    .    .         .    .    .         .    .    .         .   .  .   .  #include "./util.h"
+         .    .    .         .    .    .         .    .    .         .   .  .   .  
+         .    .    .         .    .    .         .    .    .         .   .  .   .  
+ 5,242,840    1    1         0    0    0 2,621,420    0    0         0   0  0   0  void mem_alloc(data_t** space, int size) {
+10,485,680    0    0         0    0    0 5,242,840    0    0         0   0  0   0    *space = (data_t*) malloc(sizeof(data_t) * size);
+ 5,242,840    0    0         0    0    0         0    0    0 2,621,420   0  0   0    if (*space == NULL) {
+         .    .    .         .    .    .         .    .    .         .   .  .   .      printf("out of memory...\n");
+         .    .    .         .    .    .         .    .    .         .   .  .   .    }
+ 5,242,840    0    0 5,242,840    0    0         0    0    0         0   0  0   0  }
+         .    .    .         .    .    .         .    .    .         .   .  .   .  
+ 5,242,840    1    1         0    0    0 2,621,420    0    0         0   0  0   0  void mem_free(data_t** space) {
+ 5,242,840    0    0 2,621,420  510    0 2,621,420   80    0         0   0  0   0    free(*space);
+ 2,621,420    0    0         0    0    0 2,621,420    0    0         0   0  0   0    *space = 0;
+ 5,242,840    0    0 5,242,840    0    0         0    0    0         0   0  0   0  }
+
+--------------------------------------------------------------------------------
+-- Annotation summary
+--------------------------------------------------------------------------------
+Ir_________ I1mr_ ILmr_ Dr_________ D1mr_____ DLmr_ Dw_________ D1mw_____ DLmw__ Bc_________ Bcm______ Bi________ Bim 
+
+595,834,426    53    51 124,328,859 1,595,307     9  45,383,657   636,045 24,622  43,663,369 2,086,326         20   4    annotated: files known & above threshold & readable, line numbers known
+ 46,366,883    15    15   9,175,062       322    10  24,903,687   412,640      0           0         0          0   0    annotated: files known & above threshold & readable, line numbers unknown
+          0     0     0           0         0     0           0         0      0           0         0          0   0  unannotated: files known & above threshold & two or more non-identical
+718,787,858   179   134 229,185,607   703,112     5 159,951,740 1,031,167 24,861 139,699,438 7,274,140 15,883,854   1  unannotated: files known & above threshold & unreadable 
+    214,597 1,608 1,454      52,913     2,507 1,322      22,269       797    353      36,835     4,485        498 291  unannotated: files known & below threshold
+ 10,485,703    52    43   8,191,961     2,335    21          44         2      1          16        10  8,191,915  43  unannotated: files unknown
+
