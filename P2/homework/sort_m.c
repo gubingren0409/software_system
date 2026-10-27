@@ -22,8 +22,44 @@
 
 
 #include "./util.h"
+#include "./sort_config.h"
+
+static inline void insertion_m(data_t* A, int p, int r) {
+  for (int i = p + 1; i <= r; i++) {
+    data_t value = A[i];
+    int j = i;
+    while (j > p && A[j - 1] > value) { A[j] = A[j - 1]; j--; }
+    A[j] = value;
+  }
+}
+
+static void merge_m(data_t* A, int p, int q, int r) {
+  int n1 = q - p + 1;
+  data_t* left = 0;
+  mem_alloc(&left, n1);
+  if (left == NULL) exit(EXIT_FAILURE);
+  for (int i = 0; i < n1; i++) left[i] = A[p + i];
+  int i = 0, j = q + 1, k = p;
+  // While i<n1, j-k=n1-i>0: writing A[k] cannot overwrite unread A[j].
+  while (i < n1 && j <= r) {
+    if (left[i] <= A[j]) A[k++] = left[i++];
+    else A[k++] = A[j++];
+  }
+  while (i < n1) A[k++] = left[i++];
+  // If the left side ended first, k==j and the remaining right side stays put.
+  mem_free(&left);
+}
 
 void sort_m(data_t* A, int p, int r) {
-  printf("Unimplemented!\n");
+  assert(A);
+  if (p >= r) return;
+  if (r - p + 1 <= SORT_CUTOFF) {
+    insertion_m(A, p, r);
+    return;
+  }
+  int q = (p + r) / 2;
+  sort_m(A, p, q);
+  sort_m(A, q + 1, r);
+  merge_m(A, p, q, r);
 }
 

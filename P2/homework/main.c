@@ -24,6 +24,10 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <errno.h>
+#include <getopt.h>
+#include <limits.h>
+#include <string.h>
 
 #include "./fasttime.h"
 #include "./tests.h"
@@ -55,67 +59,73 @@ extern void sort_c(data_t*, int, int);
 extern void sort_m(data_t*, int, int);
 extern void sort_f(data_t*, int, int);
 
+static unsigned long parse_number(const char* text, unsigned long maximum,
+                                  const char* label) {
+  char* end;
+  errno = 0;
+  unsigned long value = strtoul(text, &end, 10);
+  if (text[0] < '0' || text[0] > '9' || *end != '\0' ||
+      errno == ERANGE || value > maximum) {
+    fprintf(stderr, "Invalid %s: %s\n", label, text);
+    exit(EXIT_FAILURE);
+  }
+  return value;
+}
+
 int main(int argc, char** argv) {
-  int N, R, optchar, printFlag = 0, benchmarkOnly = 0;
+  int optchar, printFlag = 0, benchmarkOnly = 0;
   unsigned int seed = 1;
-
-  // an array of struct testFunc_t indicating the sort functions to test
-  // the struct contains two fields --- the function pointer to the sort function
-  // and its name (for printing)
-  struct testFunc_t testFunc[] = {
-    {&sort_a, "sort_a"},
-    //{&sort_i, "sort_i\t\t"},
-    //{&sort_p, "sort_p\t\t"},
-    //{&sort_c, "sort_c\t\t"},
-    //{&sort_m, "sort_m\t\t"},
-    //{&sort_f, "sort_f\t\t"},
+  const char* variant = "a";
+  struct testFunc_t available[] = {
+    {sort_a, "sort_a", 0}, {sort_i, "sort_i", 0}, {sort_p, "sort_p", 0},
+    {sort_c, "sort_c", 0}, {sort_m, "sort_m", 0}, {sort_f, "sort_f", 0},
   };
-  const int kNumOfFunc = sizeof(testFunc) / sizeof(testFunc[0]);
-
-  // process command line options
-  while ((optchar = getopt(argc, argv, "s:pb")) != -1) {
+  struct testFunc_t selected[6];
+  int count = 0;
+  const struct option options[] = {
+    {"variant", required_argument, NULL, 'v'}, {NULL, 0, NULL, 0}
+  };
+  while ((optchar = getopt_long(argc, argv, "s:pbv:", options, NULL)) != -1) {
     switch (optchar) {
-    case 's':
-      seed = (unsigned int) atoi(optarg);
-      printf("Using user-provided seed: %u\n", seed);
-      break;
-    case 'b':
-      benchmarkOnly = 1;
-      break;
-    case 'p':
-      printFlag = 1;
-      break;
-    default:
-      printf("Ignoring unrecognized option: %c\n", optchar);
-      continue;
+    case 's': seed = (unsigned int) parse_number(optarg, UINT_MAX, "seed"); break;
+    case 'b': benchmarkOnly = 1; break;
+    case 'p': printFlag = 1; break;
+    case 'v': variant = optarg; break;
+    default: return EXIT_FAILURE;
     }
   }
-
-  // shift remaining arguments over
-  int remaining_args = argc - optind;
-  for (int i = 1; i <= remaining_args; ++i) {
-    argv[i] = argv[i + optind - 1];
+  if (argc - optind != 2) {
+    fprintf(stderr, "Usage: %s [-p] [-b] [-s seed] [--variant a|i|p|c|m|f|all] N R\n", argv[0]);
+    return EXIT_FAILURE;
   }
-
-  // check to make sure number of arguments is correct
-  if (remaining_args != 2) {
-    printf("Usage: %s [-p] [-b] [-s seed] <num_elements> <num_repeats>\n", argv[0]);
-    printf("-p : print before/after arrays\n");
-    printf("-b : run only the random/inverted timing test\n");
-    exit(-1);
-  }
-
-  N = atoi(argv[1]);
-  R = atoi(argv[2]);
+  // Keep p+r representable in the unchanged baseline midpoint calculation.
+  int N = (int) parse_number(argv[optind], INT_MAX / 2, "N");
+  int R = (int) parse_number(argv[optind + 1], INT_MAX, "R");
   if (N < 1 || R < 1) {
-    fprintf(stderr, "num_elements and num_repeats must be positive\n");
+    fprintf(stderr, "N and R must be positive\n");
+    return EXIT_FAILURE;
+  }
+  for (int i = 0; i < 6; i++) {
+    if (strcmp(variant, "all") == 0 ||
+        (strlen(variant) == 1 && variant[0] == available[i].name[5])) {
+      selected[count++] = available[i];
+    }
+  }
+  if (count == 0) {
+    fprintf(stderr, "Unknown variant: %s\n", variant);
     return EXIT_FAILURE;
   }
   set_random_seed(seed);
-  printf("Initial rand_r seed: %u; sort versions: %d; trials per input: %d\n",
-         seed, kNumOfFunc, R);
-
-  run_test_suite(0, printFlag, N, R, benchmarkOnly, testFunc, kNumOfFunc);
-
+  printf("Initial rand_r seed: %u; sort versions: %d; trials per input: %d\n", seed, count, R);
+  for (int i = 0; i < count; i++) {
+    printf("RUN variant=%s N=%d R=%d seed=%u group=%s timed_calls=%llu\n",
+           selected[i].name, N, R, seed, benchmarkOnly ? "timing" : "full",
+           2ULL * (unsigned int) R);
+  }
+  run_test_suite(0, printFlag, N, R, benchmarkOnly, selected, count);
+  for (int i = 0; i < count; i++) {
+    printf("TOTAL variant=%s N=%d R=%d seed=%u actual_sort_calls=%llu\n",
+           selected[i].name, N, R, seed, selected[i].calls);
+  }
   return 0;
 }

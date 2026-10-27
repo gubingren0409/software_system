@@ -8,6 +8,7 @@
 struct testFunc_t {
   void (*func)(data_t*, int, int);
   char* name;
+  unsigned long long calls;
 };
 
 #define RANGE_BITS 31

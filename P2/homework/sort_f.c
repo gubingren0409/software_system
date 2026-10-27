@@ -22,8 +22,52 @@
 
 
 #include "./util.h"
+#include "./sort_config.h"
+
+static inline void insertion_f(data_t* A, int p, int r) {
+  for (int i = p + 1; i <= r; i++) {
+    data_t value = A[i];
+    int j = i;
+    while (j > p && A[j - 1] > value) { A[j] = A[j - 1]; j--; }
+    A[j] = value;
+  }
+}
+
+static void merge_f(data_t* A, int p, int q, int r, data_t* left) {
+  int n1 = q - p + 1;
+  for (int i = 0; i < n1; i++) left[i] = A[p + i];
+  int i = 0, j = q + 1, k = p;
+  while (i < n1 && j <= r) {
+    if (left[i] <= A[j]) A[k++] = left[i++];
+    else A[k++] = A[j++];
+  }
+  while (i < n1) A[k++] = left[i++];
+}
+
+static void recursive_f(data_t* A, int p, int r, data_t* scratch) {
+  if (p >= r) return;
+  if (r - p + 1 <= SORT_CUTOFF) {
+    insertion_f(A, p, r);
+    return;
+  }
+  int q = (p + r) / 2;
+  recursive_f(A, p, q, scratch);
+  recursive_f(A, q + 1, r, scratch);
+  merge_f(A, p, q, r, scratch);
+}
 
 void sort_f(data_t* A, int p, int r) {
-  printf("Unimplemented!\n");
+  assert(A);
+  if (p >= r) return;
+  if (r - p + 1 <= SORT_CUTOFF) {
+    insertion_f(A, p, r);
+    return;
+  }
+  int n = r - p + 1;
+  data_t* scratch = 0;
+  mem_alloc(&scratch, n / 2 + n % 2);
+  if (scratch == NULL) exit(EXIT_FAILURE);
+  recursive_f(A, p, r, scratch);
+  mem_free(&scratch);
 }
 

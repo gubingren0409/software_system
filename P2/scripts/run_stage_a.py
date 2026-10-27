@@ -22,8 +22,10 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("phase", choices=["build", "preflight", "checkoff1", "writeup1", "checkoff2", "all"])
 parser.add_argument("--out", type=Path, default=ROOT / "results" / "stage-a")
 parser.add_argument("--perf", default=os.environ.get("P2_PERF", "perf"), help="perf executable with libelf/DWARF support")
-parser.add_argument("--resume", action="store_true", help="reuse matching successful command captures within a phase")
+parser.add_argument("--resume", action="store_true", help="legacy option; disabled because its provenance check was insufficient")
 args = parser.parse_args()
+if args.resume:
+    parser.error("Legacy resume is disabled: use a fresh --out directory and the preserved Stage A source snapshot.")
 OUT = args.out.resolve()
 SRC, BIN = OUT / "source", OUT / "binaries"
 CPU = min(os.sched_getaffinity(0))
@@ -34,14 +36,6 @@ CONFIGS = [(4096, 1000000), (262144, 1000000), (10000000, 1000000), (33554432, 1
 
 def run(name, argv, cwd=None, expected=0):
     directory = OUT / name
-    attempt = 0
-    while args.resume and directory.exists():
-        meta = json.loads((directory / "metadata.json").read_text())
-        if meta["argv"] == [str(arg) for arg in argv] and meta["cwd"] == str((cwd or ROOT).resolve()) and meta["returncode"] == expected:
-            print(f"REUSE {directory.relative_to(OUT)}: matching successful capture", flush=True)
-            return meta["returncode"]
-        attempt += 1
-        directory = OUT / f"{name}-retry{attempt}"
     return capture(directory, argv, cwd or ROOT, expected)
 
 
@@ -89,7 +83,7 @@ def build():
     BIN.mkdir(exist_ok=False)
     for section in ("homework", "recitation"):
         (SRC / section).mkdir()
-        for path in (ROOT / section).iterdir():
+        for path in (ROOT / "results/stage-a/source" / section).iterdir():
             if path.suffix in (".c", ".h") or path.name == "Makefile":
                 shutil.copy2(path, SRC / section / path.name)
     with zipfile.ZipFile(ROOT / "original" / "MIT6_172F18_hw2.zip") as archive:

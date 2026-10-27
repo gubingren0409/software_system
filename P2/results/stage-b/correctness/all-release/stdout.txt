@@ -1,0 +1,59 @@
+Initial rand_r seed: 42; sort versions: 6; trials per input: 1
+RUN variant=sort_a N=33 R=1 seed=42 group=full timed_calls=2
+RUN variant=sort_i N=33 R=1 seed=42 group=full timed_calls=2
+RUN variant=sort_p N=33 R=1 seed=42 group=full timed_calls=2
+RUN variant=sort_c N=33 R=1 seed=42 group=full timed_calls=2
+RUN variant=sort_m N=33 R=1 seed=42 group=full timed_calls=2
+RUN variant=sort_f N=33 R=1 seed=42 group=full timed_calls=2
+Generating random array of 33 elements
+TIMING input=random trial=1 function=sort_a seconds=0.000004629 N=33 R=1 seed=42 fingerprint=8c40c305dbb65147
+TIMING input=random trial=1 function=sort_i seconds=0.000003013 N=33 R=1 seed=42 fingerprint=8c40c305dbb65147
+TIMING input=random trial=1 function=sort_p seconds=0.000002891 N=33 R=1 seed=42 fingerprint=8c40c305dbb65147
+TIMING input=random trial=1 function=sort_c seconds=0.000001395 N=33 R=1 seed=42 fingerprint=8c40c305dbb65147
+TIMING input=random trial=1 function=sort_m seconds=0.000001385 N=33 R=1 seed=42 fingerprint=8c40c305dbb65147
+TIMING input=random trial=1 function=sort_f seconds=0.000001325 N=33 R=1 seed=42 fingerprint=8c40c305dbb65147
+Arrays are sorted: yes
+sort_a: Elapsed execution time: 0.000004629 sec
+SUMMARY variant=sort_a input=random N=33 R=1 seed=42 calls=1 mean_seconds=0.000004629
+sort_i: Elapsed execution time: 0.000003013 sec
+SUMMARY variant=sort_i input=random N=33 R=1 seed=42 calls=1 mean_seconds=0.000003013
+sort_p: Elapsed execution time: 0.000002891 sec
+SUMMARY variant=sort_p input=random N=33 R=1 seed=42 calls=1 mean_seconds=0.000002891
+sort_c: Elapsed execution time: 0.000001395 sec
+SUMMARY variant=sort_c input=random N=33 R=1 seed=42 calls=1 mean_seconds=0.000001395
+sort_m: Elapsed execution time: 0.000001385 sec
+SUMMARY variant=sort_m input=random N=33 R=1 seed=42 calls=1 mean_seconds=0.000001385
+sort_f: Elapsed execution time: 0.000001325 sec
+SUMMARY variant=sort_f input=random N=33 R=1 seed=42 calls=1 mean_seconds=0.000001325
+Generating inverted array of 33 elements
+TIMING input=inverted trial=1 function=sort_a seconds=0.000003629 N=33 R=1 seed=42 fingerprint=ace73da54fd41a6c
+TIMING input=inverted trial=1 function=sort_i seconds=0.000002678 N=33 R=1 seed=42 fingerprint=ace73da54fd41a6c
+TIMING input=inverted trial=1 function=sort_p seconds=0.000002679 N=33 R=1 seed=42 fingerprint=ace73da54fd41a6c
+TIMING input=inverted trial=1 function=sort_c seconds=0.000001203 N=33 R=1 seed=42 fingerprint=ace73da54fd41a6c
+TIMING input=inverted trial=1 function=sort_m seconds=0.000001294 N=33 R=1 seed=42 fingerprint=ace73da54fd41a6c
+TIMING input=inverted trial=1 function=sort_f seconds=0.000001223 N=33 R=1 seed=42 fingerprint=ace73da54fd41a6c
+Arrays are sorted: yes
+sort_a: Elapsed execution time: 0.000003629 sec
+SUMMARY variant=sort_a input=inverted N=33 R=1 seed=42 calls=1 mean_seconds=0.000003629
+sort_i: Elapsed execution time: 0.000002678 sec
+SUMMARY variant=sort_i input=inverted N=33 R=1 seed=42 calls=1 mean_seconds=0.000002678
+sort_p: Elapsed execution time: 0.000002679 sec
+SUMMARY variant=sort_p input=inverted N=33 R=1 seed=42 calls=1 mean_seconds=0.000002679
+sort_c: Elapsed execution time: 0.000001203 sec
+SUMMARY variant=sort_c input=inverted N=33 R=1 seed=42 calls=1 mean_seconds=0.000001203
+sort_m: Elapsed execution time: 0.000001294 sec
+SUMMARY variant=sort_m input=inverted N=33 R=1 seed=42 calls=1 mean_seconds=0.000001294
+sort_f: Elapsed execution time: 0.000001223 sec
+SUMMARY variant=sort_f input=inverted N=33 R=1 seed=42 calls=1 mean_seconds=0.000001223
+PATTERNS variant=sort_a cases=230 domain=0..2147483647
+PATTERNS variant=sort_i cases=230 domain=0..2147483647
+PATTERNS variant=sort_p cases=230 domain=0..2147483647
+PATTERNS variant=sort_c cases=230 domain=0..2147483647
+PATTERNS variant=sort_m cases=230 domain=0..2147483647
+PATTERNS variant=sort_f cases=230 domain=0..2147483647
+TOTAL variant=sort_a N=33 R=1 seed=42 actual_sort_calls=234
+TOTAL variant=sort_i N=33 R=1 seed=42 actual_sort_calls=234
+TOTAL variant=sort_p N=33 R=1 seed=42 actual_sort_calls=234
+TOTAL variant=sort_c N=33 R=1 seed=42 actual_sort_calls=234
+TOTAL variant=sort_m N=33 R=1 seed=42 actual_sort_calls=234
+TOTAL variant=sort_f N=33 R=1 seed=42 actual_sort_calls=234

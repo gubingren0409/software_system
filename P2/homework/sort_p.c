@@ -23,7 +23,59 @@
 
 #include "./util.h"
 
+static inline void alloc_p(data_t** space, int size) {
+  *space = malloc(sizeof(data_t) * size);
+  if (*space == NULL) printf("out of memory...\n");
+}
+
+static inline void free_p(data_t** space) {
+  free(*space);
+  *space = 0;
+}
+
+static inline void copy_p(data_t* source, data_t* dest, int n) {
+  assert(dest);
+  assert(source);
+  data_t* end = source + n;
+  while (source < end) *dest++ = *source++;
+}
+
+static inline void merge_p(data_t* A, int p, int q, int r) {
+  assert(A);
+  assert(p <= q && q + 1 <= r);
+  int n1 = q - p + 1, n2 = r - q;
+  data_t *left = 0, *right = 0;
+  alloc_p(&left, n1 + 1);
+  alloc_p(&right, n2 + 1);
+  if (left == NULL || right == NULL) {
+    free_p(&left);
+    free_p(&right);
+    return;
+  }
+  copy_p(A + p, left, n1);
+  copy_p(A + q + 1, right, n2);
+  left[n1] = UINT_MAX;
+  right[n2] = UINT_MAX;
+  data_t *l = left, *right_ptr = right, *out = A + p, *end = A + r + 1;
+  while (out < end) {
+    if (*l <= *right_ptr) *out++ = *l++;
+    else *out++ = *right_ptr++;
+  }
+  free_p(&left);
+  free_p(&right);
+}
+
+static inline void recursive_p(data_t* A, int p, int r) {
+  assert(A);
+  if (p < r) {
+    int q = (p + r) / 2;
+    recursive_p(A, p, q);
+    recursive_p(A, q + 1, r);
+    merge_p(A, p, q, r);
+  }
+}
+
 void sort_p(data_t* A, int p, int r) {
-  printf("Unimplemented!\n");
+  recursive_p(A, p, r);
 }
 

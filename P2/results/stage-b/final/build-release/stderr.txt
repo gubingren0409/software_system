@@ -1,0 +1,198 @@
+main.c:90:37: remark: 'parse_number' inlined into 'main' with (cost=195, threshold=250) at callsite main:15:37; [-Rpass=inline]
+   90 |     case 's': seed = (unsigned int) parse_number(optarg, UINT_MAX, "seed"); break;
+      |                                     ^
+main.c:102:17: remark: 'parse_number' inlined into 'main' with (cost=195, threshold=250) at callsite main:27:17; [-Rpass=inline]
+  102 |   int N = (int) parse_number(argv[optind], INT_MAX / 2, "N");
+      |                 ^
+main.c:103:17: remark: 'parse_number' inlined into 'main' with (cost=-14805, threshold=250) at callsite main:28:17; [-Rpass=inline]
+  103 |   int R = (int) parse_number(argv[optind + 1], INT_MAX, "R");
+      |                 ^
+main.c:125:3: remark: 'run_test_suite' inlined into 'main' with (cost=-14790, threshold=250) at callsite main:50:3; [-Rpass=inline]
+  125 |   run_test_suite(0, printFlag, N, R, benchmarkOnly, selected, count);
+      |   ^
+tests.c:172:3: remark: 'init_data' inlined into 'all_random' with (cost=65, threshold=250) at callsite all_random:1:3; [-Rpass=inline]
+  172 |   init_data(data, N, N, 0);
+      |   ^
+tests.c:176:3: remark: 'init_data' inlined into 'all_inverted' with (cost=-15005, threshold=250) at callsite all_inverted:1:3; [-Rpass=inline]
+  176 |   init_data(data, N, 0, 1 /* inverted */);
+      |   ^
+tests.c:95:5: remark: 'display_array' inlined into 'post_process' with (cost=65, threshold=325) at callsite post_process:6:5; [-Rpass=inline]
+   95 |     display_array(data, N);
+      |     ^
+tests.c:142:3: remark: 'copy_data' inlined into 'post_process' with (cost=-15010, threshold=325) at callsite post_process:53:3; [-Rpass=inline]
+  142 |   copy_data(data, data_bcup, N);
+      |   ^
+tests.c:337:5: remark: 'display_array' inlined into 'test_subarray' with (cost=65, threshold=325) at callsite test_subarray:23:5; [-Rpass=inline]
+  337 |     display_array(data, N);
+      |     ^
+tests.c:351:16: remark: 'post_process' not inlined into 'test_subarray' because too costly to inline (cost=1615, threshold=525) [-Rpass-missed=inline]
+  351 |     success &= post_process(data, data_bcup, N, printFlag, testFunc[i].name, begin, end);
+      |                ^
+tests.c:397:11: remark: 'post_process' not inlined into 'test_patterns' because too costly to inline (cost=1425, threshold=525) [-Rpass-missed=inline]
+  397 |           post_process(data, original, total, 0, testFunc[k].name,
+      |           ^
+tests.c:227:9: remark: 'display_array' inlined into 'test_correctness' with (cost=-14935, threshold=525) at callsite test_correctness:43:9; [-Rpass=inline]
+  227 |         display_array(data, N);
+      |         ^
+tests.c:236:17: remark: 'gettime' inlined into 'test_correctness' with (cost=35, threshold=787) at callsite test_correctness:52:17; [-Rpass=inline]
+  236 |         time1 = gettime();
+      |                 ^
+tests.c:238:17: remark: 'gettime' inlined into 'test_correctness' with (cost=-14965, threshold=787) at callsite test_correctness:54:17; [-Rpass=inline]
+  238 |         time2 = gettime();
+      |                 ^
+tests.c:241:26: remark: 'tdiff' inlined into 'test_correctness' with (cost=-15025, threshold=787) at callsite test_correctness:57:26; [-Rpass=inline]
+  241 |         double elapsed = tdiff(time1, time2);
+      |                          ^
+tests.c:246:20: remark: 'post_process' not inlined into 'test_correctness' because too costly to inline (cost=1330, threshold=525) [-Rpass-missed=inline]
+  246 |         success &= post_process(data, data_bcup, N, printFlag, testFunc[k].name, 0, N - 1);
+      |                    ^
+sort_a.c:59:3: remark: 'copy_a' inlined into 'merge_a' with (cost=-10, threshold=250) at callsite merge_a:16:3; [-Rpass=inline]
+   59 |   copy_a(&(A[p]), left, n1);
+      |   ^
+sort_a.c:60:3: remark: 'copy_a' inlined into 'merge_a' with (cost=-15010, threshold=250) at callsite merge_a:17:3; [-Rpass=inline]
+   60 |   copy_a(&(A[q + 1]), right, n2);
+      |   ^
+sort_a.c:35:5: remark: sort_a has uninlinable pattern (recursive) and cost is not fully computed [-Rpass-missed=inline-cost]
+   35 |     sort_a(A, p, q);
+      |     ^
+sort_a.c:35:5: remark: 'sort_a' not inlined into 'sort_a' because it should never be inlined (cost=never): recursive [-Rpass-missed=inline]
+sort_a.c:36:5: remark: sort_a has uninlinable pattern (recursive) and cost is not fully computed [-Rpass-missed=inline-cost]
+   36 |     sort_a(A, q + 1, r);
+      |     ^
+sort_a.c:36:5: remark: 'sort_a' not inlined into 'sort_a' because it should never be inlined (cost=never): recursive [-Rpass-missed=inline]
+sort_a.c:37:5: remark: 'merge_a' inlined into 'sort_a' with (cost=-14635, threshold=250) at callsite sort_a:6:5; [-Rpass=inline]
+   37 |     merge_a(A, p, q, r);
+      |     ^
+sort_c.c:68:3: remark: 'copy_c' inlined into 'merge_c' with (cost=-10, threshold=250) at callsite merge_c:12:3; [-Rpass=inline]
+   68 |   copy_c(A + p, left, n1);
+      |   ^
+sort_c.c:69:3: remark: 'copy_c' inlined into 'merge_c' with (cost=-15010, threshold=250) at callsite merge_c:13:3; [-Rpass=inline]
+   69 |   copy_c(A + q + 1, right, n2);
+      |   ^
+sort_c.c:47:5: remark: 'insertion_c' inlined into 'sort_c' with (cost=-14945, threshold=325) at callsite sort_c:4:5; [-Rpass=inline]
+   47 |     insertion_c(A, p, r);
+      |     ^
+sort_c.c:51:3: remark: sort_c has uninlinable pattern (recursive) and cost is not fully computed [-Rpass-missed=inline-cost]
+   51 |   sort_c(A, p, q);
+      |   ^
+sort_c.c:51:3: remark: 'sort_c' not inlined into 'sort_c' because it should never be inlined (cost=never): recursive [-Rpass-missed=inline]
+sort_c.c:52:3: remark: sort_c has uninlinable pattern (recursive) and cost is not fully computed [-Rpass-missed=inline-cost]
+   52 |   sort_c(A, q + 1, r);
+      |   ^
+sort_c.c:52:3: remark: 'sort_c' not inlined into 'sort_c' because it should never be inlined (cost=never): recursive [-Rpass-missed=inline]
+sort_c.c:53:3: remark: 'merge_c' inlined into 'sort_c' with (cost=-14635, threshold=250) at callsite sort_c:10:3; [-Rpass=inline]
+   53 |   merge_c(A, p, q, r);
+      |   ^
+sort_i.c:49:3: remark: 'alloc_i' inlined into 'merge_i' with (cost=50, threshold=325) at callsite merge_i:5:3; [-Rpass=inline]
+   49 |   alloc_i(&left, n1 + 1);
+      |   ^
+sort_i.c:50:3: remark: 'alloc_i' inlined into 'merge_i' with (cost=-14950, threshold=325) at callsite merge_i:6:3; [-Rpass=inline]
+   50 |   alloc_i(&right, n2 + 1);
+      |   ^
+sort_i.c:52:5: remark: 'free_i' inlined into 'merge_i' with (cost=0, threshold=487) at callsite merge_i:8:5; [-Rpass=inline]
+   52 |     free_i(&left);
+      |     ^
+sort_i.c:53:5: remark: 'free_i' inlined into 'merge_i' with (cost=0, threshold=487) at callsite merge_i:9:5; [-Rpass=inline]
+   53 |     free_i(&right);
+      |     ^
+sort_i.c:56:3: remark: 'copy_i' inlined into 'merge_i' with (cost=-10, threshold=325) at callsite merge_i:12:3; [-Rpass=inline]
+   56 |   copy_i(A + p, left, n1);
+      |   ^
+sort_i.c:57:3: remark: 'copy_i' inlined into 'merge_i' with (cost=-15010, threshold=325) at callsite merge_i:13:3; [-Rpass=inline]
+   57 |   copy_i(A + q + 1, right, n2);
+      |   ^
+sort_i.c:65:3: remark: 'free_i' inlined into 'merge_i' with (cost=0, threshold=487) at callsite merge_i:21:3; [-Rpass=inline]
+   65 |   free_i(&left);
+      |   ^
+sort_i.c:66:3: remark: 'free_i' inlined into 'merge_i' with (cost=-15000, threshold=487) at callsite merge_i:22:3; [-Rpass=inline]
+   66 |   free_i(&right);
+      |   ^
+sort_i.c:79:5: remark: recursive_i has uninlinable pattern (recursive) and cost is not fully computed [-Rpass-missed=inline-cost]
+   79 |     recursive_i(A, p, q);
+      |     ^
+sort_i.c:79:5: remark: 'recursive_i' not inlined into 'recursive_i' because it should never be inlined (cost=never): recursive [-Rpass-missed=inline]
+sort_i.c:80:5: remark: recursive_i has uninlinable pattern (recursive) and cost is not fully computed [-Rpass-missed=inline-cost]
+   80 |     recursive_i(A, q + 1, r);
+      |     ^
+sort_i.c:80:5: remark: 'recursive_i' not inlined into 'recursive_i' because it should never be inlined (cost=never): recursive [-Rpass-missed=inline]
+sort_i.c:81:5: remark: 'merge_i' inlined into 'recursive_i' with (cost=-14540, threshold=325) at callsite recursive_i:6:5; [-Rpass=inline]
+   81 |     merge_i(A, p, q, r);
+      |     ^
+sort_i.c:86:3: remark: recursive_i has uninlinable pattern (recursive) and cost is not fully computed [-Rpass-missed=inline-cost]
+   86 |   recursive_i(A, p, r);
+      |   ^
+sort_i.c:86:3: remark: 'recursive_i' not inlined into 'sort_i' because it should never be inlined (cost=never): recursive [-Rpass-missed=inline]
+sort_p.c:48:3: remark: 'alloc_p' inlined into 'merge_p' with (cost=50, threshold=325) at callsite merge_p:5:3; [-Rpass=inline]
+   48 |   alloc_p(&left, n1 + 1);
+      |   ^
+sort_p.c:49:3: remark: 'alloc_p' inlined into 'merge_p' with (cost=-14950, threshold=325) at callsite merge_p:6:3; [-Rpass=inline]
+   49 |   alloc_p(&right, n2 + 1);
+      |   ^
+sort_p.c:51:5: remark: 'free_p' inlined into 'merge_p' with (cost=0, threshold=487) at callsite merge_p:8:5; [-Rpass=inline]
+   51 |     free_p(&left);
+      |     ^
+sort_p.c:52:5: remark: 'free_p' inlined into 'merge_p' with (cost=0, threshold=487) at callsite merge_p:9:5; [-Rpass=inline]
+   52 |     free_p(&right);
+      |     ^
+sort_p.c:55:3: remark: 'copy_p' inlined into 'merge_p' with (cost=-10, threshold=325) at callsite merge_p:12:3; [-Rpass=inline]
+   55 |   copy_p(A + p, left, n1);
+      |   ^
+sort_p.c:56:3: remark: 'copy_p' inlined into 'merge_p' with (cost=-15010, threshold=325) at callsite merge_p:13:3; [-Rpass=inline]
+   56 |   copy_p(A + q + 1, right, n2);
+      |   ^
+sort_p.c:64:3: remark: 'free_p' inlined into 'merge_p' with (cost=0, threshold=487) at callsite merge_p:21:3; [-Rpass=inline]
+   64 |   free_p(&left);
+      |   ^
+sort_p.c:65:3: remark: 'free_p' inlined into 'merge_p' with (cost=-15000, threshold=487) at callsite merge_p:22:3; [-Rpass=inline]
+   65 |   free_p(&right);
+      |   ^
+sort_p.c:72:5: remark: recursive_p has uninlinable pattern (recursive) and cost is not fully computed [-Rpass-missed=inline-cost]
+   72 |     recursive_p(A, p, q);
+      |     ^
+sort_p.c:72:5: remark: 'recursive_p' not inlined into 'recursive_p' because it should never be inlined (cost=never): recursive [-Rpass-missed=inline]
+sort_p.c:73:5: remark: recursive_p has uninlinable pattern (recursive) and cost is not fully computed [-Rpass-missed=inline-cost]
+   73 |     recursive_p(A, q + 1, r);
+      |     ^
+sort_p.c:73:5: remark: 'recursive_p' not inlined into 'recursive_p' because it should never be inlined (cost=never): recursive [-Rpass-missed=inline]
+sort_p.c:74:5: remark: 'merge_p' inlined into 'recursive_p' with (cost=-14525, threshold=325) at callsite recursive_p:6:5; [-Rpass=inline]
+   74 |     merge_p(A, p, q, r);
+      |     ^
+sort_p.c:79:3: remark: recursive_p has uninlinable pattern (recursive) and cost is not fully computed [-Rpass-missed=inline-cost]
+   79 |   recursive_p(A, p, r);
+      |   ^
+sort_p.c:79:3: remark: 'recursive_p' not inlined into 'sort_p' because it should never be inlined (cost=never): recursive [-Rpass-missed=inline]
+sort_m.c:57:5: remark: 'insertion_m' inlined into 'sort_m' with (cost=-14945, threshold=325) at callsite sort_m:4:5; [-Rpass=inline]
+   57 |     insertion_m(A, p, r);
+      |     ^
+sort_m.c:61:3: remark: sort_m has uninlinable pattern (recursive) and cost is not fully computed [-Rpass-missed=inline-cost]
+   61 |   sort_m(A, p, q);
+      |   ^
+sort_m.c:61:3: remark: 'sort_m' not inlined into 'sort_m' because it should never be inlined (cost=never): recursive [-Rpass-missed=inline]
+sort_m.c:62:3: remark: sort_m has uninlinable pattern (recursive) and cost is not fully computed [-Rpass-missed=inline-cost]
+   62 |   sort_m(A, q + 1, r);
+      |   ^
+sort_m.c:62:3: remark: 'sort_m' not inlined into 'sort_m' because it should never be inlined (cost=never): recursive [-Rpass-missed=inline]
+sort_m.c:63:3: remark: 'merge_m' inlined into 'sort_m' with (cost=-14695, threshold=250) at callsite sort_m:10:3; [-Rpass=inline]
+   63 |   merge_m(A, p, q, r);
+      |   ^
+sort_f.c:50:5: remark: 'insertion_f' inlined into 'recursive_f' with (cost=55, threshold=325) at callsite recursive_f:3:5; [-Rpass=inline]
+   50 |     insertion_f(A, p, r);
+      |     ^
+sort_f.c:54:3: remark: recursive_f has uninlinable pattern (recursive) and cost is not fully computed [-Rpass-missed=inline-cost]
+   54 |   recursive_f(A, p, q, scratch);
+      |   ^
+sort_f.c:54:3: remark: 'recursive_f' not inlined into 'recursive_f' because it should never be inlined (cost=never): recursive [-Rpass-missed=inline]
+sort_f.c:55:3: remark: recursive_f has uninlinable pattern (recursive) and cost is not fully computed [-Rpass-missed=inline-cost]
+   55 |   recursive_f(A, q + 1, r, scratch);
+      |   ^
+sort_f.c:55:3: remark: 'recursive_f' not inlined into 'recursive_f' because it should never be inlined (cost=never): recursive [-Rpass-missed=inline]
+sort_f.c:56:3: remark: 'merge_f' inlined into 'recursive_f' with (cost=-14840, threshold=250) at callsite recursive_f:9:3; [-Rpass=inline]
+   56 |   merge_f(A, p, q, r, scratch);
+      |   ^
+sort_f.c:63:5: remark: 'insertion_f' inlined into 'sort_f' with (cost=-14945, threshold=325) at callsite sort_f:4:5; [-Rpass=inline]
+   63 |     insertion_f(A, p, r);
+      |     ^
+sort_f.c:70:3: remark: recursive_f has uninlinable pattern (recursive) and cost is not fully computed [-Rpass-missed=inline-cost]
+   70 |   recursive_f(A, p, r, scratch);
+      |   ^
+sort_f.c:70:3: remark: 'recursive_f' not inlined into 'sort_f' because it should never be inlined (cost=never): recursive [-Rpass-missed=inline]

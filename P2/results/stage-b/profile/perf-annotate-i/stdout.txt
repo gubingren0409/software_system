@@ -1,0 +1,198 @@
+
+Sorted summary for file /mnt/e/software_system/Project02/P2/results/stage-b/final/binaries/release.elf
+----------------------------------------------
+
+   83.97 sort_i.c:62
+    1.94 sort_i.c:83
+    0.98 sort_i.c:59
+    0.59 sort_i.c:80
+    0.59 sort_i.c:75
+    0.58 sort_i.c:34
+ Percent |	Source code & Disassembly of release.elf for cycles:u (1026 samples, percent: local period)
+-----------------------------------------------------------------------------------------------------------
+         :
+         :
+         :
+         : 3    Disassembly of section .text:
+         :
+         : 5    0000000000003980 <recursive_i>:
+         : 6    #define I_RECURSION inline
+         : 7    #else
+         : 8    #define I_RECURSION
+         : 9    #endif
+         :
+         : 11   static I_RECURSION void recursive_i(data_t* A, int p, int r) {
+    0.59 :   3980:   push   %rbp // sort_i.c:75
+    0.29 :   3981:   push   %r15
+    0.20 :   3983:   push   %r14
+    0.39 :   3985:   push   %r13
+    0.00 :   3987:   push   %r12
+    0.49 :   3989:   push   %rbx
+    0.49 :   398a:   sub    $0x28,%rsp
+         : 19   assert(A);
+         : 20   if (p < r) {
+    0.39 :   398e:   cmp    %edx,%esi
+    0.00 :   3990:   jge    3aa8 <recursive_i+0x128>
+    0.00 :   3996:   mov    %edx,%r13d
+    0.20 :   3999:   mov    %esi,%r14d
+    0.00 :   399c:   mov    %rdi,%rbx
+         : 26   int q = (p + r) / 2;
+    0.10 :   399f:   lea    (%r14,%r13,1),%eax
+    0.00 :   39a3:   mov    %eax,%ebp
+    0.29 :   39a5:   shr    $0x1f,%ebp
+    0.20 :   39a8:   add    %eax,%ebp
+    0.00 :   39aa:   sar    $1,%ebp
+         : 32   recursive_i(A, p, q);
+    0.09 :   39ac:   mov    %ebp,%edx
+    0.00 :   39ae:   call   3980 <recursive_i>
+         : 35   recursive_i(A, q + 1, r);
+    0.39 :   39b3:   lea    0x1(%rbp),%esi
+    0.59 :   39b6:   mov    %rbx,%rdi // sort_i.c:80
+    0.39 :   39b9:   mov    %r13d,%edx
+    0.00 :   39bc:   call   3980 <recursive_i>
+         : 40   int n1 = q - p + 1, n2 = r - q;
+    0.00 :   39c1:   mov    %ebp,%r12d
+    0.29 :   39c4:   mov    %r14,0x10(%rsp)
+    0.10 :   39c9:   sub    %r14d,%r12d
+    0.10 :   39cc:   mov    %r13d,%r15d
+    0.10 :   39cf:   sub    %ebp,%r15d
+         : 46   *space = malloc(sizeof(data_t) * size);
+    0.00 :   39d2:   movslq %r12d,%rax
+    0.29 :   39d5:   lea    0x8(,%rax,4),%rdi
+    0.10 :   39dd:   call   1120 <malloc@plt>
+    0.00 :   39e2:   mov    %rax,%r14
+         : 51   if (*space == NULL) printf("out of memory...\n");
+    0.00 :   39e5:   test   %rax,%rax
+    0.10 :   39e8:   jne    39f6 <recursive_i+0x76>
+    0.00 :   39ea:   lea    0x1bb9(%rip),%rdi        # 55aa <_IO_stdin_used+0x5aa>
+    0.00 :   39f1:   call   1060 <puts@plt>
+    0.00 :   39f6:   mov    %r15d,0xc(%rsp)
+         : 57   *space = malloc(sizeof(data_t) * size);
+    0.00 :   39fb:   movslq %r15d,%rax
+    0.00 :   39fe:   mov    %rax,0x20(%rsp)
+    0.00 :   3a03:   lea    0x4(,%rax,4),%rdi
+    0.10 :   3a0b:   call   1120 <malloc@plt>
+    0.00 :   3a10:   mov    %rax,%r15
+         : 63   if (*space == NULL) printf("out of memory...\n");
+    0.19 :   3a13:   test   %rax,%rax
+    0.10 :   3a16:   je     3ab7 <recursive_i+0x137>
+    0.00 :   3a1c:   test   %r14,%r14
+         : 67   if (left == NULL || right == NULL) {
+    0.00 :   3a1f:   je     3b40 <recursive_i+0x1c0>
+    0.00 :   3a25:   mov    %r13,0x18(%rsp)
+         : 70   int n1 = q - p + 1, n2 = r - q;
+    0.00 :   3a2a:   lea    0x1(%r12),%eax
+         : 72   copy_i(A + p, left, n1);
+    0.00 :   3a2f:   movslq 0x10(%rsp),%r13
+         : 74   for (int i = 0; i < n; i++) dest[i] = source[i];
+    0.00 :   3a34:   test   %r12d,%r12d
+    0.00 :   3a37:   mov    %eax,%r12d
+    0.29 :   3a3a:   js     3a4f <recursive_i+0xcf>
+         : 78   copy_i(A + p, left, n1);
+    0.00 :   3a3c:   lea    (%rbx,%r13,4),%rsi
+         : 80   for (int i = 0; i < n; i++) dest[i] = source[i];
+    0.00 :   3a40:   mov    %r12d,%edx
+    0.00 :   3a43:   shl    $0x2,%rdx
+    0.00 :   3a47:   mov    %r14,%rdi
+    0.10 :   3a4a:   call   1110 <memcpy@plt>
+    0.10 :   3a4f:   mov    0xc(%rsp),%ecx
+    0.10 :   3a53:   test   %ecx,%ecx
+    0.10 :   3a55:   jle    3a70 <recursive_i+0xf0>
+         : 88   copy_i(A + q + 1, right, n2);
+    0.00 :   3a57:   movslq %ebp,%rax
+    0.00 :   3a5a:   lea    (%rbx,%rax,4),%rsi
+    0.20 :   3a5e:   add    $0x4,%rsi
+         : 92   for (int i = 0; i < n; i++) dest[i] = source[i];
+    0.00 :   3a62:   mov    %ecx,%edx
+    0.00 :   3a64:   shl    $0x2,%rdx
+    0.10 :   3a68:   mov    %r15,%rdi
+    0.00 :   3a6b:   call   1110 <memcpy@plt>
+         : 97   left[n1] = UINT_MAX;
+    0.10 :   3a70:   movslq %r12d,%rax
+    0.00 :   3a73:   movl   $0xffffffff,(%r14,%rax,4)
+    0.29 :   3a7b:   mov    0x20(%rsp),%rax
+         : 101  right[n2] = UINT_MAX;
+    0.20 :   3a80:   movl   $0xffffffff,(%r15,%rax,4)
+    0.98 :   3a88:   xor    %eax,%eax // sort_i.c:59
+    0.00 :   3a8a:   mov    0x18(%rsp),%rcx
+         : 105  for (int k = p; k <= r; k++) {
+    0.20 :   3a8f:   sub    0x10(%rsp),%ecx
+    0.39 :   3a93:   lea    0x1(%rcx),%ecx
+    0.39 :   3a96:   jne    3ac5 <recursive_i+0x145>
+    0.00 :   3a98:   xor    %edx,%edx
+    0.00 :   3a9a:   test   $0x1,%cl
+    0.00 :   3a9d:   jne    3b2f <recursive_i+0x1af>
+    0.00 :   3aa3:   jmp    3b40 <recursive_i+0x1c0>
+         : 113  merge_i(A, p, q, r);
+         : 114  }
+         : 115  }
+    0.00 :   3aa8:   add    $0x28,%rsp
+    0.20 :   3aac:   pop    %rbx
+    1.94 :   3aad:   pop    %r12 // sort_i.c:83
+    0.10 :   3aaf:   pop    %r13
+    0.10 :   3ab1:   pop    %r14
+    0.49 :   3ab3:   pop    %r15
+    0.29 :   3ab5:   pop    %rbp
+    0.10 :   3ab6:   ret
+         : 124  if (*space == NULL) printf("out of memory...\n");
+    0.00 :   3ab7:   lea    0x1aec(%rip),%rdi        # 55aa <_IO_stdin_used+0x5aa>
+    0.00 :   3abe:   call   1060 <puts@plt>
+    0.00 :   3ac3:   jmp    3b40 <recursive_i+0x1c0>
+         : 128  for (int k = p; k <= r; k++) {
+    0.00 :   3ac5:   mov    %ecx,%edx
+    0.00 :   3ac7:   and    $0xfffffffe,%edx
+    0.20 :   3aca:   xor    %esi,%esi
+    0.00 :   3acc:   nopl   0x0(%rax)
+         : 133  if (left[i] <= right[j]) A[k] = left[i++];
+    0.00 :   3ad0:   mov    %esi,%edi
+    0.27 :   3ad2:   mov    (%r14,%rdi,4),%r8d
+   32.04 :   3ad6:   mov    %eax,%edi // sort_i.c:62
+    0.00 :   3ad8:   mov    (%r15,%rdi,4),%r9d
+    1.84 :   3adc:   xor    %edi,%edi
+    0.19 :   3ade:   xor    %r10d,%r10d
+    0.39 :   3ae1:   cmp    %r9d,%r8d
+    1.47 :   3ae4:   seta   %dil
+    2.82 :   3ae8:   setbe  %r10b
+    0.10 :   3aec:   cmovb  %r8d,%r9d
+    3.71 :   3af0:   add    %esi,%r10d
+    0.00 :   3af3:   add    %eax,%edi
+    0.30 :   3af5:   mov    %r9d,(%rbx,%r13,4)
+    0.00 :   3af9:   mov    (%r14,%r10,4),%r8d
+   19.23 :   3afd:   mov    (%r15,%rdi,4),%r9d
+    1.37 :   3b01:   xor    %eax,%eax
+    0.00 :   3b03:   xor    %esi,%esi
+    1.88 :   3b05:   cmp    %r9d,%r8d
+    5.49 :   3b08:   seta   %al
+    7.22 :   3b0b:   setbe  %sil
+    0.00 :   3b0f:   cmovb  %r8d,%r9d
+    6.91 :   3b13:   add    %r10d,%esi
+    0.00 :   3b16:   add    %edi,%eax
+    0.00 :   3b18:   mov    %r9d,0x4(%rbx,%r13,4)
+         : 158  for (int k = p; k <= r; k++) {
+    0.00 :   3b1d:   add    $0x2,%r13
+    0.00 :   3b21:   add    $0xfffffffe,%edx
+    0.00 :   3b24:   jne    3ad0 <recursive_i+0x150>
+         : 162  if (left[i] <= right[j]) A[k] = left[i++];
+    0.00 :   3b26:   mov    %esi,%edx
+    0.00 :   3b28:   mov    %eax,%eax
+         : 165  for (int k = p; k <= r; k++) {
+    0.00 :   3b2a:   test   $0x1,%cl
+    0.00 :   3b2d:   je     3b40 <recursive_i+0x1c0>
+         : 168  if (left[i] <= right[j]) A[k] = left[i++];
+    0.00 :   3b2f:   mov    (%r14,%rdx,4),%ecx
+    0.00 :   3b33:   mov    (%r15,%rax,4),%eax
+    0.00 :   3b37:   cmp    %eax,%ecx
+    0.00 :   3b39:   cmovb  %ecx,%eax
+    0.00 :   3b3c:   mov    %eax,(%rbx,%r13,4)
+         : 174  free(*space);
+    0.00 :   3b40:   mov    %r14,%rdi
+    0.58 :   3b43:   call   1030 <free@plt> // sort_i.c:34
+    0.00 :   3b48:   mov    %r15,%rdi
+    0.00 :   3b4b:   add    $0x28,%rsp
+    0.10 :   3b4f:   pop    %rbx
+    0.10 :   3b50:   pop    %r12
+    0.00 :   3b52:   pop    %r13
+    0.19 :   3b54:   pop    %r14
+    0.00 :   3b56:   pop    %r15
+    0.10 :   3b58:   pop    %rbp
+    0.20 :   3b59:   jmp    1030 <free@plt>

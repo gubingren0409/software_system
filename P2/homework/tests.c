@@ -30,6 +30,7 @@
 
 #include "./fasttime.h"
 #include "./tests.h"
+#include "./sort_config.h"
 
 // Call TEST_PASS() from your test cases to mark a test as successful
 #define TEST_PASS() TEST_PASS_WITH_NAME(__func__, __LINE__)
@@ -57,9 +58,11 @@
 /* Some global variables to make it easier to run individual tests. */
 // static int test_verbose = 1 ;
 static unsigned int randomSeed = 1;
+static unsigned int initialSeed = 1;
 
 void set_random_seed(unsigned int seed) {
   randomSeed = seed;
+  initialSeed = seed;
 }
 
 static int compare_data(const void* lhs, const void* rhs) {
@@ -223,19 +226,23 @@ static void test_correctness(int printFlag, int N, int R,
         printf("Data before sort\n");
         display_array(data, N);
       }
+      uint64_t fingerprint = UINT64_C(14695981039346656037);
       for (int i = 0; i < N; i++) {
         data_bcup[i] = data[i];
+        fingerprint = (fingerprint ^ data[i]) * UINT64_C(1099511628211);
       }
 
       for (int k = 0; k < numFunc; k++) {
         time1 = gettime();
         testFunc[k].func(data, 0, N - 1);
         time2 = gettime();
+        testFunc[k].calls++;
 
         double elapsed = tdiff(time1, time2);
         sum_time[k] += elapsed;
-        printf("TIMING input=%s trial=%d function=%s seconds=%.9f\n",
-               dataGen[gen].name, j + 1, testFunc[k].name, elapsed);
+        printf("TIMING input=%s trial=%d function=%s seconds=%.9f N=%d R=%d seed=%u fingerprint=%016llx\n",
+               dataGen[gen].name, j + 1, testFunc[k].name, elapsed, N, R, initialSeed,
+               (unsigned long long) fingerprint);
         success &= post_process(data, data_bcup, N, printFlag, testFunc[k].name, 0, N - 1);
 
         if (!success) {
@@ -251,6 +258,8 @@ static void test_correctness(int printFlag, int N, int R,
       for (int k = 0; k < numFunc; k++) {
         double avgRuntime = R > 0 ? sum_time[k] / R : 0;
         printf("%s: Elapsed execution time: %.9f sec\n", testFunc[k].name, avgRuntime);
+        printf("SUMMARY variant=%s input=%s N=%d R=%d seed=%u calls=%d mean_seconds=%.9f\n",
+               testFunc[k].name, dataGen[gen].name, N, R, initialSeed, R, avgRuntime);
       }
     }
   }
@@ -266,6 +275,7 @@ static void test_zero_element(int printFlag, int N, int R,
   for (int i = 0; i < numFunc; i++) {
     data_t data[] = {0, 0, 0};
     testFunc[i].func(&data[1], 0, -1);
+    testFunc[i].calls++;
     if (data[0] != 0 || data[1] != 0 || data[2] != 0) {
       printf("Error: %s failed to sort array with zero element\n",
              testFunc[i].name);
@@ -286,6 +296,7 @@ static void test_one_element(int printFlag, int N, int R,
   for (int i = 0; i < numFunc; i++) {
     data_t data[] = {0, 1, 0};
     testFunc[i].func(&data[1], 0, 0);
+    testFunc[i].calls++;
     if (data[0] != 0 || data[1] != 1 || data[2] != 0) {
       printf("Error: %s failed to sort array with one element\n",
              testFunc[i].name);
@@ -336,6 +347,7 @@ void test_subarray(int printFlag, int N, int R,
   printf("Sorting subarray A[%d..%d]\n", begin, end);
   for (int i = 0; i < numFunc; i++) {
     testFunc[i].func(data, begin, end);
+    testFunc[i].calls++;
     success &= post_process(data, data_bcup, N, printFlag, testFunc[i].name, begin, end);
   }
 
@@ -351,10 +363,56 @@ void test_subarray(int printFlag, int N, int R,
   return;
 }
 
+static void test_patterns(int printFlag, int N, int R,
+                          struct testFunc_t* testFunc, int numFunc) {
+  const int sizes[] = {0, 1, 2, 3, 7, 8, 9, 15, 16, 17, 31, 32, 33,
+                       63, 64, 65, 127, 128, 129, 257,
+                       SORT_CUTOFF - 1, SORT_CUTOFF, SORT_CUTOFF + 1};
+  unsigned int pattern_seed = 12345;
+  int cases = 0;
+  for (unsigned int s = 0; s < sizeof(sizes) / sizeof(sizes[0]); s++) {
+    int length = sizes[s];
+    for (int pattern = 0; pattern < 5; pattern++) {
+      for (int offset = 0; offset <= 2; offset += 2) {
+        int total = length + 5;
+        data_t* data = malloc(total * sizeof(data_t));
+        data_t* original = malloc(total * sizeof(data_t));
+        if (data == NULL || original == NULL) TEST_FAIL("Pattern allocation failed");
+        for (int j = 0; j < total; j++) data[j] = 0x12345678U;
+        for (int j = 0; j < length; j++) {
+          data_t value = 0;
+          switch (pattern) {
+          case 0: value = j; break;
+          case 1: value = length - j; break;
+          case 2: value = rand_r(&pattern_seed) % RANGE; break;
+          case 3: value = j % 4; break;
+          case 4: value = 42; break;
+          }
+          data[offset + j] = value;
+        }
+        memcpy(original, data, total * sizeof(data_t));
+        for (int k = 0; k < numFunc; k++) {
+          testFunc[k].func(data, offset, offset + length - 1);
+          testFunc[k].calls++;
+          post_process(data, original, total, 0, testFunc[k].name,
+                       offset, offset + length - 1);
+        }
+        cases++;
+        free(data);
+        free(original);
+      }
+    }
+  }
+  for (int k = 0; k < numFunc; k++)
+    printf("PATTERNS variant=%s cases=%d domain=0..2147483647\n", testFunc[k].name, cases);
+  TEST_PASS();
+}
+
 test_case test_cases[] = {
   test_correctness,
   test_zero_element,
   test_one_element,
+  test_patterns,
   // test_subarray,
   // ADD YOUR TEST CASES HERE
   NULL  // This marks the end of all test cases. Don't change this!

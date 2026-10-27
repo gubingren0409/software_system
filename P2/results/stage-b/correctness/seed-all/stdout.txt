@@ -1,0 +1,65 @@
+Initial rand_r seed: 42; sort versions: 6; trials per input: 2
+RUN variant=sort_a N=33 R=2 seed=42 group=timing timed_calls=4
+RUN variant=sort_i N=33 R=2 seed=42 group=timing timed_calls=4
+RUN variant=sort_p N=33 R=2 seed=42 group=timing timed_calls=4
+RUN variant=sort_c N=33 R=2 seed=42 group=timing timed_calls=4
+RUN variant=sort_m N=33 R=2 seed=42 group=timing timed_calls=4
+RUN variant=sort_f N=33 R=2 seed=42 group=timing timed_calls=4
+Generating random array of 33 elements
+TIMING input=random trial=1 function=sort_a seconds=0.000004615 N=33 R=2 seed=42 fingerprint=8c40c305dbb65147
+TIMING input=random trial=1 function=sort_i seconds=0.000003003 N=33 R=2 seed=42 fingerprint=8c40c305dbb65147
+TIMING input=random trial=1 function=sort_p seconds=0.000002852 N=33 R=2 seed=42 fingerprint=8c40c305dbb65147
+TIMING input=random trial=1 function=sort_c seconds=0.000001229 N=33 R=2 seed=42 fingerprint=8c40c305dbb65147
+TIMING input=random trial=1 function=sort_m seconds=0.000001431 N=33 R=2 seed=42 fingerprint=8c40c305dbb65147
+TIMING input=random trial=1 function=sort_f seconds=0.000001391 N=33 R=2 seed=42 fingerprint=8c40c305dbb65147
+TIMING input=random trial=2 function=sort_a seconds=0.000002731 N=33 R=2 seed=42 fingerprint=e7b039389f18b76d
+TIMING input=random trial=2 function=sort_i seconds=0.000002227 N=33 R=2 seed=42 fingerprint=e7b039389f18b76d
+TIMING input=random trial=2 function=sort_p seconds=0.000002186 N=33 R=2 seed=42 fingerprint=e7b039389f18b76d
+TIMING input=random trial=2 function=sort_c seconds=0.000001139 N=33 R=2 seed=42 fingerprint=e7b039389f18b76d
+TIMING input=random trial=2 function=sort_m seconds=0.000001138 N=33 R=2 seed=42 fingerprint=e7b039389f18b76d
+TIMING input=random trial=2 function=sort_f seconds=0.000001300 N=33 R=2 seed=42 fingerprint=e7b039389f18b76d
+Arrays are sorted: yes
+sort_a: Elapsed execution time: 0.000003673 sec
+SUMMARY variant=sort_a input=random N=33 R=2 seed=42 calls=2 mean_seconds=0.000003673
+sort_i: Elapsed execution time: 0.000002615 sec
+SUMMARY variant=sort_i input=random N=33 R=2 seed=42 calls=2 mean_seconds=0.000002615
+sort_p: Elapsed execution time: 0.000002519 sec
+SUMMARY variant=sort_p input=random N=33 R=2 seed=42 calls=2 mean_seconds=0.000002519
+sort_c: Elapsed execution time: 0.000001184 sec
+SUMMARY variant=sort_c input=random N=33 R=2 seed=42 calls=2 mean_seconds=0.000001184
+sort_m: Elapsed execution time: 0.000001285 sec
+SUMMARY variant=sort_m input=random N=33 R=2 seed=42 calls=2 mean_seconds=0.000001285
+sort_f: Elapsed execution time: 0.000001346 sec
+SUMMARY variant=sort_f input=random N=33 R=2 seed=42 calls=2 mean_seconds=0.000001346
+Generating inverted array of 33 elements
+TIMING input=inverted trial=1 function=sort_a seconds=0.000003245 N=33 R=2 seed=42 fingerprint=ace73da54fd41a6c
+TIMING input=inverted trial=1 function=sort_i seconds=0.000002519 N=33 R=2 seed=42 fingerprint=ace73da54fd41a6c
+TIMING input=inverted trial=1 function=sort_p seconds=0.000002478 N=33 R=2 seed=42 fingerprint=ace73da54fd41a6c
+TIMING input=inverted trial=1 function=sort_c seconds=0.000001209 N=33 R=2 seed=42 fingerprint=ace73da54fd41a6c
+TIMING input=inverted trial=1 function=sort_m seconds=0.000001219 N=33 R=2 seed=42 fingerprint=ace73da54fd41a6c
+TIMING input=inverted trial=1 function=sort_f seconds=0.000001300 N=33 R=2 seed=42 fingerprint=ace73da54fd41a6c
+TIMING input=inverted trial=2 function=sort_a seconds=0.000002317 N=33 R=2 seed=42 fingerprint=ace73da54fd41a6c
+TIMING input=inverted trial=2 function=sort_i seconds=0.000002157 N=33 R=2 seed=42 fingerprint=ace73da54fd41a6c
+TIMING input=inverted trial=2 function=sort_p seconds=0.000002146 N=33 R=2 seed=42 fingerprint=ace73da54fd41a6c
+TIMING input=inverted trial=2 function=sort_c seconds=0.000000846 N=33 R=2 seed=42 fingerprint=ace73da54fd41a6c
+TIMING input=inverted trial=2 function=sort_m seconds=0.000000725 N=33 R=2 seed=42 fingerprint=ace73da54fd41a6c
+TIMING input=inverted trial=2 function=sort_f seconds=0.000000836 N=33 R=2 seed=42 fingerprint=ace73da54fd41a6c
+Arrays are sorted: yes
+sort_a: Elapsed execution time: 0.000002781 sec
+SUMMARY variant=sort_a input=inverted N=33 R=2 seed=42 calls=2 mean_seconds=0.000002781
+sort_i: Elapsed execution time: 0.000002338 sec
+SUMMARY variant=sort_i input=inverted N=33 R=2 seed=42 calls=2 mean_seconds=0.000002338
+sort_p: Elapsed execution time: 0.000002312 sec
+SUMMARY variant=sort_p input=inverted N=33 R=2 seed=42 calls=2 mean_seconds=0.000002312
+sort_c: Elapsed execution time: 0.000001027 sec
+SUMMARY variant=sort_c input=inverted N=33 R=2 seed=42 calls=2 mean_seconds=0.000001027
+sort_m: Elapsed execution time: 0.000000972 sec
+SUMMARY variant=sort_m input=inverted N=33 R=2 seed=42 calls=2 mean_seconds=0.000000972
+sort_f: Elapsed execution time: 0.000001068 sec
+SUMMARY variant=sort_f input=inverted N=33 R=2 seed=42 calls=2 mean_seconds=0.000001068
+TOTAL variant=sort_a N=33 R=2 seed=42 actual_sort_calls=4
+TOTAL variant=sort_i N=33 R=2 seed=42 actual_sort_calls=4
+TOTAL variant=sort_p N=33 R=2 seed=42 actual_sort_calls=4
+TOTAL variant=sort_c N=33 R=2 seed=42 actual_sort_calls=4
+TOTAL variant=sort_m N=33 R=2 seed=42 actual_sort_calls=4
+TOTAL variant=sort_f N=33 R=2 seed=42 actual_sort_calls=4

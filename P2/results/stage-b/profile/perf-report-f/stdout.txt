@@ -1,0 +1,63 @@
+# ========
+# captured on    : Mon Oct 26 05:00:13 2026
+# header version : 1
+# data offset    : 512
+# data size      : 105208
+# feat offset    : 105720
+# hostname : localhost
+# os release : 6.18.54.1-microsoft-standard-WSL2
+# perf version : 6.8.12
+# arch : x86_64
+# nrcpus online : 32
+# nrcpus avail : 32
+# cpudesc : AMD Ryzen 9 7940HX with Radeon Graphics
+# cpuid : AuthenticAMD,25,97,2
+# total memory : 7722208 kB
+# cmdline : /usr/lib/linux-tools-6.8.0-146/perf record -e cycles:u -F 999 -o /tmp/p2-stage-b-perf-rvpjza41/perf.data -- /mnt/e/software_system/Project02/P2/results/stage-b/final/binaries/release.elf --variant f -b -s 20261026 1048576 5 
+# event : name = cycles:u, , id = { 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83 }, type = 0 (PERF_TYPE_HARDWARE), size = 136, config = 0 (PERF_COUNT_HW_CPU_CYCLES), { sample_period, sample_freq } = 999, sample_type = IP|TID|TIME|PERIOD, read_format = ID|LOST, disabled = 1, inherit = 1, exclude_kernel = 1, exclude_hv = 1, mmap = 1, comm = 1, freq = 1, enable_on_exec = 1, task = 1, sample_id_all = 1, exclude_guest = 1, mmap2 = 1, comm_exec = 1, ksymbol = 1, bpf_event = 1
+# CPU_TOPOLOGY info available, use -I to display
+# NUMA_TOPOLOGY info available, use -I to display
+# pmu mappings: cpu = 4, breakpoint = 5, kprobe = 8, msr = 10, software = 1, tracepoint = 2, uprobe = 9
+# CACHE info available, use -I to display
+# time of first sample : 180.524222
+# time of last sample : 183.121873
+# sample duration :   2597.650 ms
+# MEM_TOPOLOGY info available, use -I to display
+# cpu pmu capabilities: max_precise=0
+# missing features: TRACING_DATA BRANCH_STACK GROUP_DESC AUXTRACE STAT CLOCKID DIR_FORMAT COMPRESSED CLOCK_DATA HYBRID_TOPOLOGY 
+# ========
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 2K of event 'cycles:u'
+# Event count (approx.): 4640778351
+#
+# Overhead  Symbol                               IPC   [IPC Coverage]
+# ........  ...................................  ....................
+#
+    36.24%  [.] recursive_f                      -      -            
+    30.54%  [.] msort_with_tmp.part.0            -      -            
+    24.00%  [.] compare_data                     -      -            
+     4.45%  [.] __memmove_avx512_unaligned_erms  -      -            
+     1.96%  [.] rand_r                           -      -            
+     1.01%  [.] post_process                     -      -            
+     0.98%  [.] test_correctness                 -      -            
+     0.18%  [.] all_random                       -      -            
+     0.16%  [.] memcpy@@GLIBC_2.14@plt           -      -            
+     0.15%  [k] 0xffffffff8d001c87               -      -            
+     0.11%  [k] 0xffffffff8d001c95               -      -            
+     0.08%  [k] 0xffffffff8d001320               -      -            
+     0.04%  [k] 0xffffffff8e232e8c               -      -            
+     0.04%  [k] 0xffffffff8e232e95               -      -            
+     0.04%  [k] 0xffffffff8d00133d               -      -            
+     0.01%  [.] do_lookup_x                      -      -            
+     0.00%  [.] _dl_map_object_deps              -      -            
+     0.00%  [.] _dl_setup_hash                   -      -            
+     0.00%  [.] _dl_start                        -      -            
+     0.00%  [.] _start                           -      -            
+
+
+#
+# (Cannot load tips.txt file, please install perf!)
+#

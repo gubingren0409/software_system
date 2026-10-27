@@ -1,0 +1,251 @@
+
+Sorted summary for file /mnt/e/software_system/Project02/P2/results/stage-b/final/binaries/release.elf
+----------------------------------------------
+
+   51.93 sort_f.c:41
+   27.15 sort_f.c:40
+    7.88 sort_f.c:31
+    2.48 sort_f.c:32
+    1.61 sort_f.c:28
+    1.52 sort_f.c:38
+    1.19 sort_f.c:0
+    0.63 sort_f.c:44
+ Percent |	Source code & Disassembly of release.elf for cycles:u (926 samples, percent: local period)
+----------------------------------------------------------------------------------------------------------
+         :
+         :
+         :
+         : 3    Disassembly of section .text:
+         :
+         : 5    0000000000004150 <recursive_f>:
+         : 6    }
+         : 7    while (i < n1) A[k++] = left[i++];
+         : 8    }
+         :
+         : 10   static void recursive_f(data_t* A, int p, int r, data_t* scratch) {
+         : 11   if (p >= r) return;
+    0.11 :   4150:   mov    %edx,%eax
+    0.11 :   4152:   sub    %esi,%eax
+    0.00 :   4154:   jle    43ab <recursive_f+0x25b>
+    0.00 :   415a:   push   %rbp
+    0.00 :   415b:   push   %r15
+    0.00 :   415d:   push   %r14
+    0.00 :   415f:   push   %r13
+    0.00 :   4161:   push   %r12
+    0.00 :   4163:   push   %rbx
+    0.00 :   4164:   push   %rax
+    0.00 :   4165:   mov    %edx,%r13d
+    0.00 :   4168:   mov    %esi,%r15d
+    0.00 :   416b:   mov    %rdi,%rbx
+         : 25   if (r - p + 1 <= SORT_CUTOFF) {
+    0.00 :   416e:   cmp    $0xf,%eax
+    0.00 :   4171:   jg     41c8 <recursive_f+0x78>
+         : 28   for (int i = p + 1; i <= r; i++) {
+    0.00 :   4173:   movslq %r15d,%rax
+    0.00 :   4176:   movslq %r13d,%rcx
+    0.11 :   4179:   mov    %rax,%rdx
+    0.00 :   417c:   jmp    4192 <recursive_f+0x42>
+    0.00 :   417e:   xchg   %ax,%ax
+    0.44 :   4180:   mov    %r15d,%edi
+         : 35   A[j] = value;
+    0.32 :   4183:   movslq %edi,%rdi
+    2.48 :   4186:   mov    %esi,(%rbx,%rdi,4) // sort_f.c:32
+         : 38   for (int i = p + 1; i <= r; i++) {
+    1.61 :   4189:   cmp    %rcx,%rdx // sort_f.c:28
+    0.00 :   418c:   je     439d <recursive_f+0x24d>
+    0.00 :   4192:   mov    %rdx,%r8
+         : 42   data_t value = A[i];
+    0.22 :   4195:   mov    0x4(%rbx,%rdx,4),%esi
+         : 44   for (int i = p + 1; i <= r; i++) {
+    0.33 :   4199:   inc    %rdx
+    0.00 :   419c:   mov    %edx,%edi
+         : 47   while (j > p && A[j - 1] > value) { A[j] = A[j - 1]; j--; }
+    0.00 :   419e:   cmp    %rax,%r8
+    0.00 :   41a1:   jl     4183 <recursive_f+0x33>
+    0.00 :   41a3:   mov    %rdx,%rdi
+    0.11 :   41a6:   cs nopw 0x0(%rax,%rax,1)
+    0.00 :   41b0:   mov    -0x4(%rbx,%rdi,4),%r8d
+    3.78 :   41b5:   cmp    %esi,%r8d // sort_f.c:31
+    3.22 :   41b8:   jbe    4183 <recursive_f+0x33>
+    0.00 :   41ba:   mov    %r8d,(%rbx,%rdi,4)
+    0.87 :   41be:   dec    %rdi
+    0.31 :   41c1:   cmp    %rax,%rdi
+    0.00 :   41c4:   jg     41b0 <recursive_f+0x60>
+    0.00 :   41c6:   jmp    4180 <recursive_f+0x30>
+    0.00 :   41c8:   mov    %rcx,%r14
+         : 61   insertion_f(A, p, r);
+         : 62   return;
+         : 63   }
+         : 64   int q = (p + r) / 2;
+    0.00 :   41cb:   lea    (%r15,%r13,1),%eax
+    0.00 :   41cf:   mov    %eax,%r12d
+    0.00 :   41d2:   shr    $0x1f,%r12d
+    0.00 :   41d6:   add    %eax,%r12d
+    0.00 :   41d9:   sar    $1,%r12d
+         : 70   recursive_f(A, p, q, scratch);
+    0.00 :   41dc:   mov    %rbx,%rdi
+    0.00 :   41df:   mov    %r15d,%esi
+    0.00 :   41e2:   mov    %r12d,%edx
+    0.00 :   41e5:   call   4150 <recursive_f>
+         : 75   recursive_f(A, q + 1, r, scratch);
+    0.22 :   41ea:   lea    0x1(%r12),%ebp
+    0.00 :   41ef:   mov    %rbx,%rdi
+    0.00 :   41f2:   mov    %ebp,%esi
+    0.00 :   41f4:   mov    %r13d,%edx
+    0.00 :   41f7:   mov    %r14,%rcx
+    0.00 :   41fa:   call   4150 <recursive_f>
+         : 82   for (int i = 0; i < n1; i++) left[i] = A[p + i];
+    0.11 :   41ff:   mov    %r12d,%eax
+    0.00 :   4202:   sub    %r15d,%eax
+    0.00 :   4205:   js     42a1 <recursive_f+0x151>
+    0.00 :   420b:   movslq %r15d,%rsi
+    0.00 :   420e:   mov    %ebp,%edx
+    0.00 :   4210:   sub    %r15d,%edx
+    0.00 :   4213:   lea    (%rbx,%rsi,4),%rcx
+    0.00 :   4217:   cmp    $0xc,%edx
+    0.11 :   421a:   jb     422c <recursive_f+0xdc>
+    0.00 :   421c:   mov    %r14,%rdi
+    0.00 :   421f:   sub    %rcx,%rdi
+    0.00 :   4222:   cmp    $0x20,%rdi
+    0.00 :   4226:   jae    42ab <recursive_f+0x15b>
+    0.00 :   422c:   xor    %edi,%edi
+    0.00 :   422e:   mov    %rdx,%r9
+    0.00 :   4231:   mov    %rdi,%r8
+    0.00 :   4234:   and    $0x3,%r9
+    0.00 :   4238:   je     4250 <recursive_f+0x100>
+    0.00 :   423a:   mov    %rdi,%r8
+    0.00 :   423d:   nopl   (%rax)
+    0.00 :   4240:   mov    (%rcx,%r8,4),%r10d
+    0.00 :   4244:   mov    %r10d,(%r14,%r8,4)
+    0.00 :   4248:   inc    %r8
+    0.00 :   424b:   dec    %r9
+    0.00 :   424e:   jne    4240 <recursive_f+0xf0>
+    0.00 :   4250:   sub    %rdx,%rdi
+    0.00 :   4253:   cmp    $0xfffffffffffffffc,%rdi
+    0.00 :   4257:   ja     42f8 <recursive_f+0x1a8>
+    0.00 :   425d:   lea    (%rbx,%rsi,4),%rsi
+    0.00 :   4261:   add    $0xc,%rsi
+    0.00 :   4265:   data16 cs nopw 0x0(%rax,%rax,1)
+    0.00 :   4270:   mov    -0xc(%rsi,%r8,4),%edi
+    0.00 :   4275:   mov    %edi,(%r14,%r8,4)
+    0.00 :   4279:   mov    -0x8(%rsi,%r8,4),%edi
+    0.00 :   427e:   mov    %edi,0x4(%r14,%r8,4)
+    0.00 :   4283:   mov    -0x4(%rsi,%r8,4),%edi
+    0.00 :   4288:   mov    %edi,0x8(%r14,%r8,4)
+    0.00 :   428d:   mov    (%rsi,%r8,4),%edi
+    0.00 :   4291:   mov    %edi,0xc(%r14,%r8,4)
+    0.00 :   4296:   add    $0x4,%r8
+    0.00 :   429a:   cmp    %r8,%rdx
+    0.00 :   429d:   jne    4270 <recursive_f+0x120>
+    0.00 :   429f:   jmp    42f8 <recursive_f+0x1a8>
+    0.00 :   42a1:   xor    %edx,%edx
+    0.00 :   42a3:   mov    %r15d,%esi
+    0.00 :   42a6:   jmp    434c <recursive_f+0x1fc>
+    0.00 :   42ab:   lea    0x0(,%rsi,4),%r8
+    0.00 :   42b3:   mov    %edx,%edi
+    0.00 :   42b5:   and    $0xfffffff8,%edi
+    0.00 :   42b8:   add    %rbx,%r8
+    0.00 :   42bb:   add    $0x10,%r8
+    0.00 :   42bf:   xor    %r9d,%r9d
+    0.11 :   42c2:   data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+    0.00 :   42d0:   movups -0x10(%r8,%r9,4),%xmm0
+    0.44 :   42d6:   movups (%r8,%r9,4),%xmm1
+    0.00 :   42db:   movups %xmm0,(%r14,%r9,4)
+    1.52 :   42e0:   movups %xmm1,0x10(%r14,%r9,4) // sort_f.c:38
+    0.11 :   42e6:   add    $0x8,%r9
+    0.00 :   42ea:   cmp    %r9,%rdi
+    0.00 :   42ed:   jne    42d0 <recursive_f+0x180>
+    0.00 :   42ef:   cmp    %rdx,%rdi
+    0.00 :   42f2:   jne    422e <recursive_f+0xde>
+    0.00 :   42f8:   xor    %edx,%edx
+    0.00 :   42fa:   mov    %r15d,%esi
+         : 147  while (i < n1 && j <= r) {
+    0.00 :   42fd:   cmp    %r13d,%r12d
+    0.00 :   4300:   jge    434c <recursive_f+0x1fc>
+    0.00 :   4302:   xor    %edx,%edx
+    0.00 :   4304:   mov    %r15d,%esi
+    0.10 :   4307:   nopw   0x0(%rax,%rax,1)
+    0.00 :   4310:   mov    %edx,%r9d
+         : 154  if (left[i] <= A[j]) A[k++] = left[i++];
+    0.00 :   4313:   mov    %edx,%edx
+    0.00 :   4315:   mov    (%r14,%rdx,4),%r10d
+   24.83 :   4319:   movslq %ebp,%rdx // sort_f.c:41
+    0.11 :   431c:   mov    (%rbx,%rdx,4),%r11d
+    7.11 :   4320:   xor    %edi,%edi
+    0.11 :   4322:   xor    %edx,%edx
+    0.32 :   4324:   cmp    %r11d,%r10d
+    2.45 :   4327:   seta   %r8b
+    7.57 :   432b:   setbe  %dl
+    2.27 :   432e:   cmovb  %r10d,%r11d
+    7.70 :   4332:   add    %r9d,%edx
+    1.19 :   4335:   mov    %r11d,(%rcx) // sort_f.c:0
+         : 167  while (i < n1 && j <= r) {
+    0.00 :   4338:   inc    %esi
+   13.75 :   433a:   cmp    %eax,%edx // sort_f.c:40
+    0.65 :   433c:   jg     434c <recursive_f+0x1fc>
+    0.00 :   433e:   mov    %r8b,%dil
+    0.00 :   4341:   add    %edi,%ebp
+    2.36 :   4343:   add    $0x4,%rcx
+    0.43 :   4347:   cmp    %r13d,%ebp
+   10.38 :   434a:   jle    4310 <recursive_f+0x1c0>
+         : 176  while (i < n1) A[k++] = left[i++];
+    0.00 :   434c:   cmp    %eax,%edx
+    0.44 :   434e:   jg     439d <recursive_f+0x24d>
+    0.00 :   4350:   movslq %esi,%rsi
+    0.00 :   4353:   movslq %edx,%rdi
+    0.00 :   4356:   add    %edx,%r15d
+    0.00 :   4359:   sub    %r15d,%r12d
+    0.00 :   435c:   cmp    $0xb,%r12d
+    0.00 :   4360:   jb     4373 <recursive_f+0x223>
+    0.00 :   4362:   lea    (%rbx,%rsi,4),%rcx
+    0.00 :   4366:   lea    (%r14,%rdi,4),%rdx
+    0.00 :   436a:   sub    %rdx,%rcx
+    0.00 :   436d:   cmp    $0x20,%rcx
+    0.00 :   4371:   jae    43ac <recursive_f+0x25c>
+    0.00 :   4373:   mov    %rdi,%rcx
+    0.00 :   4376:   mov    %rsi,%rdx
+    0.00 :   4379:   lea    (%r14,%rcx,4),%rsi
+    0.00 :   437d:   sub    %ecx,%eax
+    0.00 :   437f:   inc    %eax
+    0.00 :   4381:   lea    (%rbx,%rdx,4),%rcx
+    0.00 :   4385:   xor    %edx,%edx
+    0.00 :   4387:   nopw   0x0(%rax,%rax,1)
+    0.00 :   4390:   mov    (%rsi,%rdx,4),%edi
+    0.00 :   4393:   mov    %edi,(%rcx,%rdx,4)
+    0.00 :   4396:   inc    %rdx
+    0.00 :   4399:   cmp    %edx,%eax
+    0.00 :   439b:   jne    4390 <recursive_f+0x240>
+    0.00 :   439d:   add    $0x8,%rsp
+    0.32 :   43a1:   pop    %rbx
+    0.00 :   43a2:   pop    %r12
+    0.00 :   43a4:   pop    %r13
+    0.00 :   43a6:   pop    %r14
+    0.11 :   43a8:   pop    %r15
+    0.00 :   43aa:   pop    %rbp
+         : 210  merge_f(A, p, q, r, scratch);
+         : 211  }
+    0.00 :   43ab:   ret
+         : 213  while (i < n1) A[k++] = left[i++];
+    0.00 :   43ac:   inc    %r12
+    0.22 :   43af:   mov    %r12,%r8
+    0.00 :   43b2:   and    $0xfffffffffffffff8,%r8
+    0.00 :   43b6:   lea    (%r8,%rdi,1),%rcx
+    0.00 :   43ba:   shl    $0x2,%rdi
+    0.00 :   43be:   lea    (%r8,%rsi,1),%rdx
+    0.00 :   43c2:   shl    $0x2,%rsi
+    0.00 :   43c6:   add    %rbx,%rsi
+    0.00 :   43c9:   add    $0x10,%rsi
+    0.00 :   43cd:   add    %r14,%rdi
+    0.00 :   43d0:   add    $0x10,%rdi
+    0.00 :   43d4:   xor    %r9d,%r9d
+    0.00 :   43d7:   nopw   0x0(%rax,%rax,1)
+    0.00 :   43e0:   movups -0x10(%rdi,%r9,4),%xmm0
+    0.09 :   43e6:   movups (%rdi,%r9,4),%xmm1
+    0.22 :   43eb:   movups %xmm0,-0x10(%rsi,%r9,4)
+    0.63 :   43f1:   movups %xmm1,(%rsi,%r9,4) // sort_f.c:44
+    0.00 :   43f6:   add    $0x8,%r9
+    0.00 :   43fa:   cmp    %r9,%r8
+    0.00 :   43fd:   jne    43e0 <recursive_f+0x290>
+    0.00 :   43ff:   cmp    %r8,%r12
+    0.00 :   4402:   jne    4379 <recursive_f+0x229>
+    0.00 :   4408:   jmp    439d <recursive_f+0x24d>

@@ -1,0 +1,21 @@
+Initial rand_r seed: 42; sort versions: 1; trials per input: 5
+RUN variant=sort_i N=131072 R=5 seed=42 group=timing timed_calls=10
+Generating random array of 131072 elements
+TIMING input=random trial=1 function=sort_i seconds=0.016146627 N=131072 R=5 seed=42 fingerprint=384b1a0eb2ea32b1
+TIMING input=random trial=2 function=sort_i seconds=0.015219589 N=131072 R=5 seed=42 fingerprint=bf4183e5d9e332a9
+TIMING input=random trial=3 function=sort_i seconds=0.015220861 N=131072 R=5 seed=42 fingerprint=1aa3e666b2253d41
+TIMING input=random trial=4 function=sort_i seconds=0.015418095 N=131072 R=5 seed=42 fingerprint=f004051782929b49
+TIMING input=random trial=5 function=sort_i seconds=0.015435899 N=131072 R=5 seed=42 fingerprint=64acdb84f2e58921
+Arrays are sorted: yes
+sort_i: Elapsed execution time: 0.015488214 sec
+SUMMARY variant=sort_i input=random N=131072 R=5 seed=42 calls=5 mean_seconds=0.015488214
+Generating inverted array of 131072 elements
+TIMING input=inverted trial=1 function=sort_i seconds=0.015159855 N=131072 R=5 seed=42 fingerprint=4012f98608fa2325
+TIMING input=inverted trial=2 function=sort_i seconds=0.015157381 N=131072 R=5 seed=42 fingerprint=4012f98608fa2325
+TIMING input=inverted trial=3 function=sort_i seconds=0.014977761 N=131072 R=5 seed=42 fingerprint=4012f98608fa2325
+TIMING input=inverted trial=4 function=sort_i seconds=0.015609939 N=131072 R=5 seed=42 fingerprint=4012f98608fa2325
+TIMING input=inverted trial=5 function=sort_i seconds=0.015303859 N=131072 R=5 seed=42 fingerprint=4012f98608fa2325
+Arrays are sorted: yes
+sort_i: Elapsed execution time: 0.015241759 sec
+SUMMARY variant=sort_i input=inverted N=131072 R=5 seed=42 calls=5 mean_seconds=0.015241759
+TOTAL variant=sort_i N=131072 R=5 seed=42 actual_sort_calls=10

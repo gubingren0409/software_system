@@ -1,0 +1,5002 @@
+
+/mnt/e/software_system/Project02/P2/results/stage-b/final/binaries/i-no-inline-keyword.elf:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+0000000000001000 <_init>:
+_init():
+    1000:	endbr64
+    1004:	sub    $0x8,%rsp
+    1008:	mov    0x5fb1(%rip),%rax        # 6fc0 <__gmon_start__@Base>
+    100f:	test   %rax,%rax
+    1012:	je     1016 <_init+0x16>
+    1014:	call   *%rax
+    1016:	add    $0x8,%rsp
+    101a:	ret
+
+Disassembly of section .plt:
+
+0000000000001020 <free@plt-0x10>:
+    1020:	push   0x5fca(%rip)        # 6ff0 <_GLOBAL_OFFSET_TABLE_+0x8>
+    1026:	jmp    *0x5fcc(%rip)        # 6ff8 <_GLOBAL_OFFSET_TABLE_+0x10>
+    102c:	nopl   0x0(%rax)
+
+0000000000001030 <free@plt>:
+    1030:	jmp    *0x5fca(%rip)        # 7000 <free@GLIBC_2.2.5>
+    1036:	push   $0x0
+    103b:	jmp    1020 <_init+0x20>
+
+0000000000001040 <putchar@plt>:
+    1040:	jmp    *0x5fc2(%rip)        # 7008 <putchar@GLIBC_2.2.5>
+    1046:	push   $0x1
+    104b:	jmp    1020 <_init+0x20>
+
+0000000000001050 <__errno_location@plt>:
+    1050:	jmp    *0x5fba(%rip)        # 7010 <__errno_location@GLIBC_2.2.5>
+    1056:	push   $0x2
+    105b:	jmp    1020 <_init+0x20>
+
+0000000000001060 <puts@plt>:
+    1060:	jmp    *0x5fb2(%rip)        # 7018 <puts@GLIBC_2.2.5>
+    1066:	push   $0x3
+    106b:	jmp    1020 <_init+0x20>
+
+0000000000001070 <qsort@plt>:
+    1070:	jmp    *0x5faa(%rip)        # 7020 <qsort@GLIBC_2.2.5>
+    1076:	push   $0x4
+    107b:	jmp    1020 <_init+0x20>
+
+0000000000001080 <clock_gettime@plt>:
+    1080:	jmp    *0x5fa2(%rip)        # 7028 <clock_gettime@GLIBC_2.17>
+    1086:	push   $0x5
+    108b:	jmp    1020 <_init+0x20>
+
+0000000000001090 <strlen@plt>:
+    1090:	jmp    *0x5f9a(%rip)        # 7030 <strlen@GLIBC_2.2.5>
+    1096:	push   $0x6
+    109b:	jmp    1020 <_init+0x20>
+
+00000000000010a0 <rand_r@plt>:
+    10a0:	jmp    *0x5f92(%rip)        # 7038 <rand_r@GLIBC_2.2.5>
+    10a6:	push   $0x7
+    10ab:	jmp    1020 <_init+0x20>
+
+00000000000010b0 <getopt_long@plt>:
+    10b0:	jmp    *0x5f8a(%rip)        # 7040 <getopt_long@GLIBC_2.2.5>
+    10b6:	push   $0x8
+    10bb:	jmp    1020 <_init+0x20>
+
+00000000000010c0 <printf@plt>:
+    10c0:	jmp    *0x5f82(%rip)        # 7048 <printf@GLIBC_2.2.5>
+    10c6:	push   $0x9
+    10cb:	jmp    1020 <_init+0x20>
+
+00000000000010d0 <memset@plt>:
+    10d0:	jmp    *0x5f7a(%rip)        # 7050 <memset@GLIBC_2.2.5>
+    10d6:	push   $0xa
+    10db:	jmp    1020 <_init+0x20>
+
+00000000000010e0 <fputc@plt>:
+    10e0:	jmp    *0x5f72(%rip)        # 7058 <fputc@GLIBC_2.2.5>
+    10e6:	push   $0xb
+    10eb:	jmp    1020 <_init+0x20>
+
+00000000000010f0 <strcmp@plt>:
+    10f0:	jmp    *0x5f6a(%rip)        # 7060 <strcmp@GLIBC_2.2.5>
+    10f6:	push   $0xc
+    10fb:	jmp    1020 <_init+0x20>
+
+0000000000001100 <fprintf@plt>:
+    1100:	jmp    *0x5f62(%rip)        # 7068 <fprintf@GLIBC_2.2.5>
+    1106:	push   $0xd
+    110b:	jmp    1020 <_init+0x20>
+
+0000000000001110 <memcpy@plt>:
+    1110:	jmp    *0x5f5a(%rip)        # 7070 <memcpy@GLIBC_2.14>
+    1116:	push   $0xe
+    111b:	jmp    1020 <_init+0x20>
+
+0000000000001120 <malloc@plt>:
+    1120:	jmp    *0x5f52(%rip)        # 7078 <malloc@GLIBC_2.2.5>
+    1126:	push   $0xf
+    112b:	jmp    1020 <_init+0x20>
+
+0000000000001130 <strtoul@plt>:
+    1130:	jmp    *0x5f4a(%rip)        # 7080 <strtoul@GLIBC_2.2.5>
+    1136:	push   $0x10
+    113b:	jmp    1020 <_init+0x20>
+
+0000000000001140 <exit@plt>:
+    1140:	jmp    *0x5f42(%rip)        # 7088 <exit@GLIBC_2.2.5>
+    1146:	push   $0x11
+    114b:	jmp    1020 <_init+0x20>
+
+0000000000001150 <fwrite@plt>:
+    1150:	jmp    *0x5f3a(%rip)        # 7090 <fwrite@GLIBC_2.2.5>
+    1156:	push   $0x12
+    115b:	jmp    1020 <_init+0x20>
+
+Disassembly of section .plt.got:
+
+0000000000001160 <__cxa_finalize@plt>:
+    1160:	jmp    *0x5e6a(%rip)        # 6fd0 <__cxa_finalize@GLIBC_2.2.5>
+    1166:	xchg   %ax,%ax
+
+Disassembly of section .text:
+
+0000000000001170 <_start>:
+_start():
+    1170:	endbr64
+    1174:	xor    %ebp,%ebp
+    1176:	mov    %rdx,%r9
+    1179:	pop    %rsi
+    117a:	mov    %rsp,%rdx
+    117d:	and    $0xfffffffffffffff0,%rsp
+    1181:	push   %rax
+    1182:	push   %rsp
+    1183:	xor    %r8d,%r8d
+    1186:	xor    %ecx,%ecx
+    1188:	lea    0xd1(%rip),%rdi        # 1260 <main>
+    118f:	call   *0x5e0b(%rip)        # 6fa0 <__libc_start_main@GLIBC_2.34>
+    1195:	hlt
+    1196:	cs nopw 0x0(%rax,%rax,1)
+
+00000000000011a0 <deregister_tm_clones>:
+deregister_tm_clones():
+    11a0:	lea    0x5f61(%rip),%rdi        # 7108 <__TMC_END__>
+    11a7:	lea    0x5f5a(%rip),%rax        # 7108 <__TMC_END__>
+    11ae:	cmp    %rdi,%rax
+    11b1:	je     11c8 <deregister_tm_clones+0x28>
+    11b3:	mov    0x5dee(%rip),%rax        # 6fa8 <_ITM_deregisterTMCloneTable@Base>
+    11ba:	test   %rax,%rax
+    11bd:	je     11c8 <deregister_tm_clones+0x28>
+    11bf:	jmp    *%rax
+    11c1:	nopl   0x0(%rax)
+    11c8:	ret
+    11c9:	nopl   0x0(%rax)
+
+00000000000011d0 <register_tm_clones>:
+register_tm_clones():
+    11d0:	lea    0x5f31(%rip),%rdi        # 7108 <__TMC_END__>
+    11d7:	lea    0x5f2a(%rip),%rsi        # 7108 <__TMC_END__>
+    11de:	sub    %rdi,%rsi
+    11e1:	mov    %rsi,%rax
+    11e4:	shr    $0x3f,%rsi
+    11e8:	sar    $0x3,%rax
+    11ec:	add    %rax,%rsi
+    11ef:	sar    $1,%rsi
+    11f2:	je     1208 <register_tm_clones+0x38>
+    11f4:	mov    0x5dcd(%rip),%rax        # 6fc8 <_ITM_registerTMCloneTable@Base>
+    11fb:	test   %rax,%rax
+    11fe:	je     1208 <register_tm_clones+0x38>
+    1200:	jmp    *%rax
+    1202:	nopw   0x0(%rax,%rax,1)
+    1208:	ret
+    1209:	nopl   0x0(%rax)
+
+0000000000001210 <__do_global_dtors_aux>:
+__do_global_dtors_aux():
+    1210:	endbr64
+    1214:	cmpb   $0x0,0x5eed(%rip)        # 7108 <__TMC_END__>
+    121b:	jne    1248 <__do_global_dtors_aux+0x38>
+    121d:	push   %rbp
+    121e:	cmpq   $0x0,0x5daa(%rip)        # 6fd0 <__cxa_finalize@GLIBC_2.2.5>
+    1226:	mov    %rsp,%rbp
+    1229:	je     1237 <__do_global_dtors_aux+0x27>
+    122b:	mov    0x5e76(%rip),%rdi        # 70a8 <__dso_handle>
+    1232:	call   1160 <__cxa_finalize@plt>
+    1237:	call   11a0 <deregister_tm_clones>
+    123c:	movb   $0x1,0x5ec5(%rip)        # 7108 <__TMC_END__>
+    1243:	pop    %rbp
+    1244:	ret
+    1245:	nopl   (%rax)
+    1248:	ret
+    1249:	nopl   0x0(%rax)
+
+0000000000001250 <frame_dummy>:
+frame_dummy():
+    1250:	endbr64
+    1254:	jmp    11d0 <register_tm_clones>
+    1259:	nopl   0x0(%rax)
+
+0000000000001260 <main>:
+main():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:75
+    exit(EXIT_FAILURE);
+  }
+  return value;
+}
+
+int main(int argc, char** argv) {
+    1260:	push   %rbp
+    1261:	push   %r15
+    1263:	push   %r14
+    1265:	push   %r13
+    1267:	push   %r12
+    1269:	push   %rbx
+    126a:	sub    $0x118,%rsp
+    1271:	mov    %rsi,%r14
+    1274:	mov    %edi,%ebp
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:85
+    {sort_a, "sort_a", 0}, {sort_i, "sort_i", 0}, {sort_p, "sort_p", 0},
+    {sort_c, "sort_c", 0}, {sort_m, "sort_m", 0}, {sort_f, "sort_f", 0},
+  };
+  struct testFunc_t selected[6];
+  int count = 0;
+  const struct option options[] = {
+    1276:	movaps 0x5b23(%rip),%xmm0        # 6da0 <__do_global_dtors_aux_fini_array_entry+0xc8>
+    127d:	movaps %xmm0,0x100(%rsp)
+    1285:	movaps 0x5b04(%rip),%xmm0        # 6d90 <__do_global_dtors_aux_fini_array_entry+0xb8>
+    128c:	movaps %xmm0,0xf0(%rsp)
+    1294:	movaps 0x5ae5(%rip),%xmm0        # 6d80 <__do_global_dtors_aux_fini_array_entry+0xa8>
+    129b:	movaps %xmm0,0xe0(%rsp)
+    12a3:	movaps 0x5ac6(%rip),%xmm0        # 6d70 <__do_global_dtors_aux_fini_array_entry+0x98>
+    12aa:	movaps %xmm0,0xd0(%rsp)
+    12b2:	xor    %ebx,%ebx
+    12b4:	lea    0x3da2(%rip),%rax        # 505d <_IO_stdin_used+0x5d>
+    12bb:	mov    %rax,0x10(%rsp)
+    12c0:	mov    $0x1,%r15d
+    12c6:	mov    $0x1,%al
+    12c8:	mov    %eax,0x1c(%rsp)
+    12cc:	lea    0x3ebe(%rip),%rax        # 5191 <_IO_stdin_used+0x191>
+    12d3:	lea    0x3db0(%rip),%r13        # 508a <_IO_stdin_used+0x8a>
+    12da:	lea    0xd0(%rsp),%r12
+    12e2:	mov    %rax,0x38(%rsp)
+    12e7:	jmp    12ff <main+0x9f>
+    12e9:	mov    $0x1,%ebx
+    12ee:	xchg   %ax,%ax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:93
+  while ((optchar = getopt_long(argc, argv, "s:pbv:", options, NULL)) != -1) {
+    switch (optchar) {
+    case 's': seed = (unsigned int) parse_number(optarg, UINT_MAX, "seed"); break;
+    case 'b': benchmarkOnly = 1; break;
+    case 'p': printFlag = 1; break;
+    case 'v': variant = optarg; break;
+    12f0:	mov    0x5cc1(%rip),%rax        # 6fb8 <optarg@GLIBC_2.2.5>
+    12f7:	mov    (%rax),%rax
+    12fa:	mov    %rax,0x10(%rsp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:88
+  while ((optchar = getopt_long(argc, argv, "s:pbv:", options, NULL)) != -1) {
+    12ff:	mov    %ebp,%edi
+    1301:	mov    %r14,%rsi
+    1304:	mov    %r13,%rdx
+    1307:	mov    %r12,%rcx
+    130a:	xor    %r8d,%r8d
+    130d:	call   10b0 <getopt_long@plt>
+    1312:	lea    -0x62(%rax),%ecx
+    1315:	cmp    $0x14,%ecx
+    1318:	ja     141a <main+0x1ba>
+    131e:	lea    0x3cdf(%rip),%rdx        # 5004 <_IO_stdin_used+0x4>
+    1325:	movslq (%rdx,%rcx,4),%rax
+    1329:	add    %rdx,%rax
+    132c:	jmp    *%rax
+    132e:	xchg   %ax,%ax
+    1330:	mov    %ebp,%edi
+    1332:	mov    %r14,%rsi
+    1335:	mov    %r13,%rdx
+    1338:	mov    %r12,%rcx
+    133b:	xor    %r8d,%r8d
+    133e:	call   10b0 <getopt_long@plt>
+    1343:	cmp    $0x70,%eax
+    1346:	je     1330 <main+0xd0>
+    1348:	cmp    $0x72,%eax
+    134b:	jle    13e0 <main+0x180>
+    1351:	cmp    $0x76,%eax
+    1354:	je     12e9 <main+0x89>
+    1356:	cmp    $0x73,%eax
+    1359:	jne    1403 <main+0x1a3>
+    135f:	mov    $0x1,%eax
+    1364:	mov    %rax,0x20(%rsp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:90
+    case 's': seed = (unsigned int) parse_number(optarg, UINT_MAX, "seed"); break;
+    1369:	mov    0x5c48(%rip),%rax        # 6fb8 <optarg@GLIBC_2.2.5>
+    1370:	mov    (%rax),%r15
+parse_number():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:65
+  errno = 0;
+    1373:	call   1050 <__errno_location@plt>
+    1378:	mov    %rax,%rbx
+    137b:	movl   $0x0,(%rax)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:66
+  unsigned long value = strtoul(text, &end, 10);
+    1381:	mov    %r15,%rdi
+    1384:	lea    0x40(%rsp),%rsi
+    1389:	mov    $0xa,%edx
+    138e:	call   1130 <strtoul@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:67
+  if (text[0] < '0' || text[0] > '9' || *end != '\0' ||
+    1393:	movzbl (%r15),%ecx
+    1397:	add    $0xc6,%cl
+    139a:	cmp    $0xf6,%cl
+    139d:	jb     1899 <main+0x639>
+    13a3:	mov    0x40(%rsp),%rcx
+    13a8:	cmpb   $0x0,(%rcx)
+    13ab:	jne    1899 <main+0x639>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:68
+      errno == ERANGE || value > maximum) {
+    13b1:	cmpl   $0x22,(%rbx)
+    13b4:	je     1899 <main+0x639>
+    13ba:	mov    %rax,%rcx
+    13bd:	shr    $0x20,%rcx
+    13c1:	jne    1899 <main+0x639>
+main():
+    13c7:	mov    %rax,%r15
+    13ca:	mov    0x20(%rsp),%rbx
+    13cf:	jmp    12ff <main+0x9f>
+    13d4:	mov    %rbx,0x20(%rsp)
+    13d9:	jmp    1369 <main+0x109>
+    13db:	nopl   0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:88
+  while ((optchar = getopt_long(argc, argv, "s:pbv:", options, NULL)) != -1) {
+    13e0:	cmp    $0x62,%eax
+    13e3:	jne    13fe <main+0x19e>
+    13e5:	mov    $0x1,%ebx
+    13ea:	movl   $0x0,0x1c(%rsp)
+    13f2:	lea    0x3d91(%rip),%rax        # 518a <_IO_stdin_used+0x18a>
+    13f9:	jmp    12e2 <main+0x82>
+    13fe:	cmp    $0xffffffff,%eax
+    1401:	je     1426 <main+0x1c6>
+    1403:	mov    $0x1,%eax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:131
+  for (int i = 0; i < count; i++) {
+    printf("TOTAL variant=%s N=%d R=%d seed=%u actual_sort_calls=%llu\n",
+           selected[i].name, N, R, seed, selected[i].calls);
+  }
+  return 0;
+}
+    1408:	add    $0x118,%rsp
+    140f:	pop    %rbx
+    1410:	pop    %r12
+    1412:	pop    %r13
+    1414:	pop    %r14
+    1416:	pop    %r15
+    1418:	pop    %rbp
+    1419:	ret
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:88
+  while ((optchar = getopt_long(argc, argv, "s:pbv:", options, NULL)) != -1) {
+    141a:	cmp    $0xffffffff,%eax
+    141d:	jne    1403 <main+0x1a3>
+    141f:	mov    %rbx,0x20(%rsp)
+    1424:	jmp    1430 <main+0x1d0>
+    1426:	mov    $0x1,%eax
+    142b:	mov    %rax,0x20(%rsp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:97
+  if (argc - optind != 2) {
+    1430:	mov    0x5b79(%rip),%rbx        # 6fb0 <optind@GLIBC_2.2.5>
+    1437:	movslq (%rbx),%rax
+    143a:	sub    %eax,%ebp
+    143c:	cmp    $0x2,%ebp
+    143f:	jne    1548 <main+0x2e8>
+    1445:	mov    %r15,0x28(%rsp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:102
+  int N = (int) parse_number(argv[optind], INT_MAX / 2, "N");
+    144a:	mov    (%r14,%rax,8),%r15
+parse_number():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:65
+  errno = 0;
+    144e:	call   1050 <__errno_location@plt>
+    1453:	mov    %rax,%r12
+    1456:	movl   $0x0,(%rax)
+    145c:	lea    0x40(%rsp),%rsi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:66
+  unsigned long value = strtoul(text, &end, 10);
+    1461:	mov    %r15,%rdi
+    1464:	mov    $0xa,%edx
+    1469:	call   1130 <strtoul@plt>
+    146e:	mov    %rax,%r13
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:67
+  if (text[0] < '0' || text[0] > '9' || *end != '\0' ||
+    1471:	movzbl (%r15),%eax
+    1475:	add    $0xc6,%al
+    1477:	cmp    $0xf6,%al
+    1479:	jb     18b3 <main+0x653>
+    147f:	mov    0x40(%rsp),%rax
+    1484:	cmpb   $0x0,(%rax)
+    1487:	jne    18b3 <main+0x653>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:68
+      errno == ERANGE || value > maximum) {
+    148d:	cmpl   $0x22,(%r12)
+    1492:	je     18b3 <main+0x653>
+    1498:	cmp    $0x40000000,%r13
+    149f:	jae    18b3 <main+0x653>
+main():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:103
+  int R = (int) parse_number(argv[optind + 1], INT_MAX, "R");
+    14a5:	movslq (%rbx),%rax
+    14a8:	mov    0x8(%r14,%rax,8),%r15
+parse_number():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:65
+  errno = 0;
+    14ad:	movl   $0x0,(%r12)
+    14b5:	lea    0x40(%rsp),%rsi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:66
+  unsigned long value = strtoul(text, &end, 10);
+    14ba:	mov    %r15,%rdi
+    14bd:	mov    $0xa,%edx
+    14c2:	call   1130 <strtoul@plt>
+    14c7:	mov    %rax,%r14
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:67
+  if (text[0] < '0' || text[0] > '9' || *end != '\0' ||
+    14ca:	movzbl (%r15),%eax
+    14ce:	add    $0xc6,%al
+    14d0:	cmp    $0xf6,%al
+    14d2:	jb     18cd <main+0x66d>
+    14d8:	mov    0x40(%rsp),%rax
+    14dd:	cmpb   $0x0,(%rax)
+    14e0:	jne    18cd <main+0x66d>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:68
+      errno == ERANGE || value > maximum) {
+    14e6:	cmpl   $0x22,(%r12)
+    14eb:	je     18cd <main+0x66d>
+    14f1:	mov    %r14,%rax
+    14f4:	shr    $0x1f,%rax
+    14f8:	jne    18cd <main+0x66d>
+main():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:104
+  if (N < 1 || R < 1) {
+    14fe:	test   %r13d,%r13d
+    1501:	je     1568 <main+0x308>
+    1503:	test   %r14d,%r14d
+    1506:	je     1568 <main+0x308>
+    1508:	mov    %r14d,%ebp
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:109
+    if (strcmp(variant, "all") == 0 ||
+    150b:	lea    0x3be1(%rip),%rsi        # 50f3 <_IO_stdin_used+0xf3>
+    1512:	mov    0x10(%rsp),%rbx
+    1517:	mov    %rbx,%rdi
+    151a:	call   10f0 <strcmp@plt>
+    151f:	test   %eax,%eax
+    1521:	mov    0x28(%rsp),%r15
+    1526:	jne    158d <main+0x32d>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:111
+      selected[count++] = available[i];
+    1528:	mov    0x57c1(%rip),%rax        # 6cf0 <__do_global_dtors_aux_fini_array_entry+0x18>
+    152f:	mov    %rax,0x50(%rsp)
+    1534:	movaps 0x57a5(%rip),%xmm0        # 6ce0 <__do_global_dtors_aux_fini_array_entry+0x8>
+    153b:	movaps %xmm0,0x40(%rsp)
+    1540:	mov    $0x1,%r12d
+    1546:	jmp    15a3 <main+0x343>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:98
+    fprintf(stderr, "Usage: %s [-p] [-b] [-s seed] [--variant a|i|p|c|m|f|all] N R\n", argv[0]);
+    1548:	mov    0x5a89(%rip),%rax        # 6fd8 <stderr@GLIBC_2.2.5>
+    154f:	mov    (%rax),%rdi
+    1552:	mov    (%r14),%rdx
+    1555:	lea    0x3b3a(%rip),%rsi        # 5096 <_IO_stdin_used+0x96>
+    155c:	xor    %eax,%eax
+    155e:	call   1100 <fprintf@plt>
+    1563:	jmp    1403 <main+0x1a3>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:105
+    fprintf(stderr, "N and R must be positive\n");
+    1568:	mov    0x5a69(%rip),%rax        # 6fd8 <stderr@GLIBC_2.2.5>
+    156f:	mov    (%rax),%rcx
+    1572:	lea    0x3b60(%rip),%rdi        # 50d9 <_IO_stdin_used+0xd9>
+    1579:	mov    $0x19,%esi
+    157e:	mov    $0x1,%edx
+    1583:	call   1150 <fwrite@plt>
+    1588:	jmp    1403 <main+0x1a3>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:110
+        (strlen(variant) == 1 && variant[0] == available[i].name[5])) {
+    158d:	mov    %rbx,%rdi
+    1590:	call   1090 <strlen@plt>
+    1595:	xor    %r12d,%r12d
+    1598:	cmp    $0x1,%rax
+    159c:	jne    15a3 <main+0x343>
+    159e:	cmpb   $0x61,(%rbx)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:109
+    if (strcmp(variant, "all") == 0 ||
+    15a1:	je     1528 <main+0x2c8>
+    15a3:	lea    0x3b49(%rip),%rsi        # 50f3 <_IO_stdin_used+0xf3>
+    15aa:	mov    %rbx,%rdi
+    15ad:	call   10f0 <strcmp@plt>
+    15b2:	test   %eax,%eax
+    15b4:	jne    15da <main+0x37a>
+    15b6:	mov    %r12d,%eax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:111
+      selected[count++] = available[i];
+    15b9:	inc    %r12d
+    15bc:	lea    (%rax,%rax,2),%rax
+    15c0:	mov    0x5741(%rip),%rcx        # 6d08 <__do_global_dtors_aux_fini_array_entry+0x30>
+    15c7:	mov    %rcx,0x50(%rsp,%rax,8)
+    15cc:	movups 0x5725(%rip),%xmm0        # 6cf8 <__do_global_dtors_aux_fini_array_entry+0x20>
+    15d3:	movups %xmm0,0x40(%rsp,%rax,8)
+    15d8:	jmp    15ed <main+0x38d>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:110
+        (strlen(variant) == 1 && variant[0] == available[i].name[5])) {
+    15da:	mov    %rbx,%rdi
+    15dd:	call   1090 <strlen@plt>
+    15e2:	cmp    $0x1,%rax
+    15e6:	jne    15ed <main+0x38d>
+    15e8:	cmpb   $0x69,(%rbx)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:109
+    if (strcmp(variant, "all") == 0 ||
+    15eb:	je     15b6 <main+0x356>
+    15ed:	lea    0x3aff(%rip),%rsi        # 50f3 <_IO_stdin_used+0xf3>
+    15f4:	mov    %rbx,%rdi
+    15f7:	call   10f0 <strcmp@plt>
+    15fc:	test   %eax,%eax
+    15fe:	jne    1624 <main+0x3c4>
+    1600:	mov    %r12d,%eax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:111
+      selected[count++] = available[i];
+    1603:	inc    %r12d
+    1606:	lea    (%rax,%rax,2),%rax
+    160a:	mov    0x570f(%rip),%rcx        # 6d20 <__do_global_dtors_aux_fini_array_entry+0x48>
+    1611:	mov    %rcx,0x50(%rsp,%rax,8)
+    1616:	movaps 0x56f3(%rip),%xmm0        # 6d10 <__do_global_dtors_aux_fini_array_entry+0x38>
+    161d:	movups %xmm0,0x40(%rsp,%rax,8)
+    1622:	jmp    1637 <main+0x3d7>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:110
+        (strlen(variant) == 1 && variant[0] == available[i].name[5])) {
+    1624:	mov    %rbx,%rdi
+    1627:	call   1090 <strlen@plt>
+    162c:	cmp    $0x1,%rax
+    1630:	jne    1637 <main+0x3d7>
+    1632:	cmpb   $0x70,(%rbx)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:109
+    if (strcmp(variant, "all") == 0 ||
+    1635:	je     1600 <main+0x3a0>
+    1637:	lea    0x3ab5(%rip),%rsi        # 50f3 <_IO_stdin_used+0xf3>
+    163e:	mov    %rbx,%rdi
+    1641:	call   10f0 <strcmp@plt>
+    1646:	test   %eax,%eax
+    1648:	jne    166e <main+0x40e>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:111
+      selected[count++] = available[i];
+    164a:	mov    %r12d,%eax
+    164d:	inc    %r12d
+    1650:	lea    (%rax,%rax,2),%rax
+    1654:	mov    0x56dd(%rip),%rcx        # 6d38 <__do_global_dtors_aux_fini_array_entry+0x60>
+    165b:	mov    %rcx,0x50(%rsp,%rax,8)
+    1660:	movups 0x56c1(%rip),%xmm0        # 6d28 <__do_global_dtors_aux_fini_array_entry+0x50>
+    1667:	movups %xmm0,0x40(%rsp,%rax,8)
+    166c:	jmp    1681 <main+0x421>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:110
+        (strlen(variant) == 1 && variant[0] == available[i].name[5])) {
+    166e:	mov    %rbx,%rdi
+    1671:	call   1090 <strlen@plt>
+    1676:	cmp    $0x1,%rax
+    167a:	jne    1681 <main+0x421>
+    167c:	cmpb   $0x63,(%rbx)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:109
+    if (strcmp(variant, "all") == 0 ||
+    167f:	je     164a <main+0x3ea>
+    1681:	lea    0x3a6b(%rip),%rsi        # 50f3 <_IO_stdin_used+0xf3>
+    1688:	mov    %rbx,%rdi
+    168b:	call   10f0 <strcmp@plt>
+    1690:	test   %eax,%eax
+    1692:	jne    16b8 <main+0x458>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:111
+      selected[count++] = available[i];
+    1694:	mov    %r12d,%eax
+    1697:	inc    %r12d
+    169a:	lea    (%rax,%rax,2),%rax
+    169e:	mov    0x56ab(%rip),%rcx        # 6d50 <__do_global_dtors_aux_fini_array_entry+0x78>
+    16a5:	mov    %rcx,0x50(%rsp,%rax,8)
+    16aa:	movaps 0x568f(%rip),%xmm0        # 6d40 <__do_global_dtors_aux_fini_array_entry+0x68>
+    16b1:	movups %xmm0,0x40(%rsp,%rax,8)
+    16b6:	jmp    16cb <main+0x46b>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:110
+        (strlen(variant) == 1 && variant[0] == available[i].name[5])) {
+    16b8:	mov    %rbx,%rdi
+    16bb:	call   1090 <strlen@plt>
+    16c0:	cmp    $0x1,%rax
+    16c4:	jne    16cb <main+0x46b>
+    16c6:	cmpb   $0x6d,(%rbx)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:109
+    if (strcmp(variant, "all") == 0 ||
+    16c9:	je     1694 <main+0x434>
+    16cb:	lea    0x3a21(%rip),%rsi        # 50f3 <_IO_stdin_used+0xf3>
+    16d2:	mov    %rbx,%rdi
+    16d5:	call   10f0 <strcmp@plt>
+    16da:	test   %eax,%eax
+    16dc:	jne    1702 <main+0x4a2>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:111
+      selected[count++] = available[i];
+    16de:	mov    %r12d,%eax
+    16e1:	inc    %r12d
+    16e4:	lea    (%rax,%rax,2),%rax
+    16e8:	mov    0x5679(%rip),%rcx        # 6d68 <__do_global_dtors_aux_fini_array_entry+0x90>
+    16ef:	mov    %rcx,0x50(%rsp,%rax,8)
+    16f4:	movups 0x565d(%rip),%xmm0        # 6d58 <__do_global_dtors_aux_fini_array_entry+0x80>
+    16fb:	movups %xmm0,0x40(%rsp,%rax,8)
+    1700:	jmp    1733 <main+0x4d3>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:110
+        (strlen(variant) == 1 && variant[0] == available[i].name[5])) {
+    1702:	mov    %rbx,%rdi
+    1705:	call   1090 <strlen@plt>
+    170a:	cmp    $0x1,%rax
+    170e:	jne    1715 <main+0x4b5>
+    1710:	cmpb   $0x66,(%rbx)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:109
+    if (strcmp(variant, "all") == 0 ||
+    1713:	je     16de <main+0x47e>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:114
+  if (count == 0) {
+    1715:	test   %r12d,%r12d
+    1718:	jne    1733 <main+0x4d3>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:115
+    fprintf(stderr, "Unknown variant: %s\n", variant);
+    171a:	mov    0x58b7(%rip),%rax        # 6fd8 <stderr@GLIBC_2.2.5>
+    1721:	mov    (%rax),%rdi
+    1724:	lea    0x39cc(%rip),%rsi        # 50f7 <_IO_stdin_used+0xf7>
+    172b:	mov    %rbx,%rdx
+    172e:	jmp    155c <main+0x2fc>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:118
+  set_random_seed(seed);
+    1733:	mov    %r15d,%edi
+    1736:	call   1900 <set_random_seed>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:119
+  printf("Initial rand_r seed: %u; sort versions: %d; trials per input: %d\n", seed, count, R);
+    173b:	lea    0x39ca(%rip),%rdi        # 510c <_IO_stdin_used+0x10c>
+    1742:	mov    %r15d,%esi
+    1745:	mov    %r12d,%edx
+    1748:	mov    %ebp,%ecx
+    174a:	xor    %eax,%eax
+    174c:	call   10c0 <printf@plt>
+    1751:	add    %r14,%r14
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:120
+  for (int i = 0; i < count; i++) {
+    1754:	mov    %r12d,%r12d
+    1757:	lea    0x48(%rsp),%rbx
+    175c:	mov    %r13,0x10(%rsp)
+    1761:	mov    %r12,0x30(%rsp)
+    1766:	mov    %ebp,%r13d
+    1769:	mov    0x38(%rsp),%rbp
+    176e:	xchg   %ax,%ax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:122
+           selected[i].name, N, R, seed, benchmarkOnly ? "timing" : "full",
+    1770:	mov    (%rbx),%rsi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:121
+    printf("RUN variant=%s N=%d R=%d seed=%u group=%s timed_calls=%llu\n",
+    1773:	mov    %r14,(%rsp)
+    1777:	lea    0x39d0(%rip),%rdi        # 514e <_IO_stdin_used+0x14e>
+    177e:	mov    0x10(%rsp),%rdx
+    1783:	mov    %r13d,%ecx
+    1786:	mov    %r15d,%r8d
+    1789:	mov    %rbp,%r9
+    178c:	xor    %eax,%eax
+    178e:	call   10c0 <printf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:120
+  for (int i = 0; i < count; i++) {
+    1793:	add    $0x18,%rbx
+    1797:	dec    %r12
+    179a:	jne    1770 <main+0x510>
+run_test_suite():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:41
+  for (int i = 0; test_cases[i] != NULL; i++) {
+    179c:	lea    0x593d(%rip),%rbx        # 70e0 <test_cases>
+    17a3:	cmpq   $0x0,(%rbx)
+    17a7:	mov    %r13d,%ebp
+    17aa:	mov    0x30(%rsp),%r13
+    17af:	je     1836 <main+0x5d6>
+    17b5:	testb  $0x1,0x1c(%rsp)
+    17ba:	je     1806 <main+0x5a6>
+    17bc:	lea    0x40(%rsp),%r15
+    17c1:	xor    %r14d,%r14d
+    17c4:	mov    0x20(%rsp),%r12
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:48
+    fprintf(stderr, "\nRunning test #%d...\n", i);
+    17c9:	mov    0x5808(%rip),%rax        # 6fd8 <stderr@GLIBC_2.2.5>
+    17d0:	mov    (%rax),%rdi
+    17d3:	lea    0x3a07(%rip),%rsi        # 51e1 <_IO_stdin_used+0x1e1>
+    17da:	mov    %r14d,%edx
+    17dd:	xor    %eax,%eax
+    17df:	call   1100 <fprintf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:49
+    (*test_cases[i])(printFlag, N, R, testFunc, numFunc);
+    17e4:	mov    %r12d,%edi
+    17e7:	mov    0x10(%rsp),%rsi
+    17ec:	mov    %ebp,%edx
+    17ee:	mov    %r15,%rcx
+    17f1:	mov    %r13d,%r8d
+    17f4:	call   *(%rbx,%r14,8)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:41
+  for (int i = 0; test_cases[i] != NULL; i++) {
+    17f8:	cmpq   $0x0,0x8(%rbx,%r14,8)
+    17fe:	lea    0x1(%r14),%r14
+    1802:	jne    17c9 <main+0x569>
+    1804:	jmp    1836 <main+0x5d6>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:48
+    fprintf(stderr, "\nRunning test #%d...\n", i);
+    1806:	mov    0x57cb(%rip),%rax        # 6fd8 <stderr@GLIBC_2.2.5>
+    180d:	mov    (%rax),%rdi
+    1810:	lea    0x39ca(%rip),%rsi        # 51e1 <_IO_stdin_used+0x1e1>
+    1817:	xor    %edx,%edx
+    1819:	xor    %eax,%eax
+    181b:	call   1100 <fprintf@plt>
+    1820:	lea    0x40(%rsp),%rcx
+    1825:	mov    0x20(%rsp),%rdi
+    182a:	mov    0x10(%rsp),%rsi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:49
+    (*test_cases[i])(printFlag, N, R, testFunc, numFunc);
+    182f:	mov    %ebp,%edx
+    1831:	mov    %r13d,%r8d
+    1834:	call   *(%rbx)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:51
+  fprintf(stderr, "Done testing.\n");
+    1836:	mov    0x579b(%rip),%rax        # 6fd8 <stderr@GLIBC_2.2.5>
+    183d:	mov    (%rax),%rcx
+    1840:	lea    0x39b0(%rip),%rdi        # 51f7 <_IO_stdin_used+0x1f7>
+    1847:	mov    $0xe,%esi
+    184c:	mov    $0x1,%edx
+    1851:	call   1150 <fwrite@plt>
+main():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:126
+  for (int i = 0; i < count; i++) {
+    1856:	lea    0x50(%rsp),%rbx
+    185b:	lea    0x3934(%rip),%r14        # 5196 <_IO_stdin_used+0x196>
+    1862:	mov    0x28(%rsp),%r15
+    1867:	mov    0x10(%rsp),%r12
+    186c:	nopl   0x0(%rax)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:128
+           selected[i].name, N, R, seed, selected[i].calls);
+    1870:	mov    -0x8(%rbx),%rsi
+    1874:	mov    (%rbx),%r9
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:127
+    printf("TOTAL variant=%s N=%d R=%d seed=%u actual_sort_calls=%llu\n",
+    1877:	mov    %r14,%rdi
+    187a:	mov    %r12d,%edx
+    187d:	mov    %ebp,%ecx
+    187f:	mov    %r15d,%r8d
+    1882:	xor    %eax,%eax
+    1884:	call   10c0 <printf@plt>
+    1889:	xor    %eax,%eax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:126
+  for (int i = 0; i < count; i++) {
+    188b:	add    $0x18,%rbx
+    188f:	dec    %r13
+    1892:	jne    1870 <main+0x610>
+    1894:	jmp    1408 <main+0x1a8>
+parse_number():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:69
+    fprintf(stderr, "Invalid %s: %s\n", label, text);
+    1899:	mov    0x5738(%rip),%rax        # 6fd8 <stderr@GLIBC_2.2.5>
+    18a0:	mov    (%rax),%rdi
+    18a3:	lea    0x3927(%rip),%rsi        # 51d1 <_IO_stdin_used+0x1d1>
+    18aa:	lea    0x37e0(%rip),%rdx        # 5091 <_IO_stdin_used+0x91>
+    18b1:	jmp    18e5 <main+0x685>
+    18b3:	mov    0x571e(%rip),%rax        # 6fd8 <stderr@GLIBC_2.2.5>
+    18ba:	mov    (%rax),%rdi
+    18bd:	lea    0x390d(%rip),%rsi        # 51d1 <_IO_stdin_used+0x1d1>
+    18c4:	lea    0x380a(%rip),%rdx        # 50d5 <_IO_stdin_used+0xd5>
+    18cb:	jmp    18e5 <main+0x685>
+    18cd:	mov    0x5704(%rip),%rax        # 6fd8 <stderr@GLIBC_2.2.5>
+    18d4:	mov    (%rax),%rdi
+    18d7:	lea    0x38f3(%rip),%rsi        # 51d1 <_IO_stdin_used+0x1d1>
+    18de:	lea    0x37f2(%rip),%rdx        # 50d7 <_IO_stdin_used+0xd7>
+    18e5:	mov    %r15,%rcx
+    18e8:	xor    %eax,%eax
+    18ea:	call   1100 <fprintf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/main.c:70
+    exit(EXIT_FAILURE);
+    18ef:	mov    $0x1,%edi
+    18f4:	call   1140 <exit@plt>
+main():
+    18f9:	nopl   0x0(%rax)
+
+0000000000001900 <set_random_seed>:
+set_random_seed():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:64
+// static int test_verbose = 1 ;
+static unsigned int randomSeed = 1;
+static unsigned int initialSeed = 1;
+
+void set_random_seed(unsigned int seed) {
+  randomSeed = seed;
+    1900:	mov    %edi,0x57aa(%rip)        # 70b0 <randomSeed>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:65
+  initialSeed = seed;
+    1906:	mov    %edi,0x57a8(%rip)        # 70b4 <initialSeed>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:66
+}
+    190c:	ret
+    190d:	nopl   (%rax)
+
+0000000000001910 <all_random>:
+init_data():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:152
+void
+init_data(data_t* data, int N, int randomPrefix, int invertedSuffix) {
+  // initialize data with randomPrefix random numbers
+  assert(randomPrefix <= N);
+  /* random prefix */
+  for (int i = 0; i < randomPrefix; i++) {
+    1910:	test   %esi,%esi
+    1912:	jle    1954 <all_random+0x44>
+    1914:	push   %r15
+    1916:	push   %r14
+    1918:	push   %r12
+    191a:	push   %rbx
+    191b:	push   %rax
+    191c:	mov    %rdi,%rbx
+    191f:	mov    %esi,%r15d
+    1922:	xor    %r12d,%r12d
+    1925:	lea    0x5784(%rip),%r14        # 70b0 <randomSeed>
+    192c:	nopl   0x0(%rax)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:153
+    data[i] = rand_r(&randomSeed) % RANGE;
+    1930:	mov    %r14,%rdi
+    1933:	call   10a0 <rand_r@plt>
+    1938:	and    $0x7fffffff,%eax
+    193d:	mov    %eax,(%rbx,%r12,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:152
+  for (int i = 0; i < randomPrefix; i++) {
+    1941:	inc    %r12
+    1944:	cmp    %r12,%r15
+    1947:	jne    1930 <all_random+0x20>
+all_random():
+    1949:	add    $0x8,%rsp
+    194d:	pop    %rbx
+    194e:	pop    %r12
+    1950:	pop    %r14
+    1952:	pop    %r15
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:173
+  char* name;
+};
+
+void all_random(data_t* data, int N) {
+  init_data(data, N, N, 0);
+}
+    1954:	ret
+    1955:	data16 cs nopw 0x0(%rax,%rax,1)
+
+0000000000001960 <all_inverted>:
+init_data():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:156
+  for (int i = randomPrefix; i < N; i++) {
+    1960:	test   %esi,%esi
+    1962:	jle    1a25 <all_inverted+0xc5>
+    1968:	mov    %esi,%eax
+    196a:	cmp    $0x8,%esi
+    196d:	jae    1976 <all_inverted+0x16>
+    196f:	xor    %ecx,%ecx
+    1971:	jmp    19f7 <all_inverted+0x97>
+    1976:	mov    %eax,%ecx
+    1978:	and    $0x7ffffff8,%ecx
+    197e:	movd   %esi,%xmm0
+    1982:	pshufd $0x0,%xmm0,%xmm0
+    1987:	mov    %eax,%edx
+    1989:	shr    $0x3,%edx
+    198c:	and    $0xfffffff,%edx
+    1992:	shl    $0x5,%rdx
+    1996:	movdqa 0x3c22(%rip),%xmm1        # 55c0 <_IO_stdin_used+0x5c0>
+    199e:	xor    %r8d,%r8d
+    19a1:	movdqa 0x3c27(%rip),%xmm2        # 55d0 <_IO_stdin_used+0x5d0>
+    19a9:	movdqa 0x3c2f(%rip),%xmm3        # 55e0 <_IO_stdin_used+0x5e0>
+    19b1:	movdqa 0x3c37(%rip),%xmm4        # 55f0 <_IO_stdin_used+0x5f0>
+    19b9:	nopl   0x0(%rax)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:158
+      data[i] = (N - i) % RANGE;         // inverted
+    19c0:	movdqa %xmm0,%xmm5
+    19c4:	psubd  %xmm1,%xmm5
+    19c8:	movdqa %xmm5,%xmm6
+    19cc:	psubd  %xmm2,%xmm6
+    19d0:	pand   %xmm3,%xmm5
+    19d4:	pand   %xmm3,%xmm6
+    19d8:	movdqu %xmm5,(%rdi,%r8,1)
+    19de:	movdqu %xmm6,0x10(%rdi,%r8,1)
+    19e5:	paddd  %xmm4,%xmm1
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:156
+  for (int i = randomPrefix; i < N; i++) {
+    19e9:	add    $0x20,%r8
+    19ed:	cmp    %r8,%rdx
+    19f0:	jne    19c0 <all_inverted+0x60>
+    19f2:	cmp    %rax,%rcx
+    19f5:	je     1a25 <all_inverted+0xc5>
+    19f7:	sub    %rcx,%rax
+    19fa:	lea    (%rdi,%rcx,4),%rdx
+    19fe:	sub    %ecx,%esi
+    1a00:	xor    %ecx,%ecx
+    1a02:	data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:158
+      data[i] = (N - i) % RANGE;         // inverted
+    1a10:	mov    %esi,%edi
+    1a12:	and    $0x7fffffff,%edi
+    1a18:	mov    %edi,(%rdx,%rcx,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:156
+  for (int i = randomPrefix; i < N; i++) {
+    1a1b:	inc    %rcx
+    1a1e:	dec    %esi
+    1a20:	cmp    %rcx,%rax
+    1a23:	jne    1a10 <all_inverted+0xb0>
+all_inverted():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:177
+
+void all_inverted(data_t* data, int N) {
+  init_data(data, N, 0, 1 /* inverted */);
+}
+    1a25:	ret
+    1a26:	cs nopw 0x0(%rax,%rax,1)
+
+0000000000001a30 <test_subarray>:
+test_subarray():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:315
+    TEST_FAIL("Sorting array with one element failed");
+  }
+}
+
+void test_subarray(int printFlag, int N, int R,
+                   struct testFunc_t* testFunc, int numFunc) {
+    1a30:	push   %rbp
+    1a31:	push   %r15
+    1a33:	push   %r14
+    1a35:	push   %r13
+    1a37:	push   %r12
+    1a39:	push   %rbx
+    1a3a:	sub    $0x38,%rsp
+    1a3e:	mov    %r8d,0x24(%rsp)
+    1a43:	mov    %rcx,%r13
+    1a46:	mov    %esi,%r12d
+    1a49:	mov    %edi,%r14d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:320
+  data_t* data, *data_bcup;
+  int success = 1;
+
+  // allocate memory
+  data = (data_t*) malloc(N * sizeof(data_t));
+    1a4c:	movslq %esi,%rbx
+    1a4f:	shl    $0x2,%rbx
+    1a53:	mov    %rbx,%rdi
+    1a56:	call   1120 <malloc@plt>
+    1a5b:	mov    %rax,%r15
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:321
+  data_bcup = (data_t*) malloc(N * sizeof(data_t));
+    1a5e:	mov    %rbx,%rdi
+    1a61:	call   1120 <malloc@plt>
+    1a66:	mov    %rax,%rbp
+    1a69:	mov    %r15,0x18(%rsp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:323
+
+  if (data == NULL || data_bcup == NULL) {
+    1a6e:	test   %r15,%r15
+    1a71:	je     1c1c <test_subarray+0x1ec>
+    1a77:	test   %rbp,%rbp
+    1a7a:	je     1c1c <test_subarray+0x1ec>
+    1a80:	mov    %r13,0x30(%rsp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:331
+    free(data_bcup);
+    exit(-1);
+  }
+
+  // initialize data with random numbers
+  for (int i = 0; i < N; i++) {
+    1a85:	test   %r12d,%r12d
+    1a88:	mov    %r12d,0x10(%rsp)
+    1a8d:	mov    %r14d,0x14(%rsp)
+    1a92:	jle    1b08 <test_subarray+0xd8>
+    1a94:	mov    %r12d,%r13d
+    1a97:	xor    %ebx,%ebx
+    1a99:	lea    0x5610(%rip),%r12        # 70b0 <randomSeed>
+    1aa0:	mov    0x18(%rsp),%r14
+    1aa5:	data16 cs nopw 0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:332
+    data[i] = rand_r(&randomSeed);
+    1ab0:	mov    %r12,%rdi
+    1ab3:	call   10a0 <rand_r@plt>
+    1ab8:	mov    %eax,(%r14,%rbx,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:333
+    data_bcup[i] = data[i];
+    1abc:	mov    %eax,0x0(%rbp,%rbx,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:331
+  for (int i = 0; i < N; i++) {
+    1ac0:	inc    %rbx
+    1ac3:	cmp    %rbx,%r13
+    1ac6:	jne    1ab0 <test_subarray+0x80>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:335
+  }
+  if (printFlag) {
+    1ac8:	cmpl   $0x0,0x14(%rsp)
+    1acd:	je     1b23 <test_subarray+0xf3>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:336
+    printf("Data before sort\n");
+    1acf:	lea    0x3aaa(%rip),%rdi        # 5580 <_IO_stdin_used+0x580>
+    1ad6:	call   1060 <puts@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:331
+  for (int i = 0; i < N; i++) {
+    1adb:	cmpl   $0x0,0x10(%rsp)
+    1ae0:	mov    0x18(%rsp),%r14
+display_array():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:76
+  for (int i = 0; i < N; i++) {
+    1ae5:	jle    1b19 <test_subarray+0xe9>
+    1ae7:	lea    0x3791(%rip),%r12        # 527f <_IO_stdin_used+0x27f>
+    1aee:	xor    %ebx,%ebx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:77
+    printf("%d ", data[i]);
+    1af0:	mov    (%r14,%rbx,4),%esi
+    1af4:	mov    %r12,%rdi
+    1af7:	xor    %eax,%eax
+    1af9:	call   10c0 <printf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:76
+  for (int i = 0; i < N; i++) {
+    1afe:	inc    %rbx
+    1b01:	cmp    %rbx,%r13
+    1b04:	jne    1af0 <test_subarray+0xc0>
+    1b06:	jmp    1b19 <test_subarray+0xe9>
+test_subarray():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:335
+  if (printFlag) {
+    1b08:	test   %r14d,%r14d
+    1b0b:	je     1b23 <test_subarray+0xf3>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:336
+    printf("Data before sort\n");
+    1b0d:	lea    0x3a6c(%rip),%rdi        # 5580 <_IO_stdin_used+0x580>
+    1b14:	call   1060 <puts@plt>
+display_array():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:79
+  printf("\n");
+    1b19:	mov    $0xa,%edi
+    1b1e:	call   1040 <putchar@plt>
+test_subarray():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:339
+    display_array(data, N);
+  }
+  int begin = rand_r(&randomSeed) % N;
+    1b23:	lea    0x5586(%rip),%rdi        # 70b0 <randomSeed>
+    1b2a:	call   10a0 <rand_r@plt>
+    1b2f:	cltd
+    1b30:	mov    0x10(%rsp),%ecx
+    1b34:	idiv   %ecx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:340
+  int end = N - 1 - begin;
+    1b36:	mov    %edx,%r12d
+    1b39:	not    %r12d
+    1b3c:	add    %ecx,%r12d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:341
+  if (begin > end) {
+    1b3f:	cmp    %r12d,%edx
+    1b42:	mov    %r12d,%r13d
+    1b45:	cmovl  %edx,%r13d
+    1b49:	cmovg  %edx,%r12d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:347
+    int temp = begin;
+    begin = end;
+    end = temp;
+  }
+
+  printf("Sorting subarray A[%d..%d]\n", begin, end);
+    1b4d:	lea    0x36c2(%rip),%rdi        # 5216 <_IO_stdin_used+0x216>
+    1b54:	mov    %r13d,%esi
+    1b57:	mov    %r12d,%edx
+    1b5a:	xor    %eax,%eax
+    1b5c:	call   10c0 <printf@plt>
+    1b61:	mov    0x24(%rsp),%eax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:348
+  for (int i = 0; i < numFunc; i++) {
+    1b65:	test   %eax,%eax
+    1b67:	mov    %rbp,0x28(%rsp)
+    1b6c:	mov    0x18(%rsp),%r15
+    1b71:	mov    0x30(%rsp),%r14
+    1b76:	jle    1bcc <test_subarray+0x19c>
+    1b78:	mov    %eax,%eax
+    1b7a:	shl    $0x3,%rax
+    1b7e:	lea    (%rax,%rax,2),%rbp
+    1b82:	xor    %ebx,%ebx
+    1b84:	data16 data16 cs nopw 0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:349
+    testFunc[i].func(data, begin, end);
+    1b90:	mov    %r15,%rdi
+    1b93:	mov    %r13d,%esi
+    1b96:	mov    %r12d,%edx
+    1b99:	call   *(%r14,%rbx,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:350
+    testFunc[i].calls++;
+    1b9d:	incq   0x10(%r14,%rbx,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:351
+    success &= post_process(data, data_bcup, N, printFlag, testFunc[i].name, begin, end);
+    1ba2:	mov    0x8(%r14,%rbx,1),%r8
+    1ba7:	mov    %r12d,(%rsp)
+    1bab:	mov    %r15,%rdi
+    1bae:	mov    0x28(%rsp),%rsi
+    1bb3:	mov    0x10(%rsp),%edx
+    1bb7:	mov    0x14(%rsp),%ecx
+    1bbb:	mov    %r13d,%r9d
+    1bbe:	call   1c50 <post_process>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:348
+  for (int i = 0; i < numFunc; i++) {
+    1bc3:	add    $0x18,%rbx
+    1bc7:	cmp    %rbx,%rbp
+    1bca:	jne    1b90 <test_subarray+0x160>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:355
+  }
+
+  if (success) {
+    printf("Arrays are sorted: yes\n");
+    1bcc:	lea    0x3996(%rip),%rdi        # 5569 <_IO_stdin_used+0x569>
+    1bd3:	call   1060 <puts@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:356
+    TEST_PASS();
+    1bd8:	mov    0x53f9(%rip),%rax        # 6fd8 <stderr@GLIBC_2.2.5>
+    1bdf:	mov    (%rax),%rdi
+    1be2:	lea    0x3649(%rip),%rsi        # 5232 <_IO_stdin_used+0x232>
+    1be9:	lea    0x365c(%rip),%rdx        # 524c <_IO_stdin_used+0x24c>
+    1bf0:	mov    $0x164,%ecx
+    1bf5:	xor    %eax,%eax
+    1bf7:	call   1100 <fprintf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:361
+  } else {
+    TEST_FAIL("Sorting subarray failed");
+  }
+
+  free(data);
+    1bfc:	mov    %r15,%rdi
+    1bff:	call   1030 <free@plt>
+    1c04:	mov    0x28(%rsp),%rdi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:362
+  free(data_bcup);
+    1c09:	add    $0x38,%rsp
+    1c0d:	pop    %rbx
+    1c0e:	pop    %r12
+    1c10:	pop    %r13
+    1c12:	pop    %r14
+    1c14:	pop    %r15
+    1c16:	pop    %rbp
+    1c17:	jmp    1030 <free@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:324
+    printf("Error: not enough memory\n");
+    1c1c:	lea    0x396e(%rip),%rdi        # 5591 <_IO_stdin_used+0x591>
+    1c23:	call   1060 <puts@plt>
+    1c28:	mov    0x18(%rsp),%rdi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:325
+    free(data);
+    1c2d:	call   1030 <free@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:326
+    free(data_bcup);
+    1c32:	mov    %rbp,%rdi
+    1c35:	call   1030 <free@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:327
+    exit(-1);
+    1c3a:	mov    $0xffffffff,%edi
+    1c3f:	call   1140 <exit@plt>
+    1c44:	data16 data16 cs nopw 0x0(%rax,%rax,1)
+
+0000000000001c50 <post_process>:
+post_process():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:90
+                               int printFlag, char* name, int begin, int end) {
+    1c50:	push   %rbp
+    1c51:	push   %r15
+    1c53:	push   %r14
+    1c55:	push   %r13
+    1c57:	push   %r12
+    1c59:	push   %rbx
+    1c5a:	sub    $0x18,%rsp
+    1c5e:	mov    %r9d,%r12d
+    1c61:	mov    %edx,%r13d
+    1c64:	mov    %rsi,%r15
+    1c67:	mov    %rdi,%r14
+    1c6a:	mov    0x50(%rsp),%edi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:92
+  if (printFlag) {
+    1c6e:	mov    %edx,%ebx
+    1c70:	test   %ecx,%ecx
+    1c72:	mov    %r13,0x8(%rsp)
+    1c77:	je     1cdd <post_process+0x8d>
+    1c79:	mov    %edi,0x14(%rsp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:93
+    printf("%s: ", name);
+    1c7d:	lea    0x35ff(%rip),%rdi        # 5283 <_IO_stdin_used+0x283>
+    1c84:	mov    %r8,(%rsp)
+    1c88:	mov    %r8,%rsi
+    1c8b:	xor    %eax,%eax
+    1c8d:	call   10c0 <printf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:94
+    printf("Data after sort\n");
+    1c92:	lea    0x38c0(%rip),%rdi        # 5559 <_IO_stdin_used+0x559>
+    1c99:	call   1060 <puts@plt>
+display_array():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:76
+  for (int i = 0; i < N; i++) {
+    1c9e:	test   %r13d,%r13d
+    1ca1:	jle    1cc6 <post_process+0x76>
+    1ca3:	lea    0x35d5(%rip),%r13        # 527f <_IO_stdin_used+0x27f>
+    1caa:	xor    %ebp,%ebp
+    1cac:	nopl   0x0(%rax)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:77
+    printf("%d ", data[i]);
+    1cb0:	mov    (%r14,%rbp,4),%esi
+    1cb4:	mov    %r13,%rdi
+    1cb7:	xor    %eax,%eax
+    1cb9:	call   10c0 <printf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:76
+  for (int i = 0; i < N; i++) {
+    1cbe:	inc    %rbp
+    1cc1:	cmp    %rbp,%rbx
+    1cc4:	jne    1cb0 <post_process+0x60>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:79
+  printf("\n");
+    1cc6:	mov    $0xa,%edi
+    1ccb:	call   1040 <putchar@plt>
+    1cd0:	mov    0x8(%rsp),%r13
+    1cd5:	mov    (%rsp),%r8
+    1cd9:	mov    0x14(%rsp),%edi
+post_process():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:99
+  for (int i = 0 ; i < begin ; i++) {
+    1cdd:	test   %r12d,%r12d
+    1ce0:	jle    1d06 <post_process+0xb6>
+    1ce2:	mov    %r12d,%eax
+    1ce5:	xor    %ecx,%ecx
+    1ce7:	nopw   0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:100
+    if (data[i] != data_bcup[i]) {
+    1cf0:	mov    (%r14,%rcx,4),%edx
+    1cf4:	cmp    (%r15,%rcx,4),%edx
+    1cf8:	jne    1f96 <post_process+0x346>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:99
+  for (int i = 0 ; i < begin ; i++) {
+    1cfe:	inc    %rcx
+    1d01:	cmp    %rcx,%rax
+    1d04:	jne    1cf0 <post_process+0xa0>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:109
+  for (int i = begin + 1 ; i < end + 1 ; i++) {
+    1d06:	movslq %r12d,%r9
+    1d09:	mov    %edi,%ebp
+    1d0b:	sub    %r12d,%ebp
+    1d0e:	cmovg  %edi,%r12d
+    1d12:	movslq %r12d,%rax
+    1d15:	mov    %r9,%rcx
+    1d18:	nopl   0x0(%rax,%rax,1)
+    1d20:	cmp    %rcx,%rax
+    1d23:	je     1d80 <post_process+0x130>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:110
+    if (data[i - 1] > data[i]) {
+    1d25:	mov    (%r14,%rcx,4),%edx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:109
+  for (int i = begin + 1 ; i < end + 1 ; i++) {
+    1d29:	lea    0x1(%rcx),%rsi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:110
+    if (data[i - 1] > data[i]) {
+    1d2d:	cmp    0x4(%r14,%rcx,4),%edx
+    1d32:	mov    %rsi,%rcx
+    1d35:	jbe    1d20 <post_process+0xd0>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:111
+      printf("%s: ", name);
+    1d37:	lea    0x3545(%rip),%rdi        # 5283 <_IO_stdin_used+0x283>
+    1d3e:	mov    %r8,%rsi
+    1d41:	xor    %eax,%eax
+    1d43:	call   10c0 <printf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:112
+      TEST_FAIL("Arrays are sorted: NO!\n");
+    1d48:	mov    0x5289(%rip),%rbx        # 6fd8 <stderr@GLIBC_2.2.5>
+    1d4f:	mov    (%rbx),%rdi
+    1d52:	lea    0x3501(%rip),%rsi        # 525a <_IO_stdin_used+0x25a>
+    1d59:	lea    0x3528(%rip),%rdx        # 5288 <_IO_stdin_used+0x288>
+    1d60:	mov    $0x70,%ecx
+    1d65:	xor    %eax,%eax
+    1d67:	call   1100 <fprintf@plt>
+    1d6c:	mov    (%rbx),%rcx
+    1d6f:	lea    0x3545(%rip),%rdi        # 52bb <_IO_stdin_used+0x2bb>
+    1d76:	mov    $0x17,%esi
+    1d7b:	jmp    1fda <post_process+0x38a>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:119
+  for (int i = end + 1 ; i < N ; i++) {
+    1d80:	movslq %edi,%rax
+    1d83:	movslq %r13d,%r13
+    1d86:	inc    %rax
+    1d89:	nopl   0x0(%rax)
+    1d90:	cmp    %r13,%rax
+    1d93:	jge    1dd9 <post_process+0x189>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:120
+    if (data[i] != data_bcup[i]) {
+    1d95:	mov    (%r14,%rax,4),%ecx
+    1d99:	lea    0x1(%rax),%rdx
+    1d9d:	cmp    (%r15,%rax,4),%ecx
+    1da1:	mov    %rdx,%rax
+    1da4:	je     1d90 <post_process+0x140>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:121
+      printf("%s: ", name);
+    1da6:	lea    0x34d6(%rip),%rdi        # 5283 <_IO_stdin_used+0x283>
+    1dad:	mov    %r8,%rsi
+    1db0:	xor    %eax,%eax
+    1db2:	call   10c0 <printf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:122
+      TEST_FAIL("Array outside sort boundary changed!\n");
+    1db7:	mov    0x521a(%rip),%rbx        # 6fd8 <stderr@GLIBC_2.2.5>
+    1dbe:	mov    (%rbx),%rdi
+    1dc1:	lea    0x3492(%rip),%rsi        # 525a <_IO_stdin_used+0x25a>
+    1dc8:	lea    0x34b9(%rip),%rdx        # 5288 <_IO_stdin_used+0x288>
+    1dcf:	mov    $0x7a,%ecx
+    1dd4:	jmp    1fc4 <post_process+0x374>
+    1dd9:	mov    %r9,(%rsp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:129
+  data_t* expected = (data_t*) malloc(N * sizeof(data_t));
+    1ddd:	shl    $0x2,%r13
+    1de1:	mov    %r13,%rdi
+    1de4:	call   1120 <malloc@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:130
+  if (expected == NULL) {
+    1de9:	test   %rax,%rax
+    1dec:	je     203d <post_process+0x3ed>
+    1df2:	mov    %rax,%r12
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:133
+  memcpy(expected, data_bcup, N * sizeof(data_t));
+    1df5:	mov    %rax,%rdi
+    1df8:	mov    %r15,%rsi
+    1dfb:	mov    %r13,%rdx
+    1dfe:	call   1110 <memcpy@plt>
+    1e03:	mov    (%rsp),%rax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:134
+  qsort(expected + begin, end - begin + 1, sizeof(data_t), compare_data);
+    1e07:	lea    (%r12,%rax,4),%rdi
+    1e0b:	inc    %ebp
+    1e0d:	movslq %ebp,%rsi
+    1e10:	lea    0x13b9(%rip),%rcx        # 31d0 <compare_data>
+    1e17:	mov    $0x4,%edx
+    1e1c:	call   1070 <qsort@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:135
+  for (int i = 0; i < N; i++) {
+    1e21:	cmpl   $0x0,0x8(%rsp)
+    1e26:	jle    1f05 <post_process+0x2b5>
+    1e2c:	xor    %r13d,%r13d
+    1e2f:	nop
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:136
+    if (data[i] != expected[i]) {
+    1e30:	mov    (%r14,%r13,4),%eax
+    1e34:	cmp    (%r12,%r13,4),%eax
+    1e38:	jne    1ffb <post_process+0x3ab>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:135
+  for (int i = 0; i < N; i++) {
+    1e3e:	inc    %r13
+    1e41:	cmp    %r13,%rbx
+    1e44:	jne    1e30 <post_process+0x1e0>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:141
+  free(expected);
+    1e46:	mov    %r12,%rdi
+    1e49:	call   1030 <free@plt>
+    1e4e:	mov    0x8(%rsp),%r9
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:135
+  for (int i = 0; i < N; i++) {
+    1e53:	test   %r9d,%r9d
+copy_data():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:84
+  for (int i = 0 ; i < N ; i++) {
+    1e56:	jle    1f87 <post_process+0x337>
+    1e5c:	xor    %edx,%edx
+    1e5e:	cmp    $0x8,%ebx
+    1e61:	jb     1f1b <post_process+0x2cb>
+    1e67:	mov    %r14,%rax
+    1e6a:	sub    %r15,%rax
+    1e6d:	cmp    $0x20,%rax
+    1e71:	jb     1f1b <post_process+0x2cb>
+    1e77:	mov    %ebx,%edx
+    1e79:	and    $0x7ffffff8,%edx
+    1e7f:	lea    0x0(,%rdx,4),%rsi
+    1e87:	lea    (%r14,%rdx,4),%rax
+    1e8b:	lea    (%r15,%rdx,4),%rcx
+    1e8f:	xor    %edi,%edi
+    1e91:	data16 data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:85
+    *data++ = *data_bcup++;
+    1ea0:	movups (%r15,%rdi,1),%xmm0
+    1ea5:	movups 0x10(%r15,%rdi,1),%xmm1
+    1eab:	movups %xmm0,(%r14,%rdi,1)
+    1eb0:	movups %xmm1,0x10(%r14,%rdi,1)
+    1eb6:	add    $0x20,%rdi
+    1eba:	cmp    %rdi,%rsi
+    1ebd:	jne    1ea0 <post_process+0x250>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:84
+  for (int i = 0 ; i < N ; i++) {
+    1ebf:	cmp    %rbx,%rdx
+    1ec2:	je     1f87 <post_process+0x337>
+    1ec8:	mov    %r9d,%esi
+    1ecb:	sub    %edx,%esi
+    1ecd:	and    $0x7,%esi
+    1ed0:	je     1f2b <post_process+0x2db>
+    1ed2:	neg    %esi
+    1ed4:	xor    %edi,%edi
+    1ed6:	cs nopw 0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:85
+    *data++ = *data_bcup++;
+    1ee0:	mov    (%rcx),%r8d
+    1ee3:	add    $0x4,%rcx
+    1ee7:	mov    %r8d,(%rax)
+    1eea:	add    $0x4,%rax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:84
+  for (int i = 0 ; i < N ; i++) {
+    1eee:	dec    %edi
+    1ef0:	cmp    %edi,%esi
+    1ef2:	jne    1ee0 <post_process+0x290>
+    1ef4:	mov    %edx,%esi
+    1ef6:	sub    %edi,%esi
+    1ef8:	sub    %r9d,%edx
+    1efb:	cmp    $0xfffffff8,%edx
+    1efe:	jbe    1f35 <post_process+0x2e5>
+    1f00:	jmp    1f87 <post_process+0x337>
+post_process():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:141
+  free(expected);
+    1f05:	mov    %r12,%rdi
+    1f08:	add    $0x18,%rsp
+    1f0c:	pop    %rbx
+    1f0d:	pop    %r12
+    1f0f:	pop    %r13
+    1f11:	pop    %r14
+    1f13:	pop    %r15
+    1f15:	pop    %rbp
+    1f16:	jmp    1030 <free@plt>
+    1f1b:	mov    %r14,%rax
+    1f1e:	mov    %r15,%rcx
+copy_data():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:84
+  for (int i = 0 ; i < N ; i++) {
+    1f21:	mov    %r9d,%esi
+    1f24:	sub    %edx,%esi
+    1f26:	and    $0x7,%esi
+    1f29:	jne    1ed2 <post_process+0x282>
+    1f2b:	mov    %edx,%esi
+    1f2d:	sub    %r9d,%edx
+    1f30:	cmp    $0xfffffff8,%edx
+    1f33:	ja     1f87 <post_process+0x337>
+    1f35:	sub    %esi,%r9d
+    1f38:	xor    %edx,%edx
+    1f3a:	nopw   0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:85
+    *data++ = *data_bcup++;
+    1f40:	mov    (%rcx,%rdx,4),%esi
+    1f43:	mov    %esi,(%rax,%rdx,4)
+    1f46:	mov    0x4(%rcx,%rdx,4),%esi
+    1f4a:	mov    %esi,0x4(%rax,%rdx,4)
+    1f4e:	mov    0x8(%rcx,%rdx,4),%esi
+    1f52:	mov    %esi,0x8(%rax,%rdx,4)
+    1f56:	mov    0xc(%rcx,%rdx,4),%esi
+    1f5a:	mov    %esi,0xc(%rax,%rdx,4)
+    1f5e:	mov    0x10(%rcx,%rdx,4),%esi
+    1f62:	mov    %esi,0x10(%rax,%rdx,4)
+    1f66:	mov    0x14(%rcx,%rdx,4),%esi
+    1f6a:	mov    %esi,0x14(%rax,%rdx,4)
+    1f6e:	mov    0x18(%rcx,%rdx,4),%esi
+    1f72:	mov    %esi,0x18(%rax,%rdx,4)
+    1f76:	mov    0x1c(%rcx,%rdx,4),%esi
+    1f7a:	mov    %esi,0x1c(%rax,%rdx,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:84
+  for (int i = 0 ; i < N ; i++) {
+    1f7e:	add    $0x8,%rdx
+    1f82:	cmp    %edx,%r9d
+    1f85:	jne    1f40 <post_process+0x2f0>
+post_process():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:143
+  return result;
+    1f87:	add    $0x18,%rsp
+    1f8b:	pop    %rbx
+    1f8c:	pop    %r12
+    1f8e:	pop    %r13
+    1f90:	pop    %r14
+    1f92:	pop    %r15
+    1f94:	pop    %rbp
+    1f95:	ret
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:101
+      printf("%s: ", name);
+    1f96:	lea    0x32e6(%rip),%rdi        # 5283 <_IO_stdin_used+0x283>
+    1f9d:	mov    %r8,%rsi
+    1fa0:	xor    %eax,%eax
+    1fa2:	call   10c0 <printf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:102
+      TEST_FAIL("Array outside sort boundary changed!\n");
+    1fa7:	mov    0x502a(%rip),%rbx        # 6fd8 <stderr@GLIBC_2.2.5>
+    1fae:	mov    (%rbx),%rdi
+    1fb1:	lea    0x32a2(%rip),%rsi        # 525a <_IO_stdin_used+0x25a>
+    1fb8:	lea    0x32c9(%rip),%rdx        # 5288 <_IO_stdin_used+0x288>
+    1fbf:	mov    $0x66,%ecx
+    1fc4:	xor    %eax,%eax
+    1fc6:	call   1100 <fprintf@plt>
+    1fcb:	mov    (%rbx),%rcx
+    1fce:	lea    0x32c0(%rip),%rdi        # 5295 <_IO_stdin_used+0x295>
+    1fd5:	mov    $0x25,%esi
+    1fda:	mov    $0x1,%edx
+    1fdf:	call   1150 <fwrite@plt>
+    1fe4:	mov    (%rbx),%rsi
+    1fe7:	mov    $0xa,%edi
+    1fec:	call   10e0 <fputc@plt>
+    1ff1:	mov    $0x1,%edi
+    1ff6:	call   1140 <exit@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:137
+      TEST_FAIL("Reference mismatch at index %d: got %u, expected %u",
+    1ffb:	mov    0x4fd6(%rip),%rbx        # 6fd8 <stderr@GLIBC_2.2.5>
+    2002:	mov    (%rbx),%rdi
+    2005:	lea    0x324e(%rip),%rsi        # 525a <_IO_stdin_used+0x25a>
+    200c:	lea    0x3275(%rip),%rdx        # 5288 <_IO_stdin_used+0x288>
+    2013:	mov    $0x8a,%ecx
+    2018:	xor    %eax,%eax
+    201a:	call   1100 <fprintf@plt>
+    201f:	mov    (%rbx),%rdi
+    2022:	mov    (%r14,%r13,4),%ecx
+    2026:	mov    (%r12,%r13,4),%r8d
+    202a:	lea    0x32c8(%rip),%rsi        # 52f9 <_IO_stdin_used+0x2f9>
+    2031:	mov    %r13d,%edx
+    2034:	xor    %eax,%eax
+    2036:	call   1100 <fprintf@plt>
+    203b:	jmp    1fe4 <post_process+0x394>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:131
+    TEST_FAIL("Not enough memory for reference check");
+    203d:	mov    0x4f94(%rip),%rbx        # 6fd8 <stderr@GLIBC_2.2.5>
+    2044:	mov    (%rbx),%rdi
+    2047:	lea    0x320c(%rip),%rsi        # 525a <_IO_stdin_used+0x25a>
+    204e:	lea    0x3233(%rip),%rdx        # 5288 <_IO_stdin_used+0x288>
+    2055:	mov    $0x83,%ecx
+    205a:	xor    %eax,%eax
+    205c:	call   1100 <fprintf@plt>
+    2061:	mov    (%rbx),%rcx
+    2064:	lea    0x3268(%rip),%rdi        # 52d3 <_IO_stdin_used+0x2d3>
+    206b:	jmp    1fd5 <post_process+0x385>
+
+0000000000002070 <test_correctness>:
+test_correctness():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:185
+                             struct testFunc_t* testFunc, int numFunc) {
+    2070:	push   %rbp
+    2071:	mov    %rsp,%rbp
+    2074:	push   %r15
+    2076:	push   %r14
+    2078:	push   %r13
+    207a:	push   %r12
+    207c:	push   %rbx
+    207d:	sub    $0xa8,%rsp
+    2084:	mov    %rcx,%rbx
+    2087:	mov    %edx,%r13d
+    208a:	mov    %esi,%r14d
+    208d:	mov    %edi,-0x2c(%rbp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:190
+  double* sum_time = (double*) alloca(numFunc * sizeof(double));
+    2090:	movslq %r8d,%rax
+    2093:	mov    %rsp,%r15
+    2096:	lea    0xf(,%rax,8),%rcx
+    209e:	and    $0xfffffffffffffff0,%rcx
+    20a2:	sub    %rcx,%r15
+    20a5:	mov    %r15,%rsp
+    20a8:	mov    %r8d,-0x30(%rbp)
+    20ac:	mov    %r8d,%r12d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:191
+  for (int i = 0; i < numFunc; i++) {
+    20af:	test   %eax,%eax
+    20b1:	jle    20c5 <test_correctness+0x55>
+    20b3:	lea    0x0(,%r12,8),%rdx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:192
+    sum_time[i] = 0;
+    20bb:	mov    %r15,%rdi
+    20be:	xor    %esi,%esi
+    20c0:	call   10d0 <memset@plt>
+    20c5:	mov    %r15,-0x60(%rbp)
+    20c9:	mov    %r14,-0x68(%rbp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:196
+  data = (data_t*) malloc(N * sizeof(data_t));
+    20cd:	movslq %r14d,%r14
+    20d0:	shl    $0x2,%r14
+    20d4:	mov    %r14,%rdi
+    20d7:	call   1120 <malloc@plt>
+    20dc:	mov    %rax,%r15
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:197
+  data_bcup = (data_t*) malloc(N * sizeof(data_t));
+    20df:	mov    %r14,%rdi
+    20e2:	call   1120 <malloc@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:199
+  if (data == NULL || data_bcup == NULL) {
+    20e7:	test   %r15,%r15
+    20ea:	je     2998 <test_correctness+0x928>
+    20f0:	test   %rax,%rax
+    20f3:	je     2998 <test_correctness+0x928>
+    20f9:	mov    %rax,-0x88(%rbp)
+    2100:	lea    0x0(,%r12,8),%rdx
+    2108:	mov    -0x68(%rbp),%r14
+    210c:	mov    %r14d,%eax
+    210f:	lea    -0x1(%r14),%ecx
+    2113:	mov    %rcx,-0x78(%rbp)
+    2117:	mov    %rax,-0x98(%rbp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:212
+  for (int gen = 0;
+    211e:	lea    0x0(,%rax,4),%rax
+    2126:	mov    %rax,-0xc0(%rbp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:191
+  for (int i = 0; i < numFunc; i++) {
+    212d:	cmpl   $0x0,-0x30(%rbp)
+    2131:	mov    %rbx,-0x80(%rbp)
+    2135:	mov    %r13,-0x70(%rbp)
+    2139:	mov    %r12,-0xa0(%rbp)
+    2140:	mov    %r15,-0x48(%rbp)
+    2144:	mov    %rdx,-0xa8(%rbp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:207
+  for (int k = 0; k < numFunc; k++) {
+    214b:	jle    216f <test_correctness+0xff>
+    214d:	movl   $0x0,-0x34(%rbp)
+    2154:	mov    -0x60(%rbp),%rdi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:216
+      sum_time[k] = 0;
+    2158:	xor    %esi,%esi
+    215a:	call   10d0 <memset@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:219
+           dataGen[gen].name, N);
+    215f:	mov    0x4f62(%rip),%rsi        # 70c8 <dataGen+0x8>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:218
+    printf("Generating %s array of %d elements\n",
+    2166:	lea    0x31c0(%rip),%rdi        # 532d <_IO_stdin_used+0x32d>
+    216d:	jmp    2184 <test_correctness+0x114>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:219
+           dataGen[gen].name, N);
+    216f:	mov    0x4f52(%rip),%rsi        # 70c8 <dataGen+0x8>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:218
+    printf("Generating %s array of %d elements\n",
+    2176:	lea    0x31b0(%rip),%rdi        # 532d <_IO_stdin_used+0x32d>
+    217d:	movl   $0x0,-0x34(%rbp)
+    2184:	mov    %r14d,%edx
+    2187:	xor    %eax,%eax
+    2189:	call   10c0 <printf@plt>
+    218e:	test   %r13d,%r13d
+    2191:	mov    -0x2c(%rbp),%r12d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:221
+    for (int j = 0; j < R; j++) {
+    2195:	jle    2424 <test_correctness+0x3b4>
+    219b:	mov    -0x98(%rbp),%rax
+    21a2:	mov    %eax,%ecx
+    21a4:	and    $0x3,%ecx
+    21a7:	mov    %rcx,-0xb8(%rbp)
+    21ae:	and    $0x7ffffffc,%eax
+    21b3:	mov    %rax,-0x90(%rbp)
+    21ba:	lea    0x10(%rbx),%rax
+    21be:	mov    %rax,-0xb0(%rbp)
+    21c5:	xor    %eax,%eax
+    21c7:	jmp    21e4 <test_correctness+0x174>
+    21c9:	nopl   0x0(%rax)
+    21d0:	mov    -0x40(%rbp),%eax
+    21d3:	cmp    %r13d,%eax
+    21d6:	mov    -0x48(%rbp),%r15
+    21da:	mov    -0x2c(%rbp),%r12d
+    21de:	je     241f <test_correctness+0x3af>
+    21e4:	mov    %eax,-0x40(%rbp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:223
+      dataGen[gen].generate(data, N);
+    21e7:	mov    %r15,%rdi
+    21ea:	mov    %r14d,%esi
+    21ed:	call   *0x4ecd(%rip)        # 70c0 <dataGen>
+    21f3:	test   %r12d,%r12d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:225
+      if (printFlag) {
+    21f6:	je     2248 <test_correctness+0x1d8>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:226
+        printf("Data before sort\n");
+    21f8:	lea    0x3381(%rip),%rdi        # 5580 <_IO_stdin_used+0x580>
+    21ff:	call   1060 <puts@plt>
+    2204:	test   %r14d,%r14d
+    2207:	mov    -0x98(%rbp),%r12
+    220e:	lea    0x306a(%rip),%rax        # 527f <_IO_stdin_used+0x27f>
+    2215:	mov    %r15,%r13
+display_array():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:76
+  for (int i = 0; i < N; i++) {
+    2218:	jle    2237 <test_correctness+0x1c7>
+    221a:	mov    %rax,%r15
+    221d:	xor    %ebx,%ebx
+    221f:	nop
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:77
+    printf("%d ", data[i]);
+    2220:	mov    0x0(%r13,%rbx,4),%esi
+    2225:	mov    %r15,%rdi
+    2228:	xor    %eax,%eax
+    222a:	call   10c0 <printf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:76
+  for (int i = 0; i < N; i++) {
+    222f:	inc    %rbx
+    2232:	cmp    %rbx,%r12
+    2235:	jne    2220 <test_correctness+0x1b0>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:79
+  printf("\n");
+    2237:	mov    $0xa,%edi
+    223c:	call   1040 <putchar@plt>
+    2241:	mov    %r13,%r15
+    2244:	mov    -0x70(%rbp),%r13
+test_correctness():
+    2248:	movabs $0xcbf29ce484222325,%r12
+    2252:	test   %r14d,%r14d
+    2255:	movabs $0x100000001b3,%rbx
+    225f:	lea    -0x58(%rbp),%rsi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:230
+      for (int i = 0; i < N; i++) {
+    2263:	jle    2316 <test_correctness+0x2a6>
+    2269:	mov    -0x88(%rbp),%rdi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:231
+        data_bcup[i] = data[i];
+    2270:	mov    %r15,%rsi
+    2273:	mov    -0xc0(%rbp),%rdx
+    227a:	call   1110 <memcpy@plt>
+    227f:	xor    %eax,%eax
+    2281:	movabs $0xcbf29ce484222325,%rcx
+    228b:	cmp    $0x4,%r14d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:230
+      for (int i = 0; i < N; i++) {
+    228f:	jb     22d8 <test_correctness+0x268>
+    2291:	mov    -0x90(%rbp),%rdi
+    2298:	nopl   0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:231
+        data_bcup[i] = data[i];
+    22a0:	mov    (%r15,%rax,4),%edx
+    22a4:	mov    0x4(%r15,%rax,4),%esi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:232
+        fingerprint = (fingerprint ^ data[i]) * UINT64_C(1099511628211);
+    22a9:	xor    %rcx,%rdx
+    22ac:	imul   %rbx,%rdx
+    22b0:	xor    %rdx,%rsi
+    22b3:	imul   %rbx,%rsi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:231
+        data_bcup[i] = data[i];
+    22b7:	mov    0x8(%r15,%rax,4),%edx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:232
+        fingerprint = (fingerprint ^ data[i]) * UINT64_C(1099511628211);
+    22bc:	xor    %rsi,%rdx
+    22bf:	imul   %rbx,%rdx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:231
+        data_bcup[i] = data[i];
+    22c3:	mov    0xc(%r15,%rax,4),%ecx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:232
+        fingerprint = (fingerprint ^ data[i]) * UINT64_C(1099511628211);
+    22c8:	xor    %rdx,%rcx
+    22cb:	imul   %rbx,%rcx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:230
+      for (int i = 0; i < N; i++) {
+    22cf:	add    $0x4,%rax
+    22d3:	cmp    %rax,%rdi
+    22d6:	jne    22a0 <test_correctness+0x230>
+    22d8:	mov    %rcx,%r12
+    22db:	mov    -0xb8(%rbp),%rdi
+    22e2:	test   %rdi,%rdi
+    22e5:	lea    -0x58(%rbp),%rsi
+    22e9:	je     2316 <test_correctness+0x2a6>
+    22eb:	lea    (%r15,%rax,4),%rax
+    22ef:	xor    %edx,%edx
+    22f1:	data16 data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:231
+        data_bcup[i] = data[i];
+    2300:	mov    (%rax,%rdx,4),%r12d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:232
+        fingerprint = (fingerprint ^ data[i]) * UINT64_C(1099511628211);
+    2304:	xor    %rcx,%r12
+    2307:	imul   %rbx,%r12
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:230
+      for (int i = 0; i < N; i++) {
+    230b:	inc    %rdx
+    230e:	mov    %r12,%rcx
+    2311:	cmp    %rdx,%rdi
+    2314:	jne    2300 <test_correctness+0x290>
+    2316:	incl   -0x40(%rbp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:191
+  for (int i = 0; i < numFunc; i++) {
+    2319:	cmpl   $0x0,-0x30(%rbp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:235
+      for (int k = 0; k < numFunc; k++) {
+    231d:	jle    21d0 <test_correctness+0x160>
+    2323:	mov    -0xb0(%rbp),%rbx
+    232a:	xor    %r15d,%r15d
+gettime():
+    232d:	nopl   (%rax)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/././fasttime.h:72
+
+// Return the current time.
+static inline fasttime_t gettime(void) {
+  struct timespec s;
+#ifdef NDEBUG
+  clock_gettime(CLOCK_MONOTONIC, &s);
+    2330:	mov    $0x1,%edi
+    2335:	call   1080 <clock_gettime@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/././fasttime.h:77
+#else
+  int r = clock_gettime(CLOCK_MONOTONIC, &s);
+  assert(r == 0);
+#endif
+  return s;
+    233a:	mov    -0x58(%rbp),%r14
+    233e:	mov    -0x50(%rbp),%r13
+    2342:	mov    -0x48(%rbp),%rdi
+test_correctness():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:237
+        testFunc[k].func(data, 0, N - 1);
+    2346:	xor    %esi,%esi
+    2348:	mov    -0x78(%rbp),%rdx
+    234c:	call   *-0x10(%rbx)
+gettime():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/././fasttime.h:72
+  clock_gettime(CLOCK_MONOTONIC, &s);
+    234f:	mov    $0x1,%edi
+    2354:	lea    -0x58(%rbp),%rsi
+    2358:	call   1080 <clock_gettime@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/././fasttime.h:77
+  return s;
+    235d:	mov    -0x58(%rbp),%rax
+tdiff():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/././fasttime.h:83
+}
+
+// Return the time different between the start and the end, as a float
+// in units of seconds.  This function does not need to be fast.
+static inline double tdiff(fasttime_t start, fasttime_t end) {
+  return end.tv_sec - start.tv_sec + 1e-9 * (end.tv_nsec - start.tv_nsec);
+    2361:	sub    %r14,%rax
+    2364:	mov    -0x68(%rbp),%r14
+gettime():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/././fasttime.h:77
+  return s;
+    2368:	mov    -0x50(%rbp),%rcx
+tdiff():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/././fasttime.h:83
+  return end.tv_sec - start.tv_sec + 1e-9 * (end.tv_nsec - start.tv_nsec);
+    236c:	sub    %r13,%rcx
+    236f:	mov    -0x70(%rbp),%r13
+test_correctness():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:239
+        testFunc[k].calls++;
+    2373:	incq   (%rbx)
+tdiff():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/././fasttime.h:83
+    2376:	xorps  %xmm1,%xmm1
+    2379:	cvtsi2sd %rax,%xmm1
+    237e:	xorps  %xmm0,%xmm0
+    2381:	cvtsi2sd %rcx,%xmm0
+    2386:	mulsd  0x3282(%rip),%xmm0        # 5610 <_IO_stdin_used+0x610>
+    238e:	addsd  %xmm1,%xmm0
+    2392:	mov    -0x60(%rbp),%rax
+    2396:	movsd  (%rax,%r15,8),%xmm1
+test_correctness():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:242
+        sum_time[k] += elapsed;
+    239c:	addsd  %xmm0,%xmm1
+    23a0:	movsd  %xmm1,(%rax,%r15,8)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:244
+               dataGen[gen].name, j + 1, testFunc[k].name, elapsed, N, R, initialSeed,
+    23a6:	mov    0x4d1b(%rip),%rsi        # 70c8 <dataGen+0x8>
+    23ad:	mov    -0x8(%rbx),%rcx
+    23b1:	mov    0x4cfc(%rip),%r10d        # 70b4 <initialSeed>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:243
+        printf("TIMING input=%s trial=%d function=%s seconds=%.9f N=%d R=%d seed=%u fingerprint=%016llx\n",
+    23b8:	lea    0x2f92(%rip),%rdi        # 5351 <_IO_stdin_used+0x351>
+    23bf:	mov    -0x40(%rbp),%edx
+    23c2:	mov    %r14d,%r8d
+    23c5:	mov    %r13d,%r9d
+    23c8:	mov    $0x1,%al
+    23ca:	push   %r12
+    23cc:	push   %r10
+    23ce:	call   10c0 <printf@plt>
+    23d3:	add    $0x10,%rsp
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:246
+        success &= post_process(data, data_bcup, N, printFlag, testFunc[k].name, 0, N - 1);
+    23d7:	mov    -0x8(%rbx),%r8
+    23db:	sub    $0x8,%rsp
+    23df:	mov    -0x48(%rbp),%rdi
+    23e3:	mov    -0x88(%rbp),%rsi
+    23ea:	mov    %r14d,%edx
+    23ed:	mov    -0x2c(%rbp),%ecx
+    23f0:	xor    %r9d,%r9d
+    23f3:	push   -0x78(%rbp)
+    23f6:	call   1c50 <post_process>
+    23fb:	mov    -0xa0(%rbp),%rcx
+    2402:	lea    -0x58(%rbp),%rsi
+    2406:	add    $0x10,%rsp
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:235
+      for (int k = 0; k < numFunc; k++) {
+    240a:	inc    %r15
+    240d:	add    $0x18,%rbx
+    2411:	cmp    %r15,%rcx
+    2414:	jne    2330 <test_correctness+0x2c0>
+    241a:	jmp    21d0 <test_correctness+0x160>
+    241f:	mov    $0x1,%al
+    2421:	mov    %eax,-0x34(%rbp)
+    2424:	xorps  %xmm0,%xmm0
+    2427:	cvtsi2sd %r13d,%xmm0
+    242c:	movsd  %xmm0,-0x90(%rbp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:255
+      printf("Arrays are sorted: yes\n");
+    2434:	lea    0x312e(%rip),%rdi        # 5569 <_IO_stdin_used+0x569>
+    243b:	call   1060 <puts@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:256
+      TEST_PASS();
+    2440:	mov    0x4b91(%rip),%rax        # 6fd8 <stderr@GLIBC_2.2.5>
+    2447:	mov    (%rax),%rdi
+    244a:	lea    0x2de1(%rip),%rsi        # 5232 <_IO_stdin_used+0x232>
+    2451:	lea    0x2f52(%rip),%rdx        # 53aa <_IO_stdin_used+0x3aa>
+    2458:	mov    $0x100,%ecx
+    245d:	xor    %eax,%eax
+    245f:	call   1100 <fprintf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:191
+  for (int i = 0; i < numFunc; i++) {
+    2464:	cmpl   $0x0,-0x30(%rbp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:258
+      for (int k = 0; k < numFunc; k++) {
+    2468:	jle    2585 <test_correctness+0x515>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:259
+        double avgRuntime = R > 0 ? sum_time[k] / R : 0;
+    246e:	cmpb   $0x0,-0x34(%rbp)
+    2472:	je     24fa <test_correctness+0x48a>
+    2478:	mov    -0x80(%rbp),%rax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:258
+      for (int k = 0; k < numFunc; k++) {
+    247c:	lea    0x8(%rax),%rbx
+    2480:	xor    %r15d,%r15d
+    2483:	lea    0x2f57(%rip),%r12        # 53e1 <_IO_stdin_used+0x3e1>
+    248a:	nopw   0x0(%rax,%rax,1)
+    2490:	mov    -0x60(%rbp),%rax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:259
+        double avgRuntime = R > 0 ? sum_time[k] / R : 0;
+    2494:	movsd  (%rax,%r15,8),%xmm0
+    249a:	divsd  -0x90(%rbp),%xmm0
+    24a2:	movsd  %xmm0,-0x40(%rbp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:260
+        printf("%s: Elapsed execution time: %.9f sec\n", testFunc[k].name, avgRuntime);
+    24a7:	mov    (%rbx),%rsi
+    24aa:	lea    0x2f0a(%rip),%rdi        # 53bb <_IO_stdin_used+0x3bb>
+    24b1:	mov    $0x1,%al
+    24b3:	call   10c0 <printf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:262
+               testFunc[k].name, dataGen[gen].name, N, R, initialSeed, R, avgRuntime);
+    24b8:	mov    (%rbx),%rsi
+    24bb:	mov    0x4c06(%rip),%rdx        # 70c8 <dataGen+0x8>
+    24c2:	mov    0x4beb(%rip),%r9d        # 70b4 <initialSeed>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:261
+        printf("SUMMARY variant=%s input=%s N=%d R=%d seed=%u calls=%d mean_seconds=%.9f\n",
+    24c9:	sub    $0x8,%rsp
+    24cd:	mov    %r12,%rdi
+    24d0:	mov    %r14d,%ecx
+    24d3:	mov    %r13d,%r8d
+    24d6:	movsd  -0x40(%rbp),%xmm0
+    24db:	mov    $0x1,%al
+    24dd:	push   %r13
+    24df:	call   10c0 <printf@plt>
+    24e4:	add    $0x10,%rsp
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:258
+      for (int k = 0; k < numFunc; k++) {
+    24e8:	inc    %r15
+    24eb:	add    $0x18,%rbx
+    24ef:	cmp    %r15,-0xa0(%rbp)
+    24f6:	jne    2490 <test_correctness+0x420>
+    24f8:	jmp    2569 <test_correctness+0x4f9>
+    24fa:	mov    -0xa8(%rbp),%rax
+    2501:	lea    (%rax,%rax,2),%rbx
+    2505:	xor    %r15d,%r15d
+    2508:	lea    0x2ed2(%rip),%r12        # 53e1 <_IO_stdin_used+0x3e1>
+    250f:	nop
+    2510:	mov    -0x80(%rbp),%r14
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:260
+        printf("%s: Elapsed execution time: %.9f sec\n", testFunc[k].name, avgRuntime);
+    2514:	mov    0x8(%r14,%r15,1),%rsi
+    2519:	xorpd  %xmm0,%xmm0
+    251d:	lea    0x2e97(%rip),%rdi        # 53bb <_IO_stdin_used+0x3bb>
+    2524:	mov    $0x1,%al
+    2526:	call   10c0 <printf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:262
+               testFunc[k].name, dataGen[gen].name, N, R, initialSeed, R, avgRuntime);
+    252b:	mov    0x8(%r14,%r15,1),%rsi
+    2530:	mov    -0x68(%rbp),%r14
+    2534:	mov    0x4b8d(%rip),%rdx        # 70c8 <dataGen+0x8>
+    253b:	mov    0x4b72(%rip),%r9d        # 70b4 <initialSeed>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:261
+        printf("SUMMARY variant=%s input=%s N=%d R=%d seed=%u calls=%d mean_seconds=%.9f\n",
+    2542:	sub    $0x8,%rsp
+    2546:	xorpd  %xmm0,%xmm0
+    254a:	mov    %r12,%rdi
+    254d:	mov    %r14d,%ecx
+    2550:	mov    %r13d,%r8d
+    2553:	mov    $0x1,%al
+    2555:	push   %r13
+    2557:	call   10c0 <printf@plt>
+    255c:	add    $0x10,%rsp
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:258
+      for (int k = 0; k < numFunc; k++) {
+    2560:	add    $0x18,%r15
+    2564:	cmp    %r15,%rbx
+    2567:	jne    2510 <test_correctness+0x4a0>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:191
+  for (int i = 0; i < numFunc; i++) {
+    2569:	cmpl   $0x0,-0x30(%rbp)
+    256d:	mov    -0x2c(%rbp),%r12d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:215
+    for (int k = 0; k < numFunc; k++) {
+    2571:	jle    2585 <test_correctness+0x515>
+    2573:	mov    -0x60(%rbp),%rdi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:216
+      sum_time[k] = 0;
+    2577:	xor    %esi,%esi
+    2579:	mov    -0xa8(%rbp),%rdx
+    2580:	call   10d0 <memset@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:219
+           dataGen[gen].name, N);
+    2585:	mov    0x4b4c(%rip),%rsi        # 70d8 <dataGen+0x18>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:218
+    printf("Generating %s array of %d elements\n",
+    258c:	lea    0x2d9a(%rip),%rdi        # 532d <_IO_stdin_used+0x32d>
+    2593:	mov    %r14d,%edx
+    2596:	xor    %eax,%eax
+    2598:	call   10c0 <printf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:221
+    for (int j = 0; j < R; j++) {
+    259d:	cmpb   $0x0,-0x34(%rbp)
+    25a1:	je     282f <test_correctness+0x7bf>
+    25a7:	mov    -0x98(%rbp),%rax
+    25ae:	mov    %eax,%ecx
+    25b0:	and    $0x3,%ecx
+    25b3:	mov    %rcx,-0xb8(%rbp)
+    25ba:	and    $0x7ffffffc,%eax
+    25bf:	mov    %rax,-0xc8(%rbp)
+    25c6:	mov    -0x80(%rbp),%rax
+    25ca:	add    $0x10,%rax
+    25ce:	mov    %rax,-0xb0(%rbp)
+    25d5:	xor    %eax,%eax
+    25d7:	jmp    25f0 <test_correctness+0x580>
+    25d9:	nopl   0x0(%rax)
+    25e0:	mov    -0x40(%rbp),%eax
+    25e3:	cmp    %r13d,%eax
+    25e6:	mov    -0x2c(%rbp),%r12d
+    25ea:	je     282f <test_correctness+0x7bf>
+    25f0:	mov    %eax,-0x40(%rbp)
+    25f3:	mov    -0x48(%rbp),%r15
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:223
+      dataGen[gen].generate(data, N);
+    25f7:	mov    %r15,%rdi
+    25fa:	mov    %r14d,%esi
+    25fd:	call   *0x4acd(%rip)        # 70d0 <dataGen+0x10>
+    2603:	test   %r12d,%r12d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:225
+      if (printFlag) {
+    2606:	je     2654 <test_correctness+0x5e4>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:226
+        printf("Data before sort\n");
+    2608:	lea    0x2f71(%rip),%rdi        # 5580 <_IO_stdin_used+0x580>
+    260f:	call   1060 <puts@plt>
+    2614:	test   %r14d,%r14d
+    2617:	mov    -0x98(%rbp),%r12
+    261e:	lea    0x2c5a(%rip),%r13        # 527f <_IO_stdin_used+0x27f>
+display_array():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:76
+  for (int i = 0; i < N; i++) {
+    2625:	jle    2646 <test_correctness+0x5d6>
+    2627:	xor    %ebx,%ebx
+    2629:	nopl   0x0(%rax)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:77
+    printf("%d ", data[i]);
+    2630:	mov    (%r15,%rbx,4),%esi
+    2634:	mov    %r13,%rdi
+    2637:	xor    %eax,%eax
+    2639:	call   10c0 <printf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:76
+  for (int i = 0; i < N; i++) {
+    263e:	inc    %rbx
+    2641:	cmp    %rbx,%r12
+    2644:	jne    2630 <test_correctness+0x5c0>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:79
+  printf("\n");
+    2646:	mov    $0xa,%edi
+    264b:	call   1040 <putchar@plt>
+    2650:	mov    -0x70(%rbp),%r13
+test_correctness():
+    2654:	movabs $0xcbf29ce484222325,%r12
+    265e:	test   %r14d,%r14d
+    2661:	movabs $0x100000001b3,%rbx
+    266b:	lea    -0x58(%rbp),%rsi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:230
+      for (int i = 0; i < N; i++) {
+    266f:	jle    2726 <test_correctness+0x6b6>
+    2675:	mov    -0x88(%rbp),%rdi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:231
+        data_bcup[i] = data[i];
+    267c:	mov    %r15,%rsi
+    267f:	mov    -0xc0(%rbp),%rdx
+    2686:	call   1110 <memcpy@plt>
+    268b:	xor    %eax,%eax
+    268d:	movabs $0xcbf29ce484222325,%rcx
+    2697:	cmp    $0x4,%r14d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:230
+      for (int i = 0; i < N; i++) {
+    269b:	jb     26e8 <test_correctness+0x678>
+    269d:	mov    -0xc8(%rbp),%rdi
+    26a4:	data16 data16 cs nopw 0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:231
+        data_bcup[i] = data[i];
+    26b0:	mov    (%r15,%rax,4),%edx
+    26b4:	mov    0x4(%r15,%rax,4),%esi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:232
+        fingerprint = (fingerprint ^ data[i]) * UINT64_C(1099511628211);
+    26b9:	xor    %rcx,%rdx
+    26bc:	imul   %rbx,%rdx
+    26c0:	xor    %rdx,%rsi
+    26c3:	imul   %rbx,%rsi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:231
+        data_bcup[i] = data[i];
+    26c7:	mov    0x8(%r15,%rax,4),%edx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:232
+        fingerprint = (fingerprint ^ data[i]) * UINT64_C(1099511628211);
+    26cc:	xor    %rsi,%rdx
+    26cf:	imul   %rbx,%rdx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:231
+        data_bcup[i] = data[i];
+    26d3:	mov    0xc(%r15,%rax,4),%ecx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:232
+        fingerprint = (fingerprint ^ data[i]) * UINT64_C(1099511628211);
+    26d8:	xor    %rdx,%rcx
+    26db:	imul   %rbx,%rcx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:230
+      for (int i = 0; i < N; i++) {
+    26df:	add    $0x4,%rax
+    26e3:	cmp    %rax,%rdi
+    26e6:	jne    26b0 <test_correctness+0x640>
+    26e8:	mov    %rcx,%r12
+    26eb:	mov    -0xb8(%rbp),%rdi
+    26f2:	test   %rdi,%rdi
+    26f5:	lea    -0x58(%rbp),%rsi
+    26f9:	je     2726 <test_correctness+0x6b6>
+    26fb:	lea    (%r15,%rax,4),%rax
+    26ff:	xor    %edx,%edx
+    2701:	data16 data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:231
+        data_bcup[i] = data[i];
+    2710:	mov    (%rax,%rdx,4),%r12d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:232
+        fingerprint = (fingerprint ^ data[i]) * UINT64_C(1099511628211);
+    2714:	xor    %rcx,%r12
+    2717:	imul   %rbx,%r12
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:230
+      for (int i = 0; i < N; i++) {
+    271b:	inc    %rdx
+    271e:	mov    %r12,%rcx
+    2721:	cmp    %rdx,%rdi
+    2724:	jne    2710 <test_correctness+0x6a0>
+    2726:	incl   -0x40(%rbp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:191
+  for (int i = 0; i < numFunc; i++) {
+    2729:	cmpl   $0x0,-0x30(%rbp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:235
+      for (int k = 0; k < numFunc; k++) {
+    272d:	jle    25e0 <test_correctness+0x570>
+    2733:	mov    -0xb0(%rbp),%rbx
+    273a:	xor    %r15d,%r15d
+gettime():
+    273d:	nopl   (%rax)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/././fasttime.h:72
+  clock_gettime(CLOCK_MONOTONIC, &s);
+    2740:	mov    $0x1,%edi
+    2745:	call   1080 <clock_gettime@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/././fasttime.h:77
+  return s;
+    274a:	mov    -0x58(%rbp),%r14
+    274e:	mov    -0x50(%rbp),%r13
+    2752:	mov    -0x48(%rbp),%rdi
+test_correctness():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:237
+        testFunc[k].func(data, 0, N - 1);
+    2756:	xor    %esi,%esi
+    2758:	mov    -0x78(%rbp),%rdx
+    275c:	call   *-0x10(%rbx)
+gettime():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/././fasttime.h:72
+  clock_gettime(CLOCK_MONOTONIC, &s);
+    275f:	mov    $0x1,%edi
+    2764:	lea    -0x58(%rbp),%rsi
+    2768:	call   1080 <clock_gettime@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/././fasttime.h:77
+  return s;
+    276d:	mov    -0x58(%rbp),%rax
+tdiff():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/././fasttime.h:83
+  return end.tv_sec - start.tv_sec + 1e-9 * (end.tv_nsec - start.tv_nsec);
+    2771:	sub    %r14,%rax
+    2774:	mov    -0x68(%rbp),%r14
+gettime():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/././fasttime.h:77
+  return s;
+    2778:	mov    -0x50(%rbp),%rcx
+tdiff():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/././fasttime.h:83
+  return end.tv_sec - start.tv_sec + 1e-9 * (end.tv_nsec - start.tv_nsec);
+    277c:	sub    %r13,%rcx
+    277f:	mov    -0x70(%rbp),%r13
+test_correctness():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:239
+        testFunc[k].calls++;
+    2783:	incq   (%rbx)
+tdiff():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/././fasttime.h:83
+    2786:	xorps  %xmm1,%xmm1
+    2789:	cvtsi2sd %rax,%xmm1
+    278e:	xorps  %xmm0,%xmm0
+    2791:	cvtsi2sd %rcx,%xmm0
+    2796:	mulsd  0x2e72(%rip),%xmm0        # 5610 <_IO_stdin_used+0x610>
+    279e:	addsd  %xmm1,%xmm0
+    27a2:	mov    -0x60(%rbp),%rax
+    27a6:	movsd  (%rax,%r15,8),%xmm1
+test_correctness():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:242
+        sum_time[k] += elapsed;
+    27ac:	addsd  %xmm0,%xmm1
+    27b0:	movsd  %xmm1,(%rax,%r15,8)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:244
+               dataGen[gen].name, j + 1, testFunc[k].name, elapsed, N, R, initialSeed,
+    27b6:	mov    0x491b(%rip),%rsi        # 70d8 <dataGen+0x18>
+    27bd:	mov    -0x8(%rbx),%rcx
+    27c1:	mov    0x48ec(%rip),%r10d        # 70b4 <initialSeed>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:243
+        printf("TIMING input=%s trial=%d function=%s seconds=%.9f N=%d R=%d seed=%u fingerprint=%016llx\n",
+    27c8:	lea    0x2b82(%rip),%rdi        # 5351 <_IO_stdin_used+0x351>
+    27cf:	mov    -0x40(%rbp),%edx
+    27d2:	mov    %r14d,%r8d
+    27d5:	mov    %r13d,%r9d
+    27d8:	mov    $0x1,%al
+    27da:	push   %r12
+    27dc:	push   %r10
+    27de:	call   10c0 <printf@plt>
+    27e3:	add    $0x10,%rsp
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:246
+        success &= post_process(data, data_bcup, N, printFlag, testFunc[k].name, 0, N - 1);
+    27e7:	mov    -0x8(%rbx),%r8
+    27eb:	sub    $0x8,%rsp
+    27ef:	mov    -0x48(%rbp),%rdi
+    27f3:	mov    -0x88(%rbp),%rsi
+    27fa:	mov    %r14d,%edx
+    27fd:	mov    -0x2c(%rbp),%ecx
+    2800:	xor    %r9d,%r9d
+    2803:	push   -0x78(%rbp)
+    2806:	call   1c50 <post_process>
+    280b:	mov    -0xa0(%rbp),%rcx
+    2812:	lea    -0x58(%rbp),%rsi
+    2816:	add    $0x10,%rsp
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:235
+      for (int k = 0; k < numFunc; k++) {
+    281a:	inc    %r15
+    281d:	add    $0x18,%rbx
+    2821:	cmp    %r15,%rcx
+    2824:	jne    2740 <test_correctness+0x6d0>
+    282a:	jmp    25e0 <test_correctness+0x570>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:255
+      printf("Arrays are sorted: yes\n");
+    282f:	lea    0x2d33(%rip),%rdi        # 5569 <_IO_stdin_used+0x569>
+    2836:	call   1060 <puts@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:256
+      TEST_PASS();
+    283b:	mov    0x4796(%rip),%rax        # 6fd8 <stderr@GLIBC_2.2.5>
+    2842:	mov    (%rax),%rdi
+    2845:	lea    0x29e6(%rip),%rsi        # 5232 <_IO_stdin_used+0x232>
+    284c:	lea    0x2b57(%rip),%rdx        # 53aa <_IO_stdin_used+0x3aa>
+    2853:	mov    $0x100,%ecx
+    2858:	xor    %eax,%eax
+    285a:	call   1100 <fprintf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:191
+  for (int i = 0; i < numFunc; i++) {
+    285f:	cmpl   $0x0,-0x30(%rbp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:258
+      for (int k = 0; k < numFunc; k++) {
+    2863:	jle    2974 <test_correctness+0x904>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:259
+        double avgRuntime = R > 0 ? sum_time[k] / R : 0;
+    2869:	cmpb   $0x0,-0x34(%rbp)
+    286d:	je     28f7 <test_correctness+0x887>
+    2873:	mov    -0x80(%rbp),%r15
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:258
+      for (int k = 0; k < numFunc; k++) {
+    2877:	add    $0x8,%r15
+    287b:	xor    %ebx,%ebx
+    287d:	mov    -0x70(%rbp),%r13
+    2881:	mov    -0x60(%rbp),%r12
+    2885:	mov    -0xa0(%rbp),%r14
+    288c:	nopl   0x0(%rax)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:259
+        double avgRuntime = R > 0 ? sum_time[k] / R : 0;
+    2890:	movsd  (%r12,%rbx,8),%xmm0
+    2896:	divsd  -0x90(%rbp),%xmm0
+    289e:	movsd  %xmm0,-0x78(%rbp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:260
+        printf("%s: Elapsed execution time: %.9f sec\n", testFunc[k].name, avgRuntime);
+    28a3:	mov    (%r15),%rsi
+    28a6:	lea    0x2b0e(%rip),%rdi        # 53bb <_IO_stdin_used+0x3bb>
+    28ad:	mov    $0x1,%al
+    28af:	call   10c0 <printf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:262
+               testFunc[k].name, dataGen[gen].name, N, R, initialSeed, R, avgRuntime);
+    28b4:	mov    (%r15),%rsi
+    28b7:	mov    0x481a(%rip),%rdx        # 70d8 <dataGen+0x18>
+    28be:	mov    0x47ef(%rip),%r9d        # 70b4 <initialSeed>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:261
+        printf("SUMMARY variant=%s input=%s N=%d R=%d seed=%u calls=%d mean_seconds=%.9f\n",
+    28c5:	sub    $0x8,%rsp
+    28c9:	lea    0x2b11(%rip),%rdi        # 53e1 <_IO_stdin_used+0x3e1>
+    28d0:	mov    -0x68(%rbp),%rcx
+    28d4:	mov    %r13d,%r8d
+    28d7:	movsd  -0x78(%rbp),%xmm0
+    28dc:	mov    $0x1,%al
+    28de:	push   %r13
+    28e0:	call   10c0 <printf@plt>
+    28e5:	add    $0x10,%rsp
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:258
+      for (int k = 0; k < numFunc; k++) {
+    28e9:	inc    %rbx
+    28ec:	add    $0x18,%r15
+    28f0:	cmp    %rbx,%r14
+    28f3:	jne    2890 <test_correctness+0x820>
+    28f5:	jmp    2974 <test_correctness+0x904>
+    28f7:	mov    -0xa8(%rbp),%rax
+    28fe:	lea    (%rax,%rax,2),%r15
+    2902:	xor    %r12d,%r12d
+    2905:	mov    -0x80(%rbp),%r13
+    2909:	mov    -0x70(%rbp),%rbx
+    290d:	mov    -0x68(%rbp),%r14
+    2911:	data16 data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:260
+        printf("%s: Elapsed execution time: %.9f sec\n", testFunc[k].name, avgRuntime);
+    2920:	mov    0x8(%r13,%r12,1),%rsi
+    2925:	xorpd  %xmm0,%xmm0
+    2929:	lea    0x2a8b(%rip),%rdi        # 53bb <_IO_stdin_used+0x3bb>
+    2930:	mov    $0x1,%al
+    2932:	call   10c0 <printf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:262
+               testFunc[k].name, dataGen[gen].name, N, R, initialSeed, R, avgRuntime);
+    2937:	mov    0x8(%r13,%r12,1),%rsi
+    293c:	mov    0x4795(%rip),%rdx        # 70d8 <dataGen+0x18>
+    2943:	mov    0x476a(%rip),%r9d        # 70b4 <initialSeed>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:261
+        printf("SUMMARY variant=%s input=%s N=%d R=%d seed=%u calls=%d mean_seconds=%.9f\n",
+    294a:	sub    $0x8,%rsp
+    294e:	xorpd  %xmm0,%xmm0
+    2952:	lea    0x2a88(%rip),%rdi        # 53e1 <_IO_stdin_used+0x3e1>
+    2959:	mov    %r14d,%ecx
+    295c:	mov    %ebx,%r8d
+    295f:	mov    $0x1,%al
+    2961:	push   %rbx
+    2962:	call   10c0 <printf@plt>
+    2967:	add    $0x10,%rsp
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:258
+      for (int k = 0; k < numFunc; k++) {
+    296b:	add    $0x18,%r12
+    296f:	cmp    %r12,%r15
+    2972:	jne    2920 <test_correctness+0x8b0>
+    2974:	mov    -0x48(%rbp),%rdi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:267
+  free(data);
+    2978:	call   1030 <free@plt>
+    297d:	mov    -0x88(%rbp),%rdi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:268
+  free(data_bcup);
+    2984:	call   1030 <free@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:270
+}
+    2989:	lea    -0x28(%rbp),%rsp
+    298d:	pop    %rbx
+    298e:	pop    %r12
+    2990:	pop    %r13
+    2992:	pop    %r14
+    2994:	pop    %r15
+    2996:	pop    %rbp
+    2997:	ret
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:200
+    printf("Error: not enough memory\n");
+    2998:	lea    0x2bf2(%rip),%rdi        # 5591 <_IO_stdin_used+0x591>
+    299f:	mov    %rax,%rbx
+    29a2:	call   1060 <puts@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:201
+    free(data);
+    29a7:	mov    %r15,%rdi
+    29aa:	call   1030 <free@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:202
+    free(data_bcup);
+    29af:	mov    %rbx,%rdi
+    29b2:	call   1030 <free@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:203
+    exit(-1);
+    29b7:	mov    $0xffffffff,%edi
+    29bc:	call   1140 <exit@plt>
+    29c1:	data16 data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+
+00000000000029d0 <test_zero_element>:
+test_zero_element():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:273
+                              struct testFunc_t* testFunc, int numFunc) {
+    29d0:	push   %rbp
+    29d1:	push   %r15
+    29d3:	push   %r14
+    29d5:	push   %r13
+    29d7:	push   %r12
+    29d9:	push   %rbx
+    29da:	sub    $0x18,%rsp
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:275
+  for (int i = 0; i < numFunc; i++) {
+    29de:	test   %r8d,%r8d
+    29e1:	jle    2a91 <test_zero_element+0xc1>
+    29e7:	mov    %rcx,%rbx
+    29ea:	lea    0xc(%rsp),%r14
+    29ef:	mov    %r8d,%r12d
+    29f2:	neg    %r12
+    29f5:	add    $0x10,%rbx
+    29f9:	xor    %ebp,%ebp
+    29fb:	xor    %r13d,%r13d
+    29fe:	jmp    2a21 <test_zero_element+0x51>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:281
+             testFunc[i].name);
+    2a00:	mov    -0x8(%r15),%rsi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:280
+      printf("Error: %s failed to sort array with zero element\n",
+    2a04:	lea    0x2a20(%rip),%rdi        # 542b <_IO_stdin_used+0x42b>
+    2a0b:	xor    %eax,%eax
+    2a0d:	call   10c0 <printf@plt>
+    2a12:	mov    $0x1,%bpl
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:275
+  for (int i = 0; i < numFunc; i++) {
+    2a15:	mov    %r12,%rax
+    2a18:	add    %r13,%rax
+    2a1b:	je     2ac4 <test_zero_element+0xf4>
+    2a21:	lea    0x0(,%r13,2),%rax
+    2a29:	add    %r13,%rax
+    2a2c:	inc    %r13
+    2a2f:	lea    (%rbx,%rax,8),%r15
+    2a33:	data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:276
+    data_t data[] = {0, 0, 0};
+    2a40:	movl   $0x0,0x10(%rsp)
+    2a48:	movq   $0x0,0x8(%rsp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:277
+    testFunc[i].func(&data[1], 0, -1);
+    2a51:	mov    %r14,%rdi
+    2a54:	xor    %esi,%esi
+    2a56:	mov    $0xffffffff,%edx
+    2a5b:	call   *-0x10(%r15)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:278
+    testFunc[i].calls++;
+    2a5f:	incq   (%r15)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:279
+    if (data[0] != 0 || data[1] != 0 || data[2] != 0) {
+    2a62:	cmpl   $0x0,0x8(%rsp)
+    2a67:	jne    2a00 <test_zero_element+0x30>
+    2a69:	cmpl   $0x0,0xc(%rsp)
+    2a6e:	jne    2a00 <test_zero_element+0x30>
+    2a70:	cmpl   $0x0,0x10(%rsp)
+    2a75:	jne    2a00 <test_zero_element+0x30>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:275
+  for (int i = 0; i < numFunc; i++) {
+    2a77:	add    $0x18,%r15
+    2a7b:	lea    (%r12,%r13,1),%rax
+    2a7f:	inc    %rax
+    2a82:	inc    %r13
+    2a85:	cmp    $0x1,%rax
+    2a89:	jne    2a40 <test_zero_element+0x70>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:286
+  if (success) {
+    2a8b:	test   $0x1,%bpl
+    2a8f:	jne    2ac4 <test_zero_element+0xf4>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:287
+    TEST_PASS();
+    2a91:	mov    0x4540(%rip),%rax        # 6fd8 <stderr@GLIBC_2.2.5>
+    2a98:	mov    (%rax),%rdi
+    2a9b:	lea    0x2790(%rip),%rsi        # 5232 <_IO_stdin_used+0x232>
+    2aa2:	lea    0x29b4(%rip),%rdx        # 545d <_IO_stdin_used+0x45d>
+    2aa9:	mov    $0x11f,%ecx
+    2aae:	xor    %eax,%eax
+    2ab0:	call   1100 <fprintf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:291
+}
+    2ab5:	add    $0x18,%rsp
+    2ab9:	pop    %rbx
+    2aba:	pop    %r12
+    2abc:	pop    %r13
+    2abe:	pop    %r14
+    2ac0:	pop    %r15
+    2ac2:	pop    %rbp
+    2ac3:	ret
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:289
+    TEST_FAIL("Sorting array with zero element failed");
+    2ac4:	mov    0x450d(%rip),%rbx        # 6fd8 <stderr@GLIBC_2.2.5>
+    2acb:	mov    (%rbx),%rdi
+    2ace:	lea    0x2785(%rip),%rsi        # 525a <_IO_stdin_used+0x25a>
+    2ad5:	lea    0x2981(%rip),%rdx        # 545d <_IO_stdin_used+0x45d>
+    2adc:	mov    $0x121,%ecx
+    2ae1:	xor    %eax,%eax
+    2ae3:	call   1100 <fprintf@plt>
+    2ae8:	mov    (%rbx),%rcx
+    2aeb:	lea    0x297d(%rip),%rdi        # 546f <_IO_stdin_used+0x46f>
+    2af2:	mov    $0x26,%esi
+    2af7:	mov    $0x1,%edx
+    2afc:	call   1150 <fwrite@plt>
+    2b01:	mov    (%rbx),%rsi
+    2b04:	mov    $0xa,%edi
+    2b09:	call   10e0 <fputc@plt>
+    2b0e:	mov    $0x1,%edi
+    2b13:	call   1140 <exit@plt>
+    2b18:	nopl   0x0(%rax,%rax,1)
+
+0000000000002b20 <test_one_element>:
+test_one_element():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:294
+                             struct testFunc_t* testFunc, int numFunc) {
+    2b20:	push   %rbp
+    2b21:	push   %r15
+    2b23:	push   %r14
+    2b25:	push   %r13
+    2b27:	push   %r12
+    2b29:	push   %rbx
+    2b2a:	sub    $0x18,%rsp
+    2b2e:	mov    %rcx,0x10(%rsp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:296
+  for (int i = 0; i < numFunc; i++) {
+    2b33:	test   %r8d,%r8d
+    2b36:	jle    2be7 <test_one_element+0xc7>
+    2b3c:	lea    0x4(%rsp),%r14
+    2b41:	mov    %r8d,%r12d
+    2b44:	neg    %r12
+    2b47:	addq   $0x10,0x10(%rsp)
+    2b4d:	xor    %r15d,%r15d
+    2b50:	movabs $0x100000000,%r13
+    2b5a:	xor    %ebp,%ebp
+    2b5c:	jmp    2b81 <test_one_element+0x61>
+    2b5e:	xchg   %ax,%ax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:302
+             testFunc[i].name);
+    2b60:	mov    -0x8(%rbx),%rsi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:301
+      printf("Error: %s failed to sort array with one element\n",
+    2b64:	lea    0x292b(%rip),%rdi        # 5496 <_IO_stdin_used+0x496>
+    2b6b:	xor    %eax,%eax
+    2b6d:	call   10c0 <printf@plt>
+    2b72:	mov    $0x1,%r15b
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:296
+  for (int i = 0; i < numFunc; i++) {
+    2b75:	mov    %r12,%rax
+    2b78:	add    %rbp,%rax
+    2b7b:	je     2c1a <test_one_element+0xfa>
+    2b81:	lea    0x0(,%rbp,2),%rax
+    2b89:	add    %rbp,%rax
+    2b8c:	inc    %rbp
+    2b8f:	mov    0x10(%rsp),%rcx
+    2b94:	lea    (%rcx,%rax,8),%rbx
+    2b98:	nopl   0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:297
+    data_t data[] = {0, 1, 0};
+    2ba0:	mov    %r13,(%rsp)
+    2ba4:	movl   $0x0,0x8(%rsp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:298
+    testFunc[i].func(&data[1], 0, 0);
+    2bac:	mov    %r14,%rdi
+    2baf:	xor    %esi,%esi
+    2bb1:	xor    %edx,%edx
+    2bb3:	call   *-0x10(%rbx)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:299
+    testFunc[i].calls++;
+    2bb6:	incq   (%rbx)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:300
+    if (data[0] != 0 || data[1] != 1 || data[2] != 0) {
+    2bb9:	cmpl   $0x0,(%rsp)
+    2bbd:	jne    2b60 <test_one_element+0x40>
+    2bbf:	cmpl   $0x1,0x4(%rsp)
+    2bc4:	jne    2b60 <test_one_element+0x40>
+    2bc6:	cmpl   $0x0,0x8(%rsp)
+    2bcb:	jne    2b60 <test_one_element+0x40>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:296
+  for (int i = 0; i < numFunc; i++) {
+    2bcd:	add    $0x18,%rbx
+    2bd1:	lea    (%r12,%rbp,1),%rax
+    2bd5:	inc    %rax
+    2bd8:	inc    %rbp
+    2bdb:	cmp    $0x1,%rax
+    2bdf:	jne    2ba0 <test_one_element+0x80>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:307
+  if (success) {
+    2be1:	test   $0x1,%r15b
+    2be5:	jne    2c1a <test_one_element+0xfa>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:308
+    TEST_PASS();
+    2be7:	mov    0x43ea(%rip),%rax        # 6fd8 <stderr@GLIBC_2.2.5>
+    2bee:	mov    (%rax),%rdi
+    2bf1:	lea    0x263a(%rip),%rsi        # 5232 <_IO_stdin_used+0x232>
+    2bf8:	lea    0x28c8(%rip),%rdx        # 54c7 <_IO_stdin_used+0x4c7>
+    2bff:	mov    $0x134,%ecx
+    2c04:	xor    %eax,%eax
+    2c06:	call   1100 <fprintf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:312
+}
+    2c0b:	add    $0x18,%rsp
+    2c0f:	pop    %rbx
+    2c10:	pop    %r12
+    2c12:	pop    %r13
+    2c14:	pop    %r14
+    2c16:	pop    %r15
+    2c18:	pop    %rbp
+    2c19:	ret
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:310
+    TEST_FAIL("Sorting array with one element failed");
+    2c1a:	mov    0x43b7(%rip),%rbx        # 6fd8 <stderr@GLIBC_2.2.5>
+    2c21:	mov    (%rbx),%rdi
+    2c24:	lea    0x262f(%rip),%rsi        # 525a <_IO_stdin_used+0x25a>
+    2c2b:	lea    0x2895(%rip),%rdx        # 54c7 <_IO_stdin_used+0x4c7>
+    2c32:	mov    $0x136,%ecx
+    2c37:	xor    %eax,%eax
+    2c39:	call   1100 <fprintf@plt>
+    2c3e:	mov    (%rbx),%rcx
+    2c41:	lea    0x2890(%rip),%rdi        # 54d8 <_IO_stdin_used+0x4d8>
+    2c48:	mov    $0x25,%esi
+    2c4d:	mov    $0x1,%edx
+    2c52:	call   1150 <fwrite@plt>
+    2c57:	mov    (%rbx),%rsi
+    2c5a:	mov    $0xa,%edi
+    2c5f:	call   10e0 <fputc@plt>
+    2c64:	mov    $0x1,%edi
+    2c69:	call   1140 <exit@plt>
+    2c6e:	xchg   %ax,%ax
+
+0000000000002c70 <test_patterns>:
+test_patterns():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:367
+  return;
+}
+
+static void test_patterns(int printFlag, int N, int R,
+                          struct testFunc_t* testFunc, int numFunc) {
+    2c70:	push   %rbp
+    2c71:	push   %r15
+    2c73:	push   %r14
+    2c75:	push   %r13
+    2c77:	push   %r12
+    2c79:	push   %rbx
+    2c7a:	sub    $0x78,%rsp
+    2c7e:	mov    %rcx,%rbx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:371
+  const int sizes[] = {0, 1, 2, 3, 7, 8, 9, 15, 16, 17, 31, 32, 33,
+                       63, 64, 65, 127, 128, 129, 257,
+                       SORT_CUTOFF - 1, SORT_CUTOFF, SORT_CUTOFF + 1};
+  unsigned int pattern_seed = 12345;
+    2c81:	movl   $0x3039,0xc(%rsp)
+    2c89:	test   %r8d,%r8d
+    2c8c:	mov    %r8d,0x3c(%rsp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:394
+          case 4: value = 42; break;
+          }
+          data[offset + j] = value;
+        }
+        memcpy(original, data, total * sizeof(data_t));
+        for (int k = 0; k < numFunc; k++) {
+    2c91:	jle    3100 <test_patterns+0x490>
+    2c97:	mov    %r8d,%eax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:373
+  for (unsigned int s = 0; s < sizeof(sizes) / sizeof(sizes[0]); s++) {
+    2c9a:	shl    $0x3,%rax
+    2c9e:	lea    (%rax,%rax,2),%rax
+    2ca2:	mov    %rax,0x58(%rsp)
+    2ca7:	xor    %r12d,%r12d
+    2caa:	mov    %rbx,0x50(%rsp)
+    2caf:	nop
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:374
+    int length = sizes[s];
+    2cb0:	lea    0x29a9(%rip),%rax        # 5660 <_IO_stdin_used+0x660>
+    2cb7:	movslq (%rax,%r12,4),%rax
+    2cbb:	lea    0x14(,%rax,4),%rcx
+    2cc3:	mov    %rcx,0x20(%rsp)
+    2cc8:	mov    %rax,%rcx
+    2ccb:	add    $0x5,%rcx
+    2ccf:	lea    -0x1(%rax),%ebp
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:375
+    for (int pattern = 0; pattern < 5; pattern++) {
+    2cd2:	cmp    $0x2,%ecx
+    2cd5:	mov    $0x1,%edx
+    2cda:	mov    %rcx,0x60(%rsp)
+    2cdf:	cmovge %ecx,%edx
+    2ce2:	cmp    $0x2,%eax
+    2ce5:	mov    $0x1,%ecx
+    2cea:	cmovge %eax,%ecx
+    2ced:	mov    %rcx,0x28(%rsp)
+    2cf2:	mov    %rax,0x70(%rsp)
+    2cf7:	inc    %eax
+    2cf9:	mov    %eax,0x40(%rsp)
+    2cfd:	mov    %rdx,0x18(%rsp)
+    2d02:	and    $0x7ffffff8,%edx
+    2d08:	mov    %rdx,0x48(%rsp)
+    2d0d:	xor    %eax,%eax
+    2d0f:	mov    %r12,0x68(%rsp)
+    2d14:	mov    %ebp,0x44(%rsp)
+    2d18:	nopl   0x0(%rax,%rax,1)
+    2d20:	mov    %eax,0x8(%rsp)
+    2d24:	mov    0x20(%rsp),%r15
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:378
+        data_t* data = malloc(total * sizeof(data_t));
+    2d29:	mov    %r15,%rdi
+    2d2c:	call   1120 <malloc@plt>
+    2d31:	mov    %rax,%r14
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:379
+        data_t* original = malloc(total * sizeof(data_t));
+    2d34:	mov    %r15,%rdi
+    2d37:	call   1120 <malloc@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:380
+        if (data == NULL || original == NULL) TEST_FAIL("Pattern allocation failed");
+    2d3c:	test   %r14,%r14
+    2d3f:	je     316f <test_patterns+0x4ff>
+    2d45:	test   %rax,%rax
+    2d48:	je     316f <test_patterns+0x4ff>
+    2d4e:	mov    %rax,%rbx
+    2d51:	xor    %eax,%eax
+    2d53:	cmp    $0x3,%r12
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:381
+        for (int j = 0; j < total; j++) data[j] = 0x12345678U;
+    2d57:	jae    2d70 <test_patterns+0x100>
+    2d59:	lea    0x28c0(%rip),%r13        # 5620 <_IO_stdin_used+0x620>
+    2d60:	mov    0x18(%rsp),%rcx
+    2d65:	mov    0x8(%rsp),%r15d
+    2d6a:	jmp    2dc0 <test_patterns+0x150>
+    2d6c:	nopl   0x0(%rax)
+    2d70:	movaps 0x2889(%rip),%xmm0        # 5600 <_IO_stdin_used+0x600>
+    2d77:	mov    0x18(%rsp),%rcx
+    2d7c:	mov    0x48(%rsp),%rdx
+    2d81:	mov    0x8(%rsp),%r15d
+    2d86:	cs nopw 0x0(%rax,%rax,1)
+    2d90:	movups %xmm0,(%r14,%rax,4)
+    2d95:	movups %xmm0,0x10(%r14,%rax,4)
+    2d9b:	add    $0x8,%rax
+    2d9f:	cmp    %rax,%rdx
+    2da2:	jne    2d90 <test_patterns+0x120>
+    2da4:	mov    %rdx,%rax
+    2da7:	cmp    %rcx,%rdx
+    2daa:	lea    0x286f(%rip),%r13        # 5620 <_IO_stdin_used+0x620>
+    2db1:	je     2dd0 <test_patterns+0x160>
+    2db3:	data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+    2dc0:	movl   $0x12345678,(%r14,%rax,4)
+    2dc8:	inc    %rax
+    2dcb:	cmp    %rax,%rcx
+    2dce:	jne    2dc0 <test_patterns+0x150>
+    2dd0:	mov    %r15d,%edx
+    2dd3:	test   %r12,%r12
+    2dd6:	mov    0x28(%rsp),%rcx
+    2ddb:	mov    %rdx,0x30(%rsp)
+    2de0:	je     2e50 <test_patterns+0x1e0>
+    2de2:	xor    %r12d,%r12d
+    2de5:	jmp    2dfc <test_patterns+0x18c>
+    2de7:	mov    $0x2a,%eax
+    2dec:	nopl   0x0(%rax)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:391
+          data[offset + j] = value;
+    2df0:	mov    %eax,(%r14,%r12,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:382
+        for (int j = 0; j < length; j++) {
+    2df4:	inc    %r12
+    2df7:	cmp    %r12,%rcx
+    2dfa:	je     2e50 <test_patterns+0x1e0>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:384
+          switch (pattern) {
+    2dfc:	cmp    $0x4,%r15d
+    2e00:	ja     2e3e <test_patterns+0x1ce>
+    2e02:	movslq 0x0(%r13,%rdx,4),%rax
+    2e07:	add    %r13,%rax
+    2e0a:	jmp    *%rax
+    2e0c:	mov    %r12d,%eax
+    2e0f:	jmp    2df0 <test_patterns+0x180>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:387
+          case 2: value = rand_r(&pattern_seed) % RANGE; break;
+    2e11:	lea    0xc(%rsp),%rdi
+    2e16:	call   10a0 <rand_r@plt>
+    2e1b:	mov    0x30(%rsp),%rdx
+    2e20:	mov    0x28(%rsp),%rcx
+    2e25:	and    $0x7fffffff,%eax
+    2e2a:	jmp    2df0 <test_patterns+0x180>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:388
+          case 3: value = j % 4; break;
+    2e2c:	mov    %r12d,%eax
+    2e2f:	and    $0x3,%eax
+    2e32:	jmp    2df0 <test_patterns+0x180>
+    2e34:	mov    0x70(%rsp),%rax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:386
+          case 1: value = length - j; break;
+    2e39:	sub    %r12d,%eax
+    2e3c:	jmp    2df0 <test_patterns+0x180>
+    2e3e:	xor    %eax,%eax
+    2e40:	jmp    2df0 <test_patterns+0x180>
+    2e42:	data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+    2e50:	mov    %rbx,%rdi
+    2e53:	mov    %rbx,0x10(%rsp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:393
+        memcpy(original, data, total * sizeof(data_t));
+    2e58:	mov    %r14,%rsi
+    2e5b:	mov    0x20(%rsp),%rdx
+    2e60:	call   1110 <memcpy@plt>
+    2e65:	xor    %r12d,%r12d
+    2e68:	mov    0x58(%rsp),%r13
+    2e6d:	mov    %ebp,%r15d
+    2e70:	mov    0x60(%rsp),%rbp
+    2e75:	mov    0x50(%rsp),%rbx
+    2e7a:	nopw   0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:395
+          testFunc[k].func(data, offset, offset + length - 1);
+    2e80:	mov    %r14,%rdi
+    2e83:	xor    %esi,%esi
+    2e85:	mov    %r15d,%edx
+    2e88:	call   *(%rbx,%r12,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:396
+          testFunc[k].calls++;
+    2e8c:	incq   0x10(%rbx,%r12,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:397
+          post_process(data, original, total, 0, testFunc[k].name,
+    2e91:	mov    0x8(%rbx,%r12,1),%r8
+    2e96:	mov    %r15d,(%rsp)
+    2e9a:	mov    %r14,%rdi
+    2e9d:	mov    0x10(%rsp),%rsi
+    2ea2:	mov    %ebp,%edx
+    2ea4:	xor    %ecx,%ecx
+    2ea6:	xor    %r9d,%r9d
+    2ea9:	call   1c50 <post_process>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:394
+        for (int k = 0; k < numFunc; k++) {
+    2eae:	add    $0x18,%r12
+    2eb2:	cmp    %r12,%r13
+    2eb5:	jne    2e80 <test_patterns+0x210>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:401
+                       offset, offset + length - 1);
+        }
+        cases++;
+        free(data);
+    2eb7:	mov    %r14,%rdi
+    2eba:	call   1030 <free@plt>
+    2ebf:	mov    0x10(%rsp),%rdi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:402
+        free(original);
+    2ec4:	call   1030 <free@plt>
+    2ec9:	mov    0x20(%rsp),%r12
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:378
+        data_t* data = malloc(total * sizeof(data_t));
+    2ece:	mov    %r12,%rdi
+    2ed1:	call   1120 <malloc@plt>
+    2ed6:	mov    %rax,%r14
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:379
+        data_t* original = malloc(total * sizeof(data_t));
+    2ed9:	mov    %r12,%rdi
+    2edc:	call   1120 <malloc@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:380
+        if (data == NULL || original == NULL) TEST_FAIL("Pattern allocation failed");
+    2ee1:	test   %r14,%r14
+    2ee4:	mov    0x68(%rsp),%rcx
+    2ee9:	lea    0x2744(%rip),%r13        # 5634 <_IO_stdin_used+0x634>
+    2ef0:	je     316f <test_patterns+0x4ff>
+    2ef6:	test   %rax,%rax
+    2ef9:	je     316f <test_patterns+0x4ff>
+    2eff:	mov    %rax,%rbx
+    2f02:	xor    %eax,%eax
+    2f04:	cmp    $0x3,%rcx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:381
+        for (int j = 0; j < total; j++) data[j] = 0x12345678U;
+    2f08:	jae    2f20 <test_patterns+0x2b0>
+    2f0a:	mov    0x18(%rsp),%rdx
+    2f0f:	jmp    2f60 <test_patterns+0x2f0>
+    2f11:	data16 data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+    2f20:	movaps 0x26d9(%rip),%xmm0        # 5600 <_IO_stdin_used+0x600>
+    2f27:	mov    0x18(%rsp),%rdx
+    2f2c:	mov    0x48(%rsp),%rsi
+    2f31:	data16 data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+    2f40:	movups %xmm0,(%r14,%rax,4)
+    2f45:	movups %xmm0,0x10(%r14,%rax,4)
+    2f4b:	add    $0x8,%rax
+    2f4f:	cmp    %rax,%rsi
+    2f52:	jne    2f40 <test_patterns+0x2d0>
+    2f54:	mov    %rsi,%rax
+    2f57:	cmp    %rdx,%rsi
+    2f5a:	je     2f70 <test_patterns+0x300>
+    2f5c:	nopl   0x0(%rax)
+    2f60:	movl   $0x12345678,(%r14,%rax,4)
+    2f68:	inc    %rax
+    2f6b:	cmp    %rax,%rdx
+    2f6e:	jne    2f60 <test_patterns+0x2f0>
+    2f70:	test   %rcx,%rcx
+    2f73:	mov    0x28(%rsp),%rcx
+    2f78:	mov    0x8(%rsp),%ebp
+    2f7c:	mov    0x30(%rsp),%rdx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:382
+        for (int j = 0; j < length; j++) {
+    2f81:	je     2ff0 <test_patterns+0x380>
+    2f83:	xor    %r12d,%r12d
+    2f86:	jmp    2f9d <test_patterns+0x32d>
+    2f88:	mov    $0x2a,%eax
+    2f8d:	nopl   (%rax)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:391
+          data[offset + j] = value;
+    2f90:	mov    %eax,0x8(%r14,%r12,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:382
+        for (int j = 0; j < length; j++) {
+    2f95:	inc    %r12
+    2f98:	cmp    %r12,%rcx
+    2f9b:	je     2ff0 <test_patterns+0x380>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:384
+          switch (pattern) {
+    2f9d:	cmp    $0x4,%ebp
+    2fa0:	ja     2fde <test_patterns+0x36e>
+    2fa2:	movslq 0x0(%r13,%rdx,4),%rax
+    2fa7:	add    %r13,%rax
+    2faa:	jmp    *%rax
+    2fac:	mov    %r12d,%eax
+    2faf:	jmp    2f90 <test_patterns+0x320>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:387
+          case 2: value = rand_r(&pattern_seed) % RANGE; break;
+    2fb1:	lea    0xc(%rsp),%rdi
+    2fb6:	call   10a0 <rand_r@plt>
+    2fbb:	mov    0x30(%rsp),%rdx
+    2fc0:	mov    0x28(%rsp),%rcx
+    2fc5:	and    $0x7fffffff,%eax
+    2fca:	jmp    2f90 <test_patterns+0x320>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:388
+          case 3: value = j % 4; break;
+    2fcc:	mov    %r12d,%eax
+    2fcf:	and    $0x3,%eax
+    2fd2:	jmp    2f90 <test_patterns+0x320>
+    2fd4:	mov    0x70(%rsp),%rax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:386
+          case 1: value = length - j; break;
+    2fd9:	sub    %r12d,%eax
+    2fdc:	jmp    2f90 <test_patterns+0x320>
+    2fde:	xor    %eax,%eax
+    2fe0:	jmp    2f90 <test_patterns+0x320>
+    2fe2:	data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+    2ff0:	mov    %rbx,%rdi
+    2ff3:	mov    %rbx,0x10(%rsp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:393
+        memcpy(original, data, total * sizeof(data_t));
+    2ff8:	mov    %r14,%rsi
+    2ffb:	mov    0x20(%rsp),%rdx
+    3000:	call   1110 <memcpy@plt>
+    3005:	xor    %r12d,%r12d
+    3008:	mov    0x58(%rsp),%r13
+    300d:	mov    0x60(%rsp),%rbp
+    3012:	mov    0x40(%rsp),%r15d
+    3017:	mov    0x50(%rsp),%rbx
+    301c:	nopl   0x0(%rax)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:395
+          testFunc[k].func(data, offset, offset + length - 1);
+    3020:	mov    %r14,%rdi
+    3023:	mov    $0x2,%esi
+    3028:	mov    %r15d,%edx
+    302b:	call   *(%rbx,%r12,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:396
+          testFunc[k].calls++;
+    302f:	incq   0x10(%rbx,%r12,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:397
+          post_process(data, original, total, 0, testFunc[k].name,
+    3034:	mov    0x8(%rbx,%r12,1),%r8
+    3039:	mov    %r15d,(%rsp)
+    303d:	mov    %r14,%rdi
+    3040:	mov    0x10(%rsp),%rsi
+    3045:	mov    %ebp,%edx
+    3047:	xor    %ecx,%ecx
+    3049:	mov    $0x2,%r9d
+    304f:	call   1c50 <post_process>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:394
+        for (int k = 0; k < numFunc; k++) {
+    3054:	add    $0x18,%r12
+    3058:	cmp    %r12,%r13
+    305b:	jne    3020 <test_patterns+0x3b0>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:401
+        free(data);
+    305d:	mov    %r14,%rdi
+    3060:	call   1030 <free@plt>
+    3065:	mov    0x10(%rsp),%rdi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:402
+        free(original);
+    306a:	call   1030 <free@plt>
+    306f:	mov    0x8(%rsp),%eax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:375
+    for (int pattern = 0; pattern < 5; pattern++) {
+    3073:	inc    %eax
+    3075:	cmp    $0x5,%eax
+    3078:	mov    0x68(%rsp),%r12
+    307d:	mov    0x44(%rsp),%ebp
+    3081:	jne    2d20 <test_patterns+0xb0>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:373
+  for (unsigned int s = 0; s < sizeof(sizes) / sizeof(sizes[0]); s++) {
+    3087:	inc    %r12
+    308a:	cmp    $0x17,%r12
+    308e:	jne    2cb0 <test_patterns+0x40>
+    3094:	mov    0x3c(%rsp),%eax
+    3098:	test   %eax,%eax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:406
+      }
+    }
+  }
+  for (int k = 0; k < numFunc; k++)
+    309a:	jle    30cd <test_patterns+0x45d>
+    309c:	mov    %eax,%eax
+    309e:	shl    $0x3,%rax
+    30a2:	lea    (%rax,%rax,2),%r15
+    30a6:	lea    0x2479(%rip),%r14        # 5526 <_IO_stdin_used+0x526>
+    30ad:	xor    %r12d,%r12d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:407
+    printf("PATTERNS variant=%s cases=%d domain=0..2147483647\n", testFunc[k].name, cases);
+    30b0:	mov    0x8(%rbx,%r12,1),%rsi
+    30b5:	mov    %r14,%rdi
+    30b8:	mov    $0xe6,%edx
+    30bd:	xor    %eax,%eax
+    30bf:	call   10c0 <printf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:406
+  for (int k = 0; k < numFunc; k++)
+    30c4:	add    $0x18,%r12
+    30c8:	cmp    %r12,%r15
+    30cb:	jne    30b0 <test_patterns+0x440>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:408
+  TEST_PASS();
+    30cd:	mov    0x3f04(%rip),%rax        # 6fd8 <stderr@GLIBC_2.2.5>
+    30d4:	mov    (%rax),%rdi
+    30d7:	lea    0x2154(%rip),%rsi        # 5232 <_IO_stdin_used+0x232>
+    30de:	lea    0x2419(%rip),%rdx        # 54fe <_IO_stdin_used+0x4fe>
+    30e5:	mov    $0x198,%ecx
+    30ea:	xor    %eax,%eax
+    30ec:	call   1100 <fprintf@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:409
+}
+    30f1:	add    $0x78,%rsp
+    30f5:	pop    %rbx
+    30f6:	pop    %r12
+    30f8:	pop    %r13
+    30fa:	pop    %r14
+    30fc:	pop    %r15
+    30fe:	pop    %rbp
+    30ff:	ret
+    3100:	xor    %r15d,%r15d
+    3103:	mov    $0x1,%ebp
+    3108:	lea    0xc(%rsp),%r14
+    310d:	jmp    311d <test_patterns+0x4ad>
+    310f:	nop
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:373
+  for (unsigned int s = 0; s < sizeof(sizes) / sizeof(sizes[0]); s++) {
+    3110:	inc    %r15
+    3113:	cmp    $0x17,%r15
+    3117:	je     3094 <test_patterns+0x424>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:374
+    int length = sizes[s];
+    311d:	lea    0x253c(%rip),%rax        # 5660 <_IO_stdin_used+0x660>
+    3124:	mov    (%rax,%r15,4),%r12d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:375
+    for (int pattern = 0; pattern < 5; pattern++) {
+    3128:	cmp    $0x2,%r12d
+    312c:	cmovl  %ebp,%r12d
+    3130:	test   %r15,%r15
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:382
+        for (int j = 0; j < length; j++) {
+    3133:	je     3110 <test_patterns+0x4a0>
+    3135:	mov    %r12d,%r13d
+    3138:	nopl   0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:387
+          case 2: value = rand_r(&pattern_seed) % RANGE; break;
+    3140:	mov    %r14,%rdi
+    3143:	call   10a0 <rand_r@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:382
+        for (int j = 0; j < length; j++) {
+    3148:	dec    %r13d
+    314b:	jne    3140 <test_patterns+0x4d0>
+    314d:	test   %r15,%r15
+    3150:	je     3110 <test_patterns+0x4a0>
+    3152:	data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:387
+          case 2: value = rand_r(&pattern_seed) % RANGE; break;
+    3160:	mov    %r14,%rdi
+    3163:	call   10a0 <rand_r@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:382
+        for (int j = 0; j < length; j++) {
+    3168:	dec    %r12d
+    316b:	jne    3160 <test_patterns+0x4f0>
+    316d:	jmp    3110 <test_patterns+0x4a0>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:380
+        if (data == NULL || original == NULL) TEST_FAIL("Pattern allocation failed");
+    316f:	mov    0x3e62(%rip),%rbx        # 6fd8 <stderr@GLIBC_2.2.5>
+    3176:	mov    (%rbx),%rdi
+    3179:	lea    0x20da(%rip),%rsi        # 525a <_IO_stdin_used+0x25a>
+    3180:	lea    0x2377(%rip),%rdx        # 54fe <_IO_stdin_used+0x4fe>
+    3187:	mov    $0x17c,%ecx
+    318c:	xor    %eax,%eax
+    318e:	call   1100 <fprintf@plt>
+    3193:	mov    (%rbx),%rcx
+    3196:	lea    0x236f(%rip),%rdi        # 550c <_IO_stdin_used+0x50c>
+    319d:	mov    $0x19,%esi
+    31a2:	mov    $0x1,%edx
+    31a7:	call   1150 <fwrite@plt>
+    31ac:	mov    (%rbx),%rsi
+    31af:	mov    $0xa,%edi
+    31b4:	call   10e0 <fputc@plt>
+    31b9:	mov    $0x1,%edi
+    31be:	call   1140 <exit@plt>
+    31c3:	data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+
+00000000000031d0 <compare_data>:
+compare_data():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:69
+  data_t a = *(const data_t*) lhs;
+    31d0:	mov    (%rdi),%ecx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/tests.c:71
+  return (a > b) - (a < b);
+    31d2:	xor    %eax,%eax
+    31d4:	cmp    (%rsi),%ecx
+    31d6:	seta   %al
+    31d9:	sbb    $0x0,%eax
+    31dc:	ret
+    31dd:	nopl   (%rax)
+
+00000000000031e0 <mem_alloc>:
+mem_alloc():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/util.c:27
+
+
+#include "./util.h"
+
+
+void mem_alloc(data_t** space, int size) {
+    31e0:	push   %rbx
+    31e1:	mov    %rdi,%rbx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/util.c:28
+  *space = (data_t*) malloc(sizeof(data_t) * size);
+    31e4:	movslq %esi,%rdi
+    31e7:	shl    $0x2,%rdi
+    31eb:	call   1120 <malloc@plt>
+    31f0:	mov    %rax,(%rbx)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/util.c:29
+  if (*space == NULL) {
+    31f3:	test   %rax,%rax
+    31f6:	je     31fa <mem_alloc+0x1a>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/util.c:32
+    printf("out of memory...\n");
+  }
+}
+    31f8:	pop    %rbx
+    31f9:	ret
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/util.c:30
+    printf("out of memory...\n");
+    31fa:	lea    0x23a9(%rip),%rdi        # 55aa <_IO_stdin_used+0x5aa>
+    3201:	pop    %rbx
+    3202:	jmp    1060 <puts@plt>
+    3207:	nopw   0x0(%rax,%rax,1)
+
+0000000000003210 <mem_free>:
+mem_free():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/util.c:34
+
+void mem_free(data_t** space) {
+    3210:	push   %rbx
+    3211:	mov    %rdi,%rbx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/util.c:35
+  free(*space);
+    3214:	mov    (%rdi),%rdi
+    3217:	call   1030 <free@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/util.c:36
+  *space = 0;
+    321c:	movq   $0x0,(%rbx)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/util.c:37
+}
+    3223:	pop    %rbx
+    3224:	ret
+    3225:	cs nopw 0x0(%rax,%rax,1)
+    322f:	nop
+
+0000000000003230 <isort>:
+isort():
+    3230:	lea    0x4(%rdi),%rdx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/isort.c:33
+typedef uint32_t data_t;
+
+// Insertion sort, sorting the array between begin and end, inclusive
+void isort(data_t* begin, data_t* end) {
+  data_t* cur = begin + 1;
+  while (cur <= end) {
+    3234:	cmp    %rsi,%rdx
+    3237:	jbe    323a <isort+0xa>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/isort.c:45
+    }
+
+    *(index + 1) = val;
+    cur++;
+  }
+}
+    3239:	ret
+    323a:	mov    %rdi,%rax
+    323d:	jmp    324c <isort+0x1c>
+    323f:	nop
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/isort.c:42
+    *(index + 1) = val;
+    3240:	mov    %edx,0x4(%rcx)
+    3243:	lea    0x4(%rax),%rdx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/isort.c:33
+  while (cur <= end) {
+    3247:	cmp    %rsi,%rdx
+    324a:	ja     3239 <isort+0x9>
+    324c:	mov    %rax,%rcx
+    324f:	mov    %rdx,%rax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/isort.c:34
+    data_t val = *cur;
+    3252:	mov    0x4(%rcx),%edx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/isort.c:37
+    while (index >= begin && *index > val) {
+    3255:	cmp    %rdi,%rcx
+    3258:	jb     3240 <isort+0x10>
+    325a:	nopw   0x0(%rax,%rax,1)
+    3260:	mov    (%rcx),%r8d
+    3263:	cmp    %edx,%r8d
+    3266:	jbe    3240 <isort+0x10>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/isort.c:38
+      *(index + 1) = *index;
+    3268:	mov    %r8d,0x4(%rcx)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/isort.c:39
+      index--;
+    326c:	add    $0xfffffffffffffffc,%rcx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/isort.c:37
+    while (index >= begin && *index > val) {
+    3270:	cmp    %rdi,%rcx
+    3273:	jae    3260 <isort+0x30>
+    3275:	jmp    3240 <isort+0x10>
+    3277:	nopw   0x0(%rax,%rax,1)
+
+0000000000003280 <sort_a>:
+sort_a():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:33
+static void copy_a(data_t* source, data_t* dest, int n);
+
+// A basic merge sort routine that sorts the subarray A[p..r]
+void sort_a(data_t* A, int p, int r) {
+  assert(A);
+  if (p < r) {
+    3280:	cmp    %edx,%esi
+    3282:	jge    35c8 <sort_a+0x348>
+    3288:	push   %rbp
+    3289:	push   %r15
+    328b:	push   %r14
+    328d:	push   %r13
+    328f:	push   %r12
+    3291:	push   %rbx
+    3292:	sub    $0x18,%rsp
+    3296:	mov    %edx,%r14d
+    3299:	mov    %esi,%r15d
+    329c:	mov    %rdi,%rbx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:34
+    int q = (p + r) / 2;
+    329f:	lea    (%r14,%r15,1),%eax
+    32a3:	mov    %eax,%r12d
+    32a6:	shr    $0x1f,%r12d
+    32aa:	add    %eax,%r12d
+    32ad:	sar    $1,%r12d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:35
+    sort_a(A, p, q);
+    32b0:	mov    %r12d,%edx
+    32b3:	call   3280 <sort_a>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:36
+    sort_a(A, q + 1, r);
+    32b8:	lea    0x1(%r12),%esi
+    32bd:	mov    %rbx,%rdi
+    32c0:	mov    %r14d,%edx
+    32c3:	call   3280 <sort_a>
+merge_a():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:47
+// Uses two arrays 'left' and 'right' in the merge operation.
+static void merge_a(data_t* A, int p, int q, int r) {
+  assert(A);
+  assert(p <= q);
+  assert((q + 1) <= r);
+  int n1 = q - p + 1;
+    32c8:	mov    %r12d,%ebp
+    32cb:	sub    %r15d,%ebp
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:48
+  int n2 = r - q;
+    32ce:	mov    %r14d,%r13d
+    32d1:	sub    %r12d,%r13d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:50
+
+  data_t* left = 0, * right = 0;
+    32d4:	movq   $0x0,0x10(%rsp)
+    32dd:	movq   $0x0,0x8(%rsp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:51
+  mem_alloc(&left, n1 + 1);
+    32e6:	lea    0x2(%rbp),%esi
+    32e9:	lea    0x10(%rsp),%rdi
+    32ee:	call   31e0 <mem_alloc>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:52
+  mem_alloc(&right, n2 + 1);
+    32f3:	lea    0x1(%r13),%esi
+    32f7:	lea    0x8(%rsp),%rdi
+    32fc:	call   31e0 <mem_alloc>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:53
+  if (left == NULL || right == NULL) {
+    3301:	mov    0x10(%rsp),%rax
+    3306:	test   %rax,%rax
+    3309:	je     35a6 <sort_a+0x326>
+    330f:	mov    0x8(%rsp),%rcx
+    3314:	test   %rcx,%rcx
+    3317:	je     35a6 <sort_a+0x326>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:47
+  int n1 = q - p + 1;
+    331d:	lea    0x1(%rbp),%esi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:59
+    mem_free(&left);
+    mem_free(&right);
+    return;
+  }
+
+  copy_a(&(A[p]), left, n1);
+    3320:	movslq %r15d,%rdx
+copy_a():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:84
+
+static void copy_a(data_t* source, data_t* dest, int n) {
+  assert(dest);
+  assert(source);
+
+  for (int i = 0 ; i < n ; i++) {
+    3323:	test   %ebp,%ebp
+    3325:	js     3408 <sort_a+0x188>
+merge_a():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:59
+  copy_a(&(A[p]), left, n1);
+    332b:	lea    (%rbx,%rdx,4),%r8
+copy_a():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:84
+  for (int i = 0 ; i < n ; i++) {
+    332f:	mov    %esi,%edi
+    3331:	cmp    $0xc,%esi
+    3334:	jb     3342 <sort_a+0xc2>
+    3336:	mov    %rax,%r9
+    3339:	sub    %r8,%r9
+    333c:	cmp    $0x20,%r9
+    3340:	jae    33c1 <sort_a+0x141>
+    3342:	xor    %r9d,%r9d
+    3345:	mov    %rdi,%r11
+    3348:	mov    %r9,%r10
+    334b:	and    $0x3,%r11
+    334f:	je     3370 <sort_a+0xf0>
+    3351:	mov    %r9,%r10
+    3354:	data16 data16 cs nopw 0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:85
+    dest[i] = source[i];
+    3360:	mov    (%r8,%r10,4),%ebp
+    3364:	mov    %ebp,(%rax,%r10,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:84
+  for (int i = 0 ; i < n ; i++) {
+    3368:	inc    %r10
+    336b:	dec    %r11
+    336e:	jne    3360 <sort_a+0xe0>
+    3370:	sub    %rdi,%r9
+    3373:	cmp    $0xfffffffffffffffc,%r9
+    3377:	ja     3408 <sort_a+0x188>
+    337d:	lea    (%rbx,%rdx,4),%r8
+    3381:	add    $0xc,%r8
+    3385:	data16 cs nopw 0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:85
+    dest[i] = source[i];
+    3390:	mov    -0xc(%r8,%r10,4),%r9d
+    3395:	mov    %r9d,(%rax,%r10,4)
+    3399:	mov    -0x8(%r8,%r10,4),%r9d
+    339e:	mov    %r9d,0x4(%rax,%r10,4)
+    33a3:	mov    -0x4(%r8,%r10,4),%r9d
+    33a8:	mov    %r9d,0x8(%rax,%r10,4)
+    33ad:	mov    (%r8,%r10,4),%r9d
+    33b1:	mov    %r9d,0xc(%rax,%r10,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:84
+  for (int i = 0 ; i < n ; i++) {
+    33b6:	add    $0x4,%r10
+    33ba:	cmp    %r10,%rdi
+    33bd:	jne    3390 <sort_a+0x110>
+    33bf:	jmp    3408 <sort_a+0x188>
+    33c1:	lea    0x0(,%rdx,4),%r10
+    33c9:	mov    %edi,%r9d
+    33cc:	and    $0x7ffffff8,%r9d
+    33d3:	add    %rbx,%r10
+    33d6:	add    $0x10,%r10
+    33da:	xor    %r11d,%r11d
+    33dd:	nopl   (%rax)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:85
+    dest[i] = source[i];
+    33e0:	movups -0x10(%r10,%r11,4),%xmm0
+    33e6:	movups (%r10,%r11,4),%xmm1
+    33eb:	movups %xmm0,(%rax,%r11,4)
+    33f0:	movups %xmm1,0x10(%rax,%r11,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:84
+  for (int i = 0 ; i < n ; i++) {
+    33f6:	add    $0x8,%r11
+    33fa:	cmp    %r11,%r9
+    33fd:	jne    33e0 <sort_a+0x160>
+    33ff:	cmp    %rdi,%r9
+    3402:	jne    3345 <sort_a+0xc5>
+    3408:	test   %r13d,%r13d
+    340b:	jle    34f8 <sort_a+0x278>
+merge_a():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:60
+  copy_a(&(A[q + 1]), right, n2);
+    3411:	movslq %r12d,%r8
+copy_a():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:84
+  for (int i = 0 ; i < n ; i++) {
+    3414:	mov    %r13d,%edi
+    3417:	cmp    $0x10,%r13d
+    341b:	jb     3435 <sort_a+0x1b5>
+    341d:	lea    (%rbx,%r8,4),%r9
+    3421:	mov    %rcx,%r10
+    3424:	sub    %r9,%r10
+    3427:	add    $0xfffffffffffffffc,%r10
+    342b:	cmp    $0x20,%r10
+    342f:	jae    34b1 <sort_a+0x231>
+    3435:	xor    %r9d,%r9d
+    3438:	mov    %rdi,%r11
+    343b:	mov    %r9,%r10
+    343e:	and    $0x3,%r11
+    3442:	je     3460 <sort_a+0x1e0>
+    3444:	lea    (%rbx,%r8,4),%r12
+    3448:	add    $0x4,%r12
+    344c:	mov    %r9,%r10
+    344f:	nop
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:85
+    dest[i] = source[i];
+    3450:	mov    (%r12,%r10,4),%ebp
+    3454:	mov    %ebp,(%rcx,%r10,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:84
+  for (int i = 0 ; i < n ; i++) {
+    3458:	inc    %r10
+    345b:	dec    %r11
+    345e:	jne    3450 <sort_a+0x1d0>
+    3460:	sub    %rdi,%r9
+    3463:	cmp    $0xfffffffffffffffc,%r9
+    3467:	ja     34f8 <sort_a+0x278>
+    346d:	lea    (%rbx,%r8,4),%r8
+    3471:	add    $0x10,%r8
+    3475:	data16 cs nopw 0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:85
+    dest[i] = source[i];
+    3480:	mov    -0xc(%r8,%r10,4),%r9d
+    3485:	mov    %r9d,(%rcx,%r10,4)
+    3489:	mov    -0x8(%r8,%r10,4),%r9d
+    348e:	mov    %r9d,0x4(%rcx,%r10,4)
+    3493:	mov    -0x4(%r8,%r10,4),%r9d
+    3498:	mov    %r9d,0x8(%rcx,%r10,4)
+    349d:	mov    (%r8,%r10,4),%r9d
+    34a1:	mov    %r9d,0xc(%rcx,%r10,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:84
+  for (int i = 0 ; i < n ; i++) {
+    34a6:	add    $0x4,%r10
+    34aa:	cmp    %r10,%rdi
+    34ad:	jne    3480 <sort_a+0x200>
+    34af:	jmp    34f8 <sort_a+0x278>
+    34b1:	lea    0x0(,%r8,4),%r10
+    34b9:	mov    %edi,%r9d
+    34bc:	and    $0x7ffffff8,%r9d
+    34c3:	add    %rbx,%r10
+    34c6:	add    $0x14,%r10
+    34ca:	xor    %r11d,%r11d
+    34cd:	nopl   (%rax)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:85
+    dest[i] = source[i];
+    34d0:	movups -0x10(%r10,%r11,4),%xmm0
+    34d6:	movups (%r10,%r11,4),%xmm1
+    34db:	movups %xmm0,(%rcx,%r11,4)
+    34e0:	movups %xmm1,0x10(%rcx,%r11,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:84
+  for (int i = 0 ; i < n ; i++) {
+    34e6:	add    $0x8,%r11
+    34ea:	cmp    %r11,%r9
+    34ed:	jne    34d0 <sort_a+0x250>
+    34ef:	cmp    %rdi,%r9
+    34f2:	jne    3438 <sort_a+0x1b8>
+merge_a():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:61
+  left[n1] = UINT_MAX;
+    34f8:	movslq %esi,%rsi
+    34fb:	movl   $0xffffffff,(%rax,%rsi,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:62
+  right[n2] = UINT_MAX;
+    3502:	movslq %r13d,%rsi
+    3505:	movl   $0xffffffff,(%rcx,%rsi,4)
+    350c:	xor    %esi,%esi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:67
+  for (int k = p; k <= r; k++) {
+    350e:	sub    %r15d,%r14d
+    3511:	lea    0x1(%r14),%edi
+    3515:	jne    3525 <sort_a+0x2a5>
+    3517:	xor    %r8d,%r8d
+    351a:	test   $0x1,%dil
+    351e:	jne    3597 <sort_a+0x317>
+    3520:	jmp    35a6 <sort_a+0x326>
+    3525:	mov    %edi,%r8d
+    3528:	and    $0xfffffffe,%r8d
+    352c:	xor    %r9d,%r9d
+    352f:	nop
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:68
+    if (left[i] <= right[j]) {
+    3530:	mov    %r9d,%r10d
+    3533:	mov    (%rax,%r10,4),%r11d
+    3537:	mov    %esi,%r10d
+    353a:	mov    (%rcx,%r10,4),%ebp
+    353e:	xor    %r10d,%r10d
+    3541:	xor    %r14d,%r14d
+    3544:	cmp    %ebp,%r11d
+    3547:	seta   %r10b
+    354b:	setbe  %r14b
+    354f:	cmovb  %r11d,%ebp
+    3553:	add    %r9d,%r14d
+    3556:	add    %esi,%r10d
+    3559:	mov    %ebp,(%rbx,%rdx,4)
+    355c:	mov    (%rax,%r14,4),%r11d
+    3560:	mov    (%rcx,%r10,4),%ebp
+    3564:	xor    %esi,%esi
+    3566:	xor    %r9d,%r9d
+    3569:	cmp    %ebp,%r11d
+    356c:	seta   %sil
+    3570:	setbe  %r9b
+    3574:	cmovb  %r11d,%ebp
+    3578:	add    %r14d,%r9d
+    357b:	add    %r10d,%esi
+    357e:	mov    %ebp,0x4(%rbx,%rdx,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:67
+  for (int k = p; k <= r; k++) {
+    3582:	add    $0x2,%rdx
+    3586:	add    $0xfffffffe,%r8d
+    358a:	jne    3530 <sort_a+0x2b0>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:68
+    if (left[i] <= right[j]) {
+    358c:	mov    %r9d,%r8d
+    358f:	mov    %esi,%esi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:67
+  for (int k = p; k <= r; k++) {
+    3591:	test   $0x1,%dil
+    3595:	je     35a6 <sort_a+0x326>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:68
+    if (left[i] <= right[j]) {
+    3597:	mov    (%rax,%r8,4),%eax
+    359b:	mov    (%rcx,%rsi,4),%ecx
+    359e:	cmp    %ecx,%eax
+    35a0:	cmovb  %eax,%ecx
+    35a3:	mov    %ecx,(%rbx,%rdx,4)
+    35a6:	lea    0x10(%rsp),%rdi
+    35ab:	call   3210 <mem_free>
+    35b0:	lea    0x8(%rsp),%rdi
+    35b5:	call   3210 <mem_free>
+    35ba:	add    $0x18,%rsp
+    35be:	pop    %rbx
+    35bf:	pop    %r12
+    35c1:	pop    %r13
+    35c3:	pop    %r14
+    35c5:	pop    %r15
+    35c7:	pop    %rbp
+sort_a():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_a.c:39
+}
+    35c8:	ret
+    35c9:	nopl   0x0(%rax)
+
+00000000000035d0 <sort_c>:
+sort_c():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:43
+    A[j] = value;
+  }
+}
+
+// a/i/p were within the prespecified 3% tie band; the simpler a was selected.
+void sort_c(data_t* A, int p, int r) {
+    35d0:	push   %rbp
+    35d1:	push   %r15
+    35d3:	push   %r14
+    35d5:	push   %r13
+    35d7:	push   %r12
+    35d9:	push   %rbx
+    35da:	sub    $0x18,%rsp
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:45
+  assert(A);
+  if (p >= r) return;
+    35de:	mov    %edx,%ebp
+    35e0:	sub    %esi,%ebp
+    35e2:	jle    395a <sort_c+0x38a>
+    35e8:	mov    %edx,%ebx
+    35ea:	mov    %esi,%r15d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:46
+  if (r - p + 1 <= SORT_CUTOFF) {
+    35ed:	cmp    $0xf,%ebp
+    35f0:	jg     3648 <sort_c+0x78>
+insertion_c():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:31
+  for (int i = p + 1; i <= r; i++) {
+    35f2:	movslq %r15d,%rax
+    35f5:	movslq %ebx,%rcx
+    35f8:	mov    %rax,%rdx
+    35fb:	jmp    3613 <sort_c+0x43>
+    35fd:	nopl   (%rax)
+    3600:	mov    %r15d,%r8d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:38
+    A[j] = value;
+    3603:	movslq %r8d,%r8
+    3606:	mov    %esi,(%rdi,%r8,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:31
+  for (int i = p + 1; i <= r; i++) {
+    360a:	cmp    %rcx,%rdx
+    360d:	je     395a <sort_c+0x38a>
+    3613:	mov    %rdx,%r9
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:32
+    data_t value = A[i];
+    3616:	mov    0x4(%rdi,%rdx,4),%esi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:31
+  for (int i = p + 1; i <= r; i++) {
+    361a:	inc    %rdx
+    361d:	mov    %edx,%r8d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:34
+    while (j > p && A[j - 1] > value) {
+    3620:	cmp    %rax,%r9
+    3623:	jl     3603 <sort_c+0x33>
+    3625:	mov    %rdx,%r8
+    3628:	nopl   0x0(%rax,%rax,1)
+    3630:	mov    -0x4(%rdi,%r8,4),%r9d
+    3635:	cmp    %esi,%r9d
+    3638:	jbe    3603 <sort_c+0x33>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:35
+      A[j] = A[j - 1];
+    363a:	mov    %r9d,(%rdi,%r8,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:36
+      j--;
+    363e:	dec    %r8
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:34
+    while (j > p && A[j - 1] > value) {
+    3641:	cmp    %rax,%r8
+    3644:	jg     3630 <sort_c+0x60>
+    3646:	jmp    3600 <sort_c+0x30>
+sort_c():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:50
+    insertion_c(A, p, r);
+    return;
+  }
+  int q = (p + r) / 2;
+    3648:	lea    (%rbx,%r15,1),%eax
+    364c:	mov    %eax,%r14d
+    364f:	shr    $0x1f,%r14d
+    3653:	add    %eax,%r14d
+    3656:	sar    $1,%r14d
+    3659:	mov    %rdi,%r12
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:51
+  sort_c(A, p, q);
+    365c:	mov    %r15d,%esi
+    365f:	mov    %r14d,%edx
+    3662:	call   35d0 <sort_c>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:52
+  sort_c(A, q + 1, r);
+    3667:	lea    0x1(%r14),%esi
+    366b:	mov    %r12,%r13
+    366e:	mov    %r12,%rdi
+    3671:	mov    %ebx,%edx
+    3673:	call   35d0 <sort_c>
+merge_c():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:59
+}
+
+static void merge_c(data_t* A, int p, int q, int r) {
+  assert(A);
+  assert(p <= q && q + 1 <= r);
+  int n1 = q - p + 1, n2 = r - q;
+    3678:	mov    %r14d,%r12d
+    367b:	sub    %r15d,%r12d
+    367e:	sub    %r14d,%ebx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:60
+  data_t *left = 0, *right = 0;
+    3681:	movq   $0x0,0x10(%rsp)
+    368a:	movq   $0x0,0x8(%rsp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:61
+  mem_alloc(&left, n1 + 1);
+    3693:	lea    0x2(%r12),%esi
+    3698:	lea    0x10(%rsp),%rdi
+    369d:	call   31e0 <mem_alloc>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:62
+  mem_alloc(&right, n2 + 1);
+    36a2:	lea    0x1(%rbx),%esi
+    36a5:	lea    0x8(%rsp),%rdi
+    36aa:	call   31e0 <mem_alloc>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:63
+  if (left == NULL || right == NULL) {
+    36af:	mov    0x10(%rsp),%rax
+    36b4:	test   %rax,%rax
+    36b7:	je     3946 <sort_c+0x376>
+    36bd:	mov    0x8(%rsp),%rcx
+    36c2:	test   %rcx,%rcx
+    36c5:	je     3946 <sort_c+0x376>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:59
+  int n1 = q - p + 1, n2 = r - q;
+    36cb:	lea    0x1(%r12),%esi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:68
+    mem_free(&left);
+    mem_free(&right);
+    return;
+  }
+  copy_c(A + p, left, n1);
+    36d0:	movslq %r15d,%r9
+    36d3:	mov    %r13,%rdi
+    36d6:	lea    0x0(,%r9,4),%rdx
+    36de:	add    %r13,%rdx
+copy_c():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:83
+  mem_free(&right);
+}
+
+static void copy_c(data_t* source, data_t* dest, int n) {
+  assert(source && dest);
+  for (int i = 0; i < n; i++) dest[i] = source[i];
+    36e1:	test   %r12d,%r12d
+    36e4:	js     37b8 <sort_c+0x1e8>
+    36ea:	mov    %esi,%r8d
+    36ed:	cmp    $0xc,%esi
+    36f0:	jb     36fe <sort_c+0x12e>
+    36f2:	mov    %rax,%r10
+    36f5:	sub    %rdx,%r10
+    36f8:	cmp    $0x20,%r10
+    36fc:	jae    3771 <sort_c+0x1a1>
+    36fe:	xor    %r10d,%r10d
+    3701:	mov    %r8,%r15
+    3704:	mov    %r10,%r11
+    3707:	and    $0x3,%r15
+    370b:	je     3720 <sort_c+0x150>
+    370d:	mov    %r10,%r11
+    3710:	mov    (%rdx,%r11,4),%r12d
+    3714:	mov    %r12d,(%rax,%r11,4)
+    3718:	inc    %r11
+    371b:	dec    %r15
+    371e:	jne    3710 <sort_c+0x140>
+    3720:	sub    %r8,%r10
+    3723:	cmp    $0xfffffffffffffffc,%r10
+    3727:	ja     37b8 <sort_c+0x1e8>
+    372d:	lea    (%rdi,%r9,4),%r9
+    3731:	add    $0xc,%r9
+    3735:	data16 cs nopw 0x0(%rax,%rax,1)
+    3740:	mov    -0xc(%r9,%r11,4),%r10d
+    3745:	mov    %r10d,(%rax,%r11,4)
+    3749:	mov    -0x8(%r9,%r11,4),%r10d
+    374e:	mov    %r10d,0x4(%rax,%r11,4)
+    3753:	mov    -0x4(%r9,%r11,4),%r10d
+    3758:	mov    %r10d,0x8(%rax,%r11,4)
+    375d:	mov    (%r9,%r11,4),%r10d
+    3761:	mov    %r10d,0xc(%rax,%r11,4)
+    3766:	add    $0x4,%r11
+    376a:	cmp    %r11,%r8
+    376d:	jne    3740 <sort_c+0x170>
+    376f:	jmp    37b8 <sort_c+0x1e8>
+    3771:	lea    0x0(,%r9,4),%r11
+    3779:	mov    %r8d,%r10d
+    377c:	and    $0x7ffffff8,%r10d
+    3783:	add    %rdi,%r11
+    3786:	add    $0x10,%r11
+    378a:	xor    %r15d,%r15d
+    378d:	nopl   (%rax)
+    3790:	movups -0x10(%r11,%r15,4),%xmm0
+    3796:	movups (%r11,%r15,4),%xmm1
+    379b:	movups %xmm0,(%rax,%r15,4)
+    37a0:	movups %xmm1,0x10(%rax,%r15,4)
+    37a6:	add    $0x8,%r15
+    37aa:	cmp    %r15,%r10
+    37ad:	jne    3790 <sort_c+0x1c0>
+    37af:	cmp    %r8,%r10
+    37b2:	jne    3701 <sort_c+0x131>
+    37b8:	test   %ebx,%ebx
+    37ba:	jle    38a8 <sort_c+0x2d8>
+merge_c():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:69
+  copy_c(A + q + 1, right, n2);
+    37c0:	movslq %r14d,%r9
+copy_c():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:83
+  for (int i = 0; i < n; i++) dest[i] = source[i];
+    37c3:	mov    %ebx,%r8d
+    37c6:	cmp    $0x10,%ebx
+    37c9:	jb     37e3 <sort_c+0x213>
+    37cb:	lea    (%rdi,%r9,4),%r10
+    37cf:	mov    %rcx,%r11
+    37d2:	sub    %r10,%r11
+    37d5:	add    $0xfffffffffffffffc,%r11
+    37d9:	cmp    $0x20,%r11
+    37dd:	jae    3861 <sort_c+0x291>
+    37e3:	xor    %r10d,%r10d
+    37e6:	mov    %r8,%r14
+    37e9:	mov    %r10,%r11
+    37ec:	and    $0x3,%r14
+    37f0:	je     3810 <sort_c+0x240>
+    37f2:	lea    (%rdi,%r9,4),%r15
+    37f6:	add    $0x4,%r15
+    37fa:	mov    %r10,%r11
+    37fd:	nopl   (%rax)
+    3800:	mov    (%r15,%r11,4),%r12d
+    3804:	mov    %r12d,(%rcx,%r11,4)
+    3808:	inc    %r11
+    380b:	dec    %r14
+    380e:	jne    3800 <sort_c+0x230>
+    3810:	sub    %r8,%r10
+    3813:	cmp    $0xfffffffffffffffc,%r10
+    3817:	ja     38a8 <sort_c+0x2d8>
+    381d:	lea    (%rdi,%r9,4),%rdi
+    3821:	add    $0x10,%rdi
+    3825:	data16 cs nopw 0x0(%rax,%rax,1)
+    3830:	mov    -0xc(%rdi,%r11,4),%r9d
+    3835:	mov    %r9d,(%rcx,%r11,4)
+    3839:	mov    -0x8(%rdi,%r11,4),%r9d
+    383e:	mov    %r9d,0x4(%rcx,%r11,4)
+    3843:	mov    -0x4(%rdi,%r11,4),%r9d
+    3848:	mov    %r9d,0x8(%rcx,%r11,4)
+    384d:	mov    (%rdi,%r11,4),%r9d
+    3851:	mov    %r9d,0xc(%rcx,%r11,4)
+    3856:	add    $0x4,%r11
+    385a:	cmp    %r11,%r8
+    385d:	jne    3830 <sort_c+0x260>
+    385f:	jmp    38a8 <sort_c+0x2d8>
+    3861:	lea    0x0(,%r9,4),%r11
+    3869:	mov    %r8d,%r10d
+    386c:	and    $0x7ffffff8,%r10d
+    3873:	add    %rdi,%r11
+    3876:	add    $0x14,%r11
+    387a:	xor    %r14d,%r14d
+    387d:	nopl   (%rax)
+    3880:	movups -0x10(%r11,%r14,4),%xmm0
+    3886:	movups (%r11,%r14,4),%xmm1
+    388b:	movups %xmm0,(%rcx,%r14,4)
+    3890:	movups %xmm1,0x10(%rcx,%r14,4)
+    3896:	add    $0x8,%r14
+    389a:	cmp    %r14,%r10
+    389d:	jne    3880 <sort_c+0x2b0>
+    389f:	cmp    %r8,%r10
+    38a2:	jne    37e6 <sort_c+0x216>
+merge_c():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:70
+  left[n1] = UINT_MAX;
+    38a8:	movslq %esi,%rsi
+    38ab:	movl   $0xffffffff,(%rax,%rsi,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:71
+  right[n2] = UINT_MAX;
+    38b2:	movslq %ebx,%rsi
+    38b5:	movl   $0xffffffff,(%rcx,%rsi,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:73
+  for (int k = p; k <= r; k++) {
+    38bc:	inc    %ebp
+    38be:	mov    %ebp,%edi
+    38c0:	and    $0xfffffffe,%edi
+    38c3:	xor    %esi,%esi
+    38c5:	xor    %r8d,%r8d
+    38c8:	xor    %r9d,%r9d
+    38cb:	nopl   0x0(%rax,%rax,1)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:74
+    if (left[i] <= right[j]) A[k] = left[i++];
+    38d0:	mov    %r9d,%r10d
+    38d3:	mov    (%rax,%r10,4),%r11d
+    38d7:	mov    %r8d,%r10d
+    38da:	mov    (%rcx,%r10,4),%ebx
+    38de:	xor    %r10d,%r10d
+    38e1:	xor    %r14d,%r14d
+    38e4:	cmp    %ebx,%r11d
+    38e7:	seta   %r10b
+    38eb:	setbe  %r14b
+    38ef:	cmovb  %r11d,%ebx
+    38f3:	add    %r9d,%r14d
+    38f6:	add    %r8d,%r10d
+    38f9:	mov    %ebx,(%rdx,%rsi,4)
+    38fc:	mov    (%rax,%r14,4),%r11d
+    3900:	mov    (%rcx,%r10,4),%ebx
+    3904:	xor    %r8d,%r8d
+    3907:	xor    %r9d,%r9d
+    390a:	cmp    %ebx,%r11d
+    390d:	seta   %r8b
+    3911:	setbe  %r9b
+    3915:	cmovb  %r11d,%ebx
+    3919:	add    %r14d,%r9d
+    391c:	add    %r10d,%r8d
+    391f:	mov    %ebx,0x4(%rdx,%rsi,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:73
+  for (int k = p; k <= r; k++) {
+    3923:	add    $0x2,%rsi
+    3927:	cmp    %esi,%edi
+    3929:	jne    38d0 <sort_c+0x300>
+    392b:	test   $0x1,%bpl
+    392f:	je     3946 <sort_c+0x376>
+    3931:	mov    %r9d,%edi
+    3934:	mov    %r8d,%r8d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:74
+    if (left[i] <= right[j]) A[k] = left[i++];
+    3937:	mov    (%rax,%rdi,4),%eax
+    393a:	mov    (%rcx,%r8,4),%ecx
+    393e:	cmp    %ecx,%eax
+    3940:	cmovb  %eax,%ecx
+    3943:	mov    %ecx,(%rdx,%rsi,4)
+    3946:	lea    0x10(%rsp),%rdi
+    394b:	call   3210 <mem_free>
+    3950:	lea    0x8(%rsp),%rdi
+    3955:	call   3210 <mem_free>
+sort_c():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_c.c:54
+}
+    395a:	add    $0x18,%rsp
+    395e:	pop    %rbx
+    395f:	pop    %r12
+    3961:	pop    %r13
+    3963:	pop    %r14
+    3965:	pop    %r15
+    3967:	pop    %rbp
+    3968:	ret
+    3969:	nopl   0x0(%rax)
+
+0000000000003970 <sort_i>:
+sort_i():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:86
+    merge_i(A, p, q, r);
+  }
+}
+
+void sort_i(data_t* A, int p, int r) {
+  recursive_i(A, p, r);
+    3970:	jmp    3980 <recursive_i>
+    3972:	data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+
+0000000000003980 <recursive_i>:
+recursive_i():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:75
+static I_RECURSION void recursive_i(data_t* A, int p, int r) {
+    3980:	push   %rbp
+    3981:	push   %r15
+    3983:	push   %r14
+    3985:	push   %r13
+    3987:	push   %r12
+    3989:	push   %rbx
+    398a:	sub    $0x28,%rsp
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:77
+  if (p < r) {
+    398e:	cmp    %edx,%esi
+    3990:	jge    3aa8 <recursive_i+0x128>
+    3996:	mov    %edx,%r13d
+    3999:	mov    %esi,%r14d
+    399c:	mov    %rdi,%rbx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:78
+    int q = (p + r) / 2;
+    399f:	lea    (%r14,%r13,1),%eax
+    39a3:	mov    %eax,%ebp
+    39a5:	shr    $0x1f,%ebp
+    39a8:	add    %eax,%ebp
+    39aa:	sar    $1,%ebp
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:79
+    recursive_i(A, p, q);
+    39ac:	mov    %ebp,%edx
+    39ae:	call   3980 <recursive_i>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:80
+    recursive_i(A, q + 1, r);
+    39b3:	lea    0x1(%rbp),%esi
+    39b6:	mov    %rbx,%rdi
+    39b9:	mov    %r13d,%edx
+    39bc:	call   3980 <recursive_i>
+merge_i():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:47
+  int n1 = q - p + 1, n2 = r - q;
+    39c1:	mov    %ebp,%r12d
+    39c4:	mov    %r14,0x10(%rsp)
+    39c9:	sub    %r14d,%r12d
+    39cc:	mov    %r13d,%r15d
+    39cf:	sub    %ebp,%r15d
+alloc_i():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:29
+  *space = malloc(sizeof(data_t) * size);
+    39d2:	movslq %r12d,%rax
+    39d5:	lea    0x8(,%rax,4),%rdi
+    39dd:	call   1120 <malloc@plt>
+    39e2:	mov    %rax,%r14
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:30
+  if (*space == NULL) printf("out of memory...\n");
+    39e5:	test   %rax,%rax
+    39e8:	jne    39f6 <recursive_i+0x76>
+    39ea:	lea    0x1bb9(%rip),%rdi        # 55aa <_IO_stdin_used+0x5aa>
+    39f1:	call   1060 <puts@plt>
+merge_i():
+    39f6:	mov    %r15d,0xc(%rsp)
+alloc_i():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:29
+  *space = malloc(sizeof(data_t) * size);
+    39fb:	movslq %r15d,%rax
+    39fe:	mov    %rax,0x20(%rsp)
+    3a03:	lea    0x4(,%rax,4),%rdi
+    3a0b:	call   1120 <malloc@plt>
+    3a10:	mov    %rax,%r15
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:30
+  if (*space == NULL) printf("out of memory...\n");
+    3a13:	test   %rax,%rax
+    3a16:	je     3ab7 <recursive_i+0x137>
+    3a1c:	test   %r14,%r14
+merge_i():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:51
+  if (left == NULL || right == NULL) {
+    3a1f:	je     3b40 <recursive_i+0x1c0>
+    3a25:	mov    %r13,0x18(%rsp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:47
+  int n1 = q - p + 1, n2 = r - q;
+    3a2a:	lea    0x1(%r12),%eax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:56
+  copy_i(A + p, left, n1);
+    3a2f:	movslq 0x10(%rsp),%r13
+copy_i():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:41
+  for (int i = 0; i < n; i++) dest[i] = source[i];
+    3a34:	test   %r12d,%r12d
+    3a37:	mov    %eax,%r12d
+    3a3a:	js     3a4f <recursive_i+0xcf>
+merge_i():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:56
+  copy_i(A + p, left, n1);
+    3a3c:	lea    (%rbx,%r13,4),%rsi
+copy_i():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:41
+  for (int i = 0; i < n; i++) dest[i] = source[i];
+    3a40:	mov    %r12d,%edx
+    3a43:	shl    $0x2,%rdx
+    3a47:	mov    %r14,%rdi
+    3a4a:	call   1110 <memcpy@plt>
+merge_i():
+    3a4f:	mov    0xc(%rsp),%ecx
+copy_i():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:41
+    3a53:	test   %ecx,%ecx
+    3a55:	jle    3a70 <recursive_i+0xf0>
+merge_i():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:57
+  copy_i(A + q + 1, right, n2);
+    3a57:	movslq %ebp,%rax
+    3a5a:	lea    (%rbx,%rax,4),%rsi
+    3a5e:	add    $0x4,%rsi
+copy_i():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:41
+  for (int i = 0; i < n; i++) dest[i] = source[i];
+    3a62:	mov    %ecx,%edx
+    3a64:	shl    $0x2,%rdx
+    3a68:	mov    %r15,%rdi
+    3a6b:	call   1110 <memcpy@plt>
+merge_i():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:58
+  left[n1] = UINT_MAX;
+    3a70:	movslq %r12d,%rax
+    3a73:	movl   $0xffffffff,(%r14,%rax,4)
+    3a7b:	mov    0x20(%rsp),%rax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:59
+  right[n2] = UINT_MAX;
+    3a80:	movl   $0xffffffff,(%r15,%rax,4)
+    3a88:	xor    %eax,%eax
+    3a8a:	mov    0x18(%rsp),%rcx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:61
+  for (int k = p; k <= r; k++) {
+    3a8f:	sub    0x10(%rsp),%ecx
+    3a93:	lea    0x1(%rcx),%ecx
+    3a96:	jne    3ac5 <recursive_i+0x145>
+    3a98:	xor    %edx,%edx
+    3a9a:	test   $0x1,%cl
+    3a9d:	jne    3b2f <recursive_i+0x1af>
+    3aa3:	jmp    3b40 <recursive_i+0x1c0>
+recursive_i():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:83
+}
+    3aa8:	add    $0x28,%rsp
+    3aac:	pop    %rbx
+    3aad:	pop    %r12
+    3aaf:	pop    %r13
+    3ab1:	pop    %r14
+    3ab3:	pop    %r15
+    3ab5:	pop    %rbp
+    3ab6:	ret
+alloc_i():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:30
+  if (*space == NULL) printf("out of memory...\n");
+    3ab7:	lea    0x1aec(%rip),%rdi        # 55aa <_IO_stdin_used+0x5aa>
+    3abe:	call   1060 <puts@plt>
+    3ac3:	jmp    3b40 <recursive_i+0x1c0>
+merge_i():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:61
+  for (int k = p; k <= r; k++) {
+    3ac5:	mov    %ecx,%edx
+    3ac7:	and    $0xfffffffe,%edx
+    3aca:	xor    %esi,%esi
+    3acc:	nopl   0x0(%rax)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:62
+    if (left[i] <= right[j]) A[k] = left[i++];
+    3ad0:	mov    %esi,%edi
+    3ad2:	mov    (%r14,%rdi,4),%r8d
+    3ad6:	mov    %eax,%edi
+    3ad8:	mov    (%r15,%rdi,4),%r9d
+    3adc:	xor    %edi,%edi
+    3ade:	xor    %r10d,%r10d
+    3ae1:	cmp    %r9d,%r8d
+    3ae4:	seta   %dil
+    3ae8:	setbe  %r10b
+    3aec:	cmovb  %r8d,%r9d
+    3af0:	add    %esi,%r10d
+    3af3:	add    %eax,%edi
+    3af5:	mov    %r9d,(%rbx,%r13,4)
+    3af9:	mov    (%r14,%r10,4),%r8d
+    3afd:	mov    (%r15,%rdi,4),%r9d
+    3b01:	xor    %eax,%eax
+    3b03:	xor    %esi,%esi
+    3b05:	cmp    %r9d,%r8d
+    3b08:	seta   %al
+    3b0b:	setbe  %sil
+    3b0f:	cmovb  %r8d,%r9d
+    3b13:	add    %r10d,%esi
+    3b16:	add    %edi,%eax
+    3b18:	mov    %r9d,0x4(%rbx,%r13,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:61
+  for (int k = p; k <= r; k++) {
+    3b1d:	add    $0x2,%r13
+    3b21:	add    $0xfffffffe,%edx
+    3b24:	jne    3ad0 <recursive_i+0x150>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:62
+    if (left[i] <= right[j]) A[k] = left[i++];
+    3b26:	mov    %esi,%edx
+    3b28:	mov    %eax,%eax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:61
+  for (int k = p; k <= r; k++) {
+    3b2a:	test   $0x1,%cl
+    3b2d:	je     3b40 <recursive_i+0x1c0>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:62
+    if (left[i] <= right[j]) A[k] = left[i++];
+    3b2f:	mov    (%r14,%rdx,4),%ecx
+    3b33:	mov    (%r15,%rax,4),%eax
+    3b37:	cmp    %eax,%ecx
+    3b39:	cmovb  %ecx,%eax
+    3b3c:	mov    %eax,(%rbx,%r13,4)
+free_i():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_i.c:34
+  free(*space);
+    3b40:	mov    %r14,%rdi
+    3b43:	call   1030 <free@plt>
+    3b48:	mov    %r15,%rdi
+    3b4b:	add    $0x28,%rsp
+    3b4f:	pop    %rbx
+    3b50:	pop    %r12
+    3b52:	pop    %r13
+    3b54:	pop    %r14
+    3b56:	pop    %r15
+    3b58:	pop    %rbp
+    3b59:	jmp    1030 <free@plt>
+recursive_i():
+    3b5e:	xchg   %ax,%ax
+
+0000000000003b60 <sort_p>:
+sort_p():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:79
+    merge_p(A, p, q, r);
+  }
+}
+
+void sort_p(data_t* A, int p, int r) {
+  recursive_p(A, p, r);
+    3b60:	jmp    3b70 <recursive_p>
+    3b62:	data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+
+0000000000003b70 <recursive_p>:
+recursive_p():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:70
+  if (p < r) {
+    3b70:	cmp    %edx,%esi
+    3b72:	jge    3ccc <recursive_p+0x15c>
+    3b78:	push   %rbp
+    3b79:	push   %r15
+    3b7b:	push   %r14
+    3b7d:	push   %r13
+    3b7f:	push   %r12
+    3b81:	push   %rbx
+    3b82:	sub    $0x28,%rsp
+    3b86:	mov    %edx,%r12d
+    3b89:	mov    %esi,%ebp
+    3b8b:	mov    %rdi,%r14
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:71
+    int q = (p + r) / 2;
+    3b8e:	lea    (%r12,%rbp,1),%eax
+    3b92:	mov    %eax,%r13d
+    3b95:	shr    $0x1f,%r13d
+    3b99:	add    %eax,%r13d
+    3b9c:	sar    $1,%r13d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:72
+    recursive_p(A, p, q);
+    3b9f:	mov    %r13d,%edx
+    3ba2:	call   3b70 <recursive_p>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:73
+    recursive_p(A, q + 1, r);
+    3ba7:	lea    0x1(%r13),%esi
+    3bab:	mov    %r14,%rdi
+    3bae:	mov    %r12d,%edx
+    3bb1:	call   3b70 <recursive_p>
+merge_p():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:46
+  int n1 = q - p + 1, n2 = r - q;
+    3bb6:	mov    %r13d,%ebx
+    3bb9:	sub    %ebp,%ebx
+    3bbb:	mov    %r12d,%r15d
+    3bbe:	sub    %r13d,%r15d
+alloc_p():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:27
+  *space = malloc(sizeof(data_t) * size);
+    3bc1:	movslq %ebx,%rax
+    3bc4:	lea    0x8(,%rax,4),%rdi
+    3bcc:	call   1120 <malloc@plt>
+    3bd1:	mov    %rax,0x8(%rsp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:28
+  if (*space == NULL) printf("out of memory...\n");
+    3bd6:	test   %rax,%rax
+    3bd9:	jne    3be7 <recursive_p+0x77>
+    3bdb:	lea    0x19c8(%rip),%rdi        # 55aa <_IO_stdin_used+0x5aa>
+    3be2:	call   1060 <puts@plt>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:27
+  *space = malloc(sizeof(data_t) * size);
+    3be7:	movslq %r15d,%rax
+    3bea:	mov    %rax,0x20(%rsp)
+    3bef:	lea    0x4(,%rax,4),%rdi
+    3bf7:	call   1120 <malloc@plt>
+    3bfc:	mov    %rax,0x10(%rsp)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:28
+  if (*space == NULL) printf("out of memory...\n");
+    3c01:	test   %rax,%rax
+    3c04:	je     3ccd <recursive_p+0x15d>
+merge_p():
+    3c0a:	mov    0x8(%rsp),%rdi
+alloc_p():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:28
+    3c0f:	test   %rdi,%rdi
+merge_p():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:50
+  if (left == NULL || right == NULL) {
+    3c12:	je     3d53 <recursive_p+0x1e3>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:46
+  int n1 = q - p + 1, n2 = r - q;
+    3c18:	lea    0x1(%rbx),%eax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:55
+  copy_p(A + p, left, n1);
+    3c1b:	movslq %ebp,%rdx
+    3c1e:	lea    (%r14,%rdx,4),%rsi
+copy_p():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:39
+  data_t* end = source + n;
+    3c22:	movslq %eax,%rbp
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:40
+  while (source < end) *dest++ = *source++;
+    3c25:	test   %ebx,%ebx
+    3c27:	js     3c72 <recursive_p+0x102>
+    3c29:	lea    (%rsi,%rbp,4),%rax
+    3c2d:	lea    (%r14,%rdx,4),%rcx
+    3c31:	add    $0x4,%rcx
+    3c35:	cmp    %rcx,%rax
+    3c38:	cmova  %rax,%rcx
+    3c3c:	lea    0x0(,%rdx,4),%rax
+    3c44:	mov    %rdx,0x18(%rsp)
+    3c49:	mov    %r14,%rdx
+    3c4c:	not    %rdx
+    3c4f:	sub    %rax,%rdx
+    3c52:	add    %rcx,%rdx
+    3c55:	and    $0xfffffffffffffffc,%rdx
+    3c59:	add    $0x4,%rdx
+    3c5d:	mov    %rsi,%rbx
+    3c60:	call   1110 <memcpy@plt>
+    3c65:	mov    0x18(%rsp),%rdx
+    3c6a:	mov    %rbx,%rsi
+    3c6d:	mov    0x8(%rsp),%rdi
+    3c72:	test   %r15d,%r15d
+    3c75:	jle    3ce0 <recursive_p+0x170>
+merge_p():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:56
+  copy_p(A + q + 1, right, n2);
+    3c77:	movslq %r13d,%rax
+    3c7a:	mov    %rsi,%r13
+    3c7d:	lea    (%r14,%rax,4),%rsi
+    3c81:	add    $0x4,%rsi
+copy_p():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:40
+  while (source < end) *dest++ = *source++;
+    3c85:	lea    (%r14,%rax,4),%rcx
+    3c89:	lea    0x8(%r14,%rax,4),%rax
+    3c8e:	movslq %r12d,%rbx
+    3c91:	mov    %rdx,%r12
+    3c94:	lea    (%r14,%rbx,4),%rdx
+    3c98:	add    $0x4,%rdx
+    3c9c:	cmp    %rdx,%rax
+    3c9f:	cmova  %rax,%rdx
+    3ca3:	sub    %rcx,%rdx
+    3ca6:	add    $0xfffffffffffffffb,%rdx
+    3caa:	and    $0xfffffffffffffffc,%rdx
+    3cae:	add    $0x4,%rdx
+    3cb2:	mov    0x10(%rsp),%r15
+    3cb7:	mov    %r15,%rdi
+    3cba:	call   1110 <memcpy@plt>
+    3cbf:	mov    %r12,%rdx
+    3cc2:	mov    %r13,%rsi
+    3cc5:	mov    0x8(%rsp),%rdi
+    3cca:	jmp    3ce8 <recursive_p+0x178>
+recursive_p():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:76
+}
+    3ccc:	ret
+alloc_p():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:28
+  if (*space == NULL) printf("out of memory...\n");
+    3ccd:	lea    0x18d6(%rip),%rdi        # 55aa <_IO_stdin_used+0x5aa>
+    3cd4:	call   1060 <puts@plt>
+    3cd9:	mov    0x8(%rsp),%rdi
+    3cde:	jmp    3d53 <recursive_p+0x1e3>
+merge_p():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:59
+  data_t *l = left, *right_ptr = right, *out = A + p, *end = A + r + 1;
+    3ce0:	movslq %r12d,%rbx
+    3ce3:	mov    0x10(%rsp),%r15
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:57
+  left[n1] = UINT_MAX;
+    3ce8:	movl   $0xffffffff,(%rdi,%rbp,4)
+    3cef:	mov    0x20(%rsp),%rax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:58
+  right[n2] = UINT_MAX;
+    3cf4:	movl   $0xffffffff,(%r15,%rax,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:59
+  data_t *l = left, *right_ptr = right, *out = A + p, *end = A + r + 1;
+    3cfc:	lea    (%r14,%rbx,4),%rax
+    3d00:	add    $0x4,%rax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:60
+  while (out < end) {
+    3d04:	cmp    %rax,%rsi
+    3d07:	jae    3d53 <recursive_p+0x1e3>
+    3d09:	lea    (%r14,%rbx,4),%rax
+    3d0d:	lea    (%r14,%rdx,4),%rsi
+    3d11:	add    $0xfffffffffffffffc,%rsi
+    3d15:	mov    0x10(%rsp),%rcx
+    3d1a:	mov    %rdi,%rdx
+    3d1d:	nopl   (%rax)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:61
+    if (*l <= *right_ptr) *out++ = *l++;
+    3d20:	mov    (%rdx),%r11d
+    3d23:	mov    (%rcx),%r8d
+    3d26:	xor    %r9d,%r9d
+    3d29:	xor    %r10d,%r10d
+    3d2c:	cmp    %r8d,%r11d
+    3d2f:	cmovb  %r11d,%r8d
+    3d33:	mov    %r8d,0x4(%rsi)
+    3d37:	lea    0x4(%rsi),%r8
+    3d3b:	seta   %r9b
+    3d3f:	setbe  %r10b
+    3d43:	lea    (%rdx,%r10,4),%rdx
+    3d47:	lea    (%rcx,%r9,4),%rcx
+    3d4b:	mov    %r8,%rsi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:60
+  while (out < end) {
+    3d4e:	cmp    %rax,%r8
+    3d51:	jb     3d20 <recursive_p+0x1b0>
+free_p():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_p.c:32
+  free(*space);
+    3d53:	call   1030 <free@plt>
+    3d58:	mov    0x10(%rsp),%rdi
+    3d5d:	add    $0x28,%rsp
+    3d61:	pop    %rbx
+    3d62:	pop    %r12
+    3d64:	pop    %r13
+    3d66:	pop    %r14
+    3d68:	pop    %r15
+    3d6a:	pop    %rbp
+    3d6b:	jmp    1030 <free@plt>
+
+0000000000003d70 <sort_m>:
+sort_m():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:53
+  while (i < n1) A[k++] = left[i++];
+  // If the left side ended first, k==j and the remaining right side stays put.
+  mem_free(&left);
+}
+
+void sort_m(data_t* A, int p, int r) {
+    3d70:	push   %rbp
+    3d71:	push   %r15
+    3d73:	push   %r14
+    3d75:	push   %r13
+    3d77:	push   %r12
+    3d79:	push   %rbx
+    3d7a:	push   %rax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:55
+  assert(A);
+  if (p >= r) return;
+    3d7b:	mov    %edx,%eax
+    3d7d:	sub    %esi,%eax
+    3d7f:	jle    3ff6 <sort_m+0x286>
+    3d85:	mov    %edx,%r15d
+    3d88:	mov    %esi,%ebx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:56
+  if (r - p + 1 <= SORT_CUTOFF) {
+    3d8a:	cmp    $0xf,%eax
+    3d8d:	jg     3de8 <sort_m+0x78>
+insertion_m():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:28
+  for (int i = p + 1; i <= r; i++) {
+    3d8f:	movslq %ebx,%rax
+    3d92:	movslq %r15d,%rcx
+    3d95:	mov    %rax,%rdx
+    3d98:	jmp    3db3 <sort_m+0x43>
+    3d9a:	nopw   0x0(%rax,%rax,1)
+    3da0:	mov    %ebx,%r8d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:32
+    A[j] = value;
+    3da3:	movslq %r8d,%r8
+    3da6:	mov    %esi,(%rdi,%r8,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:28
+  for (int i = p + 1; i <= r; i++) {
+    3daa:	cmp    %rcx,%rdx
+    3dad:	je     3ff6 <sort_m+0x286>
+    3db3:	mov    %rdx,%r9
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:29
+    data_t value = A[i];
+    3db6:	mov    0x4(%rdi,%rdx,4),%esi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:28
+  for (int i = p + 1; i <= r; i++) {
+    3dba:	inc    %rdx
+    3dbd:	mov    %edx,%r8d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:31
+    while (j > p && A[j - 1] > value) { A[j] = A[j - 1]; j--; }
+    3dc0:	cmp    %rax,%r9
+    3dc3:	jl     3da3 <sort_m+0x33>
+    3dc5:	mov    %rdx,%r8
+    3dc8:	nopl   0x0(%rax,%rax,1)
+    3dd0:	mov    -0x4(%rdi,%r8,4),%r9d
+    3dd5:	cmp    %esi,%r9d
+    3dd8:	jbe    3da3 <sort_m+0x33>
+    3dda:	mov    %r9d,(%rdi,%r8,4)
+    3dde:	dec    %r8
+    3de1:	cmp    %rax,%r8
+    3de4:	jg     3dd0 <sort_m+0x60>
+    3de6:	jmp    3da0 <sort_m+0x30>
+sort_m():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:60
+    insertion_m(A, p, r);
+    return;
+  }
+  int q = (p + r) / 2;
+    3de8:	lea    (%r15,%rbx,1),%eax
+    3dec:	mov    %eax,%r14d
+    3def:	shr    $0x1f,%r14d
+    3df3:	add    %eax,%r14d
+    3df6:	sar    $1,%r14d
+    3df9:	mov    %rdi,%r12
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:61
+  sort_m(A, p, q);
+    3dfc:	mov    %ebx,%esi
+    3dfe:	mov    %r14d,%edx
+    3e01:	call   3d70 <sort_m>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:62
+  sort_m(A, q + 1, r);
+    3e06:	lea    0x1(%r14),%ebp
+    3e0a:	mov    %r12,%r13
+    3e0d:	mov    %r12,%rdi
+    3e10:	mov    %ebp,%esi
+    3e12:	mov    %r15d,%edx
+    3e15:	call   3d70 <sort_m>
+merge_m():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:37
+  int n1 = q - p + 1;
+    3e1a:	mov    %r14d,%r12d
+    3e1d:	sub    %ebx,%r12d
+    3e20:	lea    0x1(%r12),%esi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:38
+  data_t* left = 0;
+    3e25:	movq   $0x0,(%rsp)
+    3e2d:	mov    %rsp,%rdi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:39
+  mem_alloc(&left, n1);
+    3e30:	call   31e0 <mem_alloc>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:40
+  if (left == NULL) exit(EXIT_FAILURE);
+    3e35:	mov    (%rsp),%rax
+    3e39:	test   %rax,%rax
+    3e3c:	je     405a <sort_m+0x2ea>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:41
+  for (int i = 0; i < n1; i++) left[i] = A[p + i];
+    3e42:	test   %r12d,%r12d
+    3e45:	js     3ef1 <sort_m+0x181>
+    3e4b:	movslq %ebx,%rdi
+    3e4e:	mov    %ebp,%esi
+    3e50:	sub    %ebx,%esi
+    3e52:	mov    %r13,%rcx
+    3e55:	lea    0x0(,%rdi,4),%rdx
+    3e5d:	add    %r13,%rdx
+    3e60:	cmp    $0xc,%esi
+    3e63:	jb     3e75 <sort_m+0x105>
+    3e65:	mov    %rax,%r8
+    3e68:	sub    %rdx,%r8
+    3e6b:	cmp    $0x20,%r8
+    3e6f:	jae    3efd <sort_m+0x18d>
+    3e75:	xor    %r8d,%r8d
+    3e78:	mov    %rsi,%r10
+    3e7b:	mov    %r8,%r9
+    3e7e:	and    $0x3,%r10
+    3e82:	je     3ea0 <sort_m+0x130>
+    3e84:	mov    %r8,%r9
+    3e87:	nopw   0x0(%rax,%rax,1)
+    3e90:	mov    (%rdx,%r9,4),%r11d
+    3e94:	mov    %r11d,(%rax,%r9,4)
+    3e98:	inc    %r9
+    3e9b:	dec    %r10
+    3e9e:	jne    3e90 <sort_m+0x120>
+    3ea0:	sub    %rsi,%r8
+    3ea3:	cmp    $0xfffffffffffffffc,%r8
+    3ea7:	ja     3f48 <sort_m+0x1d8>
+    3ead:	lea    (%rcx,%rdi,4),%rdi
+    3eb1:	add    $0xc,%rdi
+    3eb5:	data16 cs nopw 0x0(%rax,%rax,1)
+    3ec0:	mov    -0xc(%rdi,%r9,4),%r8d
+    3ec5:	mov    %r8d,(%rax,%r9,4)
+    3ec9:	mov    -0x8(%rdi,%r9,4),%r8d
+    3ece:	mov    %r8d,0x4(%rax,%r9,4)
+    3ed3:	mov    -0x4(%rdi,%r9,4),%r8d
+    3ed8:	mov    %r8d,0x8(%rax,%r9,4)
+    3edd:	mov    (%rdi,%r9,4),%r8d
+    3ee1:	mov    %r8d,0xc(%rax,%r9,4)
+    3ee6:	add    $0x4,%r9
+    3eea:	cmp    %r9,%rsi
+    3eed:	jne    3ec0 <sort_m+0x150>
+    3eef:	jmp    3f48 <sort_m+0x1d8>
+    3ef1:	xor    %esi,%esi
+    3ef3:	mov    %ebx,%edi
+    3ef5:	mov    %r13,%rcx
+    3ef8:	jmp    3fa0 <sort_m+0x230>
+    3efd:	lea    0x0(,%rdi,4),%r9
+    3f05:	mov    %esi,%r8d
+    3f08:	and    $0xfffffff8,%r8d
+    3f0c:	add    %rcx,%r9
+    3f0f:	add    $0x10,%r9
+    3f13:	xor    %r10d,%r10d
+    3f16:	cs nopw 0x0(%rax,%rax,1)
+    3f20:	movups -0x10(%r9,%r10,4),%xmm0
+    3f26:	movups (%r9,%r10,4),%xmm1
+    3f2b:	movups %xmm0,(%rax,%r10,4)
+    3f30:	movups %xmm1,0x10(%rax,%r10,4)
+    3f36:	add    $0x8,%r10
+    3f3a:	cmp    %r10,%r8
+    3f3d:	jne    3f20 <sort_m+0x1b0>
+    3f3f:	cmp    %rsi,%r8
+    3f42:	jne    3e78 <sort_m+0x108>
+    3f48:	xor    %esi,%esi
+    3f4a:	mov    %ebx,%edi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:44
+  while (i < n1 && j <= r) {
+    3f4c:	cmp    %r15d,%r14d
+    3f4f:	jge    3fa0 <sort_m+0x230>
+    3f51:	xor    %esi,%esi
+    3f53:	mov    %ebx,%edi
+    3f55:	data16 cs nopw 0x0(%rax,%rax,1)
+    3f60:	mov    %esi,%r10d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:45
+    if (left[i] <= A[j]) A[k++] = left[i++];
+    3f63:	mov    %esi,%esi
+    3f65:	mov    (%rax,%rsi,4),%r11d
+    3f69:	movslq %ebp,%rsi
+    3f6c:	mov    (%rcx,%rsi,4),%r13d
+    3f70:	xor    %r8d,%r8d
+    3f73:	xor    %esi,%esi
+    3f75:	cmp    %r13d,%r11d
+    3f78:	seta   %r9b
+    3f7c:	setbe  %sil
+    3f80:	cmovb  %r11d,%r13d
+    3f84:	add    %r10d,%esi
+    3f87:	mov    %r13d,(%rdx)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:44
+  while (i < n1 && j <= r) {
+    3f8a:	inc    %edi
+    3f8c:	cmp    %r12d,%esi
+    3f8f:	jg     3fa0 <sort_m+0x230>
+    3f91:	mov    %r9b,%r8b
+    3f94:	add    %r8d,%ebp
+    3f97:	add    $0x4,%rdx
+    3f9b:	cmp    %r15d,%ebp
+    3f9e:	jle    3f60 <sort_m+0x1f0>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:48
+  while (i < n1) A[k++] = left[i++];
+    3fa0:	cmp    %r12d,%esi
+    3fa3:	jg     3fee <sort_m+0x27e>
+    3fa5:	movslq %edi,%rdi
+    3fa8:	movslq %esi,%r8
+    3fab:	add    %esi,%ebx
+    3fad:	sub    %ebx,%r14d
+    3fb0:	cmp    $0xb,%r14d
+    3fb4:	jb     3fc7 <sort_m+0x257>
+    3fb6:	lea    (%rcx,%rdi,4),%rdx
+    3fba:	lea    (%rax,%r8,4),%rsi
+    3fbe:	sub    %rsi,%rdx
+    3fc1:	cmp    $0x20,%rdx
+    3fc5:	jae    4005 <sort_m+0x295>
+    3fc7:	mov    %r8,%rdx
+    3fca:	mov    %rdi,%rsi
+    3fcd:	lea    (%rax,%rdx,4),%rax
+    3fd1:	sub    %edx,%r12d
+    3fd4:	inc    %r12d
+    3fd7:	lea    (%rcx,%rsi,4),%rcx
+    3fdb:	xor    %edx,%edx
+    3fdd:	nopl   (%rax)
+    3fe0:	mov    (%rax,%rdx,4),%esi
+    3fe3:	mov    %esi,(%rcx,%rdx,4)
+    3fe6:	inc    %rdx
+    3fe9:	cmp    %edx,%r12d
+    3fec:	jne    3fe0 <sort_m+0x270>
+    3fee:	mov    %rsp,%rdi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:50
+  mem_free(&left);
+    3ff1:	call   3210 <mem_free>
+sort_m():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:64
+  merge_m(A, p, q, r);
+}
+    3ff6:	add    $0x8,%rsp
+    3ffa:	pop    %rbx
+    3ffb:	pop    %r12
+    3ffd:	pop    %r13
+    3fff:	pop    %r14
+    4001:	pop    %r15
+    4003:	pop    %rbp
+    4004:	ret
+merge_m():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:48
+  while (i < n1) A[k++] = left[i++];
+    4005:	inc    %r14
+    4008:	mov    %r14,%r9
+    400b:	and    $0xfffffffffffffff8,%r9
+    400f:	lea    (%r9,%r8,1),%rdx
+    4013:	shl    $0x2,%r8
+    4017:	lea    (%r9,%rdi,1),%rsi
+    401b:	shl    $0x2,%rdi
+    401f:	add    %rcx,%rdi
+    4022:	add    $0x10,%rdi
+    4026:	add    %rax,%r8
+    4029:	add    $0x10,%r8
+    402d:	xor    %r10d,%r10d
+    4030:	movups -0x10(%r8,%r10,4),%xmm0
+    4036:	movups (%r8,%r10,4),%xmm1
+    403b:	movups %xmm0,-0x10(%rdi,%r10,4)
+    4041:	movups %xmm1,(%rdi,%r10,4)
+    4046:	add    $0x8,%r10
+    404a:	cmp    %r10,%r9
+    404d:	jne    4030 <sort_m+0x2c0>
+    404f:	cmp    %r9,%r14
+    4052:	jne    3fcd <sort_m+0x25d>
+    4058:	jmp    3fee <sort_m+0x27e>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_m.c:40
+  if (left == NULL) exit(EXIT_FAILURE);
+    405a:	mov    $0x1,%edi
+    405f:	call   1140 <exit@plt>
+sort_m():
+    4064:	cs nopw 0x0(%rax,%rax,1)
+    406e:	xchg   %ax,%ax
+
+0000000000004070 <sort_f>:
+sort_f():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:59
+  recursive_f(A, p, q, scratch);
+  recursive_f(A, q + 1, r, scratch);
+  merge_f(A, p, q, r, scratch);
+}
+
+void sort_f(data_t* A, int p, int r) {
+    4070:	push   %rbp
+    4071:	push   %r14
+    4073:	push   %rbx
+    4074:	sub    $0x10,%rsp
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:61
+  assert(A);
+  if (p >= r) return;
+    4078:	mov    %edx,%eax
+    407a:	sub    %esi,%eax
+    407c:	jle    412f <sort_f+0xbf>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:62
+  if (r - p + 1 <= SORT_CUTOFF) {
+    4082:	cmp    $0xf,%eax
+    4085:	jg     40e8 <sort_f+0x78>
+insertion_f():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:28
+  for (int i = p + 1; i <= r; i++) {
+    4087:	movslq %esi,%rax
+    408a:	movslq %edx,%rcx
+    408d:	mov    %rax,%rdx
+    4090:	jmp    40b3 <sort_f+0x43>
+    4092:	data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+    40a0:	mov    %esi,%r9d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:32
+    A[j] = value;
+    40a3:	movslq %r9d,%r9
+    40a6:	mov    %r8d,(%rdi,%r9,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:28
+  for (int i = p + 1; i <= r; i++) {
+    40aa:	cmp    %rcx,%rdx
+    40ad:	je     412f <sort_f+0xbf>
+    40b3:	mov    %rdx,%r10
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:29
+    data_t value = A[i];
+    40b6:	mov    0x4(%rdi,%rdx,4),%r8d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:28
+  for (int i = p + 1; i <= r; i++) {
+    40bb:	inc    %rdx
+    40be:	mov    %edx,%r9d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:31
+    while (j > p && A[j - 1] > value) { A[j] = A[j - 1]; j--; }
+    40c1:	cmp    %rax,%r10
+    40c4:	jl     40a3 <sort_f+0x33>
+    40c6:	mov    %rdx,%r9
+    40c9:	nopl   0x0(%rax)
+    40d0:	mov    -0x4(%rdi,%r9,4),%r10d
+    40d5:	cmp    %r8d,%r10d
+    40d8:	jbe    40a3 <sort_f+0x33>
+    40da:	mov    %r10d,(%rdi,%r9,4)
+    40de:	dec    %r9
+    40e1:	cmp    %rax,%r9
+    40e4:	jg     40d0 <sort_f+0x60>
+    40e6:	jmp    40a0 <sort_f+0x30>
+sort_f():
+    40e8:	mov    %edx,%ebx
+    40ea:	mov    %rdi,%r14
+    40ed:	mov    %esi,%ebp
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:62
+  if (r - p + 1 <= SORT_CUTOFF) {
+    40ef:	inc    %eax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:67
+    insertion_f(A, p, r);
+    return;
+  }
+  int n = r - p + 1;
+  data_t* scratch = 0;
+    40f1:	movq   $0x0,0x8(%rsp)
+    40fa:	mov    %eax,%ecx
+    40fc:	shr    $1,%ecx
+    40fe:	and    $0x1,%eax
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:68
+  mem_alloc(&scratch, n / 2 + n % 2);
+    4101:	add    %ecx,%eax
+    4103:	lea    0x8(%rsp),%rdi
+    4108:	mov    %eax,%esi
+    410a:	call   31e0 <mem_alloc>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:69
+  if (scratch == NULL) exit(EXIT_FAILURE);
+    410f:	mov    0x8(%rsp),%rcx
+    4114:	test   %rcx,%rcx
+    4117:	je     4138 <sort_f+0xc8>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:70
+  recursive_f(A, p, r, scratch);
+    4119:	mov    %r14,%rdi
+    411c:	mov    %ebp,%esi
+    411e:	mov    %ebx,%edx
+    4120:	call   4150 <recursive_f>
+    4125:	lea    0x8(%rsp),%rdi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:71
+  mem_free(&scratch);
+    412a:	call   3210 <mem_free>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:72
+}
+    412f:	add    $0x10,%rsp
+    4133:	pop    %rbx
+    4134:	pop    %r14
+    4136:	pop    %rbp
+    4137:	ret
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:69
+  if (scratch == NULL) exit(EXIT_FAILURE);
+    4138:	mov    $0x1,%edi
+    413d:	call   1140 <exit@plt>
+    4142:	data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+
+0000000000004150 <recursive_f>:
+recursive_f():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:48
+  if (p >= r) return;
+    4150:	mov    %edx,%eax
+    4152:	sub    %esi,%eax
+    4154:	jle    43ab <recursive_f+0x25b>
+    415a:	push   %rbp
+    415b:	push   %r15
+    415d:	push   %r14
+    415f:	push   %r13
+    4161:	push   %r12
+    4163:	push   %rbx
+    4164:	push   %rax
+    4165:	mov    %edx,%r13d
+    4168:	mov    %esi,%r15d
+    416b:	mov    %rdi,%rbx
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:49
+  if (r - p + 1 <= SORT_CUTOFF) {
+    416e:	cmp    $0xf,%eax
+    4171:	jg     41c8 <recursive_f+0x78>
+insertion_f():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:28
+  for (int i = p + 1; i <= r; i++) {
+    4173:	movslq %r15d,%rax
+    4176:	movslq %r13d,%rcx
+    4179:	mov    %rax,%rdx
+    417c:	jmp    4192 <recursive_f+0x42>
+    417e:	xchg   %ax,%ax
+    4180:	mov    %r15d,%edi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:32
+    A[j] = value;
+    4183:	movslq %edi,%rdi
+    4186:	mov    %esi,(%rbx,%rdi,4)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:28
+  for (int i = p + 1; i <= r; i++) {
+    4189:	cmp    %rcx,%rdx
+    418c:	je     439d <recursive_f+0x24d>
+    4192:	mov    %rdx,%r8
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:29
+    data_t value = A[i];
+    4195:	mov    0x4(%rbx,%rdx,4),%esi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:28
+  for (int i = p + 1; i <= r; i++) {
+    4199:	inc    %rdx
+    419c:	mov    %edx,%edi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:31
+    while (j > p && A[j - 1] > value) { A[j] = A[j - 1]; j--; }
+    419e:	cmp    %rax,%r8
+    41a1:	jl     4183 <recursive_f+0x33>
+    41a3:	mov    %rdx,%rdi
+    41a6:	cs nopw 0x0(%rax,%rax,1)
+    41b0:	mov    -0x4(%rbx,%rdi,4),%r8d
+    41b5:	cmp    %esi,%r8d
+    41b8:	jbe    4183 <recursive_f+0x33>
+    41ba:	mov    %r8d,(%rbx,%rdi,4)
+    41be:	dec    %rdi
+    41c1:	cmp    %rax,%rdi
+    41c4:	jg     41b0 <recursive_f+0x60>
+    41c6:	jmp    4180 <recursive_f+0x30>
+recursive_f():
+    41c8:	mov    %rcx,%r14
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:53
+  int q = (p + r) / 2;
+    41cb:	lea    (%r15,%r13,1),%eax
+    41cf:	mov    %eax,%r12d
+    41d2:	shr    $0x1f,%r12d
+    41d6:	add    %eax,%r12d
+    41d9:	sar    $1,%r12d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:54
+  recursive_f(A, p, q, scratch);
+    41dc:	mov    %rbx,%rdi
+    41df:	mov    %r15d,%esi
+    41e2:	mov    %r12d,%edx
+    41e5:	call   4150 <recursive_f>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:55
+  recursive_f(A, q + 1, r, scratch);
+    41ea:	lea    0x1(%r12),%ebp
+    41ef:	mov    %rbx,%rdi
+    41f2:	mov    %ebp,%esi
+    41f4:	mov    %r13d,%edx
+    41f7:	mov    %r14,%rcx
+    41fa:	call   4150 <recursive_f>
+merge_f():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:38
+  for (int i = 0; i < n1; i++) left[i] = A[p + i];
+    41ff:	mov    %r12d,%eax
+    4202:	sub    %r15d,%eax
+    4205:	js     42a1 <recursive_f+0x151>
+    420b:	movslq %r15d,%rsi
+    420e:	mov    %ebp,%edx
+    4210:	sub    %r15d,%edx
+    4213:	lea    (%rbx,%rsi,4),%rcx
+    4217:	cmp    $0xc,%edx
+    421a:	jb     422c <recursive_f+0xdc>
+    421c:	mov    %r14,%rdi
+    421f:	sub    %rcx,%rdi
+    4222:	cmp    $0x20,%rdi
+    4226:	jae    42ab <recursive_f+0x15b>
+    422c:	xor    %edi,%edi
+    422e:	mov    %rdx,%r9
+    4231:	mov    %rdi,%r8
+    4234:	and    $0x3,%r9
+    4238:	je     4250 <recursive_f+0x100>
+    423a:	mov    %rdi,%r8
+    423d:	nopl   (%rax)
+    4240:	mov    (%rcx,%r8,4),%r10d
+    4244:	mov    %r10d,(%r14,%r8,4)
+    4248:	inc    %r8
+    424b:	dec    %r9
+    424e:	jne    4240 <recursive_f+0xf0>
+    4250:	sub    %rdx,%rdi
+    4253:	cmp    $0xfffffffffffffffc,%rdi
+    4257:	ja     42f8 <recursive_f+0x1a8>
+    425d:	lea    (%rbx,%rsi,4),%rsi
+    4261:	add    $0xc,%rsi
+    4265:	data16 cs nopw 0x0(%rax,%rax,1)
+    4270:	mov    -0xc(%rsi,%r8,4),%edi
+    4275:	mov    %edi,(%r14,%r8,4)
+    4279:	mov    -0x8(%rsi,%r8,4),%edi
+    427e:	mov    %edi,0x4(%r14,%r8,4)
+    4283:	mov    -0x4(%rsi,%r8,4),%edi
+    4288:	mov    %edi,0x8(%r14,%r8,4)
+    428d:	mov    (%rsi,%r8,4),%edi
+    4291:	mov    %edi,0xc(%r14,%r8,4)
+    4296:	add    $0x4,%r8
+    429a:	cmp    %r8,%rdx
+    429d:	jne    4270 <recursive_f+0x120>
+    429f:	jmp    42f8 <recursive_f+0x1a8>
+    42a1:	xor    %edx,%edx
+    42a3:	mov    %r15d,%esi
+    42a6:	jmp    434c <recursive_f+0x1fc>
+    42ab:	lea    0x0(,%rsi,4),%r8
+    42b3:	mov    %edx,%edi
+    42b5:	and    $0xfffffff8,%edi
+    42b8:	add    %rbx,%r8
+    42bb:	add    $0x10,%r8
+    42bf:	xor    %r9d,%r9d
+    42c2:	data16 data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+    42d0:	movups -0x10(%r8,%r9,4),%xmm0
+    42d6:	movups (%r8,%r9,4),%xmm1
+    42db:	movups %xmm0,(%r14,%r9,4)
+    42e0:	movups %xmm1,0x10(%r14,%r9,4)
+    42e6:	add    $0x8,%r9
+    42ea:	cmp    %r9,%rdi
+    42ed:	jne    42d0 <recursive_f+0x180>
+    42ef:	cmp    %rdx,%rdi
+    42f2:	jne    422e <recursive_f+0xde>
+    42f8:	xor    %edx,%edx
+    42fa:	mov    %r15d,%esi
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:40
+  while (i < n1 && j <= r) {
+    42fd:	cmp    %r13d,%r12d
+    4300:	jge    434c <recursive_f+0x1fc>
+    4302:	xor    %edx,%edx
+    4304:	mov    %r15d,%esi
+    4307:	nopw   0x0(%rax,%rax,1)
+    4310:	mov    %edx,%r9d
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:41
+    if (left[i] <= A[j]) A[k++] = left[i++];
+    4313:	mov    %edx,%edx
+    4315:	mov    (%r14,%rdx,4),%r10d
+    4319:	movslq %ebp,%rdx
+    431c:	mov    (%rbx,%rdx,4),%r11d
+    4320:	xor    %edi,%edi
+    4322:	xor    %edx,%edx
+    4324:	cmp    %r11d,%r10d
+    4327:	seta   %r8b
+    432b:	setbe  %dl
+    432e:	cmovb  %r10d,%r11d
+    4332:	add    %r9d,%edx
+    4335:	mov    %r11d,(%rcx)
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:40
+  while (i < n1 && j <= r) {
+    4338:	inc    %esi
+    433a:	cmp    %eax,%edx
+    433c:	jg     434c <recursive_f+0x1fc>
+    433e:	mov    %r8b,%dil
+    4341:	add    %edi,%ebp
+    4343:	add    $0x4,%rcx
+    4347:	cmp    %r13d,%ebp
+    434a:	jle    4310 <recursive_f+0x1c0>
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:44
+  while (i < n1) A[k++] = left[i++];
+    434c:	cmp    %eax,%edx
+    434e:	jg     439d <recursive_f+0x24d>
+    4350:	movslq %esi,%rsi
+    4353:	movslq %edx,%rdi
+    4356:	add    %edx,%r15d
+    4359:	sub    %r15d,%r12d
+    435c:	cmp    $0xb,%r12d
+    4360:	jb     4373 <recursive_f+0x223>
+    4362:	lea    (%rbx,%rsi,4),%rcx
+    4366:	lea    (%r14,%rdi,4),%rdx
+    436a:	sub    %rdx,%rcx
+    436d:	cmp    $0x20,%rcx
+    4371:	jae    43ac <recursive_f+0x25c>
+    4373:	mov    %rdi,%rcx
+    4376:	mov    %rsi,%rdx
+    4379:	lea    (%r14,%rcx,4),%rsi
+    437d:	sub    %ecx,%eax
+    437f:	inc    %eax
+    4381:	lea    (%rbx,%rdx,4),%rcx
+    4385:	xor    %edx,%edx
+    4387:	nopw   0x0(%rax,%rax,1)
+    4390:	mov    (%rsi,%rdx,4),%edi
+    4393:	mov    %edi,(%rcx,%rdx,4)
+    4396:	inc    %rdx
+    4399:	cmp    %edx,%eax
+    439b:	jne    4390 <recursive_f+0x240>
+recursive_f():
+    439d:	add    $0x8,%rsp
+    43a1:	pop    %rbx
+    43a2:	pop    %r12
+    43a4:	pop    %r13
+    43a6:	pop    %r14
+    43a8:	pop    %r15
+    43aa:	pop    %rbp
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:57
+}
+    43ab:	ret
+merge_f():
+/mnt/e/software_system/Project02/P2/results/stage-b/final/source/homework/sort_f.c:44
+  while (i < n1) A[k++] = left[i++];
+    43ac:	inc    %r12
+    43af:	mov    %r12,%r8
+    43b2:	and    $0xfffffffffffffff8,%r8
+    43b6:	lea    (%r8,%rdi,1),%rcx
+    43ba:	shl    $0x2,%rdi
+    43be:	lea    (%r8,%rsi,1),%rdx
+    43c2:	shl    $0x2,%rsi
+    43c6:	add    %rbx,%rsi
+    43c9:	add    $0x10,%rsi
+    43cd:	add    %r14,%rdi
+    43d0:	add    $0x10,%rdi
+    43d4:	xor    %r9d,%r9d
+    43d7:	nopw   0x0(%rax,%rax,1)
+    43e0:	movups -0x10(%rdi,%r9,4),%xmm0
+    43e6:	movups (%rdi,%r9,4),%xmm1
+    43eb:	movups %xmm0,-0x10(%rsi,%r9,4)
+    43f1:	movups %xmm1,(%rsi,%r9,4)
+    43f6:	add    $0x8,%r9
+    43fa:	cmp    %r9,%r8
+    43fd:	jne    43e0 <recursive_f+0x290>
+    43ff:	cmp    %r8,%r12
+    4402:	jne    4379 <recursive_f+0x229>
+    4408:	jmp    439d <recursive_f+0x24d>
+
+Disassembly of section .fini:
+
+000000000000440c <_fini>:
+_fini():
+    440c:	endbr64
+    4410:	sub    $0x8,%rsp
+    4414:	add    $0x8,%rsp
+    4418:	ret

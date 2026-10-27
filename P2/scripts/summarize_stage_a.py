@@ -55,12 +55,16 @@ def csv_write(name, rows):
 
 
 manifest = json.loads((OUT / "build-manifest.json").read_text())
+frozen = OUT / "source"
+covered = {path.relative_to(OUT).as_posix() for path in frozen.rglob("*") if path.is_file()
+           and (path.suffix in (".c", ".h") or path.name == "Makefile")}
+covered.update(path.relative_to(OUT).as_posix() for path in (OUT / "binaries").glob("*.elf"))
+assert set(manifest) == covered, "Manifest must cover every frozen source and binary"
 for name, expected in manifest.items():
     assert hashlib.sha256((OUT / name).read_bytes()).hexdigest() == expected, name
-for section in ("homework", "recitation"):
-    for source in (OUT / "source" / section).iterdir():
-        if source.suffix in (".c", ".h") or source.name == "Makefile":
-            assert source.read_bytes() == (ROOT / section / source.name).read_bytes(), source
+with zipfile.ZipFile(ROOT / "original/MIT6_172F18_hw2.zip") as original:
+    for name in ("homework/sort_a.c", "recitation/isort.c"):
+        assert (frozen / name).read_bytes() == original.read(name), name
 assert json.loads((OUT / "preflight/verification.json").read_text())["perf_real_samples_readable_by_report_and_annotate"]
 
 native_rows = []
@@ -96,7 +100,7 @@ for mode in ("debug", "release"):
     wup[mode] = {"whole_process": stats, "sort_a_c_exclusive": sort_counts[0], "simulated_caches": descriptions}
 
 parameters = json.loads((OUT / "checkoff2/parameters.json").read_text())
-array_line = next(i for i, text in enumerate((ROOT / "recitation/sum.c").read_text().splitlines(), 1)
+array_line = next(i for i, text in enumerate((frozen / "recitation/sum.c").read_text().splitlines(), 1)
                   if "val = (val + data[l])" in text)
 sum_rows = []
 for config in parameters["configs"]:
@@ -168,9 +172,9 @@ assert top_instruction["address"] == max(instructions, key=lambda item: item["lo
 top_instruction["annotate_reported_local_period_percent"] = top_instruction.pop("local_period_percent")
 top_instruction["script_local_period_percent"] = 100*offset_periods[top_offset]/isort_period
 top_instruction["period_weight"] = offset_periods[top_offset]
-line_text = (ROOT / "recitation/isort.c").read_text().splitlines()[top_line - 1]
+line_text = (frozen / "recitation/isort.c").read_text().splitlines()[top_line - 1]
 
-summary = {"all_manifest_hashes_match": True, "working_sources_equal_measured_snapshot": True,
+summary = {"all_manifest_hashes_match": True, "frozen_sources_covered_by_manifest": True,
     "checkoff1": {"hardware_user_events": hardware, "samples": sample_count, "lost_samples": 0,
         "isort_symbol_period_percent": float(re.search(r"([\d.]+)%\s+\[\.\] isort", report)[1]),
         "annotate_source_summary": hotlines, "hottest_source_line": top_line, "source_line_text": line_text,
@@ -191,7 +195,7 @@ csv_write("isort-source-periods.csv", [dict(source_line=line, period=period, sam
 patches = []
 with zipfile.ZipFile(ROOT / "original/MIT6_172F18_hw2.zip") as archive:
     for name in sorted(archive.namelist()):
-        path = ROOT / name
+        path = frozen / name
         if name.startswith(("homework/", "recitation/")) and path.is_file():
             patches.extend(difflib.unified_diff(archive.read(name).decode().splitlines(True), path.read_text().splitlines(True),
                 fromfile="official/" + name, tofile="working/" + name))

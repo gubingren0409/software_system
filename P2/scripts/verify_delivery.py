@@ -39,6 +39,19 @@ for mode in ("debug", "release"):
                   totals["D1mr"]+totals["D1mw"], totals["DLmr"]+totals["DLmw"], totals["Bc"], totals["Bcm"]):
         assert f"{value:,}" in report
 manifest = json.loads(read("results/stage-a/build-manifest.json"))
+if archive:
+    frozen_names = {name[len("P2/results/stage-a/"):] for name in archive.namelist()
+                    if name.startswith("P2/results/stage-a/source/") and
+                    (name.endswith((".c", ".h")) or name.endswith("/Makefile"))}
+    frozen_names.update(name[len("P2/results/stage-a/"):] for name in archive.namelist()
+                        if name.startswith("P2/results/stage-a/binaries/") and name.endswith(".elf"))
+else:
+    frozen_names = {path.relative_to(ROOT / "results/stage-a").as_posix()
+                    for path in (ROOT / "results/stage-a/source").rglob("*")
+                    if path.is_file() and (path.suffix in (".c", ".h") or path.name == "Makefile")}
+    frozen_names.update(path.relative_to(ROOT / "results/stage-a").as_posix()
+                        for path in (ROOT / "results/stage-a/binaries").glob("*.elf"))
+assert set(manifest) == frozen_names, "Incomplete Stage A manifest"
 for name, expected in manifest.items():
     assert hashlib.sha256(read("results/stage-a/" + name)).hexdigest() == expected, name
 for folder, copied_name in (("checkoff1", "perf-record"), ("preflight", "perf-record-nativefs")):
