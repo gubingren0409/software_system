@@ -1,12 +1,24 @@
-# Project 2 Stage B 交接
+# Project 2 最终交接（Stage C）
 
-阶段结果：已完成待审。五个优化版本、正确性验证、正式比较和 Write-up 2–7 均已完成；[正式报告](README.md)保留 Stage A 的 Checkoff Item 1、Checkoff Item 2、Write-up 1，共九项作答。没有未完成的必需实验或实现。
+项目已完成。Stage A 与 Stage B 的实现、正确性验证、正式计时和剖析均已通过外部审核；[最终报告](README.md)按 Checkoff Item 1、Checkoff Item 2、Write-up 1–7 顺序覆盖九项作答。Stage C 仅修订报告文字、入口和交接说明，并保存离线检查记录，没有新增性能测量或修改算法、测试驱动、公共构建配置及 K=16。没有未完成的必需事项。
+
+## 已审核对象与本次修改
+
+本次外部审核通过的对象为 [Stage B 固定提交](https://github.com/gubingren0409/software_system/commit/2c658124d92f2d9e14f55f33f6f64f2156a55a0c)：`2c658124d92f2d9e14f55f33f6f64f2156a55a0c`。其审查 ZIP 的 SHA256 为 `cde4f7b3449b790fe4be51bccc2c55dd4419904eba7e74e2c606f8561b996a57`；包内1578个文件与该提交逐字节一致，Stage A 的490个历史证据文件保持原样。
+
+Stage C 处理三项文字意见：
+
+1. **Write-up 6：** 将单缓冲随机输入变慢的具体原因明确写为可能解释，说明混合两类输入的整进程剖析未单独隔离边界检查、控制流和数据依赖。
+2. **Write-up 5：** 说明3%是预先约定的工程取舍规则，不是统计显著性或等效性检验；保留K32搜索最小、K16按规则入选的决策，明确确认组每候选只有一个独立进程、每类五次，不能证明跨运行稳定性或K16普遍最优。
+3. **Write-up 7：** 明确f减少分配的效果，同时保留大规模随机输入约3%的正向观察、其他条件收益很小或方向相反的事实；不把范围重叠当显著性检验，也不把减少分配写成普遍时间收益。
+
+报告的过程性标题改为“基线实验小结”和“优化版本的比较方法与正确性”，保留现有精确表格，没有新增图或截图。统一结论明确c在两个随机规模下最快、m/f在逆序下更快，五步没有单调加速。历史原始记录、快照、ELF和汇总数值均不改写；本阶段检查记录另存于 [results/stage-c](results/stage-c/)。
 
 ## 固定起点与证据
 
-仓库为 [software_system](https://github.com/gubingren0409/software_system)，分支 `Project02`，本地 worktree 为 `E:\software_system\Project02`。Stage B 开始时工作区干净，无 Stage A 之后的提交；起点为 `3f3f0651d517bfc189c3f3bc89ffd6fa0c658e83`。
+仓库为 [software_system](https://github.com/gubingren0409/software_system)，分支 `Project02`，本地 worktree 为 `E:\software_system\Project02`。Stage C 开始时工作区干净，HEAD为上述已审核的Stage B提交，没有已有后续提交或改动需要覆盖。更早的Stage A固定提交为 `3f3f0651d517bfc189c3f3bc89ffd6fa0c658e83`。
 
-Stage A 原始证据目录的 Git tree 为 `c33d3fcf182c2127f4f771d395838d2058674c2c`，本阶段保持不变，没有重跑其长实验，也没有改写历史 summary。新数据均位于 [results/stage-b](results/stage-b/)。原始题目在 [original](original/)，本报告沿用原题范围，不把选做扩展当必做项。
+Stage A 原始证据目录的 Git tree 为 `c33d3fcf182c2127f4f771d395838d2058674c2c`，Stage B为 `6e42a5e314170e34065c19a1df04da1cae5bcf05`；Stage C保持这两个目录不变，没有重跑长实验，也没有改写历史summary。[results/stage-b](results/stage-b/)保存已审核的五个优化版本实验，原始题目在 [original](original/)。
 
 每个命令目录保存 `command.txt`、`metadata.json`、`stdout.txt`、`stderr.txt`，记录实际 argv、cwd、起止 UTC、退出码和墙钟时长。Stage B 另有 `identity.json`，关联实际二进制 SHA256、源码清单 SHA256、构建清单 SHA256 与环境覆盖。三阶段各自冻结源码和 ELF：
 
@@ -32,9 +44,9 @@ Stage A 原先的 Clang `-always-inline`、Perf 缺少 libelf/DWARF、Perf 写 D
 - **i：** 从 a 派生，局部 static inline 的复制、归并、分配/释放包装。a、util.c/h 保持原样。Clang 已自动内联 a 的复制与归并，i 没有稳定原生收益。
 - **p：** 从 i 派生，用指针推进复制与归并，保留两份哨兵临时区。机器码并非完全相同，但本次没有可靠速度改善。
 - **c：** a/i/p 四格时间比的等权几何平均分数为 `1.00000 / 1.01631 / 0.99157`。按事先固定的“最佳3%内视为并列，优先简单实现”规则选 a，固定作为 c 的基础。
-- **K：** N131072、seed42、每候选三进程×每类三次，搜索8/16/32/64/128。K32综合最小，K16在其3%内，按预设“小阈值优先”规则固定16。独立seed43、N1048576确认中，K32综合时间比K16为0.96628，random约快7%，inverted近持平。K16不能宣称大规模最优；保留预设规则，不用确认组再调参。候选与确认数据均保留。
+- **K：** N131072、seed42、每候选三进程×每类三次，搜索8/16/32/64/128。K32综合最小，K16在其3%内，按预设“小阈值优先”工程规则固定16，3%不是统计显著性或等效性检验。独立seed43、N1048576确认中，每候选只有一个独立进程、每类五次；K32综合时间比K16为0.96628，random约快7%，inverted近持平。这提示K32可能更适合大规模随机输入，不能证明跨运行稳定性或K16普遍最优；不据此改选阈值，不追加搜索。候选与确认数据均保留。
 - **m：** 从 c 派生，只复制左半区，右半区原地读取；`j-k=n1-i` 保证不覆盖未读右侧。每次归并仍分配/释放，根临时空间从 `4(n+2)` B 降到 `4ceil(n/2)` B。
-- **f：** 从 m 派生，顶层调用内一次申请、递归后序复用、调用结束释放；没有持久缓存或计时外预分配。小区间不分配，m/f申请失败退出1。
+- **f：** 从 m 派生，长度超过K时每次正常完成的顶层调用申请、释放各一次，递归后序复用；没有持久缓存或计时外预分配。小数组直接插入排序，无需分配，m/f申请失败退出1。f与m峰值临时堆空间相同，主要减少重复分配与累计请求量。
 
 所有内部辅助函数保持 static，公共接口与归并结构保留。最终公共配置为 DEBUG=0、Clang18.1.3、`-O3 -DNDEBUG -g -Wall -std=gnu99 -gdwarf-3`，另加相同的内联诊断开关。没有通过改变基线公共工具或编译等级制造收益。
 
@@ -59,7 +71,7 @@ Memcheck为0错误、退出时0活动字节、66,033次分配与释放相等。8
 | f/a加速 | 1.222 / 2.362 | 1.144 / 2.171 |
 | f/m加速 | 1.005 / 0.998 | 1.030 / 0.989 |
 
-c四格均改善；m/f逆序收益大，随机比c慢；f相对m差异小且范围重叠，没有稳定额外提速。i/p差异不明确，不能写五步单调加速。完整24格表与波动见正式报告及 [native-summary.csv](results/stage-b/summary/native-summary.csv)。WSL/宿主调度和频率波动存在，未用严格空闲门槛，结论限于本次输入与环境。
+c四格均改善且在两个随机规模下最快；m/f逆序收益大，随机比c慢。f减少分配的效果明确，但未观察到跨输入、跨规模稳定的额外时间收益；大规模随机输入有约3%的正向观察，小规模随机输入收益很小，两个逆序格略慢。最小—最大范围描述波动，其重叠本身不是显著性检验。i/p没有稳定整体收益，五步没有单调加速，f也不是所有输入下都最快。完整24格表与波动见正式报告及 [native-summary.csv](results/stage-b/summary/native-summary.csv)。WSL/宿主调度和频率波动存在，未用严格空闲门槛，结论限于本次输入与环境。
 
 每版本一组Cachegrind，N131072/R5、相同seed、共10次排序。实际模拟模型I1/D1各32KiB、8路、64B行，LL64MiB直接映射、64B行；WSL lscpu可见L3为32MiB，两者区分。整进程包含驱动与参考qsort，源文件独占统计不包含被调函数成本。六组qsort.c的Ir都为276939211。m减少D1缺失但增加排序文件Ir和条件分支，因此缓存改善不等于随机时间改善。f把malloc.c整进程Ir从m的10945131降到15544，但merge仍是主要工作。
 
@@ -88,4 +100,17 @@ python3 P2/scripts/check_stage_a_audit.py
 
 若需要重新测量单个版本，可在WSL中编译后用 `./sort --variant f -b -s 20261026 1048576 5`，或直接运行保存的Release ELF；这不是离线复算。完整历史运行的精确命令在各目录的command.txt中。`run_stage_b.py`分阶段执行且拒绝覆盖，最终构建依赖已完成的选参决策，不能把对空目录执行最终阶段当作自动重做全部阶段。原始证据目录不应重用为新实验输出。
 
-固定提交的Git archive ZIP与SHA256在交付消息中提供。对ZIP也可运行两个交付检查脚本的 `--zip <路径>`；Stage B检查附加 `--commit <完整SHA>` 会逐文件核对ZIP内容与本地Git固定提交。ZIP由固定提交生成，含原题、源码、脚本、全部原始/派生数据和ELF，不含.git、凭据、无关临时目录及旧审查ZIP。
+## 固定交付与验证
+
+Stage C的完整提交SHA、固定报告/交接链接、最终ZIP路径与完整SHA256在本次集中交付消息中提供，并与上文已审核的Stage B对象区分。ZIP注释记录对应完整提交SHA，同名 `.zip.sha256` 文件提供校验值；历史Stage B审查ZIP保留。
+
+确认已检出交付消息指定的固定提交后，可按以下命令生成和逐文件验证审查包。显式关闭Windows自动行尾转换，使ZIP字节与Git提交一致：
+
+```bash
+git -c core.autocrlf=false archive --format=zip --output=/tmp/p2-final-review.zip HEAD
+python3 P2/scripts/verify_delivery.py --zip /tmp/p2-final-review.zip
+python3 P2/scripts/verify_stage_b_delivery.py --zip /tmp/p2-final-review.zip --commit "$(git rev-parse HEAD)"
+sha256sum /tmp/p2-final-review.zip
+```
+
+ZIP含原题、源码、脚本、全部历史实验证据与本阶段离线检查记录，不含.git、凭据、无关临时目录及旧审查ZIP。交付前检查九项作答、全部报告表格与链接、29项Stage A及61项Stage B清单，离线复算600次正式排序并确认历史数值一致；随后核对本地/远端SHA及ZIP全部文件与固定提交一致。本阶段不再扩展性能实验。
